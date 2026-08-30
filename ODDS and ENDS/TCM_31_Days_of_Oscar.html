@@ -1,0 +1,1194 @@
+<!doctype html>
+<html><head><title>TCM 31 Days of Oscar</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:LGZ4044a12850204b58a826084d8'>TCM 31 Days of Oscar</h1>
+
+Source:  <a href="https://www.tcm.com/31days">https://www.tcm.com/31days</a><br/>
+
+<br/>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:LGZ7c019964952a47e99f08d54ec'><li id='temp:C:LGZc8ae6ce6fec74797b7eb3b76d' class='' value='1'>The Westerner (1940)
+
+<br/></li><li id='temp:C:LGZ7ce2ff2403b94f95b06f4eaa5' class=''>The Harvey Girls (1946)
+
+<br/></li><li id='temp:C:LGZ90abeb3ad90a43088f3d6a30a' class=''>The Picture of Dorian Gray (1945)
+
+<br/></li><li id='temp:C:LGZ30850d70fa0e46f88448a3e59' class=''>Mighty Joe Young (1949)
+
+<br/></li><li id='temp:C:LGZ5d16d7e9d721444d84ba2da53' class=''>The Yearling (1946)
+
+<br/></li><li id='temp:C:LGZ34c554c879144e088b460a480' class=''>The Naked City (1948)
+
+<br/></li><li id='temp:C:LGZ2d5a917fd86545f9831a1f1be' class=''>Key Largo (1948)
+
+<br/></li><li id='temp:C:LGZ8f2bb13c32ce430b905c2af38' class=''>The Lost Weekend (1945)
+
+<br/></li><li id='temp:C:LGZ92d0f718d17e425a8ee7618d2' class=''>Gentleman’s Agreement (1947)
+
+<br/></li><li id='temp:C:LGZ02309d03438d4ffd8d7852a03' class=''>Laura (1944)
+
+<br/></li><li id='temp:C:LGZ148d57bb735a43818f14c88d4' class=''>Gaslight (1944)
+
+<br/></li><li id='temp:C:LGZe45e0558c41f444db88c346c0' class=''>Suspicion  (1941)
+
+<br/></li><li id='temp:C:LGZ10b293e242b4414eaabc35625' class=''>Pride of the Yankees (1942)
+
+<br/></li><li id='temp:C:LGZefb3d48bd9614e15a009e9d06' class=''>Room at the Top (1959)
+
+<br/></li><li id='temp:C:LGZ3dd66ef67cbd419e917898e1e' class=''>Picnic (1956)
+
+<br/></li><li id='temp:C:LGZce5765fad0884f949480171bc' class=''>Written on the Wind (1957)
+
+<br/></li><li id='temp:C:LGZc430288b15614b19b06f4f4d1' class=''>The Barefoot Contessa (1954)
+
+<br/></li><li id='temp:C:LGZcec8aaec48634a0f88bcc3a7b' class=''>The Bad and the Beautiful (1952)
+
+<br/></li><li id='temp:C:LGZfaffb880216c48e2afd0809eb' class=''>La Strada (1954)
+
+<br/></li><li id='temp:C:LGZ27b92c7e4f36424290ca7fa84' class=''>Gigi (1958)
+
+<br/></li><li id='temp:C:LGZ08d2271221d14eaca64f5df0e' class=''>The King and I (1956)
+
+<br/></li><li id='temp:C:LGZ67972b3dd5da45b69b21f372e' class=''>Love Me or Leave Me (1955)
+
+<br/></li><li id='temp:C:LGZ65ee9a5eda2b4d9d91a89e214' class=''>Seven Brides For Seven Brothers (1954)
+
+<br/></li><li id='temp:C:LGZ89b66f08c32c43d388a8c42cb' class=''>The Red Balloon  (1956)
+
+<br/></li><li id='temp:C:LGZc5738a04e6534d0cba08f97ca' class=''>Limelight (1952)
+
+<br/></li><li id='temp:C:LGZ2754b2d1c26949eab7e8af8f2' class=''>Judgment at Nuremberg (1961)
+
+<br/></li><li id='temp:C:LGZe688bc969fa8424a9ff3553e0' class=''>The Lion  in Winter (1968)
+
+<br/></li><li id='temp:C:LGZ210dbc948201490d8743c4ac9' class=''>Butterfield 8 (1960)
+
+<br/></li><li id='temp:C:LGZ785bcb4b136c4c7c99eea90bd' class=''>Never   Sunday (1960)
+
+<br/></li><li id='temp:C:LGZcfa21260f3fd4d859a4ec621d' class=''>Sweet Bird of Youth (1962)
+
+<br/></li><li id='temp:C:LGZ2fc1c70f78604721b891b04a3' class=''>The Apartment (1960)
+
+<br/></li><li id='temp:C:LGZeba1865ffb5d4520a58d1f123' class=''>The Graduate (1967)
+
+<br/></li><li id='temp:C:LGZe7c90052c7834b3689610ca84' class=''>Bullitt (1968)
+
+<br/></li><li id='temp:C:LGZ00eac1a708e64297b16e963be' class=''>8 1/2 (1963)
+
+<br/></li><li id='temp:C:LGZ36de35f1186649e0ad3c7afa4' class=''>Amarcord (1974)
+
+<br/></li><li id='temp:C:LGZaf1516131844485a9e8117b66' class=''>Cromwell (1970)
+
+<br/></li><li id='temp:C:LGZ6b70a98a05e24d00883243458' class=''>Paul Robes : A Tribute to An Artist (1979)
+
+<br/></li><li id='temp:C:LGZ2827a325fd24473bb39f593e0' class=''>Harlan County USA (1976)
+
+<br/></li><li id='temp:C:LGZd987dbbc0793488c8610b1170' class=''>Bound for Glory (1976)
+
+<br/></li><li id='temp:C:LGZ50c566a8d83e439da54df8458' class=''>Alice Doesn’t Live Here Anymore (1974)
+
+<br/></li><li id='temp:C:LGZ31a79daa5e8d4370a4c25c556' class=''>Cabaret (1972)
+
+<br/></li><li id='temp:C:LGZ89e698af9d144e65a8d273eef' class=''>Network (1976)
+
+<br/></li><li id='temp:C:LGZc4ae3d85da90432d8e9067147' class=''>The French Connection (1971)
+
+<br/></li><li id='temp:C:LGZ80c803cdd17b4b3d83db29c74' class=''>Midnight Express (1978)
+
+<br/></li><li id='temp:C:LGZ1ce858a47e4f422c833bfb4c9' class=''>The Omen (1976)
+
+<br/></li><li id='temp:C:LGZ847b409e35a94180bc25308d7' class=''>Cries and Whispers (1972)
+
+<br/></li><li id='temp:C:LGZ4d42998c482241e8aa1c6261a' class=''>The Good Earth (1937)
+
+<br/></li><li id='temp:C:LGZc06547973ef6435dbbae9fc80' class=''>The Thief of Bagdad (1940)
+
+<br/></li><li id='temp:C:LGZf896065c9d224758a07b27997' class=''>Around the World in 80 Days (1956)
+
+<br/></li><li id='temp:C:LGZa24b67765bbd47d49b61895b3' class=''>She Wore a Yellow Ribbon (1949)
+
+<br/></li><li id='temp:C:LGZ205eff6de06740909233b788a' class=''>Doctor. Zhivago (1965)
+
+<br/></li><li id='temp:C:LGZ9d871ef295fc4090880565595' class=''>Tootsie (1982)
+
+<br/></li><li id='temp:C:LGZ5fc18bd79c5040b08b515c8a3' class=''>Rain Man (1988)
+
+<br/></li><li id='temp:C:LGZ7eac70f51cdc43ca8d2a98276' class=''>Raging Bull (1980)
+
+<br/></li><li id='temp:C:LGZd26ada19de5c41dd8598444b5' class=''>Fanny and Alexander (1982)
+
+<br/></li><li id='temp:C:LGZ8df0360167d64976a47ebd02f' class=''>Little Women (1933)
+
+<br/></li><li id='temp:C:LGZfaea99d81360411fbfccb9acc' class=''>Pygmalion  (1938)
+
+<br/></li><li id='temp:C:LGZebbf9bacc6a94eb0bc1b0337f' class=''>The Lavender Hill Mob (1952)
+
+<br/></li><li id='temp:C:LGZ46fa0dcb58e142ff95e7c120e' class=''>Citizen Kane (1941)
+
+<br/></li><li id='temp:C:LGZ615cde2d74c24dd5a2e80d5b8' class=''>The Great McGinty (1940)
+
+<br/></li><li id='temp:C:LGZ434e90fd32c645df887a3bc6c' class=''>Woman of the Year (1942)
+
+<br/></li><li id='temp:C:LGZe8aba2d6798d4652abc66bf71' class=''>Pillow Talk (1959)
+
+<br/></li><li id='temp:C:LGZ9d4e2ab806364857b58305f14' class=''>The Iron Lady (2011)
+
+<br/></li><li id='temp:C:LGZ822750d6d5e6405ebdaaec105' class=''>Shakespeare in Love (1998)
+
+<br/></li><li id='temp:C:LGZ303e6c5a13e941b999f29183b' class=''>Jerry Maguire (1996)
+
+<br/></li><li id='temp:C:LGZ4010c937ca1b4e2c89799ad4e' class=''>Antonia’s Line (1995)
+
+<br/></li><li id='temp:C:LGZ9bcb329586db46b7989c167a9' class=''>Coquette (1929)
+
+<br/></li><li id='temp:C:LGZ15c6fda03b0f443b8fa3c5a66' class=''>Broadway Melody of 1936 (1936)
+
+<br/></li><li id='temp:C:LGZ618f4ca01b284ae5b8f0a8737' class=''>Gold Diggers of 1935 (1935)
+
+<br/></li><li id='temp:C:LGZea557fb1c9e84ee5b347ef6c4' class=''>A Midsummer Night’s Dream (1935)
+
+<br/></li><li id='temp:C:LGZd0fd6357549c4424b8a0acbc0' class=''>Swing Time (1936)
+
+<br/></li><li id='temp:C:LGZ690bc0eb1f7b4d9680fcdc508' class=''>The Great Ziegfeld (1936)
+
+<br/></li><li id='temp:C:LGZ7596a623054b417880cf4dda6' class=''>A Star is Born (1937)
+
+<br/></li><li id='temp:C:LGZ3dcbb41c41f34a19a32d5b84f' class=''>Wings (1927)
+
+<br/></li><li id='temp:C:LGZb230274d97e141b69743900b2' class=''>The Adventures of Robin Hood (1938)
+
+<br/></li><li id='temp:C:LGZ0e49bfc3a93648dca484bc4ac' class=''>The Champ (1931)
+
+<br/></li><li id='temp:C:LGZdae0fc521b9f4799b49d7094e' class=''>Dr. Jekyll and Mr. Hyde (1932)
+
+<br/></li><li id='temp:C:LGZeb5d0286de3f4f278e549846f' class=''>Viva Villa (1934)
+
+<br/></li><li id='temp:C:LGZf918451b5eee4ffa84a6abe34' class=''>In Which We Serve (1942)
+
+<br/></li><li id='temp:C:LGZ9558812b32494137a1cda69ed' class=''>Great Expectations (1946)
+
+<br/></li><li id='temp:C:LGZfceb1ee7b2aa49028d7915414' class=''>The Devil and Daniel Webster (1941)
+
+<br/></li><li id='temp:C:LGZ1de7137dbd3540cd925c24ddf' class=''>The Adventures of Don Juan (1948)
+
+<br/></li><li id='temp:C:LGZ14e73f4fce344f988b0dbad1e' class=''>Black Narcissus (1947)
+
+<br/></li><li id='temp:C:LGZfa7e3364e38745949303c7855' class=''>The Red Shoes (1948)
+
+<br/></li><li id='temp:C:LGZa6d12822ef6940ec9c56578c6' class=''>Cover Girl (1944)
+
+<br/></li><li id='temp:C:LGZ438f1d9d55ee4e69b984f52a1' class=''>Going My Way (1944)
+
+<br/></li><li id='temp:C:LGZe2183aa6dfa34bdfaa60e3fd6' class=''>The Philadelphia Story (1940)
+
+<br/></li><li id='temp:C:LGZ11b01b0aa52b4fa19ad08779a' class=''>The More the Merrier (1943)
+
+<br/></li><li id='temp:C:LGZfa96c1f3f4e44ca38dc269b2a' class=''>Yankee Doodle Dandy (1942)
+
+<br/></li><li id='temp:C:LGZ373cdc13558a4717992652dc4' class=''>On the Town (1949)
+
+<br/></li><li id='temp:C:LGZ369a2d51bd9b4b81abbcd0264' class=''>Gate of Hell (1954)
+
+<br/></li><li id='temp:C:LGZ08b577b2a4824418b99e54306' class=''>Nights of Cabiriaon (1957)
+
+<br/></li><li id='temp:C:LGZf9fa121d7e9c420ca4232d617' class=''>Black Orpheus (1959)
+
+<br/></li><li id='temp:C:LGZ041bcaf51f3f4a5e94e4d200e' class=''>The Defiant ones (1958)
+
+<br/></li><li id='temp:C:LGZeae09e207f214cd094415dd56' class=''>Mister Roberts (1955)
+
+<br/></li><li id='temp:C:LGZ4a99e37b832540149da660500' class=''>Ben-Hur (1959)
+
+<br/></li><li id='temp:C:LGZ1b87532f27bd444aa2e4d284a' class=''>Love is a Many Splendored Thing (1955)
+
+<br/></li><li id='temp:C:LGZ04f2805d69d3433bbbf6ff50f' class=''>Sayonara (1957)
+
+<br/></li><li id='temp:C:LGZ08aa9e267f3a4b42969f4af88' class=''>From Here to Eternity (1953)
+
+<br/></li><li id='temp:C:LGZ6f0efa63f57d4352853082fa2' class=''>Titanic (1953)
+
+<br/></li><li id='temp:C:LGZ43373663a8b4436cbb1cb0059' class=''>The Sea Around Us (1952)
+
+<br/></li><li id='temp:C:LGZ0a9586e21c994e02baf21057e' class=''>The Dot and the Line (1965)
+
+<br/></li><li id='temp:C:LGZ9b9b6aa348e64a58a43acbc7e' class=''>7 Faces of Dr. Lao (1964)
+
+<br/></li><li id='temp:C:LGZ8e1ecb6c145a4df0a163b2569' class=''>The Wonderful World of the Brothers Grimm (1962)
+
+<br/></li><li id='temp:C:LGZ01f4acf33fac47b1999e0b8bf' class=''>The Great Race (1965)
+
+<br/></li><li id='temp:C:LGZ2cdcd479be704b00a376196e4' class=''>Grand Prix (1966)
+
+<br/></li><li id='temp:C:LGZ1e8f07c6eb034874baa3a416a' class=''>The Dirty Dozen (1967)
+
+<br/></li><li id='temp:C:LGZe1010fed48714542bdb266562' class=''>The Longest Day (1062)
+
+<br/></li><li id='temp:C:LGZ598e48d69d204b5e9348cbee7' class=''>A Man For All Seasons (1966)
+
+<br/></li><li id='temp:C:LGZb20f99e536544090be4a4a275' class=''>Cleopatra (1963)
+
+<br/></li><li id='temp:C:LGZ2430eb8718874f43a72c552dc' class=''>America America (1963)
+
+<br/></li><li id='temp:C:LGZec2c981d4b5c4c1c8a1cff755' class=''>Nicholas and Alexandra (1971)
+
+<br/></li><li id='temp:C:LGZ68043cb642a44a059b3fa4296' class=''>Summer of 42 (1971)
+
+<br/></li><li id='temp:C:LGZecdeead58ebf434e9556e7b4c' class=''>You Light Up My Life (1977)
+
+<br/></li><li id='temp:C:LGZd2611c8d34af4eeca01cfac87' class=''>The Way We Were (1973)
+
+<br/></li><li id='temp:C:LGZ9f68c6b61f37417f9afc24438' class=''>Julia (1977)
+
+<br/></li><li id='temp:C:LGZ76f90bdaae5743c6b6c300bd5' class=''>Kramer vs Kramer (1979)
+
+<br/></li><li id='temp:C:LGZ6c00f532188e4d5497f667779' class=''>The Paper Chase (1973)
+
+<br/></li><li id='temp:C:LGZd0165af4a2ff41a484ea5ea95' class=''>Klute (1971)
+
+<br/></li><li id='temp:C:LGZ3247e0eaa6be4a50942ebb04b' class=''>Ryan’s Daughter (1970)
+
+<br/></li><li id='temp:C:LGZee687dfb4b7443f09c5623a6e' class=''>Come and Get It (1936)
+
+<br/></li><li id='temp:C:LGZa81115c423e54143905725210' class=''>Johnny Eager (1942)
+
+<br/></li><li id='temp:C:LGZfb83e4bf6328417c99cd8d189' class=''>The Subject Was Roses (1968)
+
+<br/></li><li id='temp:C:LGZ72d605c2eeda42b38786a28eb' class=''>Cool Hand Luke (1967)
+
+<br/></li><li id='temp:C:LGZda2e4ebb3aaa4e94aa2e854d3' class=''>Topkapi (1964)
+
+<br/></li><li id='temp:C:LGZ3cb489450f1342c1807847ff6' class=''>Spartacus (1960)
+
+<br/></li><li id='temp:C:LGZ4a68e25c0c174c1395e343369' class=''>Chariots of Fire (1981)
+
+<br/></li><li id='temp:C:LGZ5cde8217a43d422c8994fa2f1' class=''>Arthur (1981)
+
+<br/></li><li id='temp:C:LGZa84d4a90e3a749bd88dbdd981' class=''>Victor / Victoria (1982)
+
+<br/></li><li id='temp:C:LGZ8eaf11059f404642a5dd49978' class=''>Fame (1980)
+
+<br/></li><li id='temp:C:LGZ459d42752c8d4615a071de3a3' class=''>None But the Lonely Heart (1944)
+
+<br/></li><li id='temp:C:LGZ58ec1b1323cd4767b06ac0b06' class=''>Anth y Adverse (1936)
+
+<br/></li><li id='temp:C:LGZ8d59e266814b48368e4548748' class=''>The V.I.P.s (1963)
+
+<br/></li><li id='temp:C:LGZc5cb973b98cc4028ab97bdd13' class=''>Elmer Gantry (1960)
+
+<br/></li><li id='temp:C:LGZ05478c82c8e54c2b83983104d' class=''>The Year of Living Dangerously (1982)
+
+<br/></li><li id='temp:C:LGZ9088a878dbc4484c9b0b2929f' class=''>Bonnie and Clyde (1967)
+
+<br/></li><li id='temp:C:LGZ96dded6fac174da1b0f2f18f4' class=''>Sense and Sensibility (1995)
+
+<br/></li><li id='temp:C:LGZe2ed23372fe94c3d8e76a7d29' class=''>Good Will Hunting (1997)
+
+<br/></li><li id='temp:C:LGZdbca345996a247509eb77715b' class=''>Cold Mountain (2003)
+
+<br/></li><li id='temp:C:LGZ1e099902b8a74897b0d01fbd1' class=''>Lost Horizon (1937)
+
+<br/></li><li id='temp:C:LGZc72a9568a34a41ea99d3b6142' class=''>A Free Soul (1931)
+
+<br/></li><li id='temp:C:LGZd67baa6e431f4016a3680c21f' class=''>The Sin of Madelon Claudet (1931)
+
+<br/></li><li id='temp:C:LGZ94b5ef3e1ff843af8fea61136' class=''>The Divorcee (1930)
+
+<br/></li><li id='temp:C:LGZc03664702b284218a0a33f860' class=''>Manhattan Melodrama (1934)
+
+<br/></li><li id='temp:C:LGZd9ce8ad79bdf45909c0bb65f2' class=''>The Dark Angel (1935)
+
+<br/></li><li id='temp:C:LGZ400969cefad349c29fe328326' class=''>Wuthering Heights (1939)
+
+<br/></li><li id='temp:C:LGZ94d80f34c5e741e0bf0a82c4b' class=''>Dangerous (1935)
+
+<br/></li><li id='temp:C:LGZ8b59f60a14954bb8bb17b3c66' class=''>Dodsworth (1936)
+
+<br/></li><li id='temp:C:LGZ89665eec502f43bf899adb5aa' class=''>All Quiet   the Western Front (1930)
+
+<br/></li><li id='temp:C:LGZ89bd68ec217a4df9b42486fe8' class=''>Mr. Smith Goes to Washington  (1939)
+
+<br/></li><li id='temp:C:LGZd83c28a583474d0da928f147e' class=''>The Informer (1935)
+
+<br/></li><li id='temp:C:LGZb62c1b6d43224498b1abfa1e6' class=''>Disraeli (1929)
+
+<br/></li><li id='temp:C:LGZ6039874d56e9436391fdfa6c0' class=''>The Jazz Singer (1927)
+
+<br/></li><li id='temp:C:LGZea3a9ce5b69c4a7a9c565e814' class=''>Lady Be Good (1941)
+
+<br/></li><li id='temp:C:LGZa2907bce5d0b434795457421f' class=''>Strike Up the Band (1940)
+
+<br/></li><li id='temp:C:LGZa65015dc173f4f538d95fadc1' class=''>Easter Parade (1948)
+
+<br/></li><li id='temp:C:LGZc6fa4dd248234710b04c3ce5f' class=''>The Bachelor and the Bobby-Soxer (1947)
+
+<br/></li><li id='temp:C:LGZd8b5ef189d6e422b9dce11492' class=''>Little Women (1949)
+
+<br/></li><li id='temp:C:LGZc6bf6b9be84242a192dd57097' class=''>Pride and Prejudice (1940)
+
+<br/></li><li id='temp:C:LGZ0b75d6f943084c489939bf2dc' class=''>The Stratton  Story (1949)
+
+<br/></li><li id='temp:C:LGZ0a6ab475c9d745dc996564780' class=''>National Velvet (1944)
+
+<br/></li><li id='temp:C:LGZ7758e3721dd54c9cb6901a432' class=''>Hamlet (1948)
+
+<br/></li><li id='temp:C:LGZ9b0668af0e7a471186abda7e9' class=''>The Treasure of the Sierra Madre (1948)
+
+<br/></li><li id='temp:C:LGZda76bd8d31914eb5aefbb83f7' class=''>Anchors Aweigh (1945)
+
+<br/></li><li id='temp:C:LGZd0a73043325f478996ae82c4a' class=''>The Plymouth Adventure (1952)
+
+<br/></li><li id='temp:C:LGZ69413a89b542418e985ee0ce5' class=''>The Great Caruso (1951)
+
+<br/></li><li id='temp:C:LGZ9ddef4f664de48e9816306529' class=''>Interrupted Melody (1955)
+
+<br/></li><li id='temp:C:LGZcbb18bd5578f466d9a18aeb08' class=''>Julius Caesar (1953)
+
+<br/></li><li id='temp:C:LGZc8e719b04844406d895035230' class=''>I’ll Cry Tomorrow (1955)
+
+<br/></li><li id='temp:C:LGZ989b4243300a404297ad3461f' class=''>Somebody Up There Likes Me (1956)
+
+<br/></li><li id='temp:C:LGZ97604df452b741138a2d12a19' class=''>Annie Get Your Gun (1950)
+
+<br/></li><li id='temp:C:LGZb4cff3a3e83f4cddbd89fa69e' class=''>Marty (1955)
+
+<br/></li><li id='temp:C:LGZ814a7c02bed74ced982be1a48' class=''>Born Yesterday (1950)
+
+<br/></li><li id='temp:C:LGZ70453ecc5b3f44838b369df4b' class=''>Some Like it Hot (1959)
+
+<br/></li><li id='temp:C:LGZ4f355d41d639482586c4d5cd6' class=''>Mon Oncle (1958)
+
+<br/></li><li id='temp:C:LGZ0b1ec806e3ce4e30b2a3cdc21' class=''>Rashom  (1950)
+
+<br/></li><li id='temp:C:LGZ8a0eaeabcd034f30a49705fed' class=''>Closely Watched Trains (1967)
+
+<br/></li><li id='temp:C:LGZf0b39cd6250e4a5e9c3f71104' class=''>The Shop   Main Street (1965)
+
+<br/></li><li id='temp:C:LGZ0d4a5b44b0204b5cb48437a3c' class=''>Through a Glass Darkly (1961)
+
+<br/></li><li id='temp:C:LGZ6ad1a460cd92404e905cb51c1' class=''>Z (1969)
+
+<br/></li><li id='temp:C:LGZ72f40f030c37465f843571f4c' class=''>Two Women (1960)
+
+<br/></li><li id='temp:C:LGZd61794bff9cb43ad9eec638f5' class=''>The Facts of Life (1960)
+
+<br/></li><li id='temp:C:LGZ28b2a6cd4c3644ab99abeb7c1' class=''>Cactus Flower (1969)
+
+<br/></li><li id='temp:C:LGZ4351432eb099493bbd3ff8321' class=''>The Music Man (1962)
+
+<br/></li><li id='temp:C:LGZ87cc2842f57c446a98e9db4c2' class=''>Oliver! (1968)
+
+<br/></li><li id='temp:C:LGZc5ed40666fe14fd7bf589e613' class=''>Camelot (1967)
+
+<br/></li><li id='temp:C:LGZ0b6d627de1354e1bb02aa86bf' class=''>How the West Was Won  (1962)
+
+<br/></li><li id='temp:C:LGZ8ce6b46611d24916a3accc195' class=''>Butterflies Are Free (1972)
+
+<br/></li><li id='temp:C:LGZ33af378c29e44965be05cdd9c' class=''>Travels With My Aunt (1972)
+
+<br/></li><li id='temp:C:LGZa3f0bd70399f4e0799d3c10e7' class=''>A Little Romance (1979)
+
+<br/></li><li id='temp:C:LGZ4ddf2bdd1f5446c9ab414d808' class=''>California Suite (1978)
+
+<br/></li><li id='temp:C:LGZaf3749abcc4143dba4cd4a19c' class=''>The Goodbye Girl (1977)
+
+<br/></li><li id='temp:C:LGZ8ab011f84b63479cba010a782' class=''>The Sunshine Boys (1975)
+
+<br/></li><li id='temp:C:LGZ47a88d3cd2a646408a64dd3a7' class=''>Annie Hall (1977)
+
+<br/></li><li id='temp:C:LGZd83ea0aa14f74228897aa2ae3' class=''>Shampoo (1975)
+
+<br/></li><li id='temp:C:LGZ3f49fe7f84854dd6803f7a952' class=''>The Sting (1973)
+
+<br/></li><li id='temp:C:LGZ473426765fd346649fb8d03ad' class=''>Dog Day Afterno  (1975)
+
+<br/></li><li id='temp:C:LGZ9c57f576ed644e789df712dfb' class=''>Shaft (1971)
+
+<br/></li><li id='temp:C:LGZ41f8b0cec013404b93cf6d7a4' class=''>The Story of Louis Pasteur (1936)
+
+<br/></li><li id='temp:C:LGZ4680cefc01114e6db484e4189' class=''>Captains Courageous (1937)
+
+<br/></li><li id='temp:C:LGZc9270afdec9f4cdbb80812063' class=''>Watch   the Rhine (1943)
+
+<br/></li><li id='temp:C:LGZ6768405c2def47268d126f534' class=''>Lilies of the Field (1963)
+
+<br/></li><li id='temp:C:LGZe8ae4e7d82d14b72b0b4b8edd' class=''>Sergeant York (1941)
+
+<br/></li><li id='temp:C:LGZ141a802287d642f7a61ad6e15' class=''>Gandhi (1982)
+
+<br/></li><li id='temp:C:LGZf1dcff3c1f914ad986c922d67' class=''>Out of Africa (1985)
+
+<br/></li><li id='temp:C:LGZ0c8152a942794ea3a25bc8cc9' class=''>On Golden Pond (1981)
+
+<br/></li><li id='temp:C:LGZef5a85967e5d47409d0a60aee' class=''>Places in the Heart (1984)
+
+<br/></li><li id='temp:C:LGZ1c48cf3c3e34482899636732f' class=''>A Fish Called Wanda (1988)
+
+<br/></li><li id='temp:C:LGZ0d367159df344a3e9bc8cdf8f' class=''>Babette’s Feast (1987)
+
+<br/></li><li id='temp:C:LGZ1e532bdac6c34889a44ac3252' class=''>Morning Glory (1933)
+
+<br/></li><li id='temp:C:LGZ520adf1330334d3f9d19cd55c' class=''>Jezebel (1938)
+
+<br/></li><li id='temp:C:LGZ78ab2250ded446c495c06f586' class=''>Johnny Belinda (1948)
+
+<br/></li><li id='temp:C:LGZ3ba14670ee8245de9ee998f9d' class=''>I Want to Live! (1958)
+
+<br/></li><li id='temp:C:LGZ6a285253212e40a2a339a5302' class=''>Mildred Pierce (1945)
+
+<br/></li><li id='temp:C:LGZc6c4fa25974948ae92ed5e254' class=''>A Trip to Bountiful (1985)
+
+<br/></li><li id='temp:C:LGZ16630670b26344419385999d6' class=''>The Miracle Worker (1962)
+
+<br/></li><li id='temp:C:LGZb0c28b48f32b453a9a26479a3' class=''>A River Runs Through It (1992)
+
+<br/></li><li id='temp:C:LGZ78ba3d0e9f804d6ca076e41bd' class=''>When We Were Kings (1996)
+
+<br/></li><li id='temp:C:LGZ6b5b0c8d4b254e85a5c7afeae' class=''>There Will Be Blood (2007)
+
+<br/></li><li id='temp:C:LGZ2d23c475d81a46c393c0666b5' class=''>Leaving Las Vegas (1995)
+
+<br/></li><li id='temp:C:LGZ753aa2e472dc431098071e4f6' class=''>The Life of Emile Zola (1937)
+
+<br/></li><li id='temp:C:LGZeca6afa0afa7443faa6ceffc5' class=''>The Circus (1928)
+
+<br/></li><li id='temp:C:LGZc0643600f7f643749a086ce42' class=''>The Music Box (1932)
+
+<br/></li><li id='temp:C:LGZaa074b56892a48d7a567922d9' class=''>Sweethearts (1938)
+
+<br/></li><li id='temp:C:LGZb858f99aa8224744a950d898b' class=''>Naughty Marietta (1935)
+
+<br/></li><li id='temp:C:LGZfcf0d44583654c2587bc3ab4f' class=''>The Cowboy and the Lady (1938)
+
+<br/></li><li id='temp:C:LGZ84c22f87ccd74e8ebd033f70a' class=''>The Awful Truth (1937)
+
+<br/></li><li id='temp:C:LGZ8b83a60febb642a981c1193dc' class=''>You Can’t Take It With You (1938)
+
+<br/></li><li id='temp:C:LGZf98935ad235849ffa55207069' class=''>Goodbye, Mr. Chips (1939)
+
+<br/></li><li id='temp:C:LGZcdf6ce82043a4b0698b2be770' class=''>Boys Town (1938)
+
+<br/></li><li id='temp:C:LGZ50112ecbe8a3495e81d34e86e' class=''>The Gay Divorcee (1934)
+
+<br/></li><li id='temp:C:LGZdcd5803af4054537a48631695' class=''>The Merry Widow (1934)
+
+<br/></li><li id='temp:C:LGZ83560a4aeadf469891eeb679e' class=''>The Broadway Melody (1929)
+
+<br/></li><li id='temp:C:LGZ9ccebf6f42014c50af44d22af' class=''>The Secret Land (1948)
+
+<br/></li><li id='temp:C:LGZ30171779eded44f4b6b471064' class=''>This Land is Mine (1943)
+
+<br/></li><li id='temp:C:LGZ9b213cd74cb945708a8bca815' class=''>49th Parallel (1941)
+
+<br/></li><li id='temp:C:LGZ72f7e17efa1f45d4962153e03' class=''>The Search (1948)
+
+<br/></li><li id='temp:C:LGZaaee83ef7af149189e6bb2896' class=''>Battleground (1949)
+
+<br/></li><li id='temp:C:LGZf3aa5bddad1540158e1467d80' class=''>Air Force (1943)
+
+<br/></li><li id='temp:C:LGZe54d6f882da94c9d8d527dbdc' class=''>Thirty Sec ds Over Tokyo (1944)
+
+<br/></li><li id='temp:C:LGZa14d29d0f97246e5b434b2cfe' class=''>The Grapes of Wrath (1940)
+
+<br/></li><li id='temp:C:LGZ3f645e1f12d547479feb655d0' class=''>How Green Was My Valley (1941)
+
+<br/></li><li id='temp:C:LGZ95a1e26f6ed04b148f32fdf89' class=''>A Letter to Three Wives (1948)
+
+<br/></li><li id='temp:C:LGZbeff5494b66a444285678a8cf' class=''>Kitty Foyle (1940)
+
+<br/></li><li id='temp:C:LGZ56b6a09ba4e14da3aac0c07ad' class=''>Blithe Spirit (1945)
+
+<br/></li><li id='temp:C:LGZ5d2882382bdf4d1388f2d233b' class=''>That Hamilton  Woman (1941)
+
+<br/></li><li id='temp:C:LGZa97be90bf27b459eb8a1c5fb7' class=''>Les Girls (1957)
+
+<br/></li><li id='temp:C:LGZb5bf4b970b764462bff096ef2' class=''>The Solid Gold Cadillac (I956)
+
+<br/></li><li id='temp:C:LGZ03a456aec2854e358c738f131' class=''>Designing Woman (1957)
+
+<br/></li><li id='temp:C:LGZb4be6ab98dbc49b6bd1d50378' class=''>Tom Thumb (1958)
+
+<br/></li><li id='temp:C:LGZ0ae2750ba7e74ba1b4eb8239e' class=''>Lili (1953)
+
+<br/></li><li id='temp:C:LGZ89085af29de344c797ef04845' class=''>Cyrano de Bergerac (1950)
+
+<br/></li><li id='temp:C:LGZc9e38a5455bc4685b1e072702' class=''>Harvey (1950)
+
+<br/></li><li id='temp:C:LGZe73045112f1a49bfb3c832564' class=''>Lust for Life (1956)
+
+<br/></li><li id='temp:C:LGZ41f6a3b5e8b3462a89dfb1627' class=''>On the Waterfront (1954)
+
+<br/></li><li id='temp:C:LGZd41bb52185be40e4b23de4f07' class=''>A Streetcar Named Desire (1951)
+
+<br/></li><li id='temp:C:LGZ4206e0b528ce48b8adb48ec1e' class=''>The Old Man and the Sea (1958)
+
+<br/></li><li id='temp:C:LGZ3c591db24fca4884a72cc4b5f' class=''>A Funny Thing Happened   the Way to the Forum (1966)
+
+<br/></li><li id='temp:C:LGZ69da835e10244fffbfeeecdf9' class=''>Exodus (1960)
+
+<br/></li><li id='temp:C:LGZ86aa6e981ccb48c884269ae33' class=''>It’s a Mad, Mad, Mad, Mad World (1963)
+
+<br/></li><li id='temp:C:LGZ794e8f87b9df44c0bdb3e5c5f' class=''>The Time Machine (1960)
+
+<br/></li><li id='temp:C:LGZ03f6e905672f4ac6a3b1a28d4' class=''>2001 (1968)
+
+<br/></li><li id='temp:C:LGZ786dcd0cb3414efda64b0ac14' class=''>The Producers (1967)
+
+<br/></li><li id='temp:C:LGZ4e3ad40516614b81b340dbf24' class=''>Tom Jones (1963)
+
+<br/></li><li id='temp:C:LGZedbd3bc50a964c69b527437c5' class=''>Splendor in the Grass (1961)
+
+<br/></li><li id='temp:C:LGZ316c16a19bdf489cb05bb7dd6' class=''>Planet of the Apes (1968)
+
+<br/></li><li id='temp:C:LGZ43edb9c406e143248422a060a' class=''>What Ever Happened to Baby Jane (1962)
+
+<br/></li><li id='temp:C:LGZe82ca2035bd24db0bfa71a538' class=''>Dersu Uzala (1975)
+
+<br/></li><li id='temp:C:LGZfe0406cb6ce6497082e1b9fe8' class=''>The Discreet Charm of the Bourgeoisie (1972)
+
+<br/></li><li id='temp:C:LGZ45646ea4791a479db48d37968' class=''>Day for Night (1973)
+
+<br/></li><li id='temp:C:LGZ10ada093c8a94dffb0a194597' class=''>Logan’s Run (1975)
+
+<br/></li><li id='temp:C:LGZ49f1244679a64d6ea62967c69' class=''>Being There (1979)
+
+<br/></li><li id='temp:C:LGZf44e5536a5474c4485e348d8b' class=''>The Candidate (1972)
+
+<br/></li><li id='temp:C:LGZ8a103693d8ef46239d915c1ae' class=''>Fiddler   the Roof (1971)
+
+<br/></li><li id='temp:C:LGZ7a24dfefc3344ea7ba01eb52e' class=''>All That Jazz (1979)
+
+<br/></li><li id='temp:C:LGZ3e898719677c43d6b6c1bd83e' class=''>Woodstock (1970)
+
+<br/></li><li id='temp:C:LGZ5513886e211548e4897b1b3ba' class=''>Mr. Deeds Goes To Town (1936)
+
+<br/></li><li id='temp:C:LGZ379aecc8b9b2486b8bb4fb740' class=''>The Best Years of Our Lives (1946)
+
+<br/></li><li id='temp:C:LGZabc58e7593734442808598637' class=''>Casablanca (1942)
+
+<br/></li><li id='temp:C:LGZ8520888ae7054797a1f5141d0' class=''>Lawrence of Arabia (1962)
+
+<br/></li><li id='temp:C:LGZa7dd0067bd0c444a9a72b0b6c' class=''>The Bridge on the River Kwai (1957)
+
+<br/></li><li id='temp:C:LGZ5c3b3d9d62eb40b09084e1ae7' class=''>A Passage to India (1984)
+
+<br/></li><li id='temp:C:LGZbdefb85ab9214a39bebcd4cf1' class=''>The Last Emperor (1987)
+
+<br/></li><li id='temp:C:LGZ630a8b69fa6047b7b73488ce6' class=''>Dangerous Liaisons (1988)
+
+<br/></li><li id='temp:C:LGZ688a7b8caff245fda0efedd3d' class=''>The Times of Harvey Milk (1984)
+
+<br/></li><li id='temp:C:LGZ8eed64e86b93464eaa780bc95' class=''>Eskimo (1933)
+
+<br/></li><li id='temp:C:LGZ233b3b9b10ce48889e15eb4d2' class=''>Min and Bill (1930)
+
+<br/></li><li id='temp:C:LGZ4101b6ea8f4243449da00703e' class=''>The Divine Lady (1929)
+
+<br/></li><li id='temp:C:LGZ55bbfd47b20b4bf5a10f19cc4' class=''>The Private Life of Henry VIII (1933)
+
+<br/></li><li id='temp:C:LGZ9bb1da0251ad454696ed8dffa' class=''>The Great Waltz (1938)
+
+<br/></li><li id='temp:C:LGZ94c492224ee14fb481c616acc' class=''>San Francisco (1936)
+
+<br/></li><li id='temp:C:LGZ2e500a74a3ce49dd87f72138d' class=''>Flight Commander (1930) (AKA The Dawn Patrol)
+
+<br/></li><li id='temp:C:LGZef36834aeb304ca0a30486cc6' class=''>Stagecoach (1939)
+
+<br/></li><li id='temp:C:LGZ9473fdd518da4fb1a6ecac630' class=''>Mutiny   the Bounty (1935)
+
+<br/></li><li id='temp:C:LGZf90179c0422749c29e755ceaa' class=''>Cimarron  (1931)
+
+<br/></li><li id='temp:C:LGZ05fadb06470f448ba91b35527' class=''>The Big House (1930)
+
+<br/></li><li id='temp:C:LGZ3d8c68cd615d493d89caf10b6' class=''> One Way Passage (1932)
+
+<br/></li><li id='temp:C:LGZ6fa956c32ed2486d8f8e9e302' class=''>A Farwell to Arms (1932)
+
+<br/></li><li id='temp:C:LGZdb3db5172b4d4b3ca167115f3' class=''>Grand Hotel (1932)
+
+<br/></li><li id='temp:C:LGZ3e786f4276634f72b6f7ea535' class=''>It Happened  e Night (1934)
+
+<br/></li><li id='temp:C:LGZe8ccbd8738374e9a8387f51aa' class=''>All the King’s Men (1949)
+
+<br/></li><li id='temp:C:LGZa463c058e37a47ffb61b4a984' class=''>All About Eve (1950)
+
+<br/></li><li id='temp:C:LGZ16a01d6a9de14fde850529f1a' class=''>An American in Paris (1951)
+
+<br/></li><li id='temp:C:LGZb4040508a73e40f2bd3f14e1a' class=''>Gone with the Wind (1939)
+
+<br/></li><li id='temp:C:LGZa82a249f020e4f168b59ec84b' class=''>The Artist (2011)
+
+<br/></li><li id='temp:C:LGZ573bf96c131e48449514223b1' class=''>The Age of Innocence (1993)
+
+<br/></li><li id='temp:C:LGZ42ce513eab3d4b08b2730e6ed' class=''>The Adventures of Priscilla, Queen of the Desert (1994)
+
+<br/></li><li id='temp:C:LGZ51a4ba63852348e4a347e3478' class=''>All About My Mother (1999)
+
+<br/></li><li id='temp:C:LGZ65768b16c8324d2596458ab02' class=''>Destination  Moon  (1950)
+
+<br/></li><li id='temp:C:LGZ2593e23b811b48949410a3f8a' class=''>King Solomon ’s Mines (1950)
+
+<br/></li><li id='temp:C:LGZ18ffde0decb1404a8c749967d' class=''>Calamity Jane (1953)
+
+<br/></li><li id='temp:C:LGZe0daba8aeb6c46969f127454d' class=''>The Big Country (1958)
+
+<br/></li><li id='temp:C:LGZ0a52573a74b74b11be4e2ba90' class=''>Giant (1956)
+
+<br/></li><li id='temp:C:LGZ33453310e0a8436181f95c2ed' class=''>East of Eden (1955)
+
+<br/></li><li id='temp:C:LGZd22ff159eff046938fec463df' class=''>The Greatest Show   Earth (1953)
+
+<br/></li><li id='temp:C:LGZf796ed1289874fb9905f9a751' class=''>The Man Who Knew Too Much (1956)
+
+<br/></li><li id='temp:C:LGZ4a78369628de4fb2918176163' class=''>The Glenn Miller Story (1954)
+
+<br/></li><li id='temp:C:LGZc742ccadc75f453ab9b7f04b3' class=''>Crashing the Water Barrier (1956)
+
+<br/></li><li id='temp:C:LGZde30be478e114867bce781fdd' class=''>The Human Comedy (1943)
+
+<br/></li><li id='temp:C:LGZe5e22c9a33d6473cbbc3b1e6c' class=''>Princess O’Rourke (1943)
+
+<br/></li><li id='temp:C:LGZ1fcc2dcd05614ee3bd7a1b901' class=''>Green Dolphin Street (1947)
+
+<br/></li><li id='temp:C:LGZ15a45b975d774348949d61fe5' class=''>The Seventh Veil (1945)
+
+<br/></li><li id='temp:C:LGZ01921670b86e45c4baefe74ce' class=''>Blossoms in the Dust (1941)
+
+<br/></li><li id='temp:C:LGZ89212eb60d8c4a0bb0aafd652' class=''>The Great Lie (1941)
+
+<br/></li><li id='temp:C:LGZ78cde64783164b3b9283a4e5f' class=''>Now, Voyager (1942)
+
+<br/></li><li id='temp:C:LGZ359b8502094c42cb9d7057c00' class=''>Mrs. Miniver (1942)
+
+<br/></li><li id='temp:C:LGZ07ffd7ee781b4bc0afc4a5614' class=''>Twelve O’Clock High (1949)
+
+<br/></li><li id='temp:C:LGZed5e6f6a34cf497291fc13006' class=''>The Razor’s Edge (1946)
+
+<br/></li><li id='temp:C:LGZd78a883ba03f4ad3a09ba06c6' class=''>The Battle of Midway (1942)
+
+<br/></li><li id='temp:C:LGZ87ed95c6d1094e0f9f4469786' class=''>Vacation From Marriage (1942)
+
+<br/></li><li id='temp:C:LGZd7940b5e66384eca88c2833f6' class=''>War and Peace (1966)
+
+<br/></li><li id='temp:C:LGZ5d039e64fea14815ba6203b93' class=''>The Night of the Iguana (1964)
+
+<br/></li><li id='temp:C:LGZd18b746408e747ffa0373c8de' class=''>The Sandpiper (1965)
+
+<br/></li><li id='temp:C:LGZ667c6e5b52fb4a4686365966e' class=''>Who’s Afraid of Virginia Woolf (1966)
+
+<br/></li><li id='temp:C:LGZ0877312b9dd540bead2781fab' class=''>The Days of Wine and Roses (1962)
+
+<br/></li><li id='temp:C:LGZ1960d2a18efc423d81d064f17' class=''>To Kill a Mockingbird (1962)
+
+<br/></li><li id='temp:C:LGZ7d6b329919914efb9f7467e6e' class=''>A Patch of Blue (1965)
+
+<br/></li><li id='temp:C:LGZac0fc69c735e4d118b5f37e8b' class=''>The Hustler (1961)
+
+<br/></li><li id='temp:C:LGZbed6791ca7f2409090871fbd1' class=''>Midnight Cowboy (1969)
+
+<br/></li><li id='temp:C:LGZ20cadac365d740ba87e3cedd2' class=''>The Virgin Spring (1960)
+
+<br/></li></ul></div><span style="color:#ffffff" textcolor="#ffffff">ed.</span><br/>
+
+<br/>
+
+</body></html>

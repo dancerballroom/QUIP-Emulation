@@ -1,0 +1,520 @@
+<!doctype html>
+<html><head><title>dircmp.bat v2.0</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:WeH70c85062b7964a23aa87cd34d'>dircmp.bat v2.0</h1>
+
+<h2 id='temp:C:WeHfc90d26459d24f7a822168d47'>Run_dircmp.bat (The TEST File)</h2>
+
+<pre id='temp:C:WeHd6624ddf57c846e581c3d191b'>@Echo Off<br>Echo.&amp;Echo Test dircmp.bat with NO ARGS to get USAGE Screen &amp;Echo.<br>pause<br>Call dircmp<br>pause<br>cls<br>Echo.&amp;Echo Test dircmp.bat with ARGS for Processing &amp;Echo.<br>pause<br>Call dircmp "L:\0503 0713\Bad Dinosaurs\Season 1" "F:\ANIMATED Series\Bad Dinosaurs\Season 1"</pre>
+
+<br/>
+
+<h2 id='temp:C:WeH3c15a1d72c3b4a079436a1897'>dircmp.bat version 2.0</h2>
+
+<pre id='temp:C:WeH856da17508c94c24951b06ebf'>@echo off<br>SET ARG0=%~1<br>SET ARG1=%~2<br><br>Echo Drives to Compare for Missing Mirrored Backup Files<br>IF Defined ARG0 Echo.&amp;powershell write-host -back Black -fore White  First  DIR:%ARG0%<br>IF Defined ARG1 powershell write-host -back Black -fore White  Second DIR:%ARG1%&amp;Echo.<br><br>if Not Defined ARG0 GOTO :Usage<br>if Not Defined ARG1 GOTO :Usage<br><br>pause<br>echo.&amp;powershell write-host -back Black -fore White Processing...&amp;Echo.<br>PushD %ARG0%<br>Echo Checking Drive for any files not mirrored in <br>powershell write-host -back Black -fore Green %ARG1% <br>Echo.<br>powershell write-host -back Black -fore White Missing Files<br>for %%x in (*.*) do (<br>    if NOT exist "%ARG1%\%%x" (<br>        powershell write-host -back Black -fore Cyan "%ARG0%\%%x"<br>    )<br>)<br>Echo.<br>PopD<br>powershell write-host -back Black -fore Blue 1/2 Way There...&amp;Echo.<br>pause<br>Echo.&amp;Echo Checking Drive for any files not mirrored in <br>powershell write-host -back Black -fore Green %ARG0% <br><br>PushD %ARG1%<br>Echo.<br>powershell write-host -back Black -fore White Missing Files<br>for %%x in (*.*) do (<br>    if NOT exist "%ARG0%\%%x" (        <br>        powershell write-host -back Black -fore Yellow "%ARG1%\%%x"<br>    )<br>)<br>Echo.<br>PopD<br>powershell write-host -back Black -fore Green DONE&amp;Echo.<br>pause<br><br>goto end<br><br>:Usage<br>echo.&amp;Echo Usage: <br>powershell write-host -back Black -fore Cyan %0 dir1 dir2<br>powershell write-host -back Black -fore White [ where dir1 and dir2 are full paths ]<br>echo.<br>:end</pre>
+
+<h2 id='temp:C:WeH9bce16f05e804d72878cf12bf'>Test File Run:</h2>
+
+<pre id='temp:C:WeH71a8b00d88624f6fa13254e7d'>[DOUBLE-CLICK Run_dircmp.bat]<br><span bgcolor="#afefa9" style="background-color:#afefa9">Test dircmp.bat with NO ARGS to get USAGE Screen<br></span><br>Press any key to continue . . .<br>Drives to Compare for Missing Mirrored Backup Files<br><br>Usage:<br><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">dircmp dir1 dir2</span><br>[ where dir1 and dir2 are full paths ]<br><br>Press any key to continue . . .<br>[CLEAR SCREEN HERE]<br><br><span bgcolor="#afefa9" style="background-color:#afefa9">Test dircmp.bat with ARGS for Processing</span><br><br>Press any key to continue . . .<br>Drives to Compare for Missing Mirrored Backup Files<br><br>First DIR:L:\0503 0713\Bad Dinosaurs\Season 1<br>Second DIR:F:\ANIMATED Series\Bad Dinosaurs\Season 1<br><br>Press any key to continue . . .<br><br>Processing...<br><br>Checking Drive for any files not mirrored in<br><span bgcolor="#afefa9" style="background-color:#afefa9">F</span><span bgcolor="#afefa9" style="background-color:#afefa9">:</span><span bgcolor="#afefa9" style="background-color:#afefa9">\ANIMATED </span><span bgcolor="#afefa9" style="background-color:#afefa9">Series</span><span bgcolor="#afefa9" style="background-color:#afefa9">\Bad </span><span bgcolor="#afefa9" style="background-color:#afefa9">Dinosaurs</span><span bgcolor="#afefa9" style="background-color:#afefa9">\Season </span><span bgcolor="#afefa9" style="background-color:#afefa9">1</span><br><br>Missing Files<br><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">L</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">:</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">\0</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">503</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa"> </span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">0713</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">\Bad </span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">Dinosaurs</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">\Season </span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">1</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">\Test </span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">File</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">.</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">txt</span><br><br><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">1</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">/</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">2</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc"> </span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">Way</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc"> </span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">There</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">...</span><br><br>Press any key to continue . . .<br><br>Checking Drive for any files not mirrored in<br><span bgcolor="#afefa9" style="background-color:#afefa9">L</span><span bgcolor="#afefa9" style="background-color:#afefa9">:</span><span bgcolor="#afefa9" style="background-color:#afefa9">\0</span><span bgcolor="#afefa9" style="background-color:#afefa9">503</span><span bgcolor="#afefa9" style="background-color:#afefa9"> </span><span bgcolor="#afefa9" style="background-color:#afefa9">0713</span><span bgcolor="#afefa9" style="background-color:#afefa9">\Bad </span><span bgcolor="#afefa9" style="background-color:#afefa9">Dinosaurs</span><span bgcolor="#afefa9" style="background-color:#afefa9">\Season </span><span bgcolor="#afefa9" style="background-color:#afefa9">1</span><br><br>Missing Files<br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> s01e01 </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Point</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Beak</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> _ </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Food</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Fight</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> _ </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Simply</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> the </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Nest</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nfo</span><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> s01e02 </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Tricera</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Cops</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> _ </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Water</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Palaver</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> _ </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Creatures</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Pet</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nfo</span><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> s01e03 </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">The</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Sliming</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Sound</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Bite</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Failure</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> to </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Lunch</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nfo</span><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> s01e04 </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Diamonds</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Arent</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Forever</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Cheeky</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Boys</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Hunger</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Games</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nfo</span><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> s01e05 </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">The</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Great</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Egg</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">scape </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Stegosaur</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Rush</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">The</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Irritation</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Game</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nfo</span><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> s01e06 </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Herbi</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Bores</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Tyrannosaurus</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Flex</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Raging</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Ball</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nfo</span><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> s01e07 </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Glue</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">some </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Twosome</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">The</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Good</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">The</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Bad</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">and</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> the </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Greedy</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">True</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Roar</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">mance</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nfo</span><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> s01e08 </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Raptors</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Revenge</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Ma</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Attacks</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Volca</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nooooo</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nfo</span><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\folder</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">jpg</span><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">F</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\ANIMATED </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Series</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Bad </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Dinosaurs</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\Season </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">1</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">\season</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">.</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">nfo</span><br><br><span bgcolor="#afefa9" style="background-color:#afefa9">DONE</span><br><br>Press any key to continue . . .<br>[PROGRAM CLOSES]<br></pre>
+
+</body></html>

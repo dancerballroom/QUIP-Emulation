@@ -1,0 +1,592 @@
+<!doctype html>
+<html><head><title>RegEx (Regular Expressions) to aid in the Japanese-English Subtitle Project</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:OVWc9eaaf7dd6834da2adb06eca1'>RegEx (Regular Expressions) to aid in the Japanese-English Subtitle Project</h1>
+
+<b>Purpose</b>: To format <b>multi</b>-<b>lingual </b>subtitles for display on Chromecast’s Client JellyFin.<br/>
+
+And it is a fussy one. <br/>
+
+<br/>
+
+<b>RegEx (Regular Expressions) Explanations Further Below:</b><br/>
+
+<pre id='temp:C:OVW99ccfd60b70545de88e9cf988'># To find Rogue numbers in the <b>Japanese </b>Subtitles:<br><b>Find</b><b>:</b><b> </b><b>(</b><b> \d</b><b>):(</b><b>\d</b><b>+)</b><br><b>Replace</b><b>:</b><b> \r\n\r\nXX\r\n</b><b>00</b><b>:</b><b>$1</b><b>:</b><b>$2</b><b>,</b><b>000</b><b> </b><b>--&gt;</b><b> </b><b>00</b><b>:</b><b>$1</b><b>:</b><b>$2</b><b>,</b><b>000</b><br><br><b># </b>To find Carriage Returns (CRLF) in <b>English </b>Subtitles.  Join.<br><b>Find</b><b>:</b><b> </b><b>(^</b><b>\d</b><b>+)[</b><b>\r\n</b><b>]+(^.*?[</b><b>\r\n</b><b>]+.*?)[</b><b>\r\n</b><b>.+]+(</b><b>\D</b><b>*)</b><b>$</b><br><b>Replace</b><b>:</b><b> $1\r\n$2 $3</b><br><br><b># </b>To find Split lines (dd then 5 lines then dd) in SRT<br><b>^(</b><b>\d\d</b><b>)</b><b>$\r\n</b><b>^(.*)</b><b>$\r\n</b><b>^(.*)</b><b>$\r\n</b><b>^(.*)</b><b>$\r\n</b><b>^(.*)</b><b>$\r\n</b><b>^(</b><b>\d\d</b><b>)</b><b>$<br></b></pre>
+
+<br/>
+
+AHK-Version:  <control data-remapped="true" id="temp:C:OVW367fe19f2bd44a95bfa077d38"><a href="https://quip.com/qHbCAcSwabFl">AHK - (Eng)Multi-to-1 and (JP)Sub-TimeSig-Fix</a></control><br/>
+
+Sets up:  <span bgcolor="#333333" style="background-color:#333333">Cntrl + Shift + E</span> <b>and </b><span bgcolor="#333333" style="background-color:#333333">Cntrl + Shift + J</span> <b>to populate above Macro in NotePad++</b><br/>
+
+<h2 id='temp:C:OVW703b12f47ac94756a6287e2ce'>Final Product</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/OVWAAANXg9F/xD_-Ji-_3cSaadNVB7ZEZA?a=GzmKTbKiWUBao3ARPl98CgmCphTtrOfwrMXFLjBerNQa' id='temp:C:OVW10daf35951b948468ea942684' width='800' height='445' alt="image"></img></div><h2 id='temp:C:OVWe16b1620b1344f719dbd709b7'>First half of the Solution</h2>
+
+<b>Description</b>:  Formats all entries in subtitle file to be on one line.  This means there will be a 1 to 1 correspondence between the Japanese file and the English file, for example.  <br/>
+
+<b>Next</b>:  Save the TEMP.SRT Subtitle file with SubtitleEdit and under Tools run “Renumber” to fix format errors.  Then Run the SRT macro to merge the two languages, fix translation errors, and mount on the Jellyfin Video Server(free)<br/>
+
+<pre id='temp:C:OVWc3fb5d95764a40a2a4b07156a'># To find Rogue numbers in the <b>Japanese files</b>:<br><b>Find</b><b>:</b><b> </b><b>(</b><b> \d</b><b>):(</b><b>\d</b><b>+)</b><br><b>Replace</b><b>:</b><b> \r\n\r\nXX\r\n</b><b>00</b><b>:</b><b>$1</b><b>:</b><b>$2</b><b>,</b><b>000</b><b> </b><b>--&gt;</b><b> </b><b>00</b><b>:</b><b>$1</b><b>:</b><b>$2</b><b>,</b><b>000</b><br><br><b>Explanation</b><b>:</b><br><b>   </b><b>(</b><b> \d</b><b>)</b><b> </b>A Space followed by a digit<br>    <b>:</b><b>        </b>followed by a colon<br>   <b>(</b><b>\d</b><b>+)</b><b>    </b>followed by two digits or more<br><br><b>Matches</b><b>:</b>   <br>43<br>00:04:49,000 --&gt; 00:04:51,667<br>もう私たちは友達だよね？ <span bgcolor="#cfe1fc" style="background-color:#cfe1fc"><b>4</b><b>:</b></span><b><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">53</span></b><br><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">さあ、おいしい柿を食べに一緒に行きましょう。」</span><br><br><b>Result</b><b>:</b><br>43<br>00:04:49,000 --&gt; 00:04:51,667<br>もう私たちは友達だよね？<br><br>XX<br>00: <span bgcolor="#cfe1fc" style="background-color:#cfe1fc"><b>4</b><b>:</b></span><b><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">53</span></b>,000 --&gt; 00: 4:53,000<br><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">さあ、おいしい柿を食べに一緒に行きましょう。」</span><br><br><b>Post</b><b> (Replace-All) </b><b>Actions</b><b>:</b><br>1. Locate All XX<br>2. Replace XX with next Sub Number (here:43)<br>3. Replace Zero Duration --&gt; 2nd number with calculated second number<br>   (here:  00: 4:53,000    replaced with    00:04:58,000) <br>   (right before the next subtitle comes in)<br>4. SubtitleEdit: Tools/Renumber/Save<br> <br><br># To find Carriage Returns (CRLF) in <b>English </b>Subtitles.  Join.<br><b>Find</b>: (^\d+)[\r\n]+(^.*?[\r\n]+.*?)[\r\n.+]+(\D*)$<br><b>Replace</b>: $1\r\n$2 $3<br><br># The short explanation<br>(^\d+)   # The line starts with a Subtitle Number<br>[\r\n]+  # followed by a carriage return<br>(^.*?[\r\n]+.*?)   # followed by the time stamp for the subtitle<br>[\r\n.+]+          # followed by another Carriage return<br>+(\D*)$            # followed by subtitles - \D* means no decimals<br>                   # Probably means I have to rethink this because<br>                   # it won't handle numbers in the subtitles, so<br>                   # Phooey!<br># Replace the above with the same, but control the placement of Carriage Returns.<br>$1\r\n    # The line starts with a Subtitle Number followed by a Carriage Return<br>$2        # The next line consists of the time stamp<br>$3        # The third line is the subtitle line.<br><br><b>Matches</b><b>:</b><br>5<br>00:00:27,000 --&gt; 00:00:32,248<br>When the old woman tried to cut it with a knife, <br>the melon split in two on its own.<br><br><b>Result</b><b>:</b><br>5<br>00:00:27,000 --&gt; 00:00:32,248<br>When the old woman tried to cut it with a knife, the melon split in two on its own.<br></pre>
+
+<h2 id='temp:C:OVW81d1f81116e1400c887671de2'>My Process (Revisiting Regular Expressions)</h2>
+
+<pre id='temp:C:OVWb69cc3a85d704a8d976b42f5c'>\[..:..\...]$ <br>Matches <br>Example-&gt;  [00:57.99] <br>followed by EOL marker<br><br>(\[..:..\...\].+$)<br><b>Matches</b><br>Example-&gt; [00:15.15]A couple lived<br>Also:  \[..:..\...\].+$[\n\r]<br><br>..$[\n\r]<br><b>Matches</b> <br>Two chars before CRLF<br><br>^\s*(\d+:\d+:\d+,\d+)[^\S\n]+--&gt;[^\S\n]+(\d+:\d+:\d+,\d+)((?:\n(?!\d+:\d+:\d+,\d+\b|\n+\d+$).*)*)<br><b>Matches</b> <br>Example-&gt; 00:00:27,030 --&gt; 00:00:28,030<br><br><b>Again</b>, <b>Multi</b><b>-</b><b>Line</b> (Same, just all visible, will not run of course...)<br>^\s*(\d+:\d+:\d+,\d+)<br>[^\S\n]+--&gt;[^\S\n]+(\d+:\d+:\d+,\d+)<br>((?:\n(?!\d+:\d+:\d+,\d+\b|\n+\d+$).*)*)<br><br><br>(^\d+)[\r\n]+(^.*?[\r\n]+.*?)[\r\n]+(.*)$<br><b>Matches</b><br>Example:<br>    5<br>    00:00:18,630 --&gt; 00:00:20,340<br>    Because they did not<br>    have any children<br>    <br># but also:<br>    6<br>    00:00:21,180 --&gt; 00:00:23,400<br>    they would always go to the Sumiyoshi Grand Shrine<br>    7 <br># The Next Index is a problem, so no solution here.   </pre>
+
+<h2 id='temp:C:OVW7ad81ee8388445e8bbc06e147'>Getting Close</h2>
+
+<pre id='temp:C:OVW8d7fe9fd6186423bb12b876cb'><b>Given</b>:<br><br>5<br>00:00:18,630 --&gt; 00:00:20,340<br>Because they did not<br>have any children<br><br><b>Find</b><b> </b>(^\d+)[\r\n]+(^.*?[\r\n]+.*?)[\r\n]+(.*)$<br><br><b>Before</b>:<br><br><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">5</span><br><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">00</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">:</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">00</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">:</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">18</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">,</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">630</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc"> </span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">--&gt;</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc"> </span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">00</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">:</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">00</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">:</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">20</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">,</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">340</span><br><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">Because</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc"> they did </span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">not</span><br><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">have any children</span><br><br><b>Replace</b><b> </b>$1\r\n$2 $3<br><br><span bgcolor="#cfe1fc" style="background-color:#cfe1fc"><b>After</b></span>:<br><br>5<br>00:00:18,630 --&gt; 00:00:20,340<br>Because they did not have any children<br><br># Which is the desired output, all on one line.<br></pre>
+
+<h2 id='temp:C:OVW7e59f75a02884e6ea7bdac82c'>OK, here goes:</h2>
+
+<pre id='temp:C:OVW70f42cbe79ff430ea0d96443b'><b>Given</b>:<br><br>    3<br>    00:00:13,380 --&gt; 00:00:14,550<br>    a far away land<br>    <br>    4<br>    00:00:15,150 --&gt; 00:00:16,950<br>    there lived a couple<br>    <br>    5<br>    00:00:18,630 --&gt; 00:00:20,340<br>    Because they did not<br>    have any children<br>    <br>    6<br>    00:00:21,180 --&gt; 00:00:23,400<br>    They would always go to the Sumiyoshi Grand Shrine<br>    <br>Find: (^\d+)[\r\n]+(^.*?[\r\n]+.*?)[\r\n.+]+(\D*)$<br>Replace: $1\r\n$2 $3<br><br># Result: Almost There!<br>    3<br>    00:00:13,380 --&gt; 00:00:14,550<br>    a far away land<br>    4<br>    00:00:15,150 --&gt; 00:00:16,950<br>    there lived a couple <br>    5<br>    00:00:18,630 --&gt; 00:00:20,340<br>    Because they did not have any children<br>    <br>    6<br>    00:00:21,180 --&gt; 00:00:23,400<br>    They would always go to the Sumiyoshi Grand Shrine <br>    <br># So, spacing is funny, and format needs fixing, but we have a Work Around: <br># Subtitle Edit Tool Menu -&gt; Renumber SRT.<br># OK, Ignore the errors on Opening the modified (.srt) Subtitle File</pre>
+
+<pre id='temp:C:OVW9def8d74eb1c4707a1d1c2f63'># Result: Fixed.  Got our spaces back.<br><br>    3<br>    00:00:13,380 --&gt; 00:00:14,550<br>    a far away land<br>    <br>    4<br>    00:00:15,150 --&gt; 00:00:16,950<br>    There lived a couple<br>    <br>    5<br>    00:00:18,630 --&gt; 00:00:20,340<br>    <span bgcolor="#f2ef90" style="background-color:#f2ef90">Because</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> they did </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">not</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> have any children</span>  # That's my huckleberry!<br>    <br>    6<br>    00:00:21,180 --&gt; 00:00:23,400<br>    They would always go to the Sumiyoshi Grand Shrine  <br>    <br> # Gambatte!</pre>
+
+<h3 id='temp:C:OVW0e9a00cba58f472abb2b37e44'>Do this with both English and FNLG files before processing and voila!  </h3>
+
+<h3 id='temp:C:OVW86936d59a6194e7484091b565'><span style="color:#083f91" textcolor="#083f91">We can run a uniform Merge macro!  </span></h3>
+
+<h2 id='temp:C:OVWcd1a0e67617444f1b65e9c19e'>The final result, sneak peak:</h2>
+
+<pre id='temp:C:OVW5d0c6a8e62704c6fba198a2ac'>2<br>00:00:12,330 --&gt; 00:00:13,356<br>昔<br>Long ago<br><br>3<br>00:00:13,380 --&gt; 00:00:14,550<br>設置の国に<br>in a country/land far away<br><br>4<br>00:00:15,150 --&gt; 00:00:16,950<br>ある夫婦が住んでいました<br>there lived a couple<br><br>5<br>00:00:18,630 --&gt; 00:00:20,340<br>子供がいませんでしたから<br>Because they did not have any children<br><br>6<br>00:00:21,180 --&gt; 00:00:23,400<br>いつも住吉明神へ行って<br>they always would go to the Sumiyoshi Grand Shrine<br><br>7<br>00:00:23,850 --&gt; 00:00:25,080<br>お祈りしていました<br>(and) they would pray</pre>
+
+<h2 id='temp:C:OVW72b9abe6cb99412c93b2cb1c1'>Jellyfin server observations:</h2>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:OVW54b6f9b3d81f45e48e99633e5'><li id='temp:C:OVW5f2ef380f8b64b5eba028b04d' class='' value='1'>Jellyfin is an odd duck!
+
+<br/></li><li id='temp:C:OVW5dab664de67e44a88e17e3706' class=''>It does not support standard multiple language formatted files by SubtitleEdit.
+
+<br/></li><li id='temp:C:OVW1f6d10a48228413e8a9f0708a' class='parent'>It requires both Japanese and English to be placed in the English SRT (Movie.EN.SRT) formatted:
+
+<br/></li><ul><li id='temp:C:OVWeaac504862d44c4a9e6e8570f' class=''>Time Signature
+
+<br/></li><li id='temp:C:OVWbb4b580301ab4b599c336f060' class=''>Japanese
+
+<br/></li><li id='temp:C:OVWd43b99212d624693911afb145' class=''>English
+
+<br/></li></ul></ul></div><h3 id='temp:C:OVW80c6d6fe58b5494ba63692307'>Disclaimer:</h3>
+
+It has been over 20 years since I’ve delved into learning Japanese, and at best I was able to remember most of the letters in Hiragana and Katakana.  My fixing of the story probably is mostly in the spirit of the story, but in the end probably incorrect on details.  <br/>
+
+<br/>
+
+I found the original Video here:  <a href="https://www.youtube.com/watch?v=GhX5Eu2ilkQ&amp;list=PLJov1NnDE_N_92MtmRyQknjavXa1oLSuM&amp;index=3">https://www.youtube.com/watch?v=GhX5Eu2ilkQ&amp;list=PLJov1NnDE_N_92MtmRyQknjavXa1oLSuM&amp;index=3</a><br/>
+
+<br/>
+
+I am using the video to practice Japanese (and programming), nothing more.<br/>
+
+<h3 id='temp:C:OVW997e5687e3d24251945a8ae82'>Tested and Working on the following Clients from Free JellyFin Server:</h3>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:OVW3f74db9c55df49869c8145f06'><li id='temp:C:OVW6b08cf025862450aa98ae464f' class='' value='1'>Free Jellyfin Client on Chromecast Fire Stick
+
+<br/></li><li id='temp:C:OVWd6a9e0d4671246c7817c31c7a' class=''>Free Jellyfin Client on Android Phone and Tablet
+
+<br/></li><li id='temp:C:OVW528cdef8db7a4974b2dcdda74' class=''>Musicolet App (Android Phone), supports .lrc lyrics as well.
+
+<br/></li></ul></div><pre id='temp:C:OVW9b9011cfa03643559919356e6'><span style="color:#202122" textcolor="#202122">The Road goes ever on and on</span><br><span style="color:#202122" textcolor="#202122">Down from the door where it began.</span><br><span style="color:#202122" textcolor="#202122">Now far ahead the Road has gone,</span><br><span style="color:#202122" textcolor="#202122">And I must follow, if I can,<br><br>- The Hobbit, J.R.R. Tolkien</span></pre>
+
+<br/>
+
+</body></html>

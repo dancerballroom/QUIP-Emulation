@@ -1,0 +1,433 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>URL2TXT_Renamer.aspx</title>
+    </head>
+    <body>
+        <h1>URL2TXT_Renamer.aspx
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">URL2TXT_Renamer.aspx
+
+
+&lt;%@ Page Language="C#" AutoEventWireup="<span style="color:#22863A;font-weight:bold;">true</span>" %&gt;
+&lt;!DOCTYPE html&gt;
+
+
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+&nbsp; &nbsp; &lt;title&gt;URL to TXT Renamer&lt;/title&gt;
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;style&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; html, body {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">overflow</span>: hidden; /* Prevents the window from scrolling vertically */
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; body {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #f4f6f9;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #333;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; form {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .container {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: calc(100% - 30px); /* Keeps container snug within the <span style="color:#005CC5;">padding</span> boundaries */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .nav-header {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 0 0 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-back {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">inline-<span style="color:#22863A;">block</span></span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 6px 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #6c757d;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: white;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-decoration</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: <span style="color:#005CC5;">background</span> 0.2s;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-back:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #5a6268;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; h2 {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #2c3e50;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 22px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 0 0 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; #drop-zone {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 2px dashed #007bff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #f8f9fa;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #495057;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 500;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: all 0.2s ease;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 0 0 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; #drop-zone.<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #e2f0d9;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #28a745;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .action-bar {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: <span style="color:#22863A;">flex</span>-start;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 0 0 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .workspace {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1 1 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">height</span>: 0; /* Critical for inner <span style="color:#22863A;">flex</span> scaling */
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .text-group {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1 1 50%; /* Splits the remaining space evenly between the two boxes */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">height</span>: 0; /* Prevents text boxes from expanding past their containers */
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .text-group label {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #495057;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 0 0 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .non-wrapping-box {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1 1 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">white-space</span>: <span style="color:#D73A49;">pre</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-x</span>: auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-y</span>: auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; word-wrap: <span style="color:#22863A;">normal</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: "Courier New", Courier, monospace;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ced4da;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #fafafa;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; resize: <span style="color:#22863A;font-style:italic;">none</span>; /* Disables manual sizing to preserve layout calculations */
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 600;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: <span style="color:#005CC5;">background</span> 0.2s;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-convert {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #007bff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: white;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-convert:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #0056b3;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-save {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #28a745;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: white;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-save:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #218838;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &lt;/style&gt;
+</span>&lt;/head&gt;
+&lt;body&gt;
+&nbsp; &nbsp; &lt;form id="form1" runat="server"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="container"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="nav-header"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="FilingCabinet.aspx" <span style="color:#D73A49;font-weight:bold;">class</span>="btn-back"&gt;← Back to Filing Cabinet&lt;/a&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h2&gt;URL to TXT Filename Converter&lt;/h2&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="drop-zone" title="Highlight and Drag Drop <span style="color:#6F42C1;">List</span> of URL files HERE"&gt;Drop URL Files Here&lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="action-bar"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-<span style="color:#6F42C1;">convert</span>" onclick="convertFileNames()" title="URL to TXT and Pretty Name <span style="color:#6F42C1;">Convert</span>"&gt;<span style="color:#6F42C1;">Convert</span> Names&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-save" onclick="downloadZipFile()" title="Download Empty Text File Archive"&gt;Download Zip&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="workspace"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="text-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtCurrent"&gt;Current File Names:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtCurrent" runat="server" TextMode="MultiLine" <span style="color:#D73A49;font-weight:bold;">class</span>="non-wrapping-box" Wrap="<span style="color:#22863A;font-weight:bold;">false</span>"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="text-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtConverted"&gt;Converted Names:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtConverted" runat="server" TextMode="MultiLine" <span style="color:#D73A49;font-weight:bold;">class</span>="non-wrapping-box" Wrap="<span style="color:#22863A;font-weight:bold;">false</span>"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &lt;/form&gt;
+
+
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;script type="text/javascript"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> dropZone = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('drop-zone');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> txtCurrent = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtCurrent.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> txtConverted = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtConverted.ClientID %&gt;');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.addEventListener(eventName, e =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopPropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, <span style="color:#22863A;font-weight:bold;">false</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; ['dragenter', 'dragover'].forEach(eventName =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.addEventListener(eventName, () =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.classList.add('hover');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, <span style="color:#22863A;font-weight:bold;">false</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; ['dragleave', 'drop'].forEach(eventName =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.addEventListener(eventName, () =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.classList.remove('hover');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, <span style="color:#22863A;font-weight:bold;">false</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; dropZone.addEventListener('drop', e =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> files = e.dataTransfer.files;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> currentContent = txtCurrent.value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#D73A49;font-weight:bold;">let</span> i = 0; i &lt; files.length; i++) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> name = files[i].name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (name.toLowerCase().endsWith('.url')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; name = name.substring(0, name.length - 4);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentContent += (currentContent ? '\n' : '') + name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtCurrent.value = currentContent;
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> convertFileNames() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> rawText = txtCurrent.value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!rawText.trim()) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> lines = rawText.split(/\r?\n/);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> processedLines = lines.map(line =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> s = line;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Strip out a leading <span style="color:#005CC5;">number</span> index wrapped <span style="color:#D73A49;">in</span> parentheses, like "(1) " or "( 20 )"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/^\(\s*\d+\s*\)\s*/g, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Remove the word "YouTube" completely, ignoring uppercase/lowercase differences
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/YouTube/gi, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Remove the word "Manhwa" completely, ignoring uppercase/lowercase differences
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/Manhwa/gi, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Remove the word "Recap" completely, ignoring uppercase/lowercase differences
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/Recap/gi, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Convert any pound/hashtag sign (#) to the literal word "<span style="color:#005CC5;">Number</span>"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/#/g, '<span style="color:#005CC5;">Number</span>');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Convert any ampersand <span style="color:#005CC5;">symbol</span> (&amp;) to the literal word "And"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/&amp;/g, 'And');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Replace any long chain of three or more consecutive periods (...) <span style="color:#D73A49;">with</span> a single hyphen
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/\.{3,}/g, '-');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Strip out everything except normal letters, numbers, spaces, periods, hyphens, and parentheses
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/[^\w\s\.\-\(\)]/g, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Capitalize the first letter of every single word and lowercase the rest (Title <span style="color:#D73A49;">Case</span> formatting)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/\b([a-zA-Z])([a-zA-Z0-9]*)\b/g, <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(match, first, rest) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> first.toUpperCase() + rest.toLowerCase();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Strip out exclamation points entirely
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/!/g, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Insert a clean space before the word "And" <span style="color:#D73A49;font-weight:bold;">if</span> it is stuck to the end of another word
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/([^\s])(And)\b/g, '$1 $2');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Insert a clean space before the word "<span style="color:#005CC5;">Number</span>" <span style="color:#D73A49;font-weight:bold;">if</span> it is stuck to the end of another word
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/([^\s])(<span style="color:#005CC5;">Number</span>)\b/g, '$1 $2');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Trim away any leftover trailing periods or hyphens from the end of the text <span style="color:#005CC5;font-weight:bold;">string</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/[\.\-]+$/g, '');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.trim();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Strip off a trailing hyphen <span style="color:#D73A49;font-weight:bold;">if</span> it has whitespace before it at the end of the line
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/\s+\-+$/g, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Double check and clean up any trailing periods or hyphens left over after the previous space adjustments
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/[\.\-]+$/g, '');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.trim();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> s;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtConverted.value = processedLines.join('\n');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> crcTable = [];
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#D73A49;font-weight:bold;">let</span> n = 0; n &lt; 256; n++) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> c = n;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#D73A49;font-weight:bold;">let</span> k = 0; k &lt; 8; k++) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; c = ((c &amp; 1) ? (0xEDB88320 ^ (c &gt;&gt;&gt; 1)) : (c &gt;&gt;&gt; 1));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; crcTable[n] = c;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> downloadZipFile() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> rawNames = txtConverted.value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!rawNames.trim()) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> fileNames = rawNames.split('\n').map(n =&gt; n.trim()).filter(n =&gt; n.length &gt; 0);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (fileNames.length === 0) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> zipParts = [];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> centralDirectoryParts = [];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> offset = 0;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#D73A49;font-weight:bold;">let</span> name of fileNames) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!name.toLowerCase().endsWith('.txt')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; name += '.txt';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> nameBytes = <span style="color:#D73A49;">new</span> TextEncoder().encode(name);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> nameLength = nameBytes.length;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> lfh = <span style="color:#D73A49;">new</span> ArrayBuffer(30);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> lfhView = <span style="color:#D73A49;">new</span> DataView(lfh);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint32(0, 0x04034b50, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint16(4, 10, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint16(6, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint16(8, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint16(10, 0x3600, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint16(12, 0x54B2, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint32(14, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint32(18, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint32(22, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint16(26, nameLength, <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lfhView.setUint16(28, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; zipParts.push(lfh, nameBytes);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> cdfh = <span style="color:#D73A49;">new</span> ArrayBuffer(46);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> cdfhView = <span style="color:#D73A49;">new</span> DataView(cdfh);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint32(0, 0x02014b50, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint16(4, 20, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint16(6, 10, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint16(8, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint16(10, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint16(12, 0x3600, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint16(14, 0x54B2, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint32(16, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint32(20, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint32(24, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cdfhView.setUint16(28, nameLength, <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; centralDirectoryParts.push(cdfh, nameBytes);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; offset += 30 + nameLength;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> cdOffset = offset;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> cdSize = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; centralDirectoryParts.forEach(p =&gt; cdSize += p.byteLength);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> eocd = <span style="color:#D73A49;">new</span> ArrayBuffer(22);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> eocdView = <span style="color:#D73A49;">new</span> DataView(eocd);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eocdView.setUint32(0, 0x06054b50, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eocdView.setUint16(4, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eocdView.setUint16(6, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eocdView.setUint16(8, fileNames.length, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eocdView.setUint16(10, fileNames.length, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eocdView.setUint32(12, cdSize, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eocdView.setUint32(16, cdOffset, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; eocdView.setUint16(20, 0, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> finalBlob = <span style="color:#D73A49;">new</span> Blob([...zipParts, ...centralDirectoryParts, eocd], { type: 'application/zip' });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> ('showSaveFilePicker' <span style="color:#D73A49;">in</span> <span style="color:#6F42C1;font-weight:bold;">window</span>) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> handle = <span style="color:#D73A49;font-weight:bold;">await</span> <span style="color:#6F42C1;font-weight:bold;">window</span>.showSaveFilePicker({
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suggestedName: 'Converted_Text_Files.zip',
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; types: [{
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; description: 'ZIP Archive',
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; accept: { 'application/zip': ['.zip'] }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }]
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> writable = <span style="color:#D73A49;font-weight:bold;">await</span> handle.createWritable();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">await</span> writable.write(finalBlob);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">await</span> writable.close();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.log('User closed or cancelled save <span style="color:#6F42C1;font-weight:bold;">window</span>');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> url = URL.createObjectURL(finalBlob);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> a = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement('a');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; a.href = url;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; a.download = 'Converted_Text_Files.zip';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; a.click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; URL.revokeObjectURL(url);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &lt;/script&gt;
+</span>&lt;/body&gt;
+        &lt;/html&gt;</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

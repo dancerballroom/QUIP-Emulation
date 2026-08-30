@@ -1,0 +1,639 @@
+<!doctype html>
+<html><head><title>Shopping List - 03/18/2022</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+</style></head><body><h1 id='temp:C:eUc752afac00fcc488687a67cebd'>Shopping List - 03/18/2022</h1>
+
+Meals:   <control data-remapped="true" id="temp:C:eUc0e4a638687b546ab87f4e75d2"><a href="https://quip.com/Non7A5l5B45b">Best Ambrosia Salad</a></control>, <control data-remapped="true" id="temp:C:eUc21fc46c41b274a3ea2d9dc4b0"><a href="https://quip.com/kbCiANLqhNJr">Reuben  Sandwich</a></control>, <control data-remapped="true" id="temp:C:eUc313a197ed205418eba49fb2bf"><a href="https://quip.com/FKKFADbBjAdc">Larry's Taco Salad (Tom &amp; Edna's mod)</a></control><br/>
+
+Route:  Bank(Larry:$360, Judith(5 X $20 AND 10 X $5)), Gas, FoodMaxx<br/>
+
+<div class="" style="" data-section-style='7'><ul id='temp:C:eUc92960aadc9304539a94c92387'><ul><li id='temp:C:eUca1870d5dc01245ad9c88b517e' class='parent' value='1'><b>Meat / Deli / Spices / Bread / PB&amp;J </b>
+
+<br/></li><ul><li id='temp:C:eUc2a228396d3af4919ba3452eaf' class=''>2 lbs. Ground Beef
+
+<br/></li></ul><li id='temp:C:eUc695b1719702e48f4814274198' class='parent'><b>Dairy / Cheese / Milk / Creamer</b>
+
+<br/></li><ul><li id='temp:C:eUcd8b4e43a929548568719cb497' class=''>Cheese, Mixed, 32 ozs.
+
+<br/></li><li id='temp:C:eUc9f9d5830e647417395749216a' class=''>Swiss Cheese
+
+<br/></li><li id='temp:C:eUc963d48d490c04aa291fb509fc' class=''>1 Large or 2 small Sour Cream
+
+<br/></li><li id='temp:C:eUcfab955c77b264b689795f9c37' class=''>Butter
+
+<br/></li><li id='temp:C:eUca15a1848fc454c0e9f2908f2f' class=''>Milk
+
+<br/></li><li id='temp:C:eUccbb401968d9e4145879c9bb22' class=''>18 Eggs
+
+<br/></li><li id='temp:C:eUc5399d058f68645899f69f9259' class=''>Creamers
+
+<br/></li></ul><li id='temp:C:eUcdb85326b6146437ebfdde6906' class='parent'><b>Cans / Jars / Boxes / Bars / Bottles / Bags </b>
+
+<br/></li><ul><li id='temp:C:eUc8e0f6f4dfd5b46589830068c6' class=''>1 Large Pace Chunky Salsa
+
+<br/></li><li id='temp:C:eUc9f04f1b832f043debfd6346db' class=''>1 Sauerkraut
+
+<br/></li><li id='temp:C:eUc5672566e382041e89a828eae9' class=''>1 Can Garbanzo Beans
+
+<br/></li><li id='temp:C:eUc29d6b2aaf81d4d7e96dfd49ac' class=''>1 Can Kidney Beans
+
+<br/></li><li id='temp:C:eUc35791de60efb47acac96c2e72' class=''>1 Can Other Beans
+
+<br/></li></ul><li id='temp:C:eUcc39fb426cbc346a4bd82924c7' class='parent'><b>Vegetables / Fruits / Frozen</b>
+
+<br/></li><ul><li id='temp:C:eUc899faa42b7d04397a76a8a75c' class=''>Bananas
+
+<br/></li><li id='temp:C:eUcf63e4b10c9da40e28136993f4' class=''>1 Grapefruit, Pink
+
+<br/></li><li id='temp:C:eUc75240c7eb50a4c1a8cc066ba2' class=''>Mandarin Oranges, 11 oz.
+
+<br/></li><li id='temp:C:eUc22a95b41d25d49a88fb8ef467' class=''>Maraschino Cherries, 10 oz.
+
+<br/></li><li id='temp:C:eUcb02262a8546d43cda74375a01' class=''>2 Green Onions
+
+<br/></li><li id='temp:C:eUcfed01913e9a243238940ce46d' class=''>2 Green Peppers
+
+<br/></li><li id='temp:C:eUca09197d6b7bb469d81db2be9d' class=''>2 Red Peppers
+
+<br/></li><li id='temp:C:eUcdc843b36d0254e0181e5db7d0' class=''>Poblano Pepper
+
+<br/></li></ul><li id='temp:C:eUcc1ea784af3a4442485a080961' class='parent'><b>Miscellaneous</b>
+
+<br/></li><ul><li id='temp:C:eUcc3c9dc04d58d4274bbde849ac' class=''>Large Boxes of Tissues
+
+<br/></li></ul></ul></ul></div>HOME:<br/>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:eUca5a1cc3a961546369a5a88149'><li id='temp:C:eUc7adbd9436ed2436290806454c' class='' value='1'>Apple Juice
+
+<br/></li><li id='temp:C:eUc961ca538db8a47719b1baee61' class=''>Sour Cream
+
+<br/></li><li id='temp:C:eUcac8b90173cce4ad9a4dddbd79' class=''>Horse Radish
+
+<br/></li><li id='temp:C:eUc641300c1b1be4b1594b1a1982' class=''>Corned Beef Brisket
+
+<br/></li><li id='temp:C:eUc8a66242881f9434fb1c996e8d' class=''>Cabbage
+
+<br/></li></ul></div><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<div class="" style="" data-section-style='7'><ul id='temp:C:eUc481c9d1641924fcdb0df0ebd5'><li id='temp:C:eUc2fe4559b6a974b84bfb2f9484' class='' value='1'>2 Family Sized Tortilla Chips
+
+<br/></li><li id='temp:C:eUc5eaa363b3ef24bd1949be3fff' class=''>1 Regular and 1 Small Mayonnaise
+
+<br/></li><li id='temp:C:eUcb12155e48b1443ddb16080e79' class=''>1 Regular and 1 Small Ketchup
+
+<br/></li><li id='temp:C:eUc0ae9f74642ca43a5a8cc38a14' class=''>1 Cup Coconut
+
+<br/></li><li id='temp:C:eUc1b9fa1033b504b58906898330' class=''>2 Cups Marshmallows
+
+<br/></li><li id='temp:C:eUcbe5d2da9cb184a91b9602d2c3' class='parent'>3/4 cup Chopped Nuts 
+
+<br/></li><ul><ul><li id='temp:C:eUc9c7eb0ee2e6b4cd883f995dcb' class=''>(Pecans, Walnuts, Cashews)
+
+<br/></li></ul></ul><li id='temp:C:eUc3b9d39ec9d31438e813e9efc5' class=''>2 Red Onions
+
+<br/></li><li id='temp:C:eUca5f77932b54343e1b245ab422' class=''>1 Large Head Napa Cabbage
+
+<br/></li><li id='temp:C:eUcb0521b338a0f4503b53b0b5e9' class=''>Cilantro
+
+<br/></li><li id='temp:C:eUc9827438cd10242929190143e5' class=''>2 Large Cool Whip
+
+<br/></li><li id='temp:C:eUc0ec6f57dcc324c7cbe872ab43' class=''>Vanilla Ice Cream
+
+<br/></li></ul></div><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

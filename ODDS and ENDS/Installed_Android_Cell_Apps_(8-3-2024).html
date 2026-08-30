@@ -1,0 +1,514 @@
+<!doctype html>
+<html><head><title>Installed Android Cell Apps (8-3-2024)</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:ZWG3b0e6ba2352a4e888f5d99848'>Installed Android Cell Apps (8-3-2024)</h1>
+
+#Messages  com.chating.messages.chat.fun <br/>
+
+<br/>
+
+<pre id='temp:C:ZWG32b1532b665c48debe76ffc0a'>7-Eleven  com.sei.android<br><span bgcolor="#afefa9" style="background-color:#afefa9">@Voice Aloud Reader  com.hyperionics.avar </span><br>@Voice Floating Button  com.hyperionics.avarfloatbtn <br>@Voice License  com.hyperionics.avarLic <br>@Voice Network Libraries Plugin  com.hyperionics.avarcatalogs <br>Alexa Commands  com.sdeteam.asa2 <br>Amazon Alexa  <a href="http://com.amazon.dee.app">com.amazon.dee.app</a> <br>Amazon Shopping  com.amazon.mShop.android.shopping <br>AppHub  com.applovin.array.apphub.tmobile <br>ARingtones &amp; Wallpapers - RingWall  freeringtonesforandroid.bestringtoneapp.ringtone  - (HappyMod)<br>Battery Widget  com.yuandroid.Battery.Widget <br>Battery Widget  de.lazyheroproductions.batterywidget <br>Big Ben PLUS  com.phonegap.bigbenplus <br>ButteCounty  com.publicstuff.butte_county_ca <br>Calendar  com.google.android.calendar <br>Camera  panorama.filter.selfie.hd.camera <br>Canon PRINT Business  jp.co.canon.oip.android.opal <br>Canon Print Service  jp.co.canon.android.printservice.plugin <br>Cinema HD V2  com.yoku.marumovie - (From Web)<br>ColoringBook+  pl.ayground.coloringbook.plus <br>DiskUsage  com.google.android.diskusage <br>Docs  com.google.android.apps.docs.editors.docs <br>DoubleMap  com.doublemap.iu <br>Drive  com.google.android.apps.docs <br>Drives  com.mobile_infographics_tools.mydrive <br>DroidCam  com.dev47apps.obsdroidcam <br>eMoods  my.tracker <br>Evie  com.lenntt.evoicereader  - (HappyMod)<br>Facebook  com.facebook.katana <br>FaxBurner  com.faxburner.faxburner_sendreceivefaxes <br>File Manager - XFolder  files.fileexplorer.filemanager <br>Files  com.marc.files <br>Fire TV  com.amazon.storm.lightning.client.aosp <br>FireTV Remote  com.smarttv.firesticktv.remote <br>Folder Server  com.hardcodedjoy.folderserver <br>FoxFi  com.foxfi FoxFi Key  com.foxfi.key <br><span bgcolor="#afefa9" style="background-color:#afefa9">Frontline Wildfire Defense</span>  com.firefriends.frontline (Fire App)<br><span bgcolor="#afefa9" style="background-color:#afefa9">Gboard</span>  com.google.android.inputmethod.latin (Google Keyboard)<br><span bgcolor="#afefa9" style="background-color:#afefa9">HappyMod</span>  com.happymod.apk <br><span bgcolor="#afefa9" style="background-color:#afefa9">Hex Shaders Premium</span>  ru.serjik.hexshaders.premium (PAID)<br>Home  <a href="http://com.google.android.apps.chromecast.app">com.google.android.apps.chromecast.app</a> <br>Hybrid Stopwatch &amp; Timer  com.hybrid.stopwatch <br>Jellyfin  org.jellyfin.mobile <br><span bgcolor="#afefa9" style="background-color:#afefa9">Lens</span><span bgcolor="#afefa9" style="background-color:#afefa9">  </span>com.google.ar.lens  (Nifty Functions)<br>List My Apps  de.onyxbits.listmyapps <br>Live Transcribe &amp; Sound Notifications  com.google.audio.hearing.visualization.accessibility.scribe <br>Mandala Maker 360  app.bhupesh.mandalamaker360 <br>Maverik Rewards  com.maverik.rewards <br>Messages  com.google.android.apps.messaging <br>Messenger  com.facebook.orca <br>Microphone  net.bitplane.android.microphone <br>MP3 Cutter &amp; Ringtone Maker  ringtone.maker.mp3.cutter.audio <br>Music Folder Player Full  de.zorillasoft.musicfolderplayer.donate <br>Music Volume EQ  hr.podlanica myAir  com.resmed.myair <br>NeonBrush  app.website.addquick.neoneffect <br>No Screen Off  com.k2.no.screen.off <br>Nova Launcher  com.teslacoilsw.launcher <br><span bgcolor="#afefa9" style="background-color:#afefa9">Nova Launcher Prime</span>  com.teslacoilsw.launcher.prime (Screen MGR)<br>NPR  org.npr.android.news <br>One Touch Megaphone  com.petenotpete.myapplication <br>Paint  com.tieu.thien.paint  - (HappyMod)<br>Paint By Number Pro  com.mixaimaging.paintbynumberpro <br>Pandora  com.pandora.android <br>PaperDraw  com.eyewind.paperone <br>Pari Digital Clock  com.prashant.paridigitalclock <br>PdaNet+  com.pdanet <br>Perfect Video Timer  com.lunopix.perfectvideotimer <br>Photos  com.google.android.apps.photos <br>Pinterest  com.pinterest <br>Plex  com.plexapp.android <br>Pluto TV  tv.pluto.android <br>QR Scanner  com.teacapps.barcodescanner <br>QuickEdit+  <a href="http://com.rhmsoft.edit.pro">com.rhmsoft.edit.pro</a> <br>Radio Garden  com.jonathanpuckey.radiogarden <br>Rainbow Draw Doodle  your.leellc.rainbow.draw <br>Raleys  com.raleys.app.android <br>Reddit  com.reddit.frontpage <br>Relaxing Sleep Sounds PRO  com.turtleapps.relaxingsleepsoundspro <br>Rewards+  com.metro.minus1 <br>SamsungTTS French Female  com.samsung.SMT.lang_fr_fr_f00 <br>SamsungTTS French Male  com.samsung.SMT.lang_fr_fr_m00 SamsungTTS <br>German Female  com.samsung.SMT.lang_de_de_f00 SamsungTTS <br>German Male  com.samsung.SMT.lang_de_de_m00 <br>SamsungTTS Italian Female  com.samsung.SMT.lang_it_it_f00 <br>SamsungTTS Italian Male  com.samsung.SMT.lang_it_it_m00 <br>SamsungTTS Spanish Female  com.samsung.SMT.lang_es_es_f00 <br>SamsungTTS Spanish Male  com.samsung.SMT.lang_es_es_m00 <br>Scam Shield  com.tmobile.services.nameid <br>Screenshot Quick  com.dmtech.screenshotquick <br><span bgcolor="#afefa9" style="background-color:#afefa9">Shortcut Maker</span>  rk.android.app.shortcutmaker <br>Sketch Photo  com.aerotools.photo.sketch.maker.editor <br>Sound Recorder  com.alarm.app.alarmkotlin <br>Space Clock Live Wallpaper  tmlmng.lwp.rusflwb <br><span bgcolor="#afefa9" style="background-color:#afefa9">SumSudoku</span>  com.conceptispuzzles.sumsudoku  - (HappyMod)<br>T2S  hesoft.T2S <br><span bgcolor="#afefa9" style="background-color:#afefa9">Tape-a-Talk</span>  name.markus.droesser.tapeatalk (Paid)<br>Ten Percent  com.changecollective.tenpercenthappier <br>Text On Photo  com.text.art.addtext.textonphoto <br>Text2Mp3Free  text2mp3.free <br>Translate  com.google.android.apps.translate <br>Tubi  com.tubitv <br>Voice Translator  com.hawsoft.mobile.speechtrans <br>Watch Duty  <a href="http://org.watchduty.app">org.watchduty.app</a> <br>WAV editor  grant.wav.to.mp3 <br>Weather Pro  com.tohsoft.app.pro.weather.forecast <br>Web Shortcut Maker  com.light.webshortcutmaker <br>X  com.twitter.android <br>Xumo Play  com.xumo.xumo <br><span bgcolor="#afefa9" style="background-color:#afefa9">YouCut</span> - Video Editor  com.camerasideas.trimmer  - (HappyMod)<br>Zedge  net.zedge.android - (HappyMod)</pre>
+
+<br/>
+
+</body></html>

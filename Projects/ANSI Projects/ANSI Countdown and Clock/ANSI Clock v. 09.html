@@ -1,0 +1,508 @@
+<!doctype html>
+<html><head><title>ANSI Clock v. 09</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:TIcd3f46adb2db143ba92007028f'>ANSI Clock v. 09</h1>
+
+<pre id='temp:C:TIccc24af68650049928586dd3c6'>@echo off<br>setlocal EnableDelayedExpansion<br><br>REM NEXT:<br>REM 1.  ADD Count Down Timer<br><br>:TOP<br>REM TIME for TIME<br>set "currentTime=%TIME: =0%"<br>set "HH=!currentTime:~0,2!"<br>set "MM=!currentTime:~3,2!"<br>set "SS=!currentTime:~6,2!"<br>:: Extract LH and RH<br>set "LH=!HH:~0,1!"<br>set "RH=!HH:~1,1!"<br><br>:: Extract LM and RM<br>set "LM=!MM:~0,1!"<br>set "RM=!MM:~1,1!"<br><br>:: Extract LM and RM<br>set "LS=!SS:~0,1!"<br>set "RS=!SS:~1,1!"<br><br>:: Extract AM or PM<br>:: Get AM/PM indicator using WMIC<br>for /f "tokens=2 delims==" %%A in ('wmic os get LocalDateTime /value ^| find "LocalDateTime"') do set "dt=%%A"<br>set "ampm="<br>if %dt:~8,2% GEQ 12 set "ampm=PM"<br>if %dt:~8,2% LSS 12 set "ampm=AM"<br><br>CALL :setESC<br>REM CALL :setPOS<br>REM Pause<br>REM Proposed Change:<br>REM setPos x (1,20):(40,60):(80,100)<br>REM     set "ABS_1=%ESC%[x;1H"<br>REM     set "ABS_2=%ESC%[x;1H"<br>REM     set "ABS_3=%ESC%[x;1H"<br>REM     set "ABS_4=%ESC%[x;1H"<br>REM     set "ABS_5=%ESC%[x;1H"<br>REM     set "ABS_6=%ESC%[x;1H"<br>REM     set "ABS_7=%ESC%[x;1H"<br>REM     set "ABS_8=%ESC%[x;1H"<br>REM     set "ABS_9=%ESC%[x;1H"<br>REM LATER<br>REM CALL :ONE<br>REM <br>REM :ONE<br>REM Echo %ABS_1%%S%         _        %P%<br>REM Echo %ABS_2%%S%      _ (_)       %P%<br>REM Echo %ABS_3%%S%     (_)(_)       %P%<br>REM Echo %ABS_4%%S%        (_)       %P%<br>REM Echo %ABS_5%%S%        (_)       %P%<br>REM Echo %ABS_6%%S%        (_)       %P%<br>REM Echo %ABS_7%%S%      _ (_) _     %P%<br>REM Echo %ABS_8%%S%     (_)(_)(_)    %P%<br>REM Echo %ABS_9%%S%                  %P%<br>REM Exit /B<br>set "ABS_TO=%ESC%[6;1H"<br><br>REM ****************************************************<br>REM NEXT:<br>REM use LH, RH, LM, RM, and LS, RS to Choose the CALL<br>REM  CHOICE or IF or OTHER ENUM<br>REM ****************************************************<br><br>CALL :setPOS 2<br>CALL :!LH!<br>REM TIMEOUT /T 1<br><br>CALL :setPOS 10<br>CALL :!RH!<br>REM TIMEOUT /T 1<br><br>CALL :setPOS 18<br>CALL :COLON<br><br>REM TIMEOUT /T 1<br><br>CALL :setPOS 22<br>CALL :!LM!<br><br>CALL :setPOS 29<br>CALL :!RM!<br><br>CALL :setPOS 37<br>CALL :COLON<br>REM TIMEOUT /T 1<br><br>CALL :setPOS 41<br>CALL :!LS!<br>REM TIMEOUT /T 1<br><br>CALL :setPOS 48<br>CALL :!RS!<br>REM TIMEOUT /T 1<br><br>CALL :setPOS 56<br>CALL :SPACE<br><br>CALL :setPOS 61<br>CALL :!ampm!<br>REM CALL :setPOS 110<br>REM CALL :FOUR<br>REM Pause<br><br>Echo %ABS_TO%<br>TIMEOUT /T 1<br>goto :TOP<br><br>REM TIMEOUT /T 1<br>REM Pause<br>REM CALL :setPOS 1<br>REM CALL :THREE<br>REM REM TIMEOUT /T 1<br>REM <br>REM CALL :setPOS 20<br>REM CALL :TWO<br>REM REM TIMEOUT /T 1<br>REM <br>REM CALL :setPOS 40<br>REM CALL :ONE<br>REM REM TIMEOUT /T 1<br>REM <br>REM CALL :setPOS 60<br>REM CALL :ZERO<br>REM Echo %ABS_TO%<br><br>REM Echo %ABS2_31%%SP%<br>REM CALL :ONE<br><br>REM Echo %ABS2_41%%SP%<br>REM CALL :ONE<br><br><br>REM Echo %ABS2_1%%S%%S%<br>REM Echo %ABS2_21%%S%%S%<br>REM Echo %ABS2_41%%S%%S%<br>REM Echo %ABS2_61%%S%%S%<br><br>REM Echo %RT%1. RIGHT<br>REM Echo %RT%%DN%2. RIGHT DOWN<br>REM Echo %RT%%RT%%DN%%DN%3. RIGHT RIGHT DOWN DOWN<br>REM Echo %RP% 4. Restore Position<br><br>REM TIMEOUT /T 5<br><br>:setESC<br><br>for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# &amp; echo on &amp; for %%b in (1) do REM #"') do (<br>  set ESC=%%b<br>  exit /B 0<br>)<br>exit /B 0<br><br>:setPOS<br>REM Pause<br>REM Echo %~1<br>set "ABS_1=%ESC%[1;%~1H"<br>set "ABS_2=%ESC%[2;%~1H"<br>set "ABS_3=%ESC%[3;%~1H"<br>set "ABS_4=%ESC%[4;%~1H"<br>set "ABS_5=%ESC%[5;%~1H"<br><br>REM set "UP=%ESC%[1A"<br>REM set "DN=%ESC%[1B"<br>REM set "RT=%ESC%[1C"<br>REM set "LT=%ESC%[1D"<br>REM set "SP=%ESC%[s"<br>REM set "RP=%ESC%[u"<br>REM set "ABS2_1=%ESC%[2;1H"<br>REM set "ABS2_11=%ESC%[2;11H"<br>REM set "ABS2_21=%ESC%[2;21H"<br>REM set "ABS2_31=%ESC%[2;31H"<br>REM set "ABS2_41=%ESC%[2;41H"<br>REM set "ABS_TO=%ESC%[20;6H"<br>REM Strong Background RED<br>set "SR=%ESC%[100m"<br>REM Strong Background GREEN<br>set "SG=%ESC%[102m"<br>REM Strong Background YELLOW<br>set "SY=%ESC%[103m"<br>REM Strong Background BLUE<br>set "SB=%ESC%[104m"<br>REM BOLD<br>set "BO=%ESC%[1m"<br>REM RED<br>set "RE=%ESC%[101m"<br>REM GREEN<br>set "GR=%ESC%[32m%ESC%[47m"<br>REM YELLOW<br>set "YE=%ESC%[33m"<br>REM BLUE<br>set "BL=%ESC%[104m"<br>REM MAGENTA<br>set "MA=%ESC%[35m"<br>REM CYAN<br>set "CY=%ESC%[36m"<br>REM WHITE<br>set "WH=%ESC%[37m"<br>REM INVERTED<br>set "S=%ESC%[7m"<br>REM RESET<br>set "P=%ESC%[0m"<br>exit /B<br><br>:SPACE<br>Echo %ABS_1%%S%     %P%<br>Echo %ABS_2%%S%     %P%<br>Echo %ABS_3%%S%     %P%<br>Echo %ABS_4%%S%     %P%<br>Echo %ABS_5%%S%     %P%<br>Exit /B<br><br>:1<br>Echo %ABS_1%%S%%BO%%CY%   __   %P%<br>Echo %ABS_2%%S%%BO%%CY%  /  )  %P%<br>Echo %ABS_3%%S%%BO%%CY%   )(   %P%<br>Echo %ABS_4%%S%%BO%%CY%  (__)  %P%<br>Echo %ABS_5%%S%%BO%%CY%        %P%<br>Exit /B<br><br>:2<br>Echo %ABS_1%%S%%BO%%RE%  ___   %P%<br>Echo %ABS_2%%S%%BO%%RE% (__ \  %P%<br>Echo %ABS_3%%S%%BO%%RE%  / _/  %P%<br>Echo %ABS_4%%S%%BO%%RE% (____) %P%<br>Echo %ABS_5%%S%%BO%%RE%        %P%<br>Exit /B<br>:3<br>Echo %ABS_1%%S%%BO%%GR%   ___  %P%<br>Echo %ABS_2%%S%%BO%%GR%  (__ ) %P%<br>Echo %ABS_3%%S%%BO%%GR%   (_ \ %P%<br>Echo %ABS_4%%S%%BO%%GR%  (___/ %P%<br>Echo %ABS_5%%S%%BO%%GR%        %P%<br>Exit /B<br>:4<br>Echo %ABS_1%%S%%BO%   __   %P%<br>Echo %ABS_2%%S%%BO%  /. ^|  %P%<br>Echo %ABS_3%%S%%BO% (_  _) %P%<br>Echo %ABS_4%%S%%BO%   (_)  %P%<br>Echo %ABS_5%%S%%BO%        %P%<br>Exit /B<br>:5<br>Echo %ABS_1%%S%%BO%%BL%   ___  %P%<br>Echo %ABS_2%%S%%BO%%BL%  ^| __) %P%<br>Echo %ABS_3%%S%%BO%%BL%  ^|__ \ %P%<br>Echo %ABS_4%%S%%BO%%BL%  (___/ %P%<br>Echo %ABS_5%%S%%BO%%BL%        %P%<br>Exit /B<br>:6<br>Echo %ABS_1%%S%%BO%%WH%   _    %P%<br>Echo %ABS_2%%S%%BO%%WH%  / )   %P%<br>Echo %ABS_3%%S%%BO%%WH% / _ \  %P%<br>Echo %ABS_4%%S%%BO%%WH% \___/  %P%<br>Echo %ABS_5%%S%%BO%%WH%        %P%<br>Exit /B<br>:7<br>Echo %ABS_1%%S%%SB%%BO%   ___  %P%<br>Echo %ABS_2%%S%%SB%%BO%  (__ ) %P%<br>Echo %ABS_3%%S%%SB%%BO%   / /  %P%<br>Echo %ABS_4%%S%%SB%%BO%  (_/   %P%<br>Echo %ABS_5%%S%%SB%%BO%        %P%<br>Exit /Bd<br>:8<br>Echo %ABS_1%%S%%BO%   ___  %P%<br>Echo %ABS_2%%S%%BO%  ( _ ) %P%<br>Echo %ABS_3%%S%%BO%  / _ \ %P%<br>Echo %ABS_4%%S%%BO%  \___/ %P%<br>Echo %ABS_5%%S%%BO%        %P%<br>Exit /B<br>:9<br>Echo %ABS_1%%S%%BO%%YE%   ___  %P%<br>Echo %ABS_2%%S%%BO%%YE%  / _ \ %P%<br>Echo %ABS_3%%S%%BO%%YE%  \_  / %P%<br>Echo %ABS_4%%S%%BO%%YE%   (_/  %P%<br>Echo %ABS_5%%S%%BO%%YE%        %P%<br>Exit /B<br>:0<br>Echo %ABS_1%%S%   ___  %P%<br>Echo %ABS_2%%S%  / _ \ %P%<br>Echo %ABS_3%%S% ( (_) )%P%<br>Echo %ABS_4%%S%  \___/ %P%<br>Echo %ABS_5%%S%        %P%<br>Exit /B<br>:COLON<br>Echo %ABS_1%%S%%SG%    %P%<br>Echo %ABS_2%%S%%SG% () %P%<br>Echo %ABS_3%%S%%SG%    %P%<br>Echo %ABS_4%%S%%SG% () %P%<br>Echo %ABS_5%%S%%SG%    %P%<br>Exit /B<br>:AM<br>Echo %ABS_1%%BO%%SR%   __    __  __  %P%<br>Echo %ABS_2%%BO%%SR%  /__\  (  \/  ) %P%<br>Echo %ABS_3%%BO%%SR% /(__)\  )    (  %P%<br>Echo %ABS_4%%BO%%SR%(__)(__)(_/\/\_) %P%<br>Echo %ABS_5%%BO%%SR%                 %P%<br>Exit /B<br>:PM<br>Echo %ABS_1%%SR%  ____   __  __  %P%<br>Echo %ABS_2%%SR% (  _ \ (  \/  ) %P%<br>Echo %ABS_3%%SR%  )___/  )    (  %P%<br>Echo %ABS_4%%SR% (__)   (_/\/\_) %P%<br>Echo %ABS_5%%SR%                 %P%<br>Exit /B<br><br>REM # Absolute Positioning<br>REM # Moves the cursor to a specific row and column <br>REM # (1-indexed, where 1,1 is the top-left corner).<br>REM # Format: ESC[&lt;row&gt;;&lt;column&gt;H <br>REM # or <br>REM # ESC[&lt;row&gt;;&lt;column&gt;f<br><br>REM # Examples:<br>REM # \033[10;20H <br>REM # moves the cursor to row 10, column 20.<br>REM # \033[H (or \033[1;1H) <br>REM # moves the cursor to the home position (0, 0).<br>     <br>REM # Relative Positioning<br>REM #      Moves the cursor a given number of cells <br>REM #         (\(N\)) from its current location.<br>REM #       Up: <br>REM #         ESC[&lt;N&gt;A<br>REM #        Down: <br>REM #          ESC[&lt;N&gt;B<br>REM #        Forward (Right): <br>REM #          ESC[&lt;N&gt;C<br>REM #        Backward (Left): <br>REM #          ESC[&lt;N&gt;D<br>REM # Save &amp; Restore<br>REM #        Saves the current cursor position <br>REM #        so you can return to it later.<br>     <br>REM #        Save Position: <br>REM #          \033[s (or \0337)<br>     <br>REM #        Restore Position: <br>REM #          \033[u (or \0338)<br>     <br>REM # Query Position<br>REM #        Asks the terminal emulator <br>REM #        to report the current cursor position <br>REM #        back to standard input.<br>     <br>REM #        Report Sequence: <br>REM #          \033[6n<br>     <br>REM #        Note: When the terminal replies, <br>REM #              it sends the response back to your program <br>REM #            in the format <br>REM #        \033[&lt;row&gt;;&lt;column&gt;R.</pre>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/TIcAAAAs3TB/nr5AXy97j9rkNQJ0OVXxTA?a=aFeHaxHR7UK02k21x8y1A9imq9375M2znkadGosDRMEa' id='temp:C:TIc3e12256f6c154fc880678feb5' width='800' height='214' alt="ANSI Clock V9.jpg"></img></div></body></html>

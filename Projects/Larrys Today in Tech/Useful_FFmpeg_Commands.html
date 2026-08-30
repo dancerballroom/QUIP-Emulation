@@ -1,0 +1,647 @@
+<!doctype html>
+<html><head><title>Useful FFmpeg Commands</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+</style></head><body><h1 id='RMXACAcIJMs'>Useful FFmpeg Commands</h1>
+
+<h2 id='RMXACAhWNnI'>Useful FFmpeg Commands</h2>
+
+<h2 id='RMXACAjbz0L'>FFmpeg supports all popular audio and video formats. Or you can running the command <i>./ffmpeg -formats</i> to get a list of every format that is supported by your FFmpeg installation. If you are just getting started, here are some commands that will give you good idea of the capabilities of this tool.</h2>
+
+<h1 id='RMXACAU4nYf'>1. Cut video file into a smaller clip</h1>
+
+<h2 id='RMXACAiKZjf'>You can use the time offset parameter (-ss) to specify the start time stamp in HH:MM:SS.ms format while the -t parameter is for specifying the actual duration of the clip in seconds.</h2>
+
+<pre id='RMXACAhN4H0'>ffmpeg -i input.mp4 -ss 00:00:50.0 -codec copy -t 20 output.mp4</pre>
+
+<h1 id='RMXACAB70HX'>2. Split a video into multiple parts</h1>
+
+<h2 id='RMXACAJel2y'>If you want to split a large video into multiple smaller clips without re-encoding, ffmpeg can help. This command will split the source video into 2 parts – one ending at 50s from the start and the other beginning at 50s and ending at the end of the input video.</h2>
+
+<pre id='RMXACAmaRK8'>ffmpeg -i video.mp4 -t 00:00:50 -c copy small-1.mp4 -ss 00:00:50 -codec copy small-2.mp4</pre>
+
+<h1 id='RMXACAwUoAJ'>3. Convert video from one format to another</h1>
+
+<h2 id='RMXACAQ1ety'>You can use the -vcodec parameter to specify the encoding format to be used for the output video. Encoding a video takes time but you can speed up the process by forcing a preset though it would degrade the quality of the output video.</h2>
+
+<pre id='RMXACATrpUk'>ffmpeg -i youtube.flv -c:v libx264 filename.mp4<br>ffmpeg -i video.wmv -c:v libx264 -preset ultrafast video.mp4</pre>
+
+<h1 id='RMXACABO3We'>4. Join (concatenate) video files</h1>
+
+<h2 id='RMXACAPk1aS'>If you have multiple audio or video files encoded with the same codecs, you can join them into a single file using FFmpeg. Create a input file with a list of all <a href="https://ffmpeg.org/trac/ffmpeg/wiki/How%20to%20concatenate%20%28join,%20merge%29%20media%20files">source files</a> that you wish to concatenate and then run this command.</h2>
+
+<pre id='RMXACA7QFzd'>ffmpeg -f concat -i file-list.txt -c copy output.mp4</pre>
+
+<h1 id='RMXACAxW1kN'>5. Mute a video (Remove the audio component)</h1>
+
+<h2 id='RMXACAZlvXn'>Use the -an parameter to disable the audio portion of a video stream.</h2>
+
+<pre id='RMXACARTaMD'>ffmpeg -i video.mp4 -an mute-video.mp4</pre>
+
+<h3 id='RMXACAU35j0'>6. Extract the audio from video</h3>
+
+<h2 id='RMXACAyDl1w'>The -vn switch extracts the audio portion from a video and we are using the -ab switch to save the audio as a 256kbps MP3 audio file.</h2>
+
+<pre id='RMXACAlEiPJ'>ffmpeg -i video.mp4 -vn -ab 256 audio.mp3</pre>
+
+<h3 id='RMXACA3uJxN'>7. Convert a video into animated GIF</h3>
+
+<h2 id='RMXACA59SYu'>FFmpeg is an excellent tool for converting videos into <a href="https://www.labnol.org/software/video-demo-with-animated-gif/28095/">animated GIFs</a> and the quality isn’t bad either. Use the scale filter to specify the width of the GIF, the -t parameter specific the duration while -r specifies the frame rate (fps).</h2>
+
+<pre id='RMXACAw13Uj'>ffmpeg -i video.mp4 -vf scale=500:-1 -t 10 -r 10 image.gif</pre>
+
+<h1 id='RMXACA3d4dg'>8. Extract image frames from a video</h1>
+
+<h2 id='RMXACAEhg02'>This command will extract the video frame at the 15s mark and saves it as a 800px wide JPEG image. You can also use the -s switch (like -s 400×300) to specify the exact dimensions of the image file though it will probably create a stretched image if the image size doesn’t follow the aspect ratio of the original video file.</h2>
+
+<pre id='RMXACAIFZSA'>ffmpeg -ss 00:00:15 -i video.mp4 -vf scale=800:-1 -vframes 1 image.jpg</pre>
+
+<h1 id='RMXACAq8Y47'>9. Convert Video into Images</h1>
+
+<h2 id='RMXACAahlUR'>You can use FFmpeg to automatically <a href="https://www.labnol.org/software/extract-image-frames-from-video/18137/">extract image frames</a> from a video every ‘n’ seconds and the images are saved in a sequence. This command saves image frame after every 4 seconds.</h2>
+
+<pre id='RMXACALk3JV'>ffmpeg -i movie.mp4 -r 0.25 frames_%04d.png</pre>
+
+<h1 id='RMXACAcUGe4'>10. Merge an audio and video file</h1>
+
+<h2 id='RMXACAtPAqz'>You can also specify the -shortest switch to finish the encoding when the shortest clip ends.</h2>
+
+<pre id='RMXACAKhGSW'>ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -c:a aac -strict experimental output.mp4<br>ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -c:a aac -strict experimental -shortest output.mp4</pre>
+
+<h1 id='RMXACAzL7gy'>11. Resize a video</h1>
+
+<h2 id='RMXACAevTeE'>Use the size (-s) switch with ffmpeg to resize a video while maintaining the aspect ratio.</h2>
+
+<pre id='RMXACATdAdn'>ffmpeg -i input.mp4 -s 480x320 -c:a copy output.mp4</pre>
+
+<h1 id='RMXACAcGBkq'>12. Create video slideshow from images</h1>
+
+<h2 id='RMXACA3KiQ9'>This command creates a <a href="https://www.labnol.org/internet/street-view-time-lapse/20504/">video slideshow</a> using a series of images that are named as img001.png, img002.png, etc. Each image will have a duration of 5 seconds (-r 1/5).</h2>
+
+<pre id='RMXACAntkP5'>ffmpeg -r 1/5 -i img%03d.png -c:v libx264 -r 30 -pix_fmt yuv420p slideshow.mp4</pre>
+
+<h1 id='RMXACA57zSi'>13. Add a poster image to audio</h1>
+
+<h2 id='RMXACAruKtJ'>You can add a cover image to an audio file and the length of the output video will be the same as that of the input audio stream. This may come handy for uploading MP3s to YouTube.</h2>
+
+<pre id='RMXACATK7zN'>ffmpeg -loop 1 -i image.jpg -i audio.mp3 -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest output.mp4</pre>
+
+<h1 id='RMXACAQ7T6R'>14. Convert a single image into a video</h1>
+
+<h2 id='RMXACAIuZos'>Use the -t parameter to specify the duration of the video.</h2>
+
+<pre id='RMXACA2F6fm'>ffmpeg -loop 1 -i image.png -c:v libx264 -t 30 -pix_fmt yuv420p video.mp4</pre>
+
+<h1 id='RMXACAfcyga'>15. Add subtitles to a movie</h1>
+
+<h2 id='RMXACAc7RYb'>This will take the subtitles from the .srt file. FFmpeg can decode most common subtitle formats.</h2>
+
+<br/>
+
+<pre id='RMXACAISTfP'>ffmpeg -i movie.mp4 -i subtitles.srt -map 0 -map 1 -c copy -c:v libx264<br>   -crf 23 -preset veryfast output.mkv</pre>
+
+<h1 id='RMXACA9JLAk'>16. Crop an audio file</h1>
+
+<h2 id='RMXACAP2TRn'>This will create a 30 second audio file starting at 90 seconds from the original audio file without transcoding.</h2>
+
+<pre id='RMXACAYE5qM'>ffmpeg -ss 00:01:30 -t 30 -acodec copy -i inputfile.mp3 outputfile.mp3</pre>
+
+<h1 id='RMXACAcaeHx'>17. Change the audio volume</h1>
+
+<br/>
+
+<h2 id='RMXACAL3Igx'>You can use the volume filter to alter the volume of a media file using FFmpeg. This command will half the volume of the audio file.</h2>
+
+<pre id='RMXACAJFkp5'>ffmpeg -i input.wav -af 'volume=0.5' output.wav</pre>
+
+<h3 id='RMXACAtxN9c'>18. Rotate a video</h3>
+
+<h2 id='RMXACA5OM3O'>This command will <a href="https://www.labnol.org/software/tutorials/rotate-video-vertical-clips-90-degrees-virtualdub/2657/">rotate a video clip</a> 90° clockwise. You can set transpose to 2 to rotate the video 90° anti-clockwise.</h2>
+
+<pre id='RMXACA357cE'>ffmpeg -i input.mp4 -filter:v 'transpose=1' rotated-video.mp4</pre>
+
+<h2 id='RMXACAxZvog'>This will rotate the video 180° counter-clockwise.</h2>
+
+<pre id='RMXACAkAWE6'>ffmpeg -i input.mp4 -filter:v 'transpose=2,transpose=2' rotated-video.mp4</pre>
+
+<h1 id='RMXACA41cce'>19. Speed up or Slow down the video</h1>
+
+<h2 id='RMXACA3hg3g'>You can change the speed of your video using the setpts (set presentation time stamp) filter of FFmpeg. This command will make the video 8x (1/8) faster or use setpts=4*PTS to make the video 4x slower.</h2>
+
+<pre id='RMXACA7mr4W'>ffmpeg -i input.mp4 -filter:v "setpts=0.125*PTS" output.mp4</pre>
+
+<h1 id='RMXACAgIZGG'>20. Speed up or Slow down the audio</h1>
+
+<h2 id='RMXACA2r0Yp'>For changing the speed of audio, use the atempo audio filter. This command will double the speed of audio. You can use any value between 0.5 and 2.0 for audio.</h2>
+
+<pre id='RMXACA03dvQ'>ffmpeg -i input.mkv -filter:a "atempo=2.0" -vn output.mkv</pre>
+
+<br/>
+
+</body></html>

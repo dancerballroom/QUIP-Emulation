@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>MoveFilesFolders.aspx</title>
+    </head>
+    <body>
+        <h1>MoveFilesFolders.aspx
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">MoveFilesFolders.aspx
+
+
+&lt;%@ Page Language="C#" AutoEventWireup="<span style="color:#22863A;font-weight:bold;">true</span>" ResponseEncoding="utf-8" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.IO" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Collections.Generic" %&gt;
+
+
+&lt;script runat="server"&gt;
+&nbsp; &nbsp; // Absolute path line replaced with Relative MapPath
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> RootNotesPath
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">get</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> Server.MapPath("~/uploads/notes/");
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> CurrentDestFolder = "";
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> ItemToMoveName = "";
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;">bool</span> IsMovingFile = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // Maintain state across links
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> QueryId = "";
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> QueryFolder = "";
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> QueryMoveFolder = "";
+
+
+&nbsp; &nbsp; // =========================================================================
+&nbsp; &nbsp; // UNIFIED PIN STORAGE HELPERS (Points directly to /uploads/pinned_notes.txt)
+&nbsp; &nbsp; // =========================================================================
+&nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt; GetPinnedPaths()
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> pinFilePath = Server.MapPath("~/uploads/pinned_notes.txt");
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(pinFilePath))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt;(File.ReadAllLines(pinFilePath));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt;();
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">void</span> SavePinnedPaths(<span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt; paths)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> pinFilePath = Server.MapPath("~/uploads/pinned_notes.txt");
+&nbsp; &nbsp; &nbsp; &nbsp; File.WriteAllLines(pinFilePath, paths);
+&nbsp; &nbsp; }
+&nbsp; &nbsp; // =========================================================================
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> Page_Load(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; // 1. Capture what item <span style="color:#D73A49;font-weight:bold;">is</span> being targeted <span style="color:#D73A49;font-weight:bold;">for</span> a move
+&nbsp; &nbsp; &nbsp; &nbsp; QueryId = Request.QueryString["id"] ?? "";
+&nbsp; &nbsp; &nbsp; &nbsp; QueryFolder = Request.QueryString["folder"] ?? "";
+&nbsp; &nbsp; &nbsp; &nbsp; QueryMoveFolder = Request.QueryString["moveFolder"] ?? "";
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(QueryId))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; IsMovingFile = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ItemToMoveName = QueryId + ".html";
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(QueryMoveFolder))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; IsMovingFile = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ItemToMoveName = Path.GetFileName(QueryMoveFolder);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // 2. Track the Destination tree browsing path
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["path"] != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CurrentDestFolder = Request.QueryString["path"];
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // <span style="color:#D73A49;">Default</span> the browser drop window to the item's original folder location
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CurrentDestFolder = IsMovingFile ? QueryFolder : Path.GetDirectoryName(QueryMoveFolder).Replace("\\", "/");
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // 3. Handle Form Button Submissions
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> action = Request.QueryString["action"];
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // --- <span style="color:#D73A49;">NEW</span> RESTORE ACTION ROUTINE ---
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (action == "restore")
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> targetRestoreFolder = Request.QueryString["destFolder"] ?? "";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Build file paths mapping from the Trash directory
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> sourceTrashPath = Path.Combine(Server.MapPath("~/uploads/notes/Trash/"), ItemToMoveName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Clean the timestamp off the restored file name <span style="color:#D73A49;font-weight:bold;">if</span> one exists (e.g., Note_20260710_051835.html -&gt; Note.html)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> cleanFileName = ItemToMoveName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (System.Text.RegularExpressions.Regex.IsMatch(ItemToMoveName, @"_\d{8}_\d{6}\.html$", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cleanFileName = System.Text.RegularExpressions.Regex.Replace(ItemToMoveName, @"_\d{8}_\d{6}\.html$", ".html", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> destinationPath = Path.Combine(RootNotesPath, targetRestoreFolder.Replace("/", "\\").TrimStart('\\'), cleanFileName);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(sourceTrashPath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Ensure destination subdirectory structure exists
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> destinationDirectory = Path.GetDirectoryName(destinationPath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!Directory.Exists(destinationDirectory))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Directory.CreateDirectory(destinationDirectory);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Move file <span style="color:#D73A49;">out</span> of Trash back home with its clean name
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; File.Move(sourceTrashPath, destinationPath);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Scrub the original tracking entry from trash_manifest.txt <span style="color:#D73A49;font-weight:bold;">using</span> the messy filename it was logged under
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> manifestPath = Server.MapPath("~/uploads/trash_manifest.txt");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(manifestPath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> remainingLines = File.ReadAllLines(manifestPath)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .Where(line =&gt; !line.StartsWith(ItemToMoveName + "=", StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .ToArray();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; File.WriteAllLines(manifestPath, remainingLines);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Redirect user back to the Trash view showing the item has successfully vanished from trash
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect("FileBrowser.aspx?folder=TRASH&amp;status=restored", <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (<span style="color:#6F42C1;">Exception</span> ex)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; System.Diagnostics.Debug.WriteLine("Error restoring file: " + ex.Message);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (action == "execute")
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> sourcePath = IsMovingFile&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ? Path.Combine(RootNotesPath, QueryFolder, ItemToMoveName)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : Path.Combine(RootNotesPath, QueryMoveFolder);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> targetPath = Path.Combine(RootNotesPath, CurrentDestFolder, ItemToMoveName);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt; pinnedPaths = GetPinnedPaths();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">bool</span> pinsWereUpdated = <span style="color:#22863A;font-weight:bold;">false</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (IsMovingFile &amp;&amp; File.Exists(sourcePath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(targetPath))&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // -------------------------------------------------------------
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // SCENARIO 1: PIN PATH CORRECTOR <span style="color:#D73A49;font-weight:bold;">FOR</span> SINGLE FILE MOVE
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // -------------------------------------------------------------
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldFileRel = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(QueryFolder) ? ItemToMoveName : QueryFolder + "/" + ItemToMoveName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newFileRel = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(CurrentDestFolder) ? ItemToMoveName : CurrentDestFolder + "/" + ItemToMoveName;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldFileMatch = oldFileRel.Replace("\\", "/").Trim('/');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newFilePrefix = newFileRel.Replace("\\", "/").Trim('/');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> i = 0; i &lt; pinnedPaths.Count; i++)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">bool</span> hasLeadingSlash = pinnedPaths[i].StartsWith("/") || pinnedPaths[i].StartsWith("\\");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> cleanPin = pinnedPaths[i].Replace("\\", "/").Trim('/');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (cleanPin.Equals(oldFileMatch, StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinnedPaths[i] = (hasLeadingSlash ? "/" : "") + newFilePrefix;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinsWereUpdated = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Physical disk execution
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; File.Move(sourcePath, targetPath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (!IsMovingFile &amp;&amp; Directory.Exists(sourcePath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Prevent moving a folder inside itself
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!targetPath.StartsWith(sourcePath, StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!Directory.Exists(targetPath))&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // -------------------------------------------------------------
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // SCENARIO 2: PIN PATH CORRECTOR <span style="color:#D73A49;font-weight:bold;">FOR</span> FOLDER MOVE
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // -------------------------------------------------------------
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldFolderMatch = QueryMoveFolder.Replace("\\", "/").Trim('/');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> cleanDest = CurrentDestFolder.Replace("\\", "/").Trim('/');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newFolderPrefix = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(cleanDest)&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ? ItemToMoveName&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : cleanDest + "/" + ItemToMoveName;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> i = 0; i &lt; pinnedPaths.Count; i++)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">bool</span> hasLeadingSlash = pinnedPaths[i].StartsWith("/") || pinnedPaths[i].StartsWith("\\");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> cleanPin = pinnedPaths[i].Replace("\\", "/").Trim('/');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Scenario A: An inner file or nested folder path matches
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (cleanPin.StartsWith(oldFolderMatch + "/", StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> remainingPath = cleanPin.Substring(oldFolderMatch.Length);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinnedPaths[i] = (hasLeadingSlash ? "/" : "") + newFolderPrefix + remainingPath;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinsWereUpdated = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Scenario B: The exact moved folder itself was pinned
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (cleanPin.Equals(oldFolderMatch, StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinnedPaths[i] = (hasLeadingSlash ? "/" : "") + newFolderPrefix;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinsWereUpdated = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Physical disk execution
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Directory.Move(sourcePath, targetPath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Save pin tracking file changes <span style="color:#D73A49;font-weight:bold;">if</span> modifications occurred
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (pinsWereUpdated)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SavePinnedPaths(pinnedPaths);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (<span style="color:#6F42C1;">Exception</span> ex) { /* Optional: Handle error feedback */ }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Take user back to the main browser at the newly updated target directory
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect("FileBrowser.aspx?path=" + Server.UrlEncode(CurrentDestFolder));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (action == "cancel")
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Escape back <span style="color:#D73A49;">out</span> to safety
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> returnPath = IsMovingFile ? QueryFolder : Path.GetDirectoryName(QueryMoveFolder).Replace("\\", "/");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect("FileBrowser.aspx?path=" + Server.UrlEncode(returnPath));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> GetParentPath()
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(CurrentDestFolder)) <span style="color:#D73A49;font-weight:bold;">return</span> "";
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> lastSlash = CurrentDestFolder.LastIndexOf('/');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (lastSlash == -1) <span style="color:#D73A49;font-weight:bold;">return</span> "";
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> CurrentDestFolder.Substring(0, lastSlash);
+&nbsp; &nbsp; }
+&lt;/script&gt;
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&nbsp; &nbsp; &lt;meta charset="utf-8" /&gt;
+&nbsp; &nbsp; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+&nbsp; &nbsp; &lt;title&gt;Move Item&lt;/title&gt;
+&nbsp; &nbsp; &lt;style&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; * { box-sizing: border-box; }
+&nbsp; &nbsp; &nbsp; &nbsp; body {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; padding: 12px; margin: 0; color: #333; background-color: #fafafa;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .main-content { max-width: 580px; margin: 0 auto; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; /* Control Panel Header */
+&nbsp; &nbsp; &nbsp; &nbsp; .control-panel {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; background-color: #ffffff; border: 1px solid #cbd5e1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; padding: 16px; border-radius: 6px; margin-bottom: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .item-display { font-size: 1.1rem; font-weight: bold; color: #0d47a1; margin-bottom: 4px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .location-display { font-size: 0.9rem; color: #475569; margin-bottom: 12px; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-group { display: flex; gap: 10px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; padding: 10px 20px; border: none; border-radius: 4px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; font-weight: bold; cursor: pointer; font-size: 0.95rem; text-decoration: none; text-align: center;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-move { background-color: #2e7d32; color: white; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-cancel { background-color: #e53935; color: white; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; /* Layout Structure Mapped from FileBrowser */
+&nbsp; &nbsp; &nbsp; &nbsp; h3 { font-size: 1.2rem; margin: 15px 0 8px 0; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#6F42C1;">list</span>-container-80 { background-color: #ffffff; padding: 2px 0; width: 100%; }
+&nbsp; &nbsp; &nbsp; &nbsp; .item-row {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; margin-bottom: 8px; padding: 12px; border-radius: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; display: flex; justify-content: space-between; align-items: center; width: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; background-color: #fff3e0; border: 1px solid #ffe0b2;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .item-title { text-decoration: none; color: #0d47a1; font-weight: bold; font-size: 0.95rem; }
+&nbsp; &nbsp; &nbsp; &nbsp; .up-level-btn {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; display: inline-block; font-weight: bold; text-decoration: none;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; background: #cbd5e1; color: #1e293b; padding: 8px 14px; border-radius: 4px; font-size: 0.9rem;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .folder-icon {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; display: inline-block; width: 16px; height: 12px; background-color: #ffa726;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; border-radius: 2px; position: relative; margin-right: 10px; vertical-align: middle;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .folder-icon::before {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content: ''; width: 6px; height: 4px; background-color: #ffa726;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; position: absolute; top: -3px; left: 0; border-radius: 1px 1px 0 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="main-content"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="control-panel"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="item-display"&gt;Moving: &amp;#128230; &lt;%= ItemToMoveName %&gt;&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="location-display"&gt;Target Destination: &amp;#128194; &lt;strong&gt;Locating Target Path...&lt;/strong&gt;&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="btn-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="MoveFilesFolders.aspx?action=execute&amp;id=&lt;%= Server.UrlEncode(QueryId) %&gt;&amp;folder=&lt;%= Server.UrlEncode(QueryFolder) %&gt;&amp;moveFolder=&lt;%= Server.UrlEncode(QueryMoveFolder) %&gt;&amp;path=&lt;%= Server.UrlEncode(CurrentDestFolder) %&gt;" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-move"&gt;Move Here&lt;/a&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="MoveFilesFolders.aspx?action=cancel&amp;id=&lt;%= Server.UrlEncode(QueryId) %&gt;&amp;folder=&lt;%= Server.UrlEncode(QueryFolder) %&gt;&amp;moveFolder=&lt;%= Server.UrlEncode(QueryMoveFolder) %&gt;" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-cancel"&gt;Cancel&lt;/a&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Choose Destination Directory&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div style="margin-top: 8px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="MoveFilesFolders.aspx?id=&lt;%= Server.UrlEncode(QueryId) %&gt;&amp;folder=&lt;%= Server.UrlEncode(QueryFolder) %&gt;&amp;moveFolder=&lt;%= Server.UrlEncode(QueryMoveFolder) %&gt;&amp;path=" title="Root" style="text-decoration: none; font-size: 1.4rem; line-height: 1;"&gt;🪵&lt;/a&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(CurrentDestFolder)) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="MoveFilesFolders.aspx?id=&lt;%= Server.UrlEncode(QueryId) %&gt;&amp;folder=&lt;%= Server.UrlEncode(QueryFolder) %&gt;&amp;moveFolder=&lt;%= Server.UrlEncode(QueryMoveFolder) %&gt;&amp;path=&lt;%= Server.UrlEncode(GetParentPath()) %&gt;" <span style="color:#D73A49;font-weight:bold;">class</span>="up-level-btn" title="Parent Directory" style="text-decoration: none; background-color: White; font-size: 1.4rem; line-height: 1;"&gt;&amp;#8592;&amp;#128193;&lt;/a&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="<span style="color:#6F42C1;">list</span>-container-80"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;%&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> physicalDir = Path.Combine(RootNotesPath, CurrentDestFolder);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> folderCount = 1;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Safety Net: Drop back to root <span style="color:#D73A49;font-weight:bold;">if</span> the requested folder doesn't exist
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!Directory.Exists(physicalDir))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CurrentDestFolder = "";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; physicalDir = RootNotesPath;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (<span style="color:#005CC5;font-weight:bold;">string</span> dir <span style="color:#D73A49;">in</span> Directory.GetDirectories(physicalDir)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> dirName = Path.GetFileName(dir);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newPath = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(CurrentDestFolder) ? dirName : CurrentDestFolder + "/" + dirName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Keep the Trash folder visible structure hidden <span style="color:#D73A49;">out</span> of the target destination browser loop selector window
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (dirName.Equals("Trash", StringComparison.OrdinalIgnoreCase)) <span style="color:#D73A49;font-weight:bold;">continue</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="item-row" title="&lt;%= dirName %&gt;"&gt;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style="display: flex; align-items: center;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span style="font-size: 0.85rem; font-weight: bold; color: #64748b; min-width: 24px;"&gt;&lt;%= folderCount++ %&gt;.&lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="folder-icon"&gt;&lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a href="MoveFilesFolders.aspx?id=&lt;%= Server.UrlEncode(QueryId) %&gt;&amp;folder=&lt;%= Server.UrlEncode(QueryFolder) %&gt;&amp;moveFolder=&lt;%= Server.UrlEncode(QueryMoveFolder) %&gt;&amp;path=&lt;%= Server.UrlEncode(newPath) %&gt;" <span style="color:#D73A49;font-weight:bold;">class</span>="item-title"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%= dirName %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/a&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;% <span style="color:#D73A49;font-weight:bold;">if</span> (folderCount == 1) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style="padding: 12px; color: #64748b; font-style: italic; font-size: 0.9rem;"&gt;No Subdirectories Available&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &lt;/div&gt;
+&lt;/body&gt;
+        &lt;/html&gt;</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

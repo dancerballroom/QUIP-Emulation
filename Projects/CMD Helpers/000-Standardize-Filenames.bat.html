@@ -1,0 +1,518 @@
+<!doctype html>
+<html><head><title>000-Standardize-Filenames.bat</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:BPc27ebcc4840fc4ca0920491ec9'>000-Standardize-Filenames.bat</h1>
+
+Part of the <b>Graphical Home Video Library Online Project </b>optimized for Cell Phone Use<br/>
+
+Tested Platform:  Windows 10 and 11<br/>
+
+<h2 id='temp:C:BPc1aa8d8284bfe409aa5c2cff56'>000-Standardize-Filenames.bat</h2>
+
+<pre id='temp:C:BPc2310d06805aa46dc888404142'>@Echo Off<br>SETLOCAL enabledelayedexpansion<br><br>SET /a Seconds=10<br>:Start_Me<br>SET CRLF=^<br><br><br>REM Leave the previous two lines Empty<br>:: CHOICE Switches<br>:: Example: CHOICE /C ABCDNX /N /T 30 /D X /M !MSG!<br>:: N = Hide Choices<br>:: T = Default in (30) Seconds (0-9999)<br>:: D = Default Choice (X)<br>:: CS = Case Sensitive (Not used here)<br>:: M = Message<br><br>SET MSG="Standardize JPG Filenames!CRLF!!CRLF!<br>SET MSG=!MSG!A = 2 Spaces to 1 Space!CRLF!<br>SET MSG=!MSG!B = All Spaces to Dashes!CRLF!<br>SET MSG=!MSG!C = 2 Dashes to 1 Dash!CRLF!<br>SET MSG=!MSG!D = Underscore to Space!CRLF!<br>SET MSG=!MSG!E = Del Apostrphs!CRLF!<br>SET MSG=!MSG!P = Del Pars-n-Brkts!CRLF!<br>SET MSG=!MSG!N = Amps to AND!CRLF!<br>SET MSG=!MSG!X = Exit!CRLF!!CRLF!<br>SET MSG=!MSG!Choose One (A, B, C, D, N, X, P, E):!CRLF!<br>SET MSG=!MSG! : "<br><br>CLS<br>CHOICE /C ABCDNXPE /N /T 10 /D X /M !MSG!<br><br>IF ERRORLEVEL==8 GOTO :EIGHT<br>IF ERRORLEVEL==7 GOTO :SEVEN<br>IF ERRORLEVEL==6 GOTO :ENDER<br>IF ERRORLEVEL==5 GOTO :FIVE<br>IF ERRORLEVEL==4 GOTO :FOUR<br>IF ERRORLEVEL==3 GOTO :THREE<br>IF ERRORLEVEL==2 GOTO :TWO<br>IF ERRORLEVEL==1 GOTO :ONE<br>GOTO END<br><br>:EIGHT<br>ECHO YOU HAVE PRESSED N<br><br>Set "Pattern='"<br>Set "Replace="<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>GOTO :SLEEPER<br><br>:SEVEN<br>ECHO YOU HAVE PRESSED P<br>Set "Pattern=("<br>Set "Replace="<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>Set "Pattern=)"<br>Set "Replace="<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>Set "Pattern=["<br>Set "Replace="<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>Set "Pattern=]"<br>Set "Replace="<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br><br>GOTO :SLEEPER<br><br>:FIVE<br>ECHO YOU HAVE PRESSED N<br><br>Set "Pattern=&amp;"<br>Set "Replace=and"<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>GOTO :SLEEPER<br><br>:FOUR<br>ECHO YOU HAVE PRESSED D<br><br>Set "Pattern=_"<br>Set "Replace= "<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>GOTO :SLEEPER<br><br>:THREE<br>ECHO YOU HAVE PRESSED C<br>Set "Pattern=--"<br>Set "Replace=-"<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>GOTO :SLEEPER<br><br>:TWO<br>ECHO YOU HAVE PRESSED B<br>Set "Pattern= "<br>Set "Replace=-"<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>GOTO :SLEEPER<br><br>:ONE<br>ECHO YOU HAVE PRESSED A<br>Set "Pattern=  "<br>Set "Replace= "<br><br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>GOTO :SLEEPER<br><br>:SLEEPER<br>CALL Powershell -Command "Sleep 3"<br>GOTO :Start_Me<br><br>:ENDER<br>cls<br>ECHO YOU HAVE PRESSED X OR REACHED DEFAULT TIMES-UP<br>SET /a Seconds=!Seconds! - 1<br>IF "!Seconds!"=="0" (<br>    Exit<br>)<br><br>ECHO Exiting in !Seconds! Seconds ...<br>CALL Powershell -Command "Sleep 1"<br>GOTO :ENDER<br><br>Echo Good-Bye!<br>CALL Powershell -Command "Sleep 3"<br><br></pre>
+
+<h2 id='temp:C:BPc546d68ac274848dbb31709792'>Choice Syntax</h2>
+
+<pre id='temp:C:BPc6f985b1ad50f4433920fdc203'>CHOICE /C ABCDNX /N /T 10 /D X /M !MSG!<br><br>* <span bgcolor="#ffcdcc" style="background-color:#ffcdcc">/c</span> &lt;choice1&gt;&lt;choice2&gt;&lt;…&gt;: <br>     Specifies the choices you would like to create, which can include a-z, <br>     A-Z, 0-9, and ASCII characters 128-254.<br>* <span bgcolor="#ffcdcc" style="background-color:#ffcdcc">/t</span> &lt;seconds&gt;: Use this flag to specify how many seconds <br>     to wait before the default choice is selected. You can set this value <br>     to any number between 0 (which instantly selects the default choice) <br>     and 9999.<br>* <span bgcolor="#ffcdcc" style="background-color:#ffcdcc">/d</span> &lt;choice&gt;: Specifies the default choice from the list of choices <br>     created with /c.<br>* <span bgcolor="#ffcdcc" style="background-color:#ffcdcc">/n</span> (optional): hides the list of choices, but still allows <br>     the user to select one.<br>* <span bgcolor="#ffcdcc" style="background-color:#ffcdcc">/m</span> &lt;text&gt; (optional): displays a message before the choice list. <br>   If you do not include this flag but do not hide the choice list, <br>   the choices will still be displayed.<br>* <span bgcolor="#ffcdcc" style="background-color:#ffcdcc">/cs</span> (optional): This specifies that choices are case-sensitive, <br>   which is important if you want to assign different functions to capital <br>   and lowercase letters.</pre>
+
+</body></html>

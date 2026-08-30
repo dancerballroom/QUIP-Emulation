@@ -1,0 +1,634 @@
+<!doctype html>
+<html><head><title>MEGA-MACRO - Version 2.0</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:NEId626e142ec6745b8bdc3f4ca8'>MEGA-MACRO - Version 2.0</h1>
+
+Required:<br/>
+
+<div class="" data-section-style='5' style=""><ul id='temp:C:NEI5a0b36308d98463ca85736933'><li id='temp:C:NEI3e8d44005a874419af9275b86' class='' value='1'><b>NotePad++</b>
+
+<br/></li></ul></div><h3 id='temp:C:NEId3f4d7cbb92c4dfabd7d698b8'>NOTE:  The NotePad++ Macro I created is located at then end of this document.</h3>
+
+<h2 id='temp:C:NEI9aabf684f47143c099d4f1ab2'><b>MACRO PSEUDO</b><b>-</b><b>CODE </b></h2>
+
+<pre id='temp:C:NEI9e2236d0b9424605aeaa3fe38'><b>1.</b><b> </b><b>File1</b><b> </b><b>-&gt;</b><b> ADD </b><b>~</b><b>1</b><br><b>Cntrl</b><b> </b><b>+</b><b>H </b><b>Search</b><b>/</b><b>Replace</b><br><b>\]</b><b>{</b><b>TAB</b><b>}]</b><b> </b><b>~</b><b>1</b><b>{</b><b>SPACE</b><b>}</b><br><b>{</b><b>TAB</b><b>}</b><b> x </b><b>9</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>{</b><b>ESC</b><b>}</b><br><b>(</b><b>Ctrl</b><b> </b><b>+</b><b> PGDN</b><b>)</b><b> </b><b>=</b><b> </b><b>Change</b><b> </b><b>Tabs</b><br><b>2.</b><b> </b><b>File3</b><b> </b><b>-&gt;</b><b> ADD </b><b>~</b><b>3</b><br><b>Cntrl</b><b> </b><b>+</b><b>H </b><b>Search</b><b>/</b><b>Replace</b><br><b>\]</b><b>{</b><b>TAB</b><b>}]</b><b> </b><b>~</b><b>3</b><b>{</b><b>SPACE</b><b>}</b><br><b>{</b><b>TAB</b><b>}</b><b> x </b><b>9</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>{</b><b>ESC</b><b>}</b><br><b>3.</b><b> </b><b>Grab</b><b> </b><b>Filename</b><b> </b><b>and</b><b> </b><br><b>Copy</b><b> </b><b>Final</b><b> </b><b>Filename</b><br><b>ALT </b><b>+</b><b> F </b><b>+</b><b> R</b><br><b>{</b><b>Right</b><b>}</b><br><b>{</b><b>BackSpace</b><b>}</b><b> x </b><b>7</b><br><b>.</b><b>lrc</b><br><b>CNTRL </b><b>+</b><b> A</b><br><b>CNTRL </b><b>+</b><b> C</b><br><b>{</b><b>Esc</b><b>}</b><br><b>Cntrl</b><b> </b><b>+</b><b> </b><b>N</b><br><b>Alt</b><b> </b><b>+</b><b> F </b><b>+</b><b> R</b><br><b>CNTRL </b><b>+</b><b> V</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>(</b><b> CNTRL </b><b>+</b><b> PGUP </b><b>)</b><b> </b><b>{</b><b>Click</b><b> LANG1</b><b>}</b><br><b>CNTRL </b><b>+</b><b> A</b><br><b>CNTRL </b><b>+</b><b> C</b><br><b>{</b><b>Esc</b><b>}</b><b> </b><br><b>(</b><b> CNTRL </b><b>+</b><b> PGDN </b><b>)</b><b>  </b><b>"NEW"</b><br><b>CNTRL </b><b>+</b><b> V</b><br><b>REM </b><b>~</b><b>3</b><b> to </b><b>~</b><b>2</b><br><b>Cntrl</b><b> </b><b>+</b><b>H</b><br><b>~</b><b>3</b><b> </b><b>{</b><b>TAB</b><b>}</b><b> </b><b>~</b><b>2</b><br><b>{</b><b>TAB</b><b>}</b><b> x </b><b>9</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>{</b><b>ESC</b><b>}</b><br><b>4.</b><b> DEL </b><b>Blank</b><b> </b><b>Lyrics</b><br><b>Cntrl</b><b> </b><b>+</b><b>H</b><br><b>\[</b><b>..:..</b><b>\.</b><b>..]</b><b> </b><b>~</b><b>2</b><b> $</b><br><b>{</b><b>TAB</b><b>}{</b><b>DEL</b><b>}</b><br><b>{</b><b>TAB</b><b>}</b><b> x </b><b>9</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>{</b><b>ESC</b><b>}<br>5. Chop Off Empty Lines<br>Cntrl +A<br>Alt +E(dit)L(ine Operations)<br>{DOWN} x 7<br>{ENTER}<br></b></pre>
+
+<pre id='temp:C:NEIe9a3c294204d49789a215c48d'><b>{DOWN} x 7<br>{ENTER}<br></b><b>6.</b><b> ADD </b><b>Separator</b><b> </b><b>~</b><b>2</b><b> </b><b>-&gt;</b><b> </b><b>~</b><b>2</b><b> </b><b>===</b><br><b>Cntrl</b><b> </b><b>+</b><b>H</b><br><b>~</b><b>2</b><b>[^</b><b>\n\r</b><b>]*{</b><b>TAB</b><b>}~</b><b>2</b><b> </b><b>===</b><br><b>{</b><b>TAB</b><b>}</b><b> x </b><b>9</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>{</b><b>ESC</b><b>}</b><br><b>7.</b><b> </b><b>Merge</b><b> </b><b>3</b><b> </b><b>into</b><b> </b><b>1</b><br><b>(</b><b>Cntrl</b><b> </b><b>+</b><b> PGUP</b><b>)</b>  "<b>Lang1 ~1</b>"<br><b>Cntrl</b><b> </b><b>+</b><b> A</b><br><b>Cntrl</b><b> </b><b>+</b><b> C</b><br><b>(</b><b>Cntrl</b><b> </b><b>+</b><b> PGDN</b><b>)</b>  "<b>New ~2</b>"<br><b>Cntrl</b><b> </b><b>+</b><b> </b><b>Shift</b><b> </b><b>+</b><b> </b><b>END</b><br><b>{</b><b>Right</b><b>}{</b><b>Enter</b><b>}</b><br><b>Cntrl</b><b> </b><b>+</b><b> V</b><br><b>(</b><b>Cntrl</b><b> </b><b>+</b><b> PGDN</b><b>)</b><b> </b><b>"</b><b>LANG2 ~3"</b><br><b>Cntrl</b><b> </b><b>+</b><b> A</b><br><b>Cntrl</b><b> </b><b>+</b><b> C</b><br><b>(</b><b>Cntrl</b><b> </b><b>+</b><b> PGUP</b><b>)</b><b> </b><b>"NEW ~2"</b><br><b>Cntrl</b><b> </b><b>+</b><b> </b><b>Shift</b><b> </b><b>+</b><b> </b><b>END</b><br><b>{</b><b>Right</b><b>}{</b><b>Enter</b><b>}</b><br><b>Cntrl</b><b> </b><b>+</b><b> V</b><br><b>8.</b><b> SORT</b><br><b>Alt</b><b> </b><b>+</b><b>E</b><b>(</b><b>dit</b><b>)</b><b>L</b><b>(</b><b>ine </b><b>Operations</b><b>)</b><br><b>{</b><b>DOWN</b><b>}</b><b> x </b><b>15</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>9.</b><b> DEL </b><b>~</b><b>3</b><b> EMPTY </b><b>Lines</b><br><b>Cntrl</b><b> </b><b>+</b><b>H</b><br><b>\[</b><b>..:..</b><b>\.</b><b>..]</b><b> </b><b>~</b><b>3</b><b> $</b><br><b>{</b><b>TAB</b><b>}{</b><b>DEL</b><b>}</b><br><b>{</b><b>TAB</b><b>}</b><b> x </b><b>9</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>{</b><b>ESC</b><b>}</b><br><b>10.</b><b> also </b><b>5.</b><b> </b><b>Chop</b><b> </b><b>Off</b><b> </b><b>Empty</b><b> </b><b>Lines</b><br><b>Alt</b><b> </b><b>+</b><b>E</b><b>(</b><b>dit</b><b>)</b><b>L</b><b>(</b><b>ine </b><b>Operations</b><b>)</b><br><b>{</b><b>DOWN</b><b>}</b><b> x </b><b>7</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>11.</b><b> </b><b>Clean</b><b> </b><b>Up</b><br><b>Cntrl</b><b> </b><b>+</b><b>H</b><br><b>{</b><b>SPACE</b><b>}</b><b>~.<br></b>{<b>TAB</b>}<br><b>{</b><b>DEL</b><b>}</b><br><b>{</b><b>TAB</b><b>}</b><b> x </b><b>9</b><br><b>{</b><b>ENTER</b><b>}</b><br><b>{</b><b>ESC</b><b>}</b></pre>
+
+<b>NOTE</b>:  Not reflected above, but updated below.  The macro has been updated to include Moving the title from the bottom to the top of the file and copying the filename to past into SAVE AS  {Current-Filename}.lrc.<br/>
+
+<h2 id='temp:C:NEIc5ece1cb9c884a609a211f2d9'>IMPORTANT NOTE:</h2>
+
+NOTEPAD++ does not automatically SAVE your MACRO.  Make sure after you STOP recording your MACRO that you go to the MACRO MENU and SAVE it.  I gave my MACRO the Shortcut CNTRL+F5 (It will let you know if there is a conflict)<br/>
+
+<h2 id='temp:C:NEI27c7848a510b459f985227e54'>MACRO PROCEDURE (CNTR + F5)</h2>
+
+<div class="" data-section-style='6' style=""><ul id='temp:C:NEI9cbc577ad38642199036cef0a'><li id='temp:C:NEI2194b30ecdfa4968b5fc55393' class='' value='1'><b>Copy English and French/German/Spanish file to Working DIR</b>
+
+<br/></li><li id='temp:C:NEI9496ae17ff884770b0ebfa5a5' class='parent'><b>Highlight both and Open with Notepad++ </b>
+
+<br/></li><ul><li id='temp:C:NEI89ca33b25c8a4c738858bae63' class=''>NOTE: When you open the files, The One you Hover over with the Mouse will be the LANG1
+
+<br/></li><li id='temp:C:NEIca742eb0ac094573bd16bd28d' class='parent'>Final Format will be
+
+<br/></li><ul><li id='temp:C:NEI52698b2e601b4cf79c0145393' class=''>LANG1
+
+<br/></li><li id='temp:C:NEIa1275540ad1d4806b6799a76e' class=''>===
+
+<br/></li><li id='temp:C:NEI1a3ee8b9b78b4872bf510e798' class=''>LANG2
+
+<br/></li></ul></ul><li id='temp:C:NEI4c9e7300a0a54c998eff4856d' class='parent'> <b>RUN Macro</b>
+
+<br/></li><ul><li id='temp:C:NEIa38467a05fde42538864bd52e' class=''>Click Lang1
+
+<br/></li><li id='temp:C:NEId492f7079e2b4705b762351e5' class=''>Click New
+
+<br/></li><li id='temp:C:NEI367c4e2141f2464c95dc3161d' class=''>Click Lang1
+
+<br/></li><li id='temp:C:NEI0c37af24a1034adf837f518d9' class=''>Click New
+
+<br/></li><li id='temp:C:NEIf063352cbf474cfc9c3a3f762' class=''>Click Lang2
+
+<br/></li><li id='temp:C:NEI368fb44cb99d47048e2198145' class=''>Click New
+
+<br/></li><li id='temp:C:NEI404e44a693fd44f49c3fe4af4' class=''>In SAVE Dialogue:  *.* {ENTER}
+
+<br/></li><li id='temp:C:NEIb1a91a698a53479d8f8293055' class=''>Highlight one of the DE or EN Lang Names
+
+<br/></li><li id='temp:C:NEI3c5d41828a20492885e800b17' class=''>EN.LRC → .LRC
+
+<br/></li></ul></ul></div><h2 id='temp:C:NEI0d23de56bbef4db1be2972776'>POST MACRO PROCEDURE</h2>
+
+<div class="" data-section-style='6' style=""><ul id='temp:C:NEIbd1021dbcc634c88a0736c34b'><li id='temp:C:NEIdb24d7bb0b1f47eb8cc0ae949' class='' value='1'>Last Minute Fix:  Move the Last line to the first and Make it same as the Filename
+
+<br/></li></ul></div><div class="" data-section-style='5' style=""><ul id='temp:C:NEI5d600910787c4aac919fbac03'><li id='temp:C:NEI9e3ff78d91824affa6bbc17c5' class='parent' value='1'>EXAMPLE  
+
+<br/></li><ul><li id='temp:C:NEI177f3a5eda734e5182d376af4' class=''>[ti:01 of 31 - Le Hobbit - J.R.R. Tolkien - 1937]
+
+<br/></li></ul></ul></div><div style="--indent0: 2" data-section-style='6' class="list-numbering-restart-at"><ul id='temp:C:NEIdcdcfb82397e461dbb9723edc'><li id='temp:C:NEI239f968c0e854809adf41e694' class='' value='1'>Delete LANG TEMP Files in TEMP WORKING DIR
+
+<br/></li><li id='temp:C:NEI367158f365ff4ff28805d5bba' class=''>Move Completed LRC to MP3 dir.
+
+<br/></li><li id='temp:C:NEI6a9dc8be0d6b4803ad0657e85' class=''>Filenames Should be the same, different extensions.
+
+<br/></li></ul></div>MY.MP3<br/>
+
+MY.LRC<br/>
+
+<br/>
+
+<div style="--indent0: 5" data-section-style='6' class="list-numbering-restart-at"><ul id='temp:C:NEI1bf7467c8bb84de58aa160fd4'><li id='temp:C:NEI0795e3bd565844138a06e1794' class='' value='1'>TEST on a WORKING CLIENT
+
+<br/></li></ul></div><br/>
+
+<h2 id='temp:C:NEI8ced8131a4f04bdabc58d044b'>More Technical Information (Location and format of MACRO) UPDATED</h2>
+
+<pre id='temp:C:NEI29eddc92b5194d48858d325d1'><b>C</b><b>:</b><b>\Users\Larry\AppData\Roaming\Notepad</b><b>++</b><b>\shortcuts</b><b>.</b><b>xml</b><br>        &lt;Macro name="Merge_FNLG_LRC" Ctrl="yes" Alt="no" Shift="yes" Key="57"&gt;<br>            &lt;Action type="3" message="1700" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1601" wParam="0" lParam="0" sParam="\]" /&gt;<br>            &lt;Action type="3" message="1625" wParam="0" lParam="2" sParam="" /&gt;<br>            &lt;Action type="3" message="1602" wParam="0" lParam="0" sParam="] ~1 " /&gt;<br>            &lt;Action type="3" message="1702" wParam="0" lParam="768" sParam="" /&gt;<br>            &lt;Action type="3" message="1701" wParam="0" lParam="1609" sParam="" /&gt;<br>            &lt;Action type="0" message="2422" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2325" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="44095" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1700" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1601" wParam="0" lParam="0" sParam="\]" /&gt;<br>            &lt;Action type="3" message="1625" wParam="0" lParam="2" sParam="" /&gt;<br>            &lt;Action type="3" message="1602" wParam="0" lParam="0" sParam="] ~3 " /&gt;<br>            &lt;Action type="3" message="1702" wParam="0" lParam="768" sParam="" /&gt;<br>            &lt;Action type="3" message="1701" wParam="0" lParam="1609" sParam="" /&gt;<br>            &lt;Action type="0" message="2422" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2325" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="41001" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2422" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2325" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="44095" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2013" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2178" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2422" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2325" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="44096" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2179" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="3" message="1700" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1601" wParam="0" lParam="0" sParam="~3" /&gt;<br>            &lt;Action type="3" message="1625" wParam="0" lParam="2" sParam="" /&gt;<br>            &lt;Action type="3" message="1602" wParam="0" lParam="0" sParam="~2" /&gt;<br>            &lt;Action type="3" message="1702" wParam="0" lParam="768" sParam="" /&gt;<br>            &lt;Action type="3" message="1701" wParam="0" lParam="1609" sParam="" /&gt;<br>            &lt;Action type="3" message="1700" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1601" wParam="0" lParam="0" sParam="\[..:..\...] ~2 $" /&gt;<br>            &lt;Action type="3" message="1625" wParam="0" lParam="2" sParam="" /&gt;<br>            &lt;Action type="3" message="1602" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1702" wParam="0" lParam="768" sParam="" /&gt;<br>            &lt;Action type="3" message="1701" wParam="0" lParam="1609" sParam="" /&gt;<br>            &lt;Action type="0" message="2013" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="42055" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1700" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1601" wParam="0" lParam="0" sParam="~2[^\n\r]*" /&gt;<br>            &lt;Action type="3" message="1625" wParam="0" lParam="2" sParam="" /&gt;<br>            &lt;Action type="3" message="1602" wParam="0" lParam="0" sParam="~2 ===" /&gt;<br>            &lt;Action type="3" message="1702" wParam="0" lParam="896" sParam="" /&gt;<br>            &lt;Action type="3" message="1701" wParam="0" lParam="1609" sParam="" /&gt;<br>            &lt;Action type="0" message="2422" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2325" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="44096" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2013" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2178" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2422" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2325" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="44095" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2319" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2306" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="0" message="2179" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="0" message="2422" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2325" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="44095" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2013" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2178" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2422" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2325" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="44096" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2319" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2179" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="42061" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1700" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1601" wParam="0" lParam="0" sParam="\[..:..\...] ~3 $" /&gt;<br>            &lt;Action type="3" message="1625" wParam="0" lParam="2" sParam="" /&gt;<br>            &lt;Action type="3" message="1602" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1702" wParam="0" lParam="768" sParam="" /&gt;<br>            &lt;Action type="3" message="1701" wParam="0" lParam="1609" sParam="" /&gt;<br>            &lt;Action type="2" message="0" wParam="42055" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1700" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1601" wParam="0" lParam="0" sParam=" ~." /&gt;<br>            &lt;Action type="3" message="1625" wParam="0" lParam="2" sParam="" /&gt;<br>            &lt;Action type="3" message="1602" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="3" message="1702" wParam="0" lParam="768" sParam="" /&gt;<br>            &lt;Action type="3" message="1701" wParam="0" lParam="1609" sParam="" /&gt;<br>        &lt;/Macro&gt;<br>        &lt;Macro name="LRC-Final-Save-Prep" Ctrl="yes" Alt="no" Shift="yes" Key="56"&gt;<br>            &lt;Action type="0" message="2319" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2306" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2326" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2454" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2177" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2302" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2302" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2301" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2301" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2180" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2317" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2304" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2179" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="0" message="2302" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2306" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2306" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2306" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2306" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2452" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2305" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2305" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2305" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2305" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2178" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2451" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="<br>" /&gt;<br>            &lt;Action type="0" message="2179" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="." /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="l" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="r" /&gt;<br>            &lt;Action type="1" message="2170" wParam="0" lParam="0" sParam="c" /&gt;<br>            &lt;Action type="0" message="2454" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2177" wParam="0" lParam="0" sParam="" /&gt;<br>            &lt;Action type="0" message="2180" wParam="0" lParam="0" sParam="" /&gt;<br>        &lt;/Macro&gt;</pre>
+
+<h3 id='temp:C:NEIc1dcd7d5a6be4a51b3980ed31'>It looks like Gobbledy-Gook, but the program recognizes the Numbers as Key Pressed, Durations, and Typed Keys.</h3>
+
+<h2 id='temp:C:NEIb1d5029c143f4b62b5fb7b17e'>Program Notes: </h2>
+
+<div class="" data-section-style='5' style=""><ul id='temp:C:NEI49f1bc5fae6f4d529f83939ca'><li id='temp:C:NEIc1fe21e34424442e889c5d34d' class='' value='1'>Control + TAB was creating a bottleneck, waiting for users Mouse Click
+
+<br/></li><li id='temp:C:NEIb9bea58716ff4de08ac09c287' class=''>I found out that Control + PGDN or Control + PGUP did the Job.
+
+<br/></li><li id='temp:C:NEI06f33b3d2d3b4c2bb3db895e1' class=''>The Name Copying Part was a Fiasco.  It just doesn’t Macro at the Save AS Filename.
+
+<br/></li><li id='temp:C:NEI1d48ac3347494c35bfb09a6fc' class=''>My fall back is to Search for *.LRC, click the current Filename, delete the ES/DE/EN, and save the LRC
+
+<br/></li></ul></div><br/>
+
+To Polish Off I created MergeLRCHelper() and LRCHelper2() in AutoHotKey 2.0 to take care of the rest of <br/>
+
+the Clean-Up and Set-Up of the next 2 files.  <br/>
+
+To Prep You need a SubDir called DONE (No other DIRS, except maybe BackUp for personal use)<br/>
+
+<br/>
+
+MergeLRCHelper() operates Right-Click, Open, Run Macro Cntrl+Shift+9, Contrl+Shift+8, and Saves the Files<br/>
+
+LRCHelper2() is for Clean-Up:  Delete, Archive, Set-Up/Highlight Next two files<br/>
+
+<br/>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/NEIAAAWKnRC/kUfxNNFcItnlvQc_fW-x9g?a=6JtTgaS1Wd0cjxakRpLxYKatE1ZkSlyeblFCQ9RFexka' id='temp:C:NEI2283d4eaa90d4c969a4db1a11' alt="000630 - Around The World In 80 Days - Francais.jpg"></img></div><br/>
+
+<h2 id='temp:C:NEIac0b2a8d496947b3881c7bfbc'>MergeLRCHelper.AHK (AutoHotKey Macro file)</h2>
+
+<pre id='temp:C:NEI0d1fc60db9b647d08d7825c6f'>#Requires AutoHotkey v2.0<br>; Control + Shift + E<br>^+e::MergeLRCHelper()<br>; Control + Shift + R<br>^+r::LRCHelper2()<br>; Control + Shift + Q<br>^+q::SetupFolders()<br><br>; First Run - Establish Macro<br>MsgBox "Setting CTL + SHFT + E, `n`nFROM_Language-to-English`n`n(1. CTL+SHFT+Q = Setup Folders)`n`n(2. CTL+SHFT+E = Merge LRC - Open-Merge-Save)`n`n(3. CTL+SHFT+R = Clean-Up, Set-Up Next)`n`n`nNote: Highlight the Book.en.lrc and Book.xx.lrc and Hover over 1st Lang`n`nNotePad++ Prerequisite: No Loaded Files"<br><br>; # Exit Script <br>Exit<br><br>; SRT2LRC.ahk <br>; SAVE lrc &amp; Translate to English &amp; SAVE lrc<br><br>SetupFolders()<br>{<br>    ; Create Backup-LRC Folder<br>    Send "^+n"<br>    Sleep 500<br>    Send "Backup-LRC"<br>    Send "{enter}"<br>    Sleep 500<br><br>    ; Create Backup-SRT Folder<br>    Send "^+n"<br>    Sleep 500<br>    Send "Backup-SRT"<br>    Send "{enter}"<br>    Sleep 500<br><br>    ; Create Backup-LRC Folder<br>    Send "^+n"<br>    Sleep 500    <br>    Send "D-O-N-E"<br>    Send "{enter}"<br>    Sleep 500<br>    <br>    Send "{down}"<br>    Sleep 500<br><br>    ; Highlight the next 2 LRC files<br>    Send "+{down}"    <br>}<br><br>LRCHelper2()<br>{<br>    ;Delete Last 2 Files<br>    SendPlay "{delete}"<br>    Sleep 500<br>    Send "{enter}"<br>    Sleep 500 <br>    <br>    Send "{up}"<br>    Send "{down}"<br><br>    ; Cut the New .mp3 and .lrc<br>    Send "+{down}"<br>    Send "^x"<br><br>    ; CD DONE<br>    Send "{up}"<br>    Send "{up}"<br>    Send "{enter}"<br>    Sleep 500 <br><br>    ; Paste the New .mp3 and .lrc into DONE Directory<br>    Send "^v"<br>    Sleep 500 <br>    ; Back to the Parent Directory<br>    SendInput "{Backspace}"<br>    Sleep 500 <br>    Send "{down}"<br><br>    ; Highlight the next 2 LRC files<br>    Send "+{down}"    <br>}<br><br>MergeLRCHelper()<br>{<br>    ; Prerequisite:  Both .en and .de are Highlighted<br>    Sleep 300 <br><br>    ;Open both files into NotePad++<br>    MouseClick "right"<br>    Sleep 300 <br>    Loop 2<br>    { <br>        Send "{Down}" <br>        Sleep 200 <br>    }<br>    Send "{ENTER}"<br>    Sleep 500<br>    <br>    ;Operate the Cntrl+Shift+9 MACRO<br>    Send "^+9"<br>    Sleep 1000<br>    <br>    ;Operate the Cntrl+Shift+8 MACRO<br>    Send "^+8"<br>    Sleep 1000<br><br>    ;Save-As<br>    Send "^!s"<br>    Sleep 500<br><br>    ;Preformatted Filename<br>    Send "^v"<br>    Sleep 50<br>    <br>    ;Saved<br>    Send "{ENTER}"<br>    Sleep 50<br><br>    ;Close All<br>    Send "^+w"<br>    Sleep 50<br><br>    ;No, do not Save<br>    Send "o"<br>    Sleep 50<br><br>    ;Exit NotePad++<br>    Send "!{f4}"<br>}</pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

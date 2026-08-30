@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<style>body { font-family: Arial, sans-serif; margin: 40px; background-color: #f7f7f7; }.note-view { max-width: 900px; background: white; border: 1px solid #ccc; padding: 25px; }</style>
+	</head>
+	<body>
+		<div class='note-view'>
+			<h1>TRANSCRIPT_FIX.ahk - VERSION 5.0</h1>
+			<b>Problem</b>:  Copying Transcript contains additional Time Signature in TEXT
+			<br>
+			<b>Answer</b>:  Strip out TIME with<b> CNTRL+ALT+E</b>
+			<br>
+			<b>Answer:  </b>Format Time with <b>CNTRL+ALT+T</b>
+			<br>
+			<b>Answer:  </b>Delete Time with<b> CNTRL+ALT+R </b>
+			<br>
+			<b>Answer:  </b>Clean up Text with <b>CNTRL+ALT+I</b>
+			<br>
+			<b>Answer</b>:  Merge Time with TRANSCRIPT with <b>CNTRL+Y</b>
+			<br>
+			<br>
+			<b>TRANSCRIPT_FIX_5.ahk</b>
+			<br>
+			<pre>#Requires AutoHotkey v2.0
+; Control + Shift + E = YouTube Left Screen Typical Top Text
+; In order of occurance
+; Given: ^+i is Prepopulated
+
+^+o::ADD_NewText()
+^+e::SELECT_TIMESIG()
+^+t::STANDARDIZE_TIMESIG()
+^+r::DELETE_TIMESIG()
+^+i::FIX_Transcript()
+^+y::INTEGRATE_TIMESIG()
+
+; Control + Shift + X
+^+x::Call_Exit()
+
+; Next Line all on ONE LINE
+MsgBox "Setting CTL + SHFT + E, R, I, U, and Y`n`n(E = Select TimeSig(COPY))`n
+(R = Select TimeSig(DEL))`n(T = Standardize TimeSig)
+`n(I = NULL Replace 4 hour(s), minute(s), second(s))`nY = Integrate Time Signature`n"
+
+; First Run - Establish Macro
+
+; # Exit Script - First Run
+Exit
+
+ADD_NewText()
+{
+    ;CNTRL + SHIFT + F10
+    Send "+{F10}"
+    ;W = NEW
+    Send "w"
+    ;T = TEXT FILE
+    Send "t"
+    SendInput "^v"
+    Send "{Enter}"
+}
+
+SELECT_TIMESIG()
+{
+    ;Control + Shift + E
+    ;MARK and Copy TimeSig
+    ;^\d*:\d*:\d.|^\d*:\d.
+    ;CNTRL + M brings up MARK TAB
+    ;Type expression and Press Enter to MARK
+    ;Settings &gt; Shortcut Mapper
+    ;CNTRL+SHIFT+C = COPY MARKED TEXT
+    SendInput "^m"
+    Sleep 1000
+    Send "{^}\d*:\d*:\d.{|}{^}\d*:\d."
+    Sleep 1000
+    SendInput "{Enter}"
+    Sleep 1000
+    ; ALT g
+    Send("!g")    
+    Sleep 1000
+    ; TAB 4
+    Send "{TAB 4}"
+    ;Enter
+    Sleep 1000
+    SendInput "{Enter}"
+    Sleep 1000
+    ;ESC
+    Send "{ESC}"
+    ;CNTRL+N
+    Send "^n"
+    ;CNTRL+V
+    Send "^v"    
+}
+
+DELETE_TIMESIG()
+{
+    ;Control + Shift + R
+    ; Delete All TimeSig leaving Space followed by Transcript
+    ; ^\d*:\d*:\d*\s|^\d*:\d*
+    SendInput "^h"
+    Sleep 1000
+    Send "{^}\d*:\d*:\d*{|}{^}\d*:\d*"
+    Sleep 1000
+    ;TAB
+    Send "{TAB}"
+    ;Delete
+    Send "{DEL}"
+    ;Send "{TAB 10}"
+    ;Enter
+    ;SendInput "{Enter}"
+    ; ALT A
+    Send("!a")    
+    Sleep 1000
+    SendInput "{ESC}"
+}
+
+STANDARDIZE_TIMESIG()
+{
+    ;Control + Shift + U
+    ; x:xx:xx to 0x:xx:xx
+    ;     Replace: ^(\d:\d.:\d.) with 0\1
+    ; xx:xx to 00:xx:xx
+    ;     Replace: ^(\d.:\d.) with 00:\1
+    ; x:xx to 00:0x:00
+    ;     Replace: ^(\d:\d.) with 00:0\1
+
+    ;CASE 0:00:00
+    SendInput "^h"
+    Sleep 1000
+    Send "{^}(\d:\d.:\d.)\s"
+    Sleep 1000
+    Send "{TAB}"
+    Send "0\1"
+    ;Send "{TAB 10}"  ;THIS LINE FAILS
+    Sleep 1000
+    ; ALT A
+    Send("!a")
+    Sleep 1000
+    SendInput "{ESC}"    
+
+    ;CASE 00:00
+      SendInput "^h"
+    Sleep 1000
+    Send "{^}(\d.:\d.)\s"
+    Sleep 1000
+    Send "{TAB}"
+    Send "00:\1"
+    ;Send "{TAB 10}"
+    Sleep 1000
+    ; ALT A
+    Send("!a")
+    Sleep 1000
+    SendInput "{ESC}"    
+
+    ;CASE 0:00
+      SendInput "^h"
+    Sleep 1000
+    Send "{^}(\d:\d.)\s"
+    Sleep 1000
+    Send "{TAB}"
+    Send "00:0\1"
+    ;Send "{TAB 10}"
+    Sleep 1000
+    ; ALT A
+    Send("!a")
+    Sleep 1000
+    SendInput "{ESC}"    
+}    
+
+FIX_Transcript()
+{
+  ;Control + Shift + I
+  ; Given Transcript has extra info: hours, minutes, seconds
+  ; and Following has been processed
+  ;       extracted/deleted: ^Chapter.*\r\n  
+  ;       extracted: ^\d*:\d*:\d.|^\d*:\d.
+  ;       deleted: ^\d*:\d*:\d*|^\d*:\d*
+  ;       All Lines formatted 1Space + Transcript without TimeSigs
+  ; This Macro Runs:  Delete Following
+  ; These need to be built in the first time RUN in this ORDER
+  ;                1  (^\shours, \d*)  
+  ;                2  (^\shour, \d*)  
+  ;                3  (^\sminutes, \d*)
+  ;                4  (^\sminute, \d*)
+  ;                5  (^\sseconds)
+  ;                6  (^\ssecond)  
+  ;                7  (^\sminutes)
+  ;                8  (^\sminute)
+      SendInput "^h"
+    Sleep 1000
+
+  ; Control PGDN (hours)
+  Send "^{PGDN}"
+  ; ALT A
+  Send("!a")
+  Sleep 1000
+
+  ; Control PGDN (hour)
+  Send "^{PGDN}"
+  ; ALT A
+  Send("!a")
+  Sleep 1000
+
+  ; Control PGDN (minutes)
+  Send "^{PGDN}"
+  ; ALT A
+  Send("!a")
+  Sleep 1000
+
+  ; Control PGDN (minute)
+  Send "^{PGDN}"
+  ; ALT A
+  Send("!a")
+  Sleep 1000
+
+  ; Control PGDN (seconds)
+  Send "^{PGDN}"
+  ; ALT A
+  Send("!a")
+  Sleep 1000
+
+  ; Control PGDN (seconds)
+  Send "^{PGDN}"
+  ; ALT A
+  Send("!a")
+  Sleep 1000
+
+  ; Control PGDN (minutes)
+  Send "^{PGDN}"
+  ; ALT A
+  Send("!a")
+  Sleep 1000
+
+  ; Control PGDN (minute)
+  Send "^{PGDN}"
+
+  ; ALT A
+  Send("!a")
+  Sleep 1000
+
+  SendInput "{ESC}"
+  Sleep 1000
+
+  ; Control END
+  Send "^{END}"
+
+}
+
+INTEGRATE_TIMESIG()
+{
+    ;Control + Shift + Y
+    ;Given Tab2, TimeSig Format: XX:XX:XX
+    ;Given Tab1, Transcript No TimeSig
+    ;Given Tab1, # of Tab2 Lines = # of Tab1 Lines    
+    ;Start Tab2: Select and Copy
+    Sleep 1000
+    Send "^{HOME}"
+    Sleep 1000
+    Send "^!{END}"
+    Sleep 1000
+    Send "^!{RIGHT}"
+    Sleep 1000
+    Send "^c"
+
+    ;Change to Tab1
+    Sleep 1000
+    Send "^+{TAB}"    
+
+    ;Tab1 Insert Space All Lines
+    Sleep 1000
+    Send "^{HOME}"
+    Sleep 1000
+    Send "^!{END}"
+    Sleep 1000
+    Send "{SPACE}"
+    Sleep 1000
+    Send "{LEFT}"
+
+    ;Insert Tab2 TimeSig Into Tab1
+    Sleep 1000
+    Send "^{HOME}"
+    Sleep 1000
+    Send "^!{END}"
+    Sleep 1000
+    Send "^v"
+}
+
+Call_Exit()
+{
+    ;Control + Shift + X
+    MsgBox "Unloading Script..."
+    ExitApp
+}
+
+</pre>
+		</div>
+	</body>
+</html>	

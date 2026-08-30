@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>Reader.aspx.cs</title>
+    </head>
+    <body>
+        <h1>Reader.aspx.cs
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">Reader.aspx.cs
+
+
+<span style="color:#D73A49;font-weight:bold;">using</span> System;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Collections.Generic;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.IO;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Text;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web.Script.Serialization;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web.UI;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web.UI.WebControls;
+
+
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> partial <span style="color:#D73A49;font-weight:bold;">class</span> Reader : Page
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#005CC5;font-weight:bold;">string</span> JsonFilePath
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">get</span> { <span style="color:#D73A49;font-weight:bold;">return</span> Server.MapPath("~/Reader.json"); }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> Page_Load(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsPostBack)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BindSavedEntries();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> btnSave_Click(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> voiceName = hfSelectedVoice.Value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> textName = txtTextName.Text.Trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> rawContent = txtContent.Text;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(textName))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textName = "Untitled Reader";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> entries = LoadEntriesRaw();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> newEntry = <span style="color:#D73A49;">new</span> ReaderEntry
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VoiceName = EncodeBase64(voiceName),
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TextName = EncodeBase64(textName),
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TextContent = EncodeBase64(rawContent)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; entries.Add(newEntry);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SaveEntriesRaw(entries);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtTextName.Text = <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BindSavedEntries();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> btnDelete_Click(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> index;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">int</span>.TryParse(hfDeleteIndex.Value, <span style="color:#D73A49;">out</span> index))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> entries = LoadEntriesRaw();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (index &gt;= 0 &amp;&amp; index &lt; entries.Count)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; entries.RemoveAt(index);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SaveEntriesRaw(entries);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BindSavedEntries();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">void</span> BindSavedEntries()
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> rawEntries = LoadEntriesRaw();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> decodedList = <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;ReaderEntryDisplay&gt;();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> i = 0; i &lt; rawEntries.Count; i++)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> item = rawEntries[i];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; decodedList.Add(<span style="color:#D73A49;">new</span> ReaderEntryDisplay
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VoiceName = DecodeBase64(item.VoiceName),
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TextName = DecodeBase64(item.TextName),
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TextContent = DecodeBase64(item.TextContent),
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Index = i
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rptSavedEntries.DataSource = decodedList;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rptSavedEntries.DataBind();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> rptSavedEntries_ItemDataBound(<span style="color:#005CC5;">object</span> sender, RepeaterItemEventArgs e)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.Item.ItemType != ListItemType.Item &amp;&amp; e.Item.ItemType != ListItemType.AlternatingItem)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> entry = (ReaderEntryDisplay)e.Item.DataItem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (entry == <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> btnRead = (Button)e.Item.FindControl("btnReadEntry");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> btnDelete = (Button)e.Item.FindControl("btnDeleteEntry");
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (btnRead != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btnRead.Text = entry.TextName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btnRead.ToolTip = entry.ReadTitle;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btnRead.Attributes["title"] = entry.ReadTitle;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btnRead.OnClientClick = entry.ReadCommand;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (btnDelete != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btnDelete.Attributes["title"] = "Delete <span style="color:#D73A49;font-weight:bold;">this</span> entry";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btnDelete.OnClientClick = entry.DeleteCommand;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#6F42C1;">List</span>&lt;ReaderEntry&gt; LoadEntriesRaw()
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(JsonFilePath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;ReaderEntry&gt;();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> json = File.ReadAllText(JsonFilePath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JavaScriptSerializer js = <span style="color:#D73A49;">new</span> JavaScriptSerializer();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> result = js.Deserialize&lt;<span style="color:#6F42C1;">List</span>&lt;ReaderEntry&gt;&gt;(json);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> result ?? <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;ReaderEntry&gt;();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;ReaderEntry&gt;();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">void</span> SaveEntriesRaw(<span style="color:#6F42C1;">List</span>&lt;ReaderEntry&gt; entries)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JavaScriptSerializer js = <span style="color:#D73A49;">new</span> JavaScriptSerializer();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> json = js.Serialize(entries);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; File.WriteAllText(JsonFilePath, json);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#005CC5;font-weight:bold;">string</span> EncodeBase64(<span style="color:#005CC5;font-weight:bold;">string</span> value)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(value)) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">byte</span>[] bytes = Encoding.UTF8.GetBytes(value);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#6F42C1;">Convert</span>.ToBase64String(bytes);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#005CC5;font-weight:bold;">string</span> DecodeBase64(<span style="color:#005CC5;font-weight:bold;">string</span> base64Value)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(base64Value)) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">byte</span>[] bytes = <span style="color:#6F42C1;">Convert</span>.FromBase64String(base64Value);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> Encoding.UTF8.GetString(bytes);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> base64Value; // Fallback <span style="color:#D73A49;font-weight:bold;">if</span> <span style="color:#005CC5;font-weight:bold;">string</span> was unencoded
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#D73A49;font-weight:bold;">class</span> ReaderEntry
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> VoiceName { <span style="color:#D73A49;">get</span>; <span style="color:#D73A49;">set</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> TextName { <span style="color:#D73A49;">get</span>; <span style="color:#D73A49;">set</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> TextContent { <span style="color:#D73A49;">get</span>; <span style="color:#D73A49;">set</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#D73A49;font-weight:bold;">class</span> ReaderEntryDisplay
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> VoiceName { <span style="color:#D73A49;">get</span>; <span style="color:#D73A49;">set</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> TextName { <span style="color:#D73A49;">get</span>; <span style="color:#D73A49;">set</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> TextContent { <span style="color:#D73A49;">get</span>; <span style="color:#D73A49;">set</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">int</span> Index { <span style="color:#D73A49;">get</span>; <span style="color:#D73A49;">set</span>; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> ReadTitle
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">get</span> { <span style="color:#D73A49;font-weight:bold;">return</span> "Read by " + VoiceName; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> ReadCommand
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">get</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> "readSavedText(\"" + HttpUtility.JavaScriptStringEncode(TextContent) + "\", \"" + HttpUtility.JavaScriptStringEncode(VoiceName) + "\")";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> DeleteCommand
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">get</span> { <span style="color:#D73A49;font-weight:bold;">return</span> "deleteEntry(" + Index + ")"; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+        &nbsp; &nbsp; }</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

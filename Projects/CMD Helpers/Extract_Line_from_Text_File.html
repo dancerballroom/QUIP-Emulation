@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><meta charset='utf-8' /><title>Saved Note</title></head><body>
+        
+        
+        
+        <h1 id="temp:C:aLT964f5d0d760c48f2b2ee0badd">Extract Line from Text File</h1>
+
+<pre id="temp:C:aLTf8a121064ced4bb8ac139200d"><code><pre style="background-color: rgb(244, 244, 246); border: 1px solid rgb(128, 128, 128); padding: 12px; margin: 10px 0px; border-radius: 4px; font-family: Consolas, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, monospace; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: blue; font-weight: bold;"><code>@echo off</code><br><code>setlocal enabledelayedexpansion</code><br><br><code>set "file=your_text_file.txt"</code><br><code>set "line_number=3" </code><br><br><code>for /f "tokens=1* delims=:" %%a in ('findstr /n "^" "%file%"') do (</code><br>&nbsp;&nbsp; <code> if %%a equ %line_number% (</code><br>&nbsp; &nbsp; &nbsp;&nbsp; <code> set "extracted_line=%%b"</code><br>&nbsp; &nbsp; &nbsp;&nbsp; <code> goto :break</code><br>&nbsp; &nbsp;<code>)</code><br><code>)</code><br><br><code>:break</code><br><code>echo %extracted_line%</code></pre><ul><li><code>First Level Bulleted</code></li><ul><li><code>Second</code></li><ul><li><code>Third</code></li><ul><li><code>Fourth</code></li></ul></ul></ul></ul><div><ol><li>First Level Numeric</li><ol><li>Second</li><ol><li>Third</li><ol><li>Fourth</li></ol></ol></ol></ol></div><br>This is the next Line.<br><a href="https://ballroomdancer.infinityfree.me/index.html?i=1">InfinityFree.Me</a><br><br><br><br><br><br><br><br><br><br></code></pre>
+
+
+    
+    
+    
+    </body></html>

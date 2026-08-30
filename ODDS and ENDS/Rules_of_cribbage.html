@@ -1,0 +1,634 @@
+<!doctype html>
+<html><head><title>Rules of cribbage</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:HaW04de43192a9a4a69b968c7153'>Rules of cribbage</h1>
+
+<h2 id='temp:C:HaWba5a3a4e89044536b054fa245'>The deal</h2>
+
+<a href="https://www.wikiwand.com/en/Cribbage">Cribbage</a> uses a <a href="https://www.wikiwand.com/en/Standard_52-card_deck">standard 52-card deck</a> of cards. The jokers are removed; the suits are equal in status. The players <a href="https://www.wikiwand.com/en/Cut_(cards)">cut</a> for first deal, with the player cutting the lowest card (the ace counts as one, and is the lowest card) dealing first. If the cutters tie, the cards are re-shuffled and re-cut. The deal then alternates from hand to hand. Note that because the crib (explained below) belongs to the dealer, winning the first deal confers a scoring advantage: if the game ends in an odd number of deals, the first dealer will have received an extra crib, sometimes enough to decide the game.<br/>
+
+<br/>
+
+The dealer <a href="https://www.wikiwand.com/en/Shuffle">shuffles</a>, offers the deck to the player on their right to cut (required in tournament play), and deals cards singly to each player, starting with the player on the dealer's left. During the deal, if any card is exposed by the dealer or found face-up in the deck, cards must be redealt.   Cards must be dealt so that each player ends up with four cards after the crib is formed, and the crib should also have four cards. <br/>
+
+<div data-section-style='5' class="" style=""><ul id='temp:C:HaW5c46510efa1541319f6908695'><li id='temp:C:HaW86e65c3eef0143d68b8cace9f' class='' value='1'><b>Two players</b> Six cards are dealt to each player.  Each player discards 2 cards to the crib.
+
+<br/></li><li id='temp:C:HaW13deba4d5a424525b1a2cfd78' class=''><b>Three players</b> Five cards are dealt to each player.  One card to the crib.  Each player discards 1 card to the crib.
+
+<br/></li><li id='temp:C:HaW3261d0f45c8a4820b1652eb84' class=''><b>Four players </b> Five cards are dealt to each player.  Each player discards 1 card to the crib.  
+
+<br/></li><li id='temp:C:HaWe9b2db1dfe45408f821d0a0da' class=''><b>Five players Variation</b>: Five cards are dealt to each player except the dealer, who has only four cards. The four non-dealers each discard one card to the crib.
+
+<br/></li></ul></div><h2 id='temp:C:HaW53dad97b1ba5452ca29f27f14'>The crib</h2>
+
+Once the cards have been dealt, each player chooses four cards to retain, discarding the other one or two face-down to form the "crib" that will be used later by the dealer.  At this point, each player's hand and the crib will contain exactly four cards.<br/>
+
+<h2 id='temp:C:HaW93e8b9197c294ca2a78f4732a'>The starter</h2>
+
+The player on the dealer's left cuts the undealt portion of the deck (leaving at least 4 cards), and the dealer reveals the top card of the bottom section, called the "starter" or the "cut", placing it on top of the deck face up. (It is illegal to peek at any other cards in the deck during this process.)<sup><a href="https://www.wikiwand.com/en/Rules_of_cribbage#citenotemechanics3">[3]</a></sup> If this card is a <a href="https://www.wikiwand.com/en/Jack_(playing_card)">jack</a>, the dealer scores two points for "his heels". The game can end on a cut of a jack for the dealer.<br/>
+
+<br/>
+
+<br/>
+
+<h2 id='temp:C:HaWcdeef5446fb84fb8884504cf4'>The play</h2>
+
+<b>The play</b> (often called <b>pegging</b>) starts with the player on the dealer's left and continues clockwise. Each player lays one card in turn onto the table so that it is visible, stating the cumulative value, or <i>count,</i> of the cards played so far. (For example, the first player lays a 4 and says "four", the next lays a 7 and says "eleven", and so on). Face cards are worth ten; aces are worth one. Each player's cards are retained on the table in front of that player, so that the hands can later be gathered and scored.<br/>
+
+<br/>
+
+The count must not exceed 31, so a player who cannot lay a card without bringing the count above 31 passes by saying "Go". The other players continue to lay cards in turn without exceeding 31 until no cards can be played. Players must lay a card if able to do so without exceeding 31. The last player to lay a card scores two points if 31 is reached exactly ("31 for two"); otherwise one point is scored, e.g., "29 for one", or "30 for one", etc. The one-point score is known as "One for go",<sup><a href="https://www.wikiwand.com/en/Rules_of_cribbage#citenotego4">[4]</a></sup> or simply "Go". The count is then reset to zero and play resumes, starting with the player to the left of the last card played. Players with cards remaining repeat this process until all cards have been played. The last card played is treated as a final "go" as described above: two points for making the final count 31, or one point otherwise.<br/>
+
+<br/>
+
+In addition to scoring one or two points for the last card, players score points according to the following rules:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='temp:C:HaW832b3131c60943abb6518f7d0'><li id='temp:C:HaW529ab05f7f8e490592bbd7ee1' class='parent' value='1'><b>fifteen-two</b>
+
+<br/></li><ul><li id='temp:C:HaWba75fc09de7d44f0bf34cd1a2' class=''>two points for making the cumulative count <b>exactly fifteen</b> ("fifteen two")
+
+<br/></li></ul><li id='temp:C:HaW7e19006c4ff246a4a3aaeffd8' class='parent'><b>runs</b>
+
+<br/></li><ul><li id='temp:C:HaW654c71e509274926a6fb6513b' class=''>three points for completing a run of three cards, regardless of the order in which they are laid (a 6, then a 4, then a 5 is a run of three even though they were not laid in order)
+
+<br/></li><li id='temp:C:HaW492cafa8e0e3416096978d72d' class=''>four points for completing a run of four
+
+<br/></li><li id='temp:C:HaWa26ff1bb5d874c95a79915b0d' class=''>five points for completing a run of five
+
+<br/></li><li id='temp:C:HaWd5bdeb8f0867496dbc7ae7b60' class=''>six points for completing a run of six
+
+<br/></li><li id='temp:C:HaWff0fccd7845444ff82fa05ff6' class=''>seven points for completing the run of seven; e.g. playing 2, 4, 6, A, 3, 5 and 7
+
+<br/></li></ul><li id='temp:C:HaW50ea382c39b347098922fee41' class='parent'><b>pairs</b>
+
+<br/></li><ul><li id='temp:C:HaW814a5bd0c2484103a16b4af9f' class=''>two points for laying a card of the same rank as the previous card, thus completing a pair
+
+<br/></li><li id='temp:C:HaWcb2f940ddf1d49049e88181a0' class=''>six points for laying a third card of the same rank (a "pair royal" or "trips")
+
+<br/></li><li id='temp:C:HaWc03d0c93285a4a4ea09f6773f' class=''>twelve points for laying a fourth card of the same rank (a "double pair royal" or "quad")
+
+<br/></li></ul></ul></div>If a card completes more than one scoring combination, then all combinations are scored. For example, if the first three cards played are 5s, the second one scores two points ("ten and a pair") and the third scores eight (“fifteen-two and a pair royal for six, makes eight”). Card combinations cannot span a reset; once the total reaches 31 (or a Go has been scored) and counting has restarted at zero, cards already played are no longer available for runs or pairs. During this phase of play run combinations cannot span a pair; in a play of 2, 3, 3, 4 the pair interrupts the run so only the pair is counted for points.<br/>
+
+Players choose when to lay each card in order to maximise their score according to the scheme shown below. The first player to reach 121 wins the game.<br/>
+
+<br/>
+
+<h2 id='temp:C:HaWbb145a01fa2d4bd8871b37fdd'>The show</h2>
+
+Once the play is complete, each player in turn receives points based on the content of their hand. Starting with the player on the dealer's left, players spread out their cards on the playing surface and calculate their score. The starter card turned up at the beginning of play serves as a fifth card shared in common by all hands; thus each player's score is based on their own four cards along with the starter card. Scoring combinations are the following:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='temp:C:HaW17faa52b397445f1b9ec0a45d'><li id='temp:C:HaW3aaebb6828e94017aefaccda0' class='parent' value='1'><b>fifteens</b>
+
+<br/></li><ul><li id='temp:C:HaW6fcc605a6e10477e9c47ddfd4' class=''>two points for each distinct combination of two or more cards totalling <b>exactly fifteen</b> (counting aces as one, face cards as ten)
+
+<br/></li></ul><li id='temp:C:HaW1f25214f75b246308bf94097e' class='parent'><b>runs</b>
+
+<br/></li><ul><li id='temp:C:HaW0cdb8b46e94e4d578484e3bf5' class=''>three points for a run of three consecutive cards (regardless of suit)
+
+<br/></li><li id='temp:C:HaWd6dbda47bd664ee28a588ef37' class=''>four points for a run of four
+
+<br/></li><li id='temp:C:HaW8e3b9e501818459f9b1114221' class=''>five points for a run of five
+
+<br/></li></ul><li id='temp:C:HaW2ddcdbd62a9648f3a7a376000' class='parent'><b>pairs</b>
+
+<br/></li><ul><li id='temp:C:HaW20dc05bc72bd41ea92e0dcbc4' class=''>two points for a pair of cards of the same rank
+
+<br/></li><li id='temp:C:HaW1ae4475babc74363b3febc93d' class=''>six points for three cards of the same rank (known as a "pair royal", comprising three distinct pairs)
+
+<br/></li><li id='temp:C:HaW0116e4069f404a8faf9b85239' class=''>twelve points for four cards of the same rank (a "double pair royal", comprising six distinct pairs)
+
+<br/></li></ul><li id='temp:C:HaWfb72297452fc4e5098cb4b949' class='parent'><b>flush</b>
+
+<br/></li><ul><li id='temp:C:HaW5ab28ad61b394922885aec1e4' class=''>four points for a flush, where all four cards in the hand are of the same suit, with an additional point if the starter card is also of that suit. (Note that four suited cards including the starter, but missing one of the cards in the hand, does not score for flush.)
+
+<br/></li></ul><li id='temp:C:HaW6b6c2ee2da244708815e14515' class='parent'><b>his nob(s)</b>
+
+<br/></li><ul><li id='temp:C:HaW04108fb1c43a42e8aa5548cf1' class=''>one point for holding the jack of the same suit as the starter card ("one for his nob"<sup><a href="https://www.wikiwand.com/en/Rules_of_cribbage#citenote5">[5]</a></sup> or "... his nobs"<sup><a href="https://www.wikiwand.com/en/Rules_of_cribbage#citenote6">[6]</a></sup>)
+
+<br/></li></ul></ul></div>Common combinations are often recognized and scored as a unit. For example, a run of three cards with an additional card matching one of the three in rank, e.g., 2–2–3–4, is termed a "double run of three" and scores eight according to the above rules (two distinct runs of three and two for the pair); 2–2–3–4–5 is a "double run of four" for ten points (two distinct runs of four and two for the pair). Even more valuable are "triple runs", e.g., 2–2–2–3–4, scoring fifteen (three distinct runs of three, plus three distinct pairs) and "double-double" or "quadruple runs", e.g., 2–3–3–4–4, scoring sixteen (four distinct runs of three, plus two pairs). Combined runs may also include fifteens: a 24 hand, the largest commonly seen, can comprise a double-double run and four fifteens: for example, 4–4–5–5–6 or 6–7–7–8–8.<br/>
+
+The dealer scores their hand last and then turns the cards in the crib face up. These cards, in conjunction with the starter card, are scored by the dealer as an additional hand. The rules for scoring the crib are the same as scoring a hand, with the exception of the flush; a four-card flush in the crib is not scored unless it is also the same suit as the starter card (for a total of five points).<br/>
+
+<br/>
+
+The highest possible score for a hand is 29 points: a starter card of a 5, and a hand of 5, 5, 5, J with the jack being the same suit as the starter card. The score might be announced thus:<br/>
+
+<i><span style="color:#7c7379" textcolor="#7c7379">Fifteen two, fifteen four, fifteen six, fifteen eight [four J-5 combinations],<br>fifteen ten, fifteen twelve, fifteen fourteen, fifteen sixteen [four 5–5–5 combinations],<br>double pair royal [six pairs of 5s] for twelve makes twenty-eight,<br>and his nobs makes twenty-nine.</span></i><br/>
+
+<span style="color:#000000" textcolor="#000000">Scores between 0 and 29 are all possible, with the exception of 19, 25, 26 and 27.</span><a href="https://www.wikiwand.com/en/Rules_of_cribbage#citenotelumetta7"><sup><span style="color:#000000" textcolor="#000000">[7]</span></sup></a><span style="color:#000000" textcolor="#000000"> Players may colloquially refer to a blank hand (one scoring no points) as a "nineteen hand".</span><br/>
+
+<br/>
+
+<h2 id='temp:C:HaW910acd4abba24815a3a9fdad9'>The end</h2>
+
+After the dealer has scored the crib, all cards are collected and the deal passes to the player on the dealer's left. The next round starts with the deal.<br/>
+
+Although the rules of cribbage do not require it (except in tournament play), the traditional method of keeping score is to use a <a href="https://www.wikiwand.com/en/Cribbage#Cribbage_board">cribbage board</a>. This is a flat board, usually made of wood, with separate series of holes that record each player's score. It is usually arranged in five hole sections for easier scoring. Players each have two pegs that mark their current and previous scores, and all scoring is done by moving the back peg ahead of the front peg.<br/>
+
+When a player reaches the target score for the game (usually 121), the game ends with that player the winner.<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

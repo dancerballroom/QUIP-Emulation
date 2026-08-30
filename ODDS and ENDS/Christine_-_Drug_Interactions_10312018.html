@@ -1,0 +1,1344 @@
+<!doctype html>
+<html><head><title>Christine - Drug Interactions 10/31/2018</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+</style></head><body><h1 id='cXPACAR2if0'>Christine - Drug Interactions 10/31/2018</h1>
+
+<div data-section-style='5' class="" style=""><ul id='cXPACAhWRmA'><li id='cXPACAI2Lju' class='' style='' value='1'>BuSpar (buspirone)
+
+<br/></li><li id='cXPACAmatcY' class='' style=''>Lyrica CR (pregabalin)
+
+<br/></li><li id='cXPACAghBEl' class='' style=''>Duloxetine
+
+<br/></li><li id='cXPACAPSBQ1' class='' style=''>Omeprazole
+
+<br/></li><li id='cXPACAbMfIi' class='' style=''>Symbicort (budesonide / formoterol)
+
+<br/></li><li id='cXPACAnwnXw' class='' style=''>Modafinil
+
+<br/></li><li id='cXPACAh7MIu' class='' style=''>Topiramate
+
+<br/></li><li id='cXPACApTnNY' class='' style=''>Voltaren Gel (diclofenac)
+
+<br/></li><li id='cXPACAqWldY' class='' style=''>Tramadol Hydrochloride ER (tramadol)
+
+<br/></li><li id='cXPACAZuk6n' class='' style=''>Ventolin HFA (albuterol)
+
+<br/></li><li id='cXPACASSc8g' class='' style=''>Mupirocin
+
+<br/></li><li id='cXPACAQrnJj' class='' style=''>Sucralfate
+
+<br/></li><li id='cXPACACMztQ' class='' style=''>Albuterol / Ipratropium
+
+<br/></li><li id='cXPACAVjFCv' class='' style=''>Lisinopril
+
+<br/></li><li id='cXPACAxJ1pa' class='' style=''>Tecfidera (dimethyl fumarate)
+
+<br/></li><li id='cXPACAHZkfe' class='' style=''>Clotrimazole
+
+<br/></li><li id='cXPACAAEz9W' class='' style=''>Colace (docusate)
+
+<br/></li><li id='cXPACAeT5Rc' class='' style=''>Vitamin D3 (cholecalciferol)
+
+<br/></li><li id='cXPACA1KfcC' class='' style=''>Montelukast
+
+<br/></li><li id='cXPACAAJ3js' class='' style=''>Ferrous sulfate
+
+<br/></li><li id='cXPACAwAref' class='' style=''>Ampyra (dalfampridine)
+
+<br/></li></ul></div>Interactions between your drugs<br/>
+
+<br/>
+
+<br>Major<br/>
+
+<br/>
+
+traMADol &lt;&gt; dalfampridine<br/>
+
+<br/>
+
+<br>Applies to: Tramadol Hydrochloride ER (tramadol), Ampyra (dalfampridine)<br/>
+
+<br/>
+
+<a href="https://www.drugs.com/tramadol.html"><u>TraMADol</u></a> may rarely cause <a href="https://www.drugs.com/cg/seizures.html"><u>seizures</u></a>, and combining it with other medications that can also cause seizures such as <a href="https://www.drugs.com/mtm/dalfampridine.html"><u>dalfampridine</u></a> may increase that risk. You may be more susceptible if you are elderly, undergoing alcohol or drug withdrawal, have a history of seizures, or have a condition affecting the central nervous system such as a <a href="https://www.drugs.com/cg/brain-tumors.html"><u>brain tumor</u></a> or head trauma. Talk to your doctor if you have any questions or concerns. Your doctor may be able to prescribe alternatives that do not interact, or you may need a dose adjustment or more frequent monitoring by your doctor to safely use both medications. You should avoid or limit the use of alcohol while being treated with these medications. Also avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medications affect you. It is important to tell your doctor about all other medications you use, including <a href="https://www.drugs.com/cdi/vitamins-multiple-injectable.html"><u>vitamins</u></a> and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Major<br/>
+
+<br/>
+
+busPIRone  &lt;&gt;  DULoxetine<br/>
+
+<br/>
+
+<br>Applies to: BuSpar (buspirone), duloxetine<br/>
+
+<br/>
+
+Using <a href="https://www.drugs.com/buspirone.html"><u>busPIRone</u></a> together with <a href="https://www.drugs.com/duloxetine.html"><u>DULoxetine</u></a> can increase the risk of a rare but serious condition called the <a href="https://www.drugs.com/mcd/serotonin-syndrome"><u>serotonin syndrome</u></a>, which may include symptoms such as confusion, hallucination, seizure, extreme changes in blood pressure, increased heart rate, <a href="https://www.drugs.com/cg/fever-in-adults.html"><u>fever</u></a>, <a href="https://www.drugs.com/mcs/excessive-sweating"><u>excessive sweating</u></a>, shivering or shaking, blurred vision, muscle spasm or stiffness, tremor, incoordination, stomach cramp, <a href="https://www.drugs.com/health-guide/nausea.html"><u>nausea</u></a>, <a href="https://www.drugs.com/cg/acute-nausea-and-vomiting.html"><u>vomiting</u></a>, and <a href="https://www.drugs.com/cg/acute-diarrhea.html"><u>diarrhea</u></a>. Severe cases may result in coma and even death. You should seek immediate medical attention if you experience these symptoms while taking the medications. Talk to your doctor if you have any questions or concerns. Your doctor may already be aware of the risks, but has determined that this is the best course of treatment for you and has taken appropriate precautions and is monitoring you closely for any potential complications. It is important to tell your doctor about all other medications you use, including <a href="https://www.drugs.com/cdi/vitamins-multiple-injectable.html"><u>vitamins</u></a> and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Major<br/>
+
+<br/>
+
+busPIRone  &lt;&gt;  traMADol<br/>
+
+<br/>
+
+<br>Applies to: BuSpar (buspirone), Tramadol Hydrochloride ER (tramadol)<br/>
+
+<br/>
+
+Consumer information for this interaction is not currently available.<br/>
+
+<br/>
+
+GENERALLY AVOID: Concomitant use of opioids with other central nervous system (CNS) depressants (e.g., benzodiazepines, sedatives/hypnotics, anxiolytics, muscle relaxants, general anesthetics, antipsychotics, other opioids, alcohol) may result in profound sedation, respiratory depression, coma, and death.<br><br>MANAGEMENT: The use of opioids in conjunction with other CNS depressants should generally be avoided unless alternative treatment options are inadequate. If coadministration is necessary, the dosage and duration of each drug should be limited to the minimum required to achieve desired clinical effect. Patients should be monitored closely for signs and symptoms of respiratory depression and sedation, and advised to avoid driving or operating hazardous machinery until they know how these medications affect them.<br><br>GENERALLY AVOID: Concomitant use of phenylpiperidine opioids, tapentadol, or tramadol with each other or with other serotonergic agents may potentiate the risk of serotonin syndrome, which is a rare but serious and potentially fatal condition thought to result from hyperstimulation of brainstem 5-HT1A and 2A receptors. Symptoms of the serotonin syndrome may include mental status changes such as irritability, altered consciousness, confusion, hallucination, and coma; autonomic dysfunction such as tachycardia, hyperthermia, diaphoresis, shivering, blood pressure lability, and mydriasis; neuromuscular abnormalities such as hyperreflexia, myoclonus, tremor, rigidity, and ataxia; and gastrointestinal symptoms such as abdominal cramping, nausea, vomiting, and diarrhea.<br><br>MANAGEMENT: In general, the concomitant use of multiple serotonergic agents should be avoided if possible, or otherwise approached with caution if potential benefit is deemed to outweigh the risk. Patients should be closely monitored for symptoms of the serotonin syndrome during treatment. Particular caution is advised when increasing the dosages of these agents. If serotonin syndrome develops or is suspected during the course of therapy, all serotonergic agents should be discontinued immediately and supportive care rendered as necessary. Moderately ill patients may also benefit from the administration of a serotonin antagonist (e.g., cyproheptadine, chlorpromazine). Severe cases should be managed under consultation with a toxicologist and may require sedation, neuromuscular paralysis, intubation, and mechanical ventilation in addition to the other measures.<br/>
+
+<br/>
+
+Major<br/>
+
+<br/>
+
+traMADol  &lt;&gt;  DULoxetine<br/>
+
+<br/>
+
+<br>Applies to: Tramadol Hydrochloride ER (tramadol), duloxetine<br/>
+
+<br/>
+
+Talk to your doctor before using <a href="https://www.drugs.com/tramadol.html"><u>traMAD</u><u>ol</u></a> together with <a href="https://www.drugs.com/duloxetine.html"><u>DULoxetine</u></a>. Combining these medications can increase the risk of a rare but serious condition called the <a href="https://www.drugs.com/mcd/serotonin-syndrome"><u>serotonin syn</u><u>drome</u></a>, which may include symptoms such as confusion, hallucination, seizure, extreme changes in blood pressure, increased heart rate, <a href="https://www.drugs.com/cg/fever-in-adults.html"><u>fever</u></a>, <a href="https://www.drugs.com/mcs/excessive-sweating"><u>excessive sweating</u></a>, blurred vision, muscle spasm or stiffness, tremor, stomach cramp, <a href="https://www.drugs.com/health-guide/nausea.html"><u>nausea</u></a>, <a href="https://www.drugs.com/cg/acute-nausea-and-vomiting.html"><u>vomiting</u></a>, and <a href="https://www.drugs.com/cg/acute-diarrhea.html"><u>diarrhea</u></a>. Severe cases may result in coma and even death. You should contact your doctor immediately if you experience these symptoms while taking the medications. Using traMADol with DULoxetine may also increase the risk of <a href="https://www.drugs.com/cg/seizures.html"><u>seizures</u></a> not related to the serotonin syndrome. The interaction may be more likely if you are elderly, undergoing alcohol or drug withdrawal, have a history of seizures, or have a condition affecting the central nervous system such as a <a href="https://www.drugs.com/cg/brain-tumors.html"><u>brain tumor</u></a> or head trauma. You should avoid or limit the use of alcohol while being treated with these medications. Avoid driving or operating hazardous machinery until you know how the medications affect you. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+albuterol  &lt;&gt;  DULoxetine<br/>
+
+<br/>
+
+<br>Applies to: Ventolin HFA (albuterol), albuterol / ipratropium, duloxetine<br/>
+
+<br/>
+
+Both DULoxetine and <a href="https://www.drugs.com/albuterol.html"><u>albuterol</u></a> can increase blood pressure and heart rate, and combining them may enhance these effects. Talk to your doctor if you have any questions or concerns, particularly if you have a history of <a href="https://www.drugs.com/cg/hypertension.html"><u>high blood pressure</u></a>, irregular heart rhythm, or heart disease. Your doctor may be able to prescribe alternatives that do not interact, or you may need a dose adjustment or more frequent monitoring to safely use both medications. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+topiramate  &lt;&gt;  DULoxetine<br/>
+
+<br/>
+
+<br>Applies to: topiramate, duloxetine<br/>
+
+<br/>
+
+Using <a href="https://www.drugs.com/mtm/topiramate.html"><u>topi</u><u>ramate</u></a> together with DULoxetine may increase side effects such as <a href="https://www.drugs.com/cg/vertigo.html"><u>dizziness</u></a>, drowsiness, confusion, and difficulty concentrating. Some people, especially the elderly, may also experience impairment in thinking, judgment, and motor coordination. You should avoid or limit the use of alcohol while being treated with these medications. Also avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medications affect you. Talk to your doctor if you have any questions or concerns. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+formoterol  &lt;&gt;  DULoxetine<br/>
+
+<br/>
+
+<br>Applies to: Symbicort (budesonide / formoterol), duloxetine<br/>
+
+<br/>
+
+Both DULoxetine and <a href="https://www.drugs.com/mtm/formoterol-inhalation.html"><u>formoterol</u></a> can increase blood pressure and heart rate, and combining them may enhance these effects. Talk to your doctor if you have any questions or concerns, particularly if you have a history of <a href="https://www.drugs.com/cg/hypertension.html"><u>high b</u><u>lood pressure</u></a>, irregular heart rhythm, or heart disease. Your doctor may be able to prescribe alternatives that do not interact, or you may need a dose adjustment or more frequent monitoring to safely use both medications. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+busPIRone  &lt;&gt;  pregabalin<br/>
+
+<br/>
+
+<br>Applies to: BuSpar (buspirone), Lyrica CR (pregabalin)<br/>
+
+<br/>
+
+Using <a href="https://www.drugs.com/buspirone.html"><u>busPIRone</u></a> together with <a href="https://www.drugs.com/mtm/pregabalin.html"><u>pregabalin</u></a> may increase side effects such as <a href="https://www.drugs.com/cg/vertigo.html"><u>dizziness</u></a>, drowsiness, confusion, and difficulty concentrating. Some people, especially the elderly, may also experience impairment in thinking, judgment, and motor coordination. You should avoid or limit the use of alcohol while being treated with these medications. Also avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medications affect you. Talk to your doctor if you have any questions or concerns. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+lisinopril  &lt;&gt;  pregabalin<br/>
+
+<br/>
+
+<br>Applies to: lisinopril, Lyrica CR (pregabalin)<br/>
+
+<br/>
+
+Using <a href="https://www.drugs.com/mtm/pregabalin.html"><u>pregabalin</u></a> together with <a href="https://www.drugs.com/lisinopril.html"><u>lisinopril</u></a> may cause <a href="https://www.drugs.com/cg/angioedema.html"><u>angioedema</u></a>, a condition associated with swelling of the face, eyes, lips, tongue, throat, and occasionally also the hands and feet. Each medication alone can also cause angioedema, but the risk may be increased when they are combined. Angioedema can occur with the first dose of medication or after many doses. You should discontinue the medications and seek immediate medical attention if you develop symptoms of angioedema or have difficulty swallowing or breathing. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+traMADol  &lt;&gt;  pregabalin<br/>
+
+<br/>
+
+<br>Applies to: Tramadol Hydrochloride ER (tramadol), Lyrica CR (pregabalin)<br/>
+
+<br/>
+
+Using traMADol together with pregabalin may increase side effects such as dizziness, drowsiness, confusion, and difficulty concentrating. Some people, especially the elderly, may also experience impairment in thinking, judgment, and motor coordination. You should avoid or limit the use of alcohol while being treated with these medications. Also avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medications affect you. Talk to your doctor if you have any questions or concerns. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+topiramate  &lt;&gt;  pregabalin<br/>
+
+<br/>
+
+<br>Applies to: topiramate, Lyrica CR (pregabalin)<br/>
+
+<br/>
+
+Using <a href="https://www.drugs.com/mtm/topiramate.html"><u>topiramate</u></a> together with pregabalin may increase side effects such as dizziness, drowsiness, confusion, and difficulty concentrating. Some people, especially the elderly, may also experience impairment in thinking, judgment, and motor coordination. You should avoid or limit the use of alcohol while being treated with these medications. Also avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medications affect you. Talk to your doctor if you have any questions or concerns. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+DULoxetine  &lt;&gt;  pregabalin<br/>
+
+<br/>
+
+<br>Applies to: duloxetine, Lyrica CR (pregabalin)<br/>
+
+<br/>
+
+Using DULoxetine together with pregabalin may increase side effects such as dizziness, drowsiness, confusion, and difficulty concentrating. Some people, especially the elderly, may also experience impairment in thinking, judgment, and motor coordination. You should avoid or limit the use of alcohol while being treated with these medications. Also avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medications affect you. Talk to your doctor if you have any questions or concerns. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+modafinil  &lt;&gt;  formoterol<br/>
+
+<br/>
+
+<br>Applies to: modafinil, Symbicort (budesonide / formoterol)<br/>
+
+<br/>
+
+Using <a href="https://www.drugs.com/mtm/modafinil.html"><u>modafinil</u></a> together with <a href="https://www.drugs.com/mtm/formoterol-inhalation.html"><u>formoterol</u></a> may increase cardiovascular side effects such as elevations in heart rate and blood pressure or irregular heart rhythm. Talk to your doctor if you have any questions or concerns, particularly if you have a history of high blood pressure, <a href="https://www.drugs.com/health-guide/cardiac-arrhythmias.html"><u>arrhythmia</u></a>, or heart disease. Your doctor may be able to prescribe alternatives that do not interact, or you may need a dose adjustment or more frequent monitoring to safely use both medications. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+busPIRone  &lt;&gt;  lisinopril<br/>
+
+<br/>
+
+<br>Applies to: BuSpar (buspirone), lisinopril<br/>
+
+<br/>
+
+<a href="https://www.drugs.com/lisinopril.html"><u>Lisinopril</u></a> and busPIRone may have additive effects in lowering your blood pressure. You may experience <a href="https://www.drugs.com/cg/acute-headache.html"><u>headache</u></a>, dizziness, lightheadedness, fainting, and/or changes in pulse or heart rate. These side effects are most likely to be seen at the beginning of treatment, following a dose increase, or when treatment is restarted after an interruption. Let your doctor know if you develop these symptoms and they do not go away after a few days or they become troublesome. Avoid driving or operating hazardous machinery until you know how the medications affect you, and use caution when getting up from a sitting or lying position. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+traMADol  &lt;&gt;  formoterol<br/>
+
+<br/>
+
+<br>Applies to: Tramadol Hydrochloride ER (tramadol), Symbicort (budesonide / formoterol)<br/>
+
+<br/>
+
+Consumer information for this interaction is not currently available.<br/>
+
+<br/>
+
+MONITOR: Beta-2 adrenergic agonists can cause dose-related prolongation of the QT interval and potassium loss. Theoretically, coadministration with other agents that can prolong the QT interval may result in additive effects and increased risk of ventricular arrhythmias including torsade de pointes and sudden death. In general, the risk of an individual agent or a combination of agents causing ventricular arrhythmia in association with QT prolongation is largely unpredictable but may be increased by certain underlying risk factors such as congenital long QT syndrome, cardiac disease, and electrolyte disturbances (e.g., hypokalemia, hypomagnesemia). In addition, the extent of drug-induced QT prolongation is dependent on the particular drug(s) involved and dosage(s) of the drug(s). Clinically significant prolongation of QT interval and hypokalemia occur infrequently when beta-2 agonists are inhaled at normally recommended dosages. However, these effects may be more common when the drugs are administered systemically or when recommended dosages are exceeded.<br><br>MANAGEMENT: Caution is recommended if beta-2 agonists are used in combination with other drugs that can prolong the QT interval. Patients should be advised to seek prompt medical attention if they experience symptoms that could indicate the occurrence of torsade de pointes such as dizziness, lightheadedness, fainting, palpitation, irregular heart rhythm, shortness of breath, or syncope.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+traMADol  &lt;&gt;  topiramate<br/>
+
+<br/>
+
+<br>Applies to: Tramadol Hydrochloride ER (tramadol), topiramate<br/>
+
+<br/>
+
+Using traMADol together with topiramate may increase side effects such as dizziness, drowsiness, confusion, and difficulty concentrating. Some people, especially the elderly, may also experience impairment in thinking, judgment, and motor coordination. You should avoid or limit the use of alcohol while being treated with these medications. Also avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medications affect you. Talk to your doctor if you have any questions or concerns. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+lisinopril  &lt;&gt;  budesonide<br/>
+
+<br/>
+
+<br>Applies to: lisinopril, Symbicort (budesonide / formoterol)<br/>
+
+<br/>
+
+<a href="https://www.drugs.com/mtm/budesonide.html"><u>Budesonide</u></a> may reduce the effects of lisinopril in lowering blood pressure. The interaction is most likely to occur when <a href="https://www.drugs.com/mtm/budesonide-nasal.html"><u>budesonide</u></a> is used for more than a week, since prolonged use can cause sodium and water retention. Let your doctor know if you experience sudden, unexplained <a href="https://www.drugs.com/cg/obesity.html"><u>weight gain</u></a> or swelling of the hands, ankles, or feet. You may need a dose adjustment or more frequent monitoring by your doctor to safely use both medications. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+albuterol  &lt;&gt;  traMADol<br/>
+
+<br/>
+
+<br>Applies to: Ventolin HFA (albuterol), albuterol / ipratropium, Tramadol Hydrochloride ER (tramadol)<br/>
+
+<br/>
+
+Consumer information for this interaction is not currently available.<br/>
+
+<br/>
+
+MONITOR: Beta-2 adrenergic agonists can cause dose-related prolongation of the QT interval and potassium loss. Theoretically, coadministration with other agents that can prolong the QT interval may result in additive effects and increased risk of ventricular arrhythmias including torsade de pointes and sudden death. In general, the risk of an individual agent or a combination of agents causing ventricular arrhythmia in association with QT prolongation is largely unpredictable but may be increased by certain underlying risk factors such as congenital long QT syndrome, cardiac disease, and electrolyte disturbances (e.g., hypokalemia, hypomagnesemia). In addition, the extent of drug-induced QT prolongation is dependent on the particular drug(s) involved and dosage(s) of the drug(s). Clinically significant prolongation of QT interval and hypokalemia occur infrequently when beta-2 agonists are inhaled at normally recommended dosages. However, these effects may be more common when the drugs are administered systemically or when recommended dosages are exceeded.<br><br>MANAGEMENT: Caution is recommended if beta-2 agonists are used in combination with other drugs that can prolong the QT interval. Patients should be advised to seek prompt medical attention if they experience symptoms that could indicate the occurrence of torsade de pointes such as dizziness, lightheadedness, fainting, palpitation, irregular heart rhythm, shortness of breath, or syncope.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+busPIRone  &lt;&gt;  modafinil<br/>
+
+<br/>
+
+<br>Applies to: BuSpar (buspirone), modafinil<br/>
+
+<br/>
+
+Consumer information for this interaction is not currently available.<br/>
+
+<br/>
+
+MONITOR: Coadministration with inducers of CYP450 3A4 may decrease the plasma concentrations and pharmacologic effects of buspirone, which is primarily metabolized by the isoenzyme. Conversely, discontinuation of an inducer may increase buspirone plasma concentrations and increase the risk of central nervous system depression and other adverse effects. When a single 30 mg dose of buspirone was administered following treatment with the potent CYP450 3A4 inducer rifampin (600 mg once daily for 5 days) in 10 healthy volunteers, mean buspirone peak plasma concentration (Cmax) and systemic exposure (AUC) decreased by approximately 84% and 90%, respectively, compared to administration following placebo. None of the subjects had a measurable plasma buspirone concentration at 6, 8 or 10 hours after given rifampin, while buspirone concentration could be determined up to 10 hours in all subjects after placebo. Pharmacodynamic effects of buspirone were also significantly reduced by rifampin in the study. Similar results were reported in another pharmacokinetic study conducted by the same group of investigators.<br><br>MANAGEMENT: The potential for diminished pharmacologic effects of buspirone should be considered during coadministration with CYP450 3A4 inducers. Pharmacologic response to buspirone should be monitored more closely whenever a CYP450 3A4 inducer is added to or withdrawn from therapy, and the buspirone dosage adjusted as necessary.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+omeprazole  &lt;&gt;  modafinil<br/>
+
+<br/>
+
+<br>Applies to: omeprazole, modafinil<br/>
+
+<br/>
+
+<a href="https://www.drugs.com/mtm/modafinil.html"><u>Modafinil</u></a> may increase the blood levels and effects of <a href="https://www.drugs.com/omeprazole.html"><u>omeprazole</u></a>. You may need a dose adjustment or more frequent monitoring by your doctor to safely use both medications. Contact your doctor if your condition changes or you experience increased side effects. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+albuterol  &lt;&gt;  modafinil<br/>
+
+<br/>
+
+<br>Applies to: Ventolin HFA (albuterol), albuterol / ipratropium, modafinil<br/>
+
+<br/>
+
+Using <a href="https://www.drugs.com/albuterol.html"><u>albuterol</u></a> together with modafinil may increase cardiovascular side effects such as elevations in heart rate and blood pressure or irregular heart rhythm. Talk to your doctor if you have any questions or concerns, particularly if you have a history of high blood pressure, <a href="https://www.drugs.com/health-guide/cardiac-arrhythmias.html"><u>arrhythmia</u></a>, or heart disease. Your doctor may be able to prescribe alternatives that do not interact, or you may need a dose adjustment or more frequent monitoring to safely use both medications. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+omeprazole  &lt;&gt;  ferrous sulfate<br/>
+
+<br/>
+
+<br>Applies to: omeprazole, ferrous sulfate<br/>
+
+<br/>
+
+If you are iron-deficient or have anemia, you should talk to your doctor before using <a href="https://www.drugs.com/ferrous_sulfate.html"><u>ferrous sulfate</u></a>together with <a href="https://www.drugs.com/omeprazole.html"><u>omeprazole</u></a>. By reducing stomach acid, omeprazole may reduce the absorption of iron and make ferrous sulfate less effective in treating your condition. Your doctor or pharmacist may be able to offer suggestions on safer alternatives if you require treatment for stomach acid or ulcer while you are being treated with ferrous sulfate. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+albuterol  &lt;&gt;  formoterol<br/>
+
+<br/>
+
+<br>Applies to: Ventolin HFA (albuterol), albuterol / ipratropium, Symbicort (budesonide / formoterol)<br/>
+
+<br/>
+
+Using albuterol together with formoterol may increase cardiovascular side effects such as elevations in heart rate and blood pressure or irregular heart rhythm. Talk to your doctor if you have any questions or concerns, particularly if you have a history of high blood pressure, arrhythmia, or heart disease. Your doctor may be able to prescribe alternatives that do not interact, or you may need a dose adjustment or more frequent monitoring to safely use both medications. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+busPIRone  &lt;&gt;  topiramate<br/>
+
+<br/>
+
+<br>Applies to: BuSpar (buspirone), topiramate<br/>
+
+<br/>
+
+Using busPIRone together with topiramate may increase side effects such as dizziness, drowsiness, confusion, and difficulty concentrating. Some people, especially the elderly, may also experience impairment in thinking, judgment, and motor coordination. You should avoid or limit the use of alcohol while being treated with these medications. Also avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medications affect you. Talk to your doctor if you have any questions or concerns. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Minor<br/>
+
+<br/>
+
+albuterol  &lt;&gt;  budesonide<br/>
+
+<br/>
+
+<br>Applies to: Ventolin HFA (albuterol), albuterol / ipratropium, Symbicort (budesonide / formoterol)<br/>
+
+<br/>
+
+Consumer information for this minor interaction is not currently available. Some minor drug interactions may not be clinically relevant in all patients. Minor drug interactions do not usually cause harm or require a change in therapy. However, your healthcare provider can determine if adjustments to your medications are needed. <br><br> <a href="https://www.drugs.com/interactions-check.php?drug_list=441-206,1937-18691,949-0,1750-0,432-2530,1647-0,2216-0,871-12641,2221-17957,109-39,2387-0,2118-0,110-0,1476-0,3464-16152,707-0,2365-487,646-5790,1654-0,1082-0,3188-14349&amp;types%5b%5d=major&amp;types%5b%5d=minor&amp;types%5b%5d=moderate&amp;types%5b%5d=food&amp;types%5b%5d=therapeutic_duplication&amp;professional=1"></a>.<br/>
+
+<br/>
+
+Minor<br/>
+
+<br/>
+
+omeprazole  &lt;&gt;  DULoxetine<br/>
+
+<br/>
+
+<br>Applies to: omeprazole, duloxetine<br/>
+
+<br/>
+
+Consumer information for this minor interaction is not currently available. Some minor drug interactions may not be clinically relevant in all patients. Minor drug interactions do not usually cause harm or require a change in therapy. However, your healthcare provider can determine if adjustments to your medications are needed. <br><br> <a href="https://www.drugs.com/interactions-check.php?drug_list=441-206,1937-18691,949-0,1750-0,432-2530,1647-0,2216-0,871-12641,2221-17957,109-39,2387-0,2118-0,110-0,1476-0,3464-16152,707-0,2365-487,646-5790,1654-0,1082-0,3188-14349&amp;types%5b%5d=major&amp;types%5b%5d=minor&amp;types%5b%5d=moderate&amp;types%5b%5d=food&amp;types%5b%5d=therapeutic_duplication&amp;professional=1"></a>.<br/>
+
+<br/>
+
+No other interactions were found between your selected drugs.<br>Note: this does not necessarily mean no interactions exist. Always consult with your doctor or pharmacist.<br/>
+
+<br/>
+
+Other drug and disease interactions<br/>
+
+<div data-section-style='5' class="" style=""><ul id='cXPACARc7WR'><li id='cXPACAD2opC' class='' style='' value='1'>BuSpar (buspirone) interacts with <a href="https://www.drugs.com/drug-interactions/buspirone,buspar.html"><u>more than 400 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/buspirone,buspar.html"><u>5 diseases</u></a>.
+
+<br/></li><li id='cXPACADUIlH' class='' style=''>Lyrica CR (pregabalin) interacts with <a href="https://www.drugs.com/drug-interactions/pregabalin,lyrica-cr.html"><u>more than 200 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/pregabalin,lyrica-cr.html"><u>5 diseases</u></a>.
+
+<br/></li><li id='cXPACAGWms5' class='' style=''>duloxetine interacts with <a href="https://www.drugs.com/drug-interactions/duloxetine.html"><u>more than 500 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/duloxetine.html"><u>10 diseases</u></a>.
+
+<br/></li><li id='cXPACALXeJm' class='' style=''>omeprazole interacts with <a href="https://www.drugs.com/drug-interactions/omeprazole.html"><u>more than 100 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/omeprazole.html"><u>2 diseases</u></a>.
+
+<br/></li><li id='cXPACArRawu' class='' style=''>Symbicort (budesonide / formoterol) interacts with <a href="https://www.drugs.com/drug-interactions/budesonide-formoterol,symbicort.html"><u>more than 600 other dr</u><u>ugs</u></a> and <a href="https://www.drugs.com/disease-interactions/budesonide-formoterol,symbicort.html"><u>10 diseases</u></a>.
+
+<br/></li><li id='cXPACA1B0Z4' class='' style=''>modafinil interacts with <a href="https://www.drugs.com/drug-interactions/modafinil.html"><u>more than 300 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/modafinil.html"><u>7 diseases</u></a>.
+
+<br/></li><li id='cXPACAMM3lK' class='' style=''>topiramate interacts with <a href="https://www.drugs.com/drug-interactions/topiramate.html"><u>more than 200 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/topiramate.html"><u>9 diseases</u></a>.
+
+<br/></li><li id='cXPACAvLUMT' class='' style=''>Voltaren Gel (diclofenac) interacts with <a href="https://www.drugs.com/drug-interactions/diclofenac-topical,voltaren-gel.html"><u>more than 100 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/diclofenac-topical,voltaren-gel.html"><u>5 diseases</u></a>.
+
+<br/></li><li id='cXPACAP46gN' class='' style=''>Tramadol Hydrochloride ER (tramadol) interacts with <a href="https://www.drugs.com/drug-interactions/tramadol,tramadol-hydrochloride-er.html"><u>more than 500 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/tramadol,tramadol-hydrochloride-er.html"><u>9 diseases</u></a>.
+
+<br/></li><li id='cXPACAG0rb7' class='' style=''>Ventolin HFA (albuterol) interacts with <a href="https://www.drugs.com/drug-interactions/albuterol,ventolin-hfa.html"><u>more than 300 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/albuterol,ventolin-hfa.html"><u>5 diseases</u></a>.
+
+<br/></li><li id='cXPACAYtJgG' class='' style=''>mupirocin interacts with <a href="https://www.drugs.com/disease-interactions/mupirocin-topical.html"><u>1 diseases</u></a>.
+
+<br/></li><li id='cXPACAPHYIo' class='' style=''>sucralfate interacts with <a href="https://www.drugs.com/drug-interactions/sucralfate.html"><u>more than 100 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/sucralfate.html"><u>2 diseases</u></a>.
+
+<br/></li><li id='cXPACADAsby' class='' style=''>albuterol / ipratropium interacts with <a href="https://www.drugs.com/drug-interactions/albuterol-ipratropium.html"><u>more than 400 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/albuterol-ipratropium.html"><u>8 diseases</u></a>.
+
+<br/></li><li id='cXPACAa12kd' class='' style=''>lisinopril interacts with <a href="https://www.drugs.com/drug-interactions/lisinopril.html"><u>more than 300 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/lisinopril.html"><u>8 diseases</u></a>.
+
+<br/></li><li id='cXPACAk5LZp' class='' style=''>Tecfidera (dimethyl fumarate) interacts with <a href="https://www.drugs.com/drug-interactions/dimethyl-fumarate,tecfidera.html"><u>more than 80 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/dimethyl-fumarate,tecfidera.html"><u>4 diseases</u></a>.
+
+<br/></li><li id='cXPACASDlM5' class='' style=''>clotrimazole interacts with <a href="https://www.drugs.com/disease-interactions/clotrimazole-topical.html"><u>1 diseases</u></a>.
+
+<br/></li><li id='cXPACAoL6K5' class='' style=''>Colace (docusate) interacts with <a href="https://www.drugs.com/drug-interactions/docusate,colace.html"><u>2 other drugs</u></a>.
+
+<br/></li><li id='cXPACA2HsGf' class='' style=''>Vitamin D3 (cholecalciferol) interacts with <a href="https://www.drugs.com/drug-interactions/cholecalciferol,vitamin-d3.html"><u>more than 50 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/cholecalciferol,vitamin-d3.html"><u>5 diseases</u></a>.
+
+<br/></li><li id='cXPACAvG5CL' class='' style=''>montelukast interacts with <a href="https://www.drugs.com/drug-interactions/montelukast.html"><u>more than 50 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/montelukast.html"><u>2 diseases</u></a>.
+
+<br/></li><li id='cXPACAMr269' class='' style=''>ferrous sulfate interacts with <a href="https://www.drugs.com/drug-interactions/ferrous-sulfate.html"><u>more than 80 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/ferrous-sulfate.html"><u>3 diseases</u></a>.
+
+<br/></li><li id='cXPACA3D9Lr' class='' style=''>Ampyra (dalfampridine) interacts with <a href="https://www.drugs.com/drug-interactions/dalfampridine,ampyra.html"><u>more than 30 other drugs</u></a> and <a href="https://www.drugs.com/disease-interactions/dalfampridine,ampyra.html"><u>2 diseases</u></a>.
+
+<br/></li></ul></div>Drug and food interactions<br/>
+
+<br/>
+
+<br>Moderate<br/>
+
+<br/>
+
+busPIRone  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: BuSpar (buspirone)<br/>
+
+<br/>
+
+You should avoid the use of alcohol while being treated with busPIRone. Alcohol can increase the nervous system side effects of busPIRone such as dizziness, drowsiness, and difficulty concentrating. Some people may also experience impairment in thinking and judgment. Patients receiving busPIRone should preferably avoid the consumption of large amounts of grapefruits and grapefruit juice. If this is not possible, the busPIRone dose should be taken at least 2 hours before or 8 hours after grapefruit or grapefruit juice. Large amounts of grapefruit and grapefruit juice may cause increased levels of busPIRone in your body. This can lead to increased adverse effects such as drowsiness. Talk to your doctor or pharmacist if you have any questions or concerns.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+pregabalin  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: Lyrica CR (pregabalin)<br/>
+
+<br/>
+
+Alcohol can increase the nervous system side effects of pregabalin such as dizziness, drowsiness, and difficulty concentrating. Some people may also experience impairment in thinking and judgment. You should avoid or limit the use of alcohol while being treated with pregabalin. Do not use more than the recommended dose of pregabalin, and avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medication affects you. Talk to your doctor or pharmacist if you have any questions or concerns.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+DULoxetine  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: duloxetine<br/>
+
+<br/>
+
+DULoxetine may cause liver damage, and taking it with alcohol may increase that risk. You should avoid or limit the use of alcohol while being treated with DULoxetine. Call your doctor immediately if you have fever, chills, joint pain or swelling, excessive tiredness or weakness, unusual bleeding or bruising, skin rash or itching, loss of appetite, nausea, vomiting, dark colored urine, or yellowing of the skin or the whites of your eyes, as these may be symptoms of liver damage. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+budesonide  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: Symbicort (budesonide / formoterol)<br/>
+
+<br/>
+
+You should avoid the regular consumption of large amounts of grapefruits and grapefruit juice while taking budesonide. Grapefruit can raise the levels of budesonide in your body and lead to increased side effects. Do not increase or decrease the amount of grapefruit products in your diet without first talking to your doctor.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+traMADol  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: Tramadol Hydrochloride ER (tramadol)<br/>
+
+<br/>
+
+Alcohol can increase the nervous system side effects of traMADol such as dizziness, drowsiness, and difficulty concentrating. Some people may also experience impairment in thinking and judgment. You should avoid or limit the use of alcohol while being treated with traMADol. Do not use more than the recommended dose of traMADol, and avoid activities requiring mental alertness such as driving or operating hazardous machinery until you know how the medication affects you. Talk to your doctor or pharmacist if you have any questions or concerns.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+lisinopril  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: lisinopril<br/>
+
+<br/>
+
+It is recommended that if you are taking lisinopril you should be advised to avoid moderately high or high potassium dietary intake. This can cause high levels of potassium in your blood. Do not use salt substitutes or potassium supplements while taking lisinopril, unless your doctor has told you to.<br/>
+
+<br/>
+
+Moderate<br/>
+
+<br/>
+
+sucralfate  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: sucralfate<br/>
+
+<br/>
+
+When sucralfate is given with enteral (tube) feedings, the feeding tube may become clogged and/or sucralfate may not work as well. You could interrupt the feeding for 1 hour before and after the sucralfate dose. However, this still may not entirely avoid the interaction and may not always be feasible. It is important to tell your doctor about all other medications you use, including vitamins and herbs. Do not stop using any medications without first talking to your doctor.<br/>
+
+<br/>
+
+Minor<br/>
+
+<br/>
+
+ferrous sulfate  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: ferrous sulfate<br/>
+
+<br/>
+
+Consumer information for this minor interaction is not currently available. Some minor drug interactions may not be clinically relevant in all patients. Minor drug interactions do not usually cause harm or require a change in therapy. However, your healthcare provider can determine if adjustments to your medications are needed. <br><br> <a href="https://www.drugs.com/interactions-check.php?drug_list=441-206,1937-18691,949-0,1750-0,432-2530,1647-0,2216-0,871-12641,2221-17957,109-39,2387-0,2118-0,110-0,1476-0,3464-16152,707-0,2365-487,646-5790,1654-0,1082-0,3188-14349&amp;types%5b%5d=major&amp;types%5b%5d=minor&amp;types%5b%5d=moderate&amp;types%5b%5d=food&amp;types%5b%5d=therapeutic_duplication&amp;professional=1"></a>.<br/>
+
+<br/>
+
+Minor<br/>
+
+<br/>
+
+modafinil  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: modafinil<br/>
+
+<br/>
+
+Consumer information for this minor interaction is not currently available. Some minor drug interactions may not be clinically relevant in all patients. Minor drug interactions do not usually cause harm or require a change in therapy. However, your healthcare provider can determine if adjustments to your medications are needed. <br><br> <a href="https://www.drugs.com/interactions-check.php?drug_list=441-206,1937-18691,949-0,1750-0,432-2530,1647-0,2216-0,871-12641,2221-17957,109-39,2387-0,2118-0,110-0,1476-0,3464-16152,707-0,2365-487,646-5790,1654-0,1082-0,3188-14349&amp;types%5b%5d=major&amp;types%5b%5d=minor&amp;types%5b%5d=moderate&amp;types%5b%5d=food&amp;types%5b%5d=therapeutic_duplication&amp;professional=1"></a>.<br/>
+
+<br/>
+
+Minor<br/>
+
+<br/>
+
+dimethyl fumarate  &lt;&gt;  food<br/>
+
+<br/>
+
+<br>Applies to: Tecfidera (dimethyl fumarate)<br/>
+
+<br/>
+
+Consumer information for this minor interaction is not currently available. Some minor drug interactions may not be clinically relevant in all patients. Minor drug interactions do not usually cause harm or require a change in therapy. However, your healthcare provider can determine if adjustments to your medications are needed. <br><br> <a href="https://www.drugs.com/interactions-check.php?drug_list=441-206,1937-18691,949-0,1750-0,432-2530,1647-0,2216-0,871-12641,2221-17957,109-39,2387-0,2118-0,110-0,1476-0,3464-16152,707-0,2365-487,646-5790,1654-0,1082-0,3188-14349&amp;types%5b%5d=major&amp;types%5b%5d=minor&amp;types%5b%5d=moderate&amp;types%5b%5d=food&amp;types%5b%5d=therapeutic_duplication&amp;professional=1"></a>.<br/>
+
+<br/>
+
+Therapeutic duplication warnings<br/>
+
+<br/>
+
+<br>Therapeutic duplication is the use of more than one medicine from the same drug category or therapeutic class to treat the same condition. This can be intentional in cases where drugs with similar actions are used together for demonstrated therapeutic benefit. It can also be unintentional in cases where a patient has been treated by more than one doctor, or had prescriptions filled at more than one pharmacy, and can have potentially adverse consequences.<br/>
+
+<br/>
+
+Duplication<br/>
+
+<br/>
+
+Central Nervous System (CNS) Drugs<br/>
+
+<br/>
+
+<br>Therapeutic duplication<br/>
+
+<br/>
+
+The recommended maximum number of medicines in the 'Central Nervous System (CNS) Drugs' category to be taken concurrently is usually three. Your list includes five medicines belonging to the 'Central Nervous System (CNS) Drugs' category:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='cXPACA8BEqP'><li id='cXPACAOFqqk' class='' style='' value='1'>BuSpar (buspirone)
+
+<br/></li><li id='cXPACANfQNV' class='' style=''>Lyrica CR (pregabalin)
+
+<br/></li><li id='cXPACARyJSs' class='' style=''>duloxetine
+
+<br/></li><li id='cXPACAy84R8' class='' style=''>modafinil
+
+<br/></li><li id='cXPACAkePCn' class='' style=''>topiramate
+
+<br/></li></ul></div>Note: The benefits of taking this combination of medicines may outweigh any risks associated with therapeutic duplication. This information does not take the place of talking to your doctor. Always check with your healthcare provider to determine if any adjustments to your medications are needed.<br/>
+
+<br/>
+
+Duplication<br/>
+
+<br/>
+
+Autonomic drugs<br/>
+
+<br/>
+
+<br>Therapeutic duplication<br/>
+
+<br/>
+
+The recommended maximum number of medicines in the 'autonomic drugs' category to be taken concurrently is usually three. Your list includes four medicines belonging to the 'autonomic drugs' category:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='cXPACAf4fXW'><li id='cXPACATh9vD' class='' style='' value='1'>Symbicort (budesonide/formoterol)
+
+<br/></li><li id='cXPACAtzE86' class='' style=''>Ventolin HFA (albuterol)
+
+<br/></li><li id='cXPACAc7ORj' class='' style=''>albuterol/ipratropium
+
+<br/></li><li id='cXPACAoX1Wt' class='' style=''>montelukast
+
+<br/></li></ul></div>Note: The benefits of taking this combination of medicines may outweigh any risks associated with therapeutic duplication. This information does not take the place of talking to your doctor. Always check with your healthcare provider to determine if any adjustments to your medications are needed.<br/>
+
+<br/>
+
+Duplication<br/>
+
+<br/>
+
+Skin preparations<br/>
+
+<br/>
+
+<br>Therapeutic duplication<br/>
+
+<br/>
+
+The recommended maximum number of medicines in the 'skin preparations' category to be taken concurrently is usually two. Your list includes three medicines belonging to the 'skin preparations' category:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='cXPACAwvcfX'><li id='cXPACAWlsqP' class='' style='' value='1'>Voltaren Gel (diclofenac)
+
+<br/></li><li id='cXPACAHVIT2' class='' style=''>mupirocin
+
+<br/></li><li id='cXPACAi8MXV' class='' style=''>clotrimazole
+
+<br/></li></ul></div>Note: The benefits of taking this combination of medicines may outweigh any risks associated with therapeutic duplication. This information does not take the place of talking to your doctor. Always check with your healthcare provider to determine if any adjustments to your medications are needed.<br/>
+
+<br/>
+
+Duplication<br/>
+
+<br/>
+
+Bronchodilators<br/>
+
+<br/>
+
+<br>Therapeutic duplication<br/>
+
+<br/>
+
+The recommended maximum number of medicines in the 'bronchodilators' category to be taken concurrently is usually two. Your list includes four medicines belonging to the 'bronchodilators' category:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='cXPACAnqHlI'><li id='cXPACACgO2V' class='' style='' value='1'>Symbicort (budesonide/formoterol)
+
+<br/></li><li id='cXPACAJVQYz' class='' style=''>Ventolin HFA (albuterol)
+
+<br/></li><li id='cXPACAUvCF7' class='' style=''>albuterol/ipratropium
+
+<br/></li><li id='cXPACAjRi45' class='' style=''>montelukast
+
+<br/></li></ul></div>Note: The benefits of taking this combination of medicines may outweigh any risks associated with therapeutic duplication. This information does not take the place of talking to your doctor. Always check with your healthcare provider to determine if any adjustments to your medications are needed.<br/>
+
+<br/>
+
+Duplication<br/>
+
+<br/>
+
+Inhaled smooth muscle relaxants<br/>
+
+<br/>
+
+<br>Therapeutic duplication<br/>
+
+<br/>
+
+The recommended maximum number of medicines in the 'inhaled smooth muscle relaxants' category to be taken concurrently is usually one. Your list includes three medicines belonging to the 'inhaled smooth muscle relaxants' category:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='cXPACAfdYCk'><li id='cXPACAQK5SL' class='' style='' value='1'>Symbicort (budesonide/formoterol)
+
+<br/></li><li id='cXPACAKAg5n' class='' style=''>Ventolin HFA (albuterol)
+
+<br/></li><li id='cXPACAHjopx' class='' style=''>albuterol/ipratropium
+
+<br/></li></ul></div>Note: The benefits of taking this combination of medicines may outweigh any risks associated with therapeutic duplication. This information does not take the place of talking to your doctor. Always check with your healthcare provider to determine if any adjustments to your medications are needed.<br/>
+
+<br/>
+
+Source:<br/>
+
+<br/>
+
+<a href="https://www.drugs.com/drug_interactions.php?drug_list=441-206,1937-18691,949-0,1750-0,432-2530,1647-0,2216-0,871-12641,2221-17957,109-39,2387-0,2118-0,110-0,1476-0,3464-16152,707-0,2365-487,646-5790,1654-0,1082-0,3188-14349"><u>https://www.drugs.com/drug_interactions.php?drug_list=441-206,1937-18691,949-0,1750-0,432-2530,1647-0,2216-0,871-12641,2221-17957,109-39,2387-0,2118-0,110-0,1476-</u><u>0,3464-16152,707-0,2365-487,646-5790,1654-0,1082-0,3188-14349</u></a><br/>
+
+<div data-section-style='6' class="" style=""><ul id='cXPACA65qap'></ul></div></body></html>

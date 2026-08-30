@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>FilingCabinet.aspx.cs</title>
+    </head>
+    <body>
+        <h1>FilingCabinet.cs.aspx
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">FilingCabinet.cs.aspx
+
+
+<span style="color:#D73A49;font-weight:bold;">using</span> System;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.IO;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web.UI;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web.UI.WebControls;
+
+
+<span style="color:#D73A49;font-weight:bold;">public</span> partial <span style="color:#D73A49;font-weight:bold;">class</span> FilingCabinet : System.Web.UI.Page
+{
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> RootNotesPath
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">get</span> { <span style="color:#D73A49;font-weight:bold;">return</span> Server.MapPath("~/uploads/notes/"); }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> CurrentFolder = "";
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> SavedNoteHtml = "";
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> NoteId = "";
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> DisplayFullPath = "";
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> PublicNoteUrl = "";&nbsp;
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> global::System.Web.UI.WebControls.TextBox txtEditor;
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> BackUrl = "FileBrowser.aspx";
+
+
+
+
+<span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> Page_Load(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; // 1. Process QueryString parameters first to update AppState and CurrentFolder
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["folder"] != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AppState.CurrentFolder = Request.QueryString["folder"];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["id"] != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AppState.CurrentNote = Request.QueryString["id"];
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; CurrentFolder = AppState.CurrentFolder;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> fileName = AppState.CurrentNote;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- DYNAMIC BACK BUTTON ROUTING ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsPostBack)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // <span style="color:#D73A49;">Default</span> fallback
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BackUrl = "FileBrowser.aspx?path=" + Server.UrlEncode(CurrentFolder);
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 1. <span style="color:#D73A49;">Explicit</span> shortcut parameter check
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["src"] == "pm")
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Preserve the current project folder path <span style="color:#D73A49;font-weight:bold;">if</span> available
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BackUrl = "ProjectManagement.aspx?folder=" + Server.UrlEncode("projects/" + CurrentFolder);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 2. HTTP Referrer check (<span style="color:#D73A49;font-weight:bold;">for</span> direct page links)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (Request.UrlReferrer != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> referrerUrl = Request.UrlReferrer.ToString().ToLower();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (referrerUrl.Contains("projectmanagement.aspx") || referrerUrl.Contains("searchmgr.aspx"))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Preserve whatever query <span style="color:#005CC5;font-weight:bold;">string</span> ProjectManagement.aspx originally had!
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // (e.g. "ProjectManagement.aspx?path=Breakfast+and+Lunch")
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BackUrl = Request.UrlReferrer.PathAndQuery;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (referrerUrl.Contains("filebrowser.aspx") || referrerUrl.Contains("search.aspx"))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BackUrl = "FileBrowser.aspx?path=" + Server.UrlEncode(CurrentFolder);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; // ----------------------------------
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(fileName))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fileName = "NewNote_" + <span style="color:#6F42C1;">DateTime</span>.Now.ToString("yyyyMMdd_HHmmss") + ".html";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AppState.CurrentNote = fileName;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!fileName.EndsWith(".html", StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fileName += ".html";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AppState.CurrentNote = fileName;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; NoteId = fileName;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> cleanFolder = CurrentFolder.Replace("/", "\\").TrimStart('\\');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> fullPath = Path.Combine(Server.MapPath("~/uploads/notes/"), cleanFolder, NoteId);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; DisplayFullPath = fullPath;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> urlFolder = CurrentFolder.Replace("\\", "/").Trim('/');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(urlFolder)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PublicNoteUrl = "uploads/notes/" + urlFolder + "/" + NoteId;
+&nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PublicNoteUrl = "uploads/notes/" + NoteId;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(fullPath))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SavedNoteHtml = ExtractBodyHtml(File.ReadAllText(fullPath));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SavedNoteHtml = "";
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+
+
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> btnSave_Click(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> noteHtml = Request.Unvalidated.Form["hfEditorHtml"];
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> savedFolder = AppState.CurrentFolder;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> savedNoteId = AppState.CurrentNote;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(savedNoteId))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; savedNoteId = "NewNote_" + <span style="color:#6F42C1;">DateTime</span>.Now.ToString("yyyyMMdd_HHmmss") + ".html";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AppState.CurrentNote = savedNoteId;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!savedNoteId.EndsWith(".html", StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; savedNoteId += ".html";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AppState.CurrentNote = savedNoteId;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> targetFolder = Path.Combine(RootNotesPath, savedFolder.TrimStart('/', '\\'));
+&nbsp; &nbsp; &nbsp; &nbsp; Directory.CreateDirectory(targetFolder);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> targetPath = Path.Combine(targetFolder, savedNoteId);
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- BEAUTIFUL FILE GENERATOR ENGINE ---
+&nbsp; &nbsp; &nbsp; &nbsp; // Clean up editor content line endings
+&nbsp; &nbsp; &nbsp; &nbsp; noteHtml = noteHtml.Replace("\r\n", "\n").Replace("\r", "\n");
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // Trim empty lines from the very beginning and very end of the raw editor input
+&nbsp; &nbsp; &nbsp; &nbsp; noteHtml = noteHtml.Trim('\n', '\r', ' ');
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // SMART INDENTER: Split into lines and only indent lines that actually have content.
+&nbsp; &nbsp; &nbsp; &nbsp; // We track <span style="color:#D73A49;font-weight:bold;">if</span> we are inside a &lt;pre&gt; block so we don't destroy pre-formatted indentation!
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span>[] lines = noteHtml.Split(<span style="color:#D73A49;">new</span>[] { '\n' }, StringSplitOptions.None);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">bool</span> insidePre = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> k = 0; k &lt; lines.Length; k++)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> trimmedLine = lines[k].Trim();
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Check <span style="color:#D73A49;font-weight:bold;">if</span> we are entering or leaving a &lt;pre&gt; block
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // (<span style="color:#D73A49;font-weight:bold;">Using</span> IndexOf to <span style="color:#D73A49;font-weight:bold;">catch</span> lines like &lt;pre <span style="color:#D73A49;font-weight:bold;">class</span>="..."&gt; or &lt;/pre&gt;)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (trimmedLine.IndexOf("&lt;pre", StringComparison.OrdinalIgnoreCase) &gt;= 0)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // The &lt;pre&gt; opening tag itself gets standard indentation
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lines[k] = "&nbsp; &nbsp; &nbsp; &nbsp; " + lines[k].TrimStart(' ', '\t');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insidePre = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">continue</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (trimmedLine.IndexOf("&lt;/pre&gt;", StringComparison.OrdinalIgnoreCase) &gt;= 0)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // The &lt;/pre&gt; closing tag itself gets standard indentation
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lines[k] = "&nbsp; &nbsp; &nbsp; &nbsp; " + lines[k].TrimStart(' ', '\t');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insidePre = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">continue</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // <span style="color:#D73A49;font-weight:bold;">If</span> we are INSIDE the &lt;pre&gt; block, <span style="color:#D73A49;font-weight:bold;">DO</span> NOT touch the indentation at all!
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (insidePre)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Leave the line exactly <span style="color:#D73A49;">as</span>-<span style="color:#D73A49;font-weight:bold;">is</span> (preserves all tabs/spaces/newlines)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">continue</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Normal HTML Line processing:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(lines[k]))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lines[k] = "";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Trim any existing leading spaces/tabs first, THEN add exactly 8 spaces!
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lines[k] = "&nbsp; &nbsp; &nbsp; &nbsp; " + lines[k].TrimStart(' ', '\t');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">String</span> nestedBodyHtml = <span style="color:#005CC5;font-weight:bold;">string</span>.Join("\r\n", lines);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // <span style="color:#D73A49;">Get</span> a clean version of the file name without ".html" to use <span style="color:#D73A49;">as</span> the page Title
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> cleanTitle = Path.GetFileNameWithoutExtension(savedNoteId);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Construct a perfectly structured, readable web page
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> finalCleanHtml =&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&lt;!DOCTYPE html&gt;\r\n" +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&lt;html&gt;\r\n" +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&nbsp; &nbsp; &lt;head&gt;\r\n" +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&nbsp; &nbsp; &nbsp; &nbsp; &lt;meta charset='utf-8' /&gt;\r\n" +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&nbsp; &nbsp; &nbsp; &nbsp; &lt;title&gt;" + cleanTitle + "&lt;/title&gt;\r\n" +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&nbsp; &nbsp; &lt;/head&gt;\r\n" +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&nbsp; &nbsp; &lt;body&gt;\r\n" +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nestedBodyHtml + "\r\n" +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&nbsp; &nbsp; &lt;/body&gt;\r\n" +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&lt;/html&gt;";
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; File.WriteAllText(targetPath, finalCleanHtml, System.Text.Encoding.UTF8);
+&nbsp; &nbsp; &nbsp; &nbsp; // ---------------------------------------
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect(
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "FilingCabinet.aspx?id=" + HttpUtility.UrlEncode(savedNoteId) +
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "&amp;folder=" + HttpUtility.UrlEncode(savedFolder) + "&amp;saved=<span style="color:#22863A;font-weight:bold;">true</span>",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:bold;">true</span>
+&nbsp; &nbsp; &nbsp; &nbsp; );
+&nbsp; &nbsp; }
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> ExtractBodyHtml(<span style="color:#005CC5;font-weight:bold;">string</span> fullHtml)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(fullHtml)) <span style="color:#D73A49;font-weight:bold;">return</span> "";
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; System.Text.RegularExpressions.Match match =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; System.Text.RegularExpressions.Regex.Match(
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fullHtml,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @"&lt;body[^&gt;]*&gt;(?&lt;body&gt;[\s\S]*?)&lt;/body&gt;",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; System.Text.RegularExpressions.RegexOptions.IgnoreCase
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; );
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Extract the content, clean up excess baseline indentations so it edits seamlessly
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (match.Success)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> bodyContent = match.Groups["body"].Value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> bodyContent.Trim('\r', '\n');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> fullHtml;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> btnSendToTrash_Click(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> fileName = Request.QueryString["id"];&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> folderPath = Request.QueryString["folder"];
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(fileName)) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!fileName.EndsWith(".html", StringComparison.OrdinalIgnoreCase) &amp;&amp; !fileName.EndsWith(".htm", StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fileName += ".html";
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> cleanSubFolder = !<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(folderPath) ? folderPath.Replace("/", "\\").TrimStart('\\') : "";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> sourcePath = Server.MapPath("~/uploads/notes/" + (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(cleanSubFolder) ? "" : cleanSubFolder + "/") + fileName);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(sourcePath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> trashDirectory = Server.MapPath("~/uploads/notes/Trash");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!Directory.Exists(trashDirectory))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Directory.CreateDirectory(trashDirectory);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> pureFileName = Path.GetFileNameWithoutExtension(sourcePath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> extension = Path.GetExtension(sourcePath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> timestamp = <span style="color:#6F42C1;">DateTime</span>.Now.ToString("yyyyMMdd_HHmmss");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> trashFileName = pureFileName + "_" + timestamp + extension;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> trashDestinationPath = Path.Combine(trashDirectory, trashFileName);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> uploadsDirectory = Server.MapPath("~/uploads/");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!Directory.Exists(uploadsDirectory))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Directory.CreateDirectory(uploadsDirectory);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> manifestPath = Path.Combine(uploadsDirectory, "trash_manifest.txt");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> originalFolderMapping = folderPath ?? "";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; File.AppendAllText(manifestPath, trashFileName + "=" + originalFolderMapping + Environment.NewLine);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; File.Move(sourcePath, trashDestinationPath);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect("FileBrowser.aspx?path=" + Server.UrlEncode(folderPath) + "&amp;status=deleted");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ClientScript.RegisterStartupScript(<span style="color:#D73A49;font-weight:bold;">this</span>.GetType(), "alert", "alert('Error: The target file could not be located on the server.');", <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (<span style="color:#6F42C1;">Exception</span> ex)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ClientScript.RegisterStartupScript(<span style="color:#D73A49;font-weight:bold;">this</span>.GetType(), "alert", "alert('File deletion failed: " + ex.Message.Replace("'", "\\'") + "');", <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+        }</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

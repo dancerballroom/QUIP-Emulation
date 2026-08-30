@@ -1,0 +1,592 @@
+<!doctype html>
+<html><head><title>FFProbe .mp4 Uses</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:ZHN13c82e81d016452197e1647f4'>FFProbe .mp4 Uses</h1>
+
+<h2 id='temp:C:ZHN6e5bf3becf554582b2155aaf5'>1.  Extract Tags from MP4 (JSON format)</h2>
+
+<pre id='temp:C:ZHNa77971e747d34f44a775ddc98'>ffprobe -v quiet <br>        -print_format json <br>        -show_chapters _MTV_1__2HRS-41MIN.mp4</pre>
+
+<h2 id='temp:C:ZHNa9109f171f5a4496b824844a1'>Output:</h2>
+
+<pre id='temp:C:ZHNdaf9b9983981419ebd66da565'>{<br>    "chapters": [<br>        {<br>            "id": 0,<br>            "time_base": "1/1000",<br>            "start": 0,<br>            "start_time": "0.000000",<br>            "end": 225786,<br>            "end_time": "225.786000",<br>            "tags": {<br>                "title": "\"10cc - Im Not In Love\" "<br>            }<br>        }, ...<br>}</pre>
+
+<h2 id='temp:C:ZHNfec452bd487642ff88927a4af'>2.  Extract Tags from MP4 (CSV format)</h2>
+
+<pre id='temp:C:ZHN45baad13a90b4f0d9097a348e'><br>J:\YouTube Videos&gt;ffprobe <br>        -i "_MTV_1__2HRS-41MIN.mp4" <br>        -v quiet <br>        -show_chapters <br>        -of csv="p=0"</pre>
+
+<h2 id='temp:C:ZHNaae61d9a6f314b2280e5521b4'>Output:</h2>
+
+<pre id='temp:C:ZHN4d7562d7278143009d24e9cca'>0,1/1000,0,0.000000,225786,225.786000,"""10cc - Im Not In Love"" "<br>1,1/1000,225786,225.786000,439580,439.580000,"""10cc - The Things We Do For Love"" "<br>2,1/1000,439580,439.580000,675540,675.540000,"""38 Special - Caught Up In You"" "<br>3,1/1000,675540,675.540000,947286,947.286000,"""38 Special - Second Chance"" "<br>4,1/1000,947286,947.286000,1178080,1178.080000,"""Abba - Dancing Queen.mp4"" "<br>5,1/1000,1178080,1178.080000,1405966,1405.966000,"""America - You Can Do Magic.mp4"" "<br></pre>
+
+<h2 id='temp:C:ZHN3f084367a6bf4f92a7bd4b66a'>3.  Extract Specific Line from MP4  </h2>
+
+<pre id='temp:C:ZHN5f90edc11ad5450c8ba99bf94'>ffprobe -v quiet <br>        -print_format json <br>        -show_chapters _MTV_1__2HRS-41MIN.mp4 | findstr title</pre>
+
+<h2 id='temp:C:ZHN43a65bfee1ee46fc92c1e2ff0'>Output:</h2>
+
+<pre id='temp:C:ZHN5f6ad9ce3c074980993c2e7bd'>                "title": "\"10cc - Im Not In Love\" "<br>                "title": "\"10cc - The Things We Do For Love\" "<br>                "title": "\"38 Special - Caught Up In You\" "<br>                "title": "\"38 Special - Second Chance\" "<br>                "title": "\"Abba - Dancing Queen.mp4\" "<br>                "title": "\"America - You Can Do Magic.mp4\" "<br>                "title": "\"Aqua - Barbie Girl.mp4\" "</pre>
+
+<h2 id='temp:C:ZHNf5997318de684557a2be96da2'>4.  Extract String from PIPE</h2>
+
+<pre id='temp:C:ZHN188fbdb6984f4c6784180ca7e'>ffprobe -v quiet <br>        -print_format json <br>        -show_chapters _MTV_1__2HRS-41MIN.mp4 | findstr title | Extract_Chapter.bat</pre>
+
+<h2 id='temp:C:ZHN1cf4965d246443a2a688f3e3d'>Output:</h2>
+
+<pre id='temp:C:ZHN4fd0c76d18e046898fc15e7c0'>Piped Value=10cc - Im Not In Love</pre>
+
+<h2 id='temp:C:ZHNcbaa7c17595b4f64b0f811c1f'>Extract_Chapter.bat</h2>
+
+<pre id='temp:C:ZHNada958cc6ea94311b3534cf65'>@Echo Off<br>setlocal enabledelayedexpansion<br>Set /p dummy=<br>echo Piped Value=%dummy:~28,-4%<br>Set dummyStr=%dummy:~28,-4%</pre>
+
+<h2 id='temp:C:ZHNfc756ff02f6e4f728d8731666'>5. Use Temp File and For Loop to Pass Array to Batch file</h2>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:ZHN874b0c36fc1c4ff3bbb6fca2e'><li id='temp:C:ZHNa0f51793c0de4777a2120d1b3' class='' value='1'><b>Create Temp File</b>
+
+<br/></li></ul></div><pre id='temp:C:ZHN8a0e263c6e924c2f83ee9f84c'>ffprobe -v quiet <br>        -print_format json <br>        -show_chapters _MTV_1__2HRS-41MIN.mp4 | findstr title &gt; Temp.txt</pre>
+
+<div class="list-numbering-restart-at" style="--indent0: 2" data-section-style='6'><ul id='temp:C:ZHN6997df5c80a4471ea7b089236'><li id='temp:C:ZHN25eef9e9e2074f88a660980bc' class='' value='1'><b>Run Batch File</b>
+
+<br/></li></ul></div><pre id='temp:C:ZHNf451b68137064f1a9ed33dee0'>Extract_Chapter.bat</pre>
+
+<h3 id='temp:C:ZHN95b4502e97c746dcbad5ab968'>Output</h3>
+
+<pre id='temp:C:ZHN8af08d6fe97e4aed970fee8ba'>Chapter 1  - 10cc - Im Not In Love<br>Chapter 2  - 10cc - The Things We Do For Love<br>Chapter 3  - 38 Special - Caught Up In You<br>Chapter 4  - 38 Special - Second Chance<br>Chapter 5  - Abba - Dancing Queen.mp4<br>Chapter 6  - America - You Can Do Magic.mp4<br>Chapter 7  - Aqua - Barbie Girl.mp4<br>Chapter 8  - Bachman Turner Overdrive - You Aint Seen Nothing Yet 1974 Video Sound HQ.mp4<br>Chapter 9  - Bee Gees - How Deep Is Your Love<br>Chapter 10  - Bee Gees - More Than A Woman<br>Chapter 11  - Bee Gees - Stayin Alive<br>Chapter 12  - Blondie - Heart Of Glass<br>Chapter 13  - Bob Seger and The Silver Bullet Band - Night Moves<br>Chapter 14  - Bobby McFerrin - Dont Worry Be Happy<br>...</pre>
+
+<h3 id='temp:C:ZHNadfb71480bf14d728bd3c84bd'>Extract_Chapter.bat</h3>
+
+<pre id='temp:C:ZHN3f9eabfddf45454abf59850d4'>@Echo Off<br>setlocal enabledelayedexpansion<br><br>Set /a Chapter=0<br>for /f "delims=" %%a in (Temp.txt) do (<br>    Set /a Chapter+=1<br>    set output=%%a<br>    set prefix=Chapter !Chapter! <br>    set output=!output:~28,-4!<br>    echo !prefix! - !output!<br>)</pre>
+
+<h2 id='temp:C:ZHNe76fe2ee420446f68b9fd580d'>6.  Tie it all together with Drag-Drop</h2>
+
+<h3 id='temp:C:ZHNefb54d1d668843c0a310573a8'>Extract_Chapter.bat</h3>
+
+<pre id='temp:C:ZHNfbc8363e56de4b7d865d2007b'>@Echo Off<br>setlocal enabledelayedexpansion<br><br>ffprobe -v quiet -print_format json -show_chapters %1 | findstr title &gt; Temp.txt<br><br>Set /a Chapter=0<br>for /f "delims=" %%a in (Temp.txt) do (<br>    Set /a Chapter+=1<br>    set output=%%a<br>    set prefix=Chapter !Chapter! <br>    set output=!output:~28,-4!<br>    echo !prefix! - !output!<br>)<br><br>del /q Temp.txt<br>pause</pre>
+
+<h3 id='temp:C:ZHN5177b984fbd440adab477263a'>Output</h3>
+
+<h3 id='temp:C:ZHN66b4770da9cd4a9f903644716'>1.  Drag-Drop <i>MTV</i>4__4HRS_12MIN.mp4 onto Extract_Chapters.bat</h3>
+
+<pre id='temp:C:ZHN1189bae727d2422987d530f26'>Chapter 1  - Coolio - Gangstas Paradise<br>Chapter 2  - Crosby Stills and Nash - Southern Cross<br>Chapter 3  - Cyndi Lauper - Girls Just Want To Have Fun<br>Chapter 4  - Cyndi Lauper - Time After Time<br>Chapter 5  - Daryl Hall and John Oates - I Cant Go For That (No Can Do)<br>Chapter 6  - Daryl Hall and John Oates - Maneater<br>Chapter 7  - Daryl Hall and John Oates - Sara Smile<br>Chapter 8  - David Bowie - Lets Dance<br>Chapter 9  - Dire Straits - Sultans Of Swing<br>Chapter 10  - Dire Straits - Walk Of Life<br>Chapter 11  - Don Henley - The Boys Of Summer<br>Chapter 12  - Don Henley - The Heart Of The Matter<br>Chapter 13  - Doobie Brothers - Listen To The Music<br>Chapter 14  - Duran Duran - Hungry Like The Wolf<br>Chapter 15  - Eagles - I Cant Tell You Why<br>Chapter 16  - Eagles - In The City<br>Chapter 17  - Eagles - Lyin Eyes<br>Chapter 18  - Earth Wind and Fire - Lets Groove<br>Chapter 19  - Earth Wind and Fire - September<br>Chapter 20  - Ear<br>Chapter 21  - Electric Light Orchestra - Dont Bring Me Down<br>Chapter 22  - Electric Light Orchestra - Evil Woman<br>Chapter 23  - Electric Light Orchestra - Livin Thing<br>Chapter 24  - Electric Light Orchestra - Mr. Blue Sky<br>Chapter 25  - Electric Light Orchestra - Telephone Line<br>Chapter 26  - Elton John - Island Girl<br>Chapter 27  - Eurythmi<br>Chapter 28  - Exile - Kiss You All Over<br>Chapter 29  - Fleetwood Mac - Dreams<br>Chapter 30  - Fleetwood Mac - Everywhere<br>Chapter 31  - Fleetwood Mac - Go Your Own Way<br>Chapter 32  - Fleetwood Mac - Gypsy<br>Chapter 33  - Fleetwood Mac - Landslide<br>Chapter 34  - Fleetwood Mac - Little Lies<br>Chapter 35  - Fleetwood Mac - Never Going Back Again<br>Chapter 36  - Fleetwood Mac - Sara<br>Chapter 37  - Fleetwood Mac - The Chain<br>Chapter 38  - Fleetwood Mac - You Make Loving Fun<br>Chapter 39  - Foreigner - I Want To Know What Love Is<br>Chapter 40  - Foreigner - Urgent<br>Chapter 41  - Frankie Valli and The Four Seasons - Decemb<br>Chapter 42  - Genesis - Thats All<br>Chapter 43  - George Benson - Give Me The Night<br>Chapter 44  - George Harrison - My Sweet Lord<br>Chapter 45  - George Harrison - What Is Life<br>Chapter 46  - George Michael - Careless Whisper<br>Chapter 47  - Gerry Rafferty   Baker Street Long Version<br>Chapter 48  - Gerry Rafferty - Right Down the Line<br>Chapter 49  - Golden Earring - Radar Love<br>Chapter 50  - Gordon Lightfoot - If You Could Read My Mind<br>Chapter 51  - Gordon Lightfoot - Sundown<br>Chapter 52  - Hall and Oats - Shes Gone<br>Chapter 53  - Heart - Barracuda<br>Chapter 54  - Henry Mancini - The Pink Panther<br>Chapter 55  - Hot Chocolate - Every 1s A Winner<br>Chapter 56  - Jackson Brown - Doctor My Eyes<br>Chapter 57  - James Taylor - Fire and Rain<br>Chapter 58  - Jefferson Starship - Miracles<br>Chapter 59  - King Harvest - Dancing in the Moonlight</pre>
+
+<pre id='temp:C:ZHNe0be96ada3394da08ceda59df'></pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

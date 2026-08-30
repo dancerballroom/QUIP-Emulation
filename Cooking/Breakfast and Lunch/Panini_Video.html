@@ -1,0 +1,590 @@
+<!doctype html>
+<html><head><title>Panini Video</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:VNT565d8163ce3e4c5e84440984e'>Panini Video</h1>
+
+REF:  <a href="https://www.facebook.com/scrumdiddlyumptiouscom/posts/pfbid02Tfs1Szfn33HMhgBW9RTXTSgPzNxBQh3FJcVE9Fdr15fUwdyb1vt9LTa4bt8tvRZyl">https://www.facebook.com/scrumdiddlyumptiouscom/posts/pfbid02Tfs1Szfn33HMhgBW9RTXTSgPzNxBQh3FJcVE9Fdr15fUwdyb1vt9LTa4bt8tvRZyl</a><br/>
+
+<br/>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:VNTd5743a5057e2417a8e7dfd728'><li id='temp:C:VNTd11f947a0dff42c8ab65c2c70' class='' value='1'><a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNTe34b2193616743f482591c7b5">Egg Tomato and Cucumber Garlic and Herb Cream Cheese Bacon and Mozzarella</a>
+
+<br/></li><li id='temp:C:VNTf97c7acced7b417a8a953adac' class=''><a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNTd051d94516ab4ea1a1c1d210a">Kiwi Peanut Butter Chocolate Strawberry Marshmallows</a>
+
+<br/></li><li id='temp:C:VNTd7d9c1ebe1a843869e3066a38' class=''>Simple Quarter Cut - <a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNT4d1b7db57d104b33814a9d3f5">Apple Sauce Apples Almond Butter Cream Cheese with Cinnamon Sugar</a>
+
+<br/></li><li id='temp:C:VNT97faf092cd924e44af416bd95' class=''>Simple Quarter Cut -<a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNTbb39b13c5a114d718cb112618"> Cheddar Pulled Pork Red Onion BBQ Sauce</a>
+
+<br/></li><li id='temp:C:VNT38a30bc2a39c48d5ab79f038b' class=''>Simple Quarter Cut - <a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNTe8ebf31ef5fb46bf8f3309297">Guacamole Bacon Eggs Cheese</a>
+
+<br/></li><li id='temp:C:VNTcb26986ec9b740a08cf7989e3' class=''>Simple Quarter Cut - <a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNT0e7538b26f8a465aa884a4a96">Ham Pineapple Cheese Pizza Sauce</a>
+
+<br/></li><li id='temp:C:VNT1beda0fc5280473f925770317' class=''>Simple Quarter Cut - <a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNTcc413b9e091f46de9fac5df4b">Lettuce Chicken Cheese Sweet Chili Sauce</a>
+
+<br/></li><li id='temp:C:VNT510b8f30944e47e3a12c89e29' class=''>Simple Quarter Cut - <a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNTd649f4f5d0b04aed889b85707">Mozzarella Tomatoes Red Onion Pesto</a>
+
+<br/></li><li id='temp:C:VNT2b94e8f2b7fc475cb8f58fbb8' class=''>Simple Quarter Cut - <a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNT19ea3261b15143adb3c8a40ed">Nutella Strawberries Banana Cream Cheese</a>
+
+<br/></li><li id='temp:C:VNTafc171ef9324428bbae3a7889' class=''>Simple Quarter Cut - <a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNT76907f1a21ce4ddba52582672">Pulled Poultry Meat Red Onion Spanish Rice Cranberry Sauce</a>
+
+<br/></li><li id='temp:C:VNT492f7612c73045e38b3b88325' class=''>Simple Quarter Cut - <a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNT2eb7adca98e04ce2bc2149dd1">Taco Meat Kidney Beans Jalapeños Sour Cream</a>
+
+<br/></li><li id='temp:C:VNTa0704438acc54808b536aee0e' class=''><a href="https://quip.com/LCEFAJDinPxj/Panini-Video#temp:C:VNT09f6becc0fca4e5da2d8125a4">Taco Meat Guacamole Corn Sour Cream</a>
+
+<br/></li></ul></div><br/>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:VNTef925b71cef045adbf0bcfc0a'><li id='temp:C:VNTe34b2193616743f482591c7b5' class='' value='1'>Egg Tomato and Cucumber Garlic and Herb Cream Cheese Bacon and Mozzarella
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/Ozj_5tyNjqAwdh_qztKhgw?a=a9c03VgkucpY4AaTKuEKNrMdMjkFiZoaUAcqu4epIFIa' id='temp:C:VNTde9acfb8902c4705966891811' alt="Step 3 Egg Tomato and Cucumber Garlic and Herb Cream Cheese Bacon.jpg"></img></div><br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 2" data-section-style='6'><ul id='temp:C:VNT36eac1caa81143949953e8f7f'><li id='temp:C:VNTd051d94516ab4ea1a1c1d210a' class='' value='1'>Kiwi Peanut Butter Chocolate Strawberry Marshmallows
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/FyrEqA8nMhfPGk5heiCzDg?a=iC91Oho55JQmCZxB3oVxaOmt6yoRYJ1ui72lSLcAMEca' id='temp:C:VNT6b3d23f0c3c94ec3bf1a60f4f' alt="Step 3.jpg"></img></div><br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 3" data-section-style='6'><ul id='temp:C:VNT77bcd49947754ab6bd50d7722'><li id='temp:C:VNT4d1b7db57d104b33814a9d3f5' class='' value='1'>Apple Sauce Apples Almond Butter Cream Cheese with Cinnamon Sugar
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/ewNk-dTwAv53-IW-gneaMQ?a=suumsDdUvN1qQac6gPSXWG6diQi8OBLXr4gap0v4WYwa' id='temp:C:VNT0ac7ace83ba4420b8427324cb' alt="Apple Sauce Apples Almond Butter Cream Cheese with Cinnamon Sugar.jpg"></img></div><br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 4" data-section-style='6'><ul id='temp:C:VNT71db0a0d1f714b8ebcf8f3863'><li id='temp:C:VNTbb39b13c5a114d718cb112618' class='' value='1'>Cheddar Pulled Pork Red Onion BBQ Sauce
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/nc-hEBhN_8K9xzPNCkbHYQ?a=my7rY8vuVwurTvzHwWJ5nWI6pcmJhAnxXn1tTXc93JUa' id='temp:C:VNT59410ddae6874f87915a5f016' alt="Cheddar Pulled Pork Red Onion BBQ Sauce.jpg"></img></div><br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 5" data-section-style='6'><ul id='temp:C:VNT49bb0b02cd454ef5a0bb3fe8c'><li id='temp:C:VNTe8ebf31ef5fb46bf8f3309297' class='' value='1'>Guacamole Bacon Eggs Cheese
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/M6YIijhF_KIECV-SpZpN7Q?a=MHTcsKrhaKDPjz8CfQuqewXPa9n83zBu42aMDODJvWQa' id='temp:C:VNTa5798da952b84e53bdcc85f85' alt="Guacamole Bacon Eggs Cheese.jpg"></img></div><br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 6" data-section-style='6'><ul id='temp:C:VNTbdf8859ca9254b85b55a15469'><li id='temp:C:VNT0e7538b26f8a465aa884a4a96' class='' value='1'>Simple Quarter Cut - Ham Pineapple Cheese Pizza Sauce
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/DiukVbrMZ2xyDwENphl3Ww?a=C9f6UJJ8fca1ybeZhkRdSdYZ3Xlzkdz7ay3HPuw5WAAa' id='temp:C:VNTa9b68af557be450fbe9a43cd0' alt="Ham Pineapple Cheese Pizza Sauce.jpg"></img></div><br/>
+
+<div style="--indent0: 7" class="list-numbering-restart-at" data-section-style='6'><ul id='temp:C:VNT7bad04cdf6514b39b9033dc6f'><li id='temp:C:VNTcc413b9e091f46de9fac5df4b' class='' value='1'>Lettuce Chicken Cheese Sweet Chili Sauce
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/jorTktMfiriiOfHn43gkVg?a=Aqw990ZFnjpExjlJzSEQSYRBDVuKxtysS6aJNmLTavEa' id='temp:C:VNTca4d1359f5eb40eea4246eabb' alt="Lettuce Chicken Cheese Sweet Chili Sauce.jpg"></img></div><br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 8" data-section-style='6'><ul id='temp:C:VNTc642f38cceeb47d3830eaca87'><li id='temp:C:VNTd649f4f5d0b04aed889b85707' class='' value='1'>Mozzarella Tomatoes Red Onion Pesto
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/-zYA3QXabrlYpEQjig6J7A?a=yvnLDZ4E4n3rLPcdEf0zjz0m7MovrHmRqOhuRszxDIga' id='temp:C:VNT7fb950e21e6544f988dca4b49' alt="Mozzarella Tomatoes Red Onion Pesto.jpg"></img></div><br/>
+
+<div style="--indent0: 9" class="list-numbering-restart-at" data-section-style='6'><ul id='temp:C:VNT2ad3c6545f804c5aa6a8e2691'><li id='temp:C:VNT19ea3261b15143adb3c8a40ed' class='' value='1'>Nutella Strawberries Banana Cream Cheese
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/qNmK6NIxDHn3TAVMFUS8EA?a=MvncdnRSN8sS8JwjS2HwpckB0Y3a9g39snrUZhYKksUa' id='temp:C:VNT69ffd4727e914654968116060' alt="Nutella Strawberries Banana Cream Cheese.jpg"></img></div><br/>
+
+<div style="--indent0: 10" class="list-numbering-restart-at" data-section-style='6'><ul id='temp:C:VNT2de11ef126f84c13a07498c58'><li id='temp:C:VNT76907f1a21ce4ddba52582672' class='' value='1'>Pulled Poultry Meat Red Onion Spanish Rice Cranberry Sauce
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/qgHzLzcUTH_3tTOomGWCsw?a=koSaUHvBlQTOCoOxvQBrIluhwh4lerHg8oQAGwJUoC0a' id='temp:C:VNT2d622d3b2635460d876af8092' alt="Pulled Poultry Meat Red Onion Spanish Rice Cranberry Sauce.jpg"></img></div><br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 11" data-section-style='6'><ul id='temp:C:VNTfd7b497060a54f9e92738627e'><li id='temp:C:VNT2eb7adca98e04ce2bc2149dd1' class='' value='1'>Taco Meat Kidney Beans Jalapeños Sour Cream
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/wCBhPlfJknpa24cj4p5R3Q?a=nfMJkXXCZ9plHcaasS7LMBjetBtmlaFLPut0ZKXnpywa' id='temp:C:VNTf86dea4c9e9140bcb14ad60e8' alt="Taco Meat Kidney Beans Jalepenos Sour Cream.jpg"></img></div><br/>
+
+<div style="--indent0: 12" class="list-numbering-restart-at" data-section-style='6'><ul id='temp:C:VNT159a4c55649541a5b8c6c7fc7'><li id='temp:C:VNT09f6becc0fca4e5da2d8125a4' class='' value='1'>Taco Meat Guacamole Corn Sour Cream Cheddar Cheese
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/a7lWtsFLgccy8bDo2pqZ8A?a=ppU4n6M2bnOpnokLNTR9PkEgzsyWHKksWPyqUadrcxga' id='temp:C:VNT08420c782ef34bdd89418ca4b' alt="Step 3 Taco Meat Guacamole Corn Sour Cream.jpg"></img></div><br/>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/VNTAAAhZZCm/LgXzzVcZCZT4K2Xn_TVv8g?a=umIrP1jfayTaXSzeaiyE5yxwaP5haX8b4zal5Bhxo9Ia' id='temp:C:VNT9443e5b386a54e6593f9cff08' alt="Step 4.jpg"></img></div><br/>
+
+</body></html>

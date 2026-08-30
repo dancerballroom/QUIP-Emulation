@@ -1,0 +1,672 @@
+<!doctype html>
+<html><head><title>How to Play Hand and Foot - North American</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='bIHACA7RdRn'>How to Play Hand and Foot - North American</h1>
+
+<b><span style="color:#212529" textcolor="#212529">Hand and Foot is a North American game related to canasta.</span></b><br/>
+
+<span style="color:#212529" textcolor="#212529">Each player is dealt two sets of cards using one as the “hand” and one as the “foot. There are numerous variations of the game and no “standard” rules. You can either play as individuals or as teams. The most common version of the game is played with four players in partnerships; it can also be played by six people in two teams of three or by any number of individuals.</span><br/>
+
+<span style="color:#212529" textcolor="#212529">The following rules are for our “favorite” way to play with four people, two teams of two:</span><br/>
+
+<div data-section-style='5' class="" style=""><ul id='bIHACAaMMWM'><li id='bIHACAjeI2s' class='' style='' value='1'><b>Decks:</b><b><b> </b></b>You’ll need four full deck of 52 cards, including the jokers – one deck per player.
+
+<br/></li><li id='bIHACASLyOm' class='' style=''><b>Dealing:<span style="color:#212529" textcolor="#212529"> </span></b>You can choose of the two options to deal, but whatever method is chosen should be used consistently within the game.
+
+<br/></li></ul></div><u><b><span style="color:#212529" textcolor="#212529">TO START</span></b></u><br/>
+
+<span style="color:#212529" textcolor="#212529">1. Choose which partnership deals first. After all the cards have been sufficiently shuffled, one partner takes half the cards and deals 11 cards to each player face down, these cards will be your hand stack. The second partner takes the other half of the cards and deals 11 cards to each player face down, these cards become your foot stack. Subsequent deals rotate to the left to spread the deal.</span><br/>
+
+<span style="color:#212529" textcolor="#212529"> </span><br/>
+
+<span style="color:#212529" textcolor="#212529">2. Choose which player goes first. After all the cards have been sufficiently shuffled place all the cards in the middle of the table in two face down stacks. The first player selects a random “stack” of cards off the stock, without actually counting, trying to get as close to 22 total cards as possible*. The player counts their cards into two stacks of 11 cards each, one for the hand stack and one for the foot stack. If they have selected too many or too little cards, replace or pull additional cards from the stack in the middle of the table to get to a total of 22 cards, 11 in the hand, 11 in the foot. Rotate left for remaining players to select their “stacks. </span><br/>
+
+<span style="color:#212529" textcolor="#212529">*If a player originally pulls exactly 22 cards off the center stacks – they earn 300 bonus points.</span><br/>
+
+<br/>
+
+<span style="color:#212529" textcolor="#212529">3. After each round of play is completed, the turn to deal passes to the left.</span><br/>
+
+<div data-section-style='5' class="" style=""><ul id='bIHACAlrYjP'><li id='bIHACALzvZr' class='' style='' value='1'><b>Object of the Game: </b>The aim is to get rid of cards from your hand (11 cards), and then from your foot (11 cards), by melding them
+
+<br/></li><li id='bIHACAspi1N' class='parent' style=''><b>What is a MELD?<span style="color:#212529" textcolor="#212529"> </span></b>A set of three to seven cards of equal rank placed face up on the table.
+
+<br/></li><ul><li id='bIHACArT1fo' class='' style=''>A Meld cannot have fewer than three cards.
+
+<br/></li><li id='bIHACA6aizK' class='' style=''>Melds belong to a partnership and not an individual player.
+
+<br/></li><li id='bIHACAbCYrN' class='' style=''>After a meld has been started, each partner can play further cards on either partners melds until there are seven, it then becomes a “closed pile”.
+
+<br/></li><li id='bIHACAGckJs' class='' style=''>A meld cannot contain more than seven cards.
+
+<br/></li><li id='bIHACAFTr4Q' class='' style=''>If you complete a pile, you can start another meld of the same rank.
+
+<br/></li><li id='bIHACADe4mr' class='' style=''>You can meld cards of any rank from A, K, Q, … down to 4.
+
+<br/></li><li id='bIHACAFiMJt' class='' style=''>Deuces or 2’s and Jokers are wild cards and can be used in melds, as long as there is at least twice as many real cards of the rank of the meld as wild cards.
+
+<br/></li><li id='bIHACAZN3JG' class='' style=''>Red and black threes cannot be used in melds.
+
+<br/></li><li id='bIHACAnedAY' class='' style=''>A meld can contain a total of two wild cards at most.
+
+<br/></li><li id='bIHACASbHdn' class='' style=''>You cannot meld wild cards alone.
+
+<br/></li><li id='bIHACA2Im46' class='' style=''>A Meld of seven cards is complete and is called a Pile.
+
+<br/></li><li id='bIHACAtR2GW' class='parent' style=''>There are two types of melds
+
+<br/></li><ul><li id='bIHACAE0K68' class='' style=''>1. A Clean (Natural) Meld has no wild cards and may become a Red Pile.
+
+<br/></li><li id='bIHACAyl47K' class='' style=''>2. A Dirty(Wild) Meld has wild cards and may become a Black Pile.
+
+<br/></li></ul><li id='bIHACA8Lkps' class='' style=''>While melds are laid out face up for everyone to see, completed piles are stacked up and the card placed on top shows the type – a red card for a Red Pile, a black card for a Black Pile. Cards of equal rank can be played on completed Piles.
+
+<br/></li><li id='bIHACAx2Oow' class='' style=''>Wild cards cannot be played on Piles.
+
+<br/></li></ul></ul></div><u><b><span style="color:#212529" textcolor="#212529">THE PLAY</span></b></u><br/>
+
+<b><span style="color:#212529" textcolor="#212529"> </span></b><br/>
+
+<span style="color:#212529" textcolor="#212529">1. The remainder of the cards are placed face down in the middle of the table to form a “stock”.</span><br/>
+
+<span style="color:#212529" textcolor="#212529">2. The players “foot” cards are placed faced down and set aside – players are not allowed to look at them until they have played all the cards in their hands.</span><br/>
+
+<span style="color:#212529" textcolor="#212529">3. Each player picks up their “hand” and play begins with the player on the left of the one who “dealt” the round.</span><br/>
+
+<span style="color:#212529" textcolor="#212529">4. Turn to play passes clockwise around the table until someone goes out.</span><br/>
+
+<span style="color:#212529" textcolor="#212529">5. At each turn a player:</span><br/>
+
+<div data-section-style='5' class="" style=""><ul id='bIHACA4L5F8'><li id='bIHACAYUTHu' class='' style='' value='1'>Draws the top two cards off the stock**
+
+<br/></li><li id='bIHACANvzVx' class='' style=''>Has the option of melding some cards, assuming round minimum can be met, or adding cards to their partners meld
+
+<br/></li><li id='bIHACAWUi0K' class='' style=''>Discards one card on the discard pile to end their turn
+
+<br/></li></ul></div><b><span style="color:#212529" textcolor="#212529">**</span></b><span style="color:#212529" textcolor="#212529">Instead of drawing two cards off the stock, you may take the top five cards from the discard pile. If the pile contains fewer than five cards, you may take the whole pile, but you may never take more than five cards from the discard pile at any one time. In order to pick up from the discard pile you must:</span><br/>
+
+<div data-section-style='5' class="" style=""><ul id='bIHACAghi8c'><li id='bIHACAvZimW' class='' style='' value='1'>You must hold two cards which are the same rank as the top card
+
+<br/></li><li id='bIHACAMD5n7' class='' style=''>You must immediately meld these three cards (the two you are holding and the top discard), along with any other cards you wish to play
+
+<br/></li></ul></div><span style="color:#212529" textcolor="#212529">5. After picking up from the discard pile, complete your turn by by discarding one card as usual.</span><br/>
+
+<br/>
+
+<u><b><span style="color:#212529" textcolor="#212529">ROUNDS:</span></b></u><br/>
+
+<span style="color:#212529" textcolor="#212529">A game consists of four rounds. Each round has a minimum meld requirement that increases with each round.</span><br/>
+
+<span style="color:#212529" textcolor="#212529">You must put down cards whose individual face values add up to at least the minimum requirement before your team is “in the game”. You can put down several melds at once to achieve this. If you are picking up the pile, you can meld additional cards from you hand along with the top discard and the two that match to help you make up the minimum count, including wild cards. However, you cannot count any of the other six cards you are pick up towards the minimum.</span><br/>
+
+<span style="color:#212529" textcolor="#212529"> </span><br/>
+
+<div data-section-style='5' class="" style=""><ul id='bIHACAt2LoX'><li id='bIHACARFYtn' class='' style='' value='1'>Round 1, cards points must total at least 50 to start play
+
+<br/></li><li id='bIHACAwMZLv' class='' style=''>Round 2, cards points must total at least 90 to start play
+
+<br/></li><li id='bIHACAhqyVC' class='' style=''>Round 3, cards points must total at least 120 to start play
+
+<br/></li><li id='bIHACAFPCjd' class='' style=''>Round 4, cards points must total at least 150 to start play
+
+<br/></li></ul></div><br/>
+
+<u><b><span style="color:#212529" textcolor="#212529">PICKING UP YOUR FEET</span></b></u><br/>
+
+<span style="color:#212529" textcolor="#212529">When you have been able to play all the cards in your hand, by either melding or discarding them, you then pick up your foot and play from that.</span><br/>
+
+<span style="color:#212529" textcolor="#212529">If you are able to get rid of all your cards in your hand without discarding, you can continue to play into your foot during that hand. If you have to discard the last card to get into your foot, you must hold your play until your turn comes around the table.</span><br/>
+
+<br/>
+
+<u><b><span style="color:#212529" textcolor="#212529">RED AND BLACK THREES</span></b></u><br/>
+
+<span style="color:#212529" textcolor="#212529">Red and black threes are exception cards and have no real use. Red threes are undesirable cards and if you find you are holding a red three you should discard it as soon as possible. If you are caught with a red three in your hand or foot at the end of a round, your team will be charged minus 300 points per red three against your total score. Black threes have no use except to block the next player from picking up from the discard pile when you discard them. If you have any black threes left in your hand or foot at the end of a round counts 5 points against your teams total score. There is no way to get rid of a black three, except for discarding them, one by one, into the discard pile.</span><br/>
+
+<br/>
+
+<u><b><span style="color:#212529" textcolor="#212529">END OF PLAY</span></b></u><br/>
+
+<br/>
+
+<span style="color:#212529" textcolor="#212529">The play ends when one of the partners “goes out”. In order to go out, your partnership must:</span><br/>
+
+<div data-section-style='6' class="" style=""><ul id='bIHACALJ2qA'><li id='bIHACAmzk02' class='' style='' value='1'>Have at completed at least two Red Piles and two Black Piles.
+
+<br/></li><li id='bIHACAcpQak' class='' style=''>Your partner must have picked up their foot and played at least part of a turn from it.
+
+<br/></li><li id='bIHACARwQUj' class='' style=''>You must ask your partners permission to go out. If your partner agrees you must meld all of your remaining cards, or meld all but one of your remaining cards and discard your last card. If your partner says “no” you cannot go out.
+
+<br/></li></ul></div><span style="color:#212529" textcolor="#212529">You do not have to discard to go out, all possible cards can be melded to complete the game. </span><b><span style="color:#212529" textcolor="#212529">Scoring</span></b><span style="color:#212529" textcolor="#212529"> You receive two scores per hand. You score points for the combined face value of all cards you have melded AND for each pile. If your team did not go out, you are caught with cards in your hand or foot and you lose points for those cards left at the end of the play. The round ends when the first team gets rid of all the cards in their Hand and Foot, by melding/booking or discarding them. </span><br/>
+
+<br/>
+
+<u><b><span style="color:#212529" textcolor="#212529">Card Values</span></b></u><br/>
+
+<div data-section-style='5' class="" style=""><ul id='bIHACAz7eNn'><li id='bIHACAPfZin' class='' style='' value='1'>Jokers = 50 points (Wild Card)
+
+<br/></li><li id='bIHACAH2uf2' class='' style=''>Deuces = 20 points (Wild Card)
+
+<br/></li><li id='bIHACASdto9' class='' style=''>Aces = 20 points
+
+<br/></li><li id='bIHACAOdPsJ' class='' style=''>Eight through King (8-K) = 10 points
+
+<br/></li><li id='bIHACANePV6' class='' style=''>Four through Seven (4-7) = 5 pointsKing (8-K) = 10 points
+
+<br/></li><li id='bIHACAw5kVR' class='' style=''>Red three = minus 300 points
+
+<br/></li><li id='bIHACAmreog' class='' style=''>Black three = minus 5 points
+
+<br/></li></ul></div><u><b><span style="color:#212529" textcolor="#212529">Pile Values</span></b></u><br/>
+
+<div data-section-style='5' class="" style=""><ul id='bIHACA0Vl6v'><li id='bIHACAVUChr' class='' style='' value='1'>Red Pile = 500 points
+
+<br/></li><li id='bIHACADDH0p' class='' style=''>Black Pile = 300 points
+
+<br/></li><li id='bIHACADlwZR' class='' style=''>Player going out gets 100 bonus points
+
+<br/></li><li id='bIHACAX31jA' class='' style=''>5/500 - Black threes are -5 points, Red threes are -500 points
+
+<br/></li></ul></div>REF:  <a href="https://gocampingamerica.com/blog/how-play-card-game-hand-and-foot">https://gocampingamerica.com/blog/how-play-card-game-hand-and-foot</a><br/>
+
+</body></html>

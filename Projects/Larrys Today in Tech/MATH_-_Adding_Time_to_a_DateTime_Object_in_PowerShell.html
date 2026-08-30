@@ -1,0 +1,540 @@
+<!doctype html>
+<html><head><title>MATH - Adding Time to a DateTime Object in PowerShell</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:UNO624e1045844f45bba5bd727ec'>MATH - Adding Time to a DateTime Object in PowerShell</h1>
+
+<h3 id='temp:C:UNOa4dce908c20e4eb68f369a1a5'>PowerShell Script below Output (<span style="color:#3d87f5" textcolor="#3d87f5">Works as of 06/20/2022</span>)</h3>
+
+<b>Purpose: </b> Perform Math on TIME Value <br><b>Format:</b> <b>HH:MM:SS.fff</b><br><b>HH</b>=Hour, <b>MM</b>=Minute, <b>SS</b>=Second, <b>fff</b>=Milliseconds<br/>
+
+<h3 id='temp:C:UNO44cd8074f2524be4a4772e02b'>Next Steps:</h3>
+
+<pre id='temp:C:UNOfc8fe7b47a27465bb67215b0c'>1. Replace comma with a decimal-point<br><br>2. # The Following Math gets rid of a Commercial in the Subtitle file.<br>   Given a <span bgcolor="#ccf6ff" style="background-color:#ccf6ff">$Time-Span-Start</span> and <span bgcolor="#d7f7d4" style="background-color:#d7f7d4">$Time-Span-End</span>: <br>       <span bgcolor="#ccf6ff" style="background-color:#ccf6ff">00:02:49,654</span> --&gt; <span bgcolor="#d7f7d4" style="background-color:#d7f7d4">00:02:51,031</span><br>   a. <span bgcolor="#f1e7fe" style="background-color:#f1e7fe">$Duration</span> = <span bgcolor="#d7f7d4" style="background-color:#d7f7d4">$Time</span><span bgcolor="#d7f7d4" style="background-color:#d7f7d4">-Span-End</span> (<span bgcolor="#f2ef90" style="background-color:#f2ef90">- minus</span>) <span bgcolor="#ccf6ff" style="background-color:#ccf6ff">$Time</span><span bgcolor="#ccf6ff" style="background-color:#ccf6ff">-Span-Start</span><br>   b. Identify the <span bgcolor="#ffe6e5" style="background-color:#ffe6e5">$Current</span><span bgcolor="#ffe6e5" style="background-color:#ffe6e5">-StartTime</span>-Line (<span bgcolor="#f2ef90" style="background-color:#f2ef90">&gt;</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> greater than</span>)  <br>                                               Given <span bgcolor="#ccf6ff" style="background-color:#ccf6ff">$Time</span><span bgcolor="#ccf6ff" style="background-color:#ccf6ff">-Span-Start</span><br>   c. From <span bgcolor="#ffe6e5" style="background-color:#ffe6e5">$Current-StartTime</span>-Line to <span bgcolor="#ffdf99" style="background-color:#ffdf99">End-of-File</span><br>        <span bgcolor="#ffe6e5" style="background-color:#ffe6e5">$Current</span><span bgcolor="#ffe6e5" style="background-color:#ffe6e5">-StartTime</span> = <span bgcolor="#ffe6e5" style="background-color:#ffe6e5">$Current</span><span bgcolor="#ffe6e5" style="background-color:#ffe6e5">-StartTime</span> (<span bgcolor="#f2ef90" style="background-color:#f2ef90">- minus</span>) <span bgcolor="#f1e7fe" style="background-color:#f1e7fe">$Duration</span><br>        <span bgcolor="#e7f0fe" style="background-color:#e7f0fe">$Current-EndTime</span> = <span bgcolor="#e7f0fe" style="background-color:#e7f0fe">$Current</span><span bgcolor="#e7f0fe" style="background-color:#e7f0fe">-EndTime</span> (<span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> minus</span>) <span bgcolor="#f1e7fe" style="background-color:#f1e7fe">$Duration</span><br>       <br>3. Retrieve Commercials-Duration and Calculate Commercials-StartTime using Report<br>               generated by the Delete-Commercials.ps1 Script and Do MATH<br>               <br>        <br>4. Write the results to a TestFile.srt and DEBUG <br></pre>
+
+<h2 id='temp:C:UNO663f2a006ae047bfb477bd18e'>Output:</h2>
+
+<pre id='temp:C:UNOe06ec99a039044f0916b7c390'>All the Starting Times<br><b>00:02:49.654</b><br>00:02:51.068<br>00:02:52.612<br>00:02:54.280<br>00:02:55.630<br><br>Press any key to continue: <br><br>All the Ending Times<br><b>00:02:51.031</b><br>00:02:52.570<br>00:02:54.238<br>00:02:55.573<br>00:02:57.382<br><br><br>Press any key to continue: <br><br>Add <b>01:01:01</b> to all Starting and Ending Times<br><br>All the Starting Times<br><br>0<b>1</b>:0<b>3</b>:<b>50</b>.654<br>01:03:52.068<br>01:03:53.612<br>01:03:55.280<br>01:03:56.630<br><br>All the Ending Times<br><br>0<b>1</b>:0<b>3</b>:5<b>2</b>.031<br>01:03:53.570<br>01:03:55.238<br>01:03:56.573<br>01:03:58.382</pre>
+
+<h2 id='temp:C:UNOc6e161e950284d21944ebc862'>I used the Times from an Excerpt from “Fun In Alcapulco.srt” </h2>
+
+<pre id='temp:C:UNOc0351d415b5f49d4af2231962'>19<br><b>00:02:49,654 --&gt; 00:02:51,031</b><br>&lt;font face="Serif" size="18"&gt;Everyone's asleep. Siesta.&lt;/font&gt;<br><br>20<br><b>00:02:51,068 --&gt; 00:02:52,570</b><br>&lt;font face="Serif" size="18"&gt;It's too early<br>for siesta.&lt;/font&gt;<br><br>21<br><b>00:02:52,612 --&gt; 00:02:54,238</b><br>&lt;font face="Serif" size="18"&gt;Just go away.<br>Come back later.&lt;/font&gt;<br><br>22<br><b>00:02:54,280 --&gt; 00:02:55,573</b><br>&lt;font face="Serif" size="18"&gt;Hey, your boat,<br>muy bonito.&lt;/font&gt;<br><br>23<br><b>00:02:55,630 --&gt; 00:02:57,382</b><br>&lt;font face="Serif" size="18"&gt;It's not my b...<br>I just work here.&lt;/font&gt; </pre>
+
+<h2 id='temp:C:UNO7d942d8f81644116be0684037'>Performing_Math_On_Time.ps1</h2>
+
+<pre id='temp:C:UNOd6faffbd0fdf458090c7edb71'># Math cannot be performed until the millisecond separator is a decimal<br># Following Code is on One Line<br>$TimeStart = @("00:02:49,654", "00:02:51,068", "00:02:52,612" , <br>                "00:02:54,280", "00:02:55,630")<br>$TimeEnd = @("00:02:51,031", "00:02:52,570", "00:02:54,238" , <br>                "00:02:55,573", "00:02:57,382")<br><br># Replace the Comma with a decimal<br># Following Code is on One Line<br>$TimeStartDT = @("00:02:49.654", "00:02:51.068", "00:02:52.612" , <br>                "00:02:54.280", "00:02:55.630")<br>$TimeEndDT = @("00:02:51.031", "00:02:52.570", "00:02:54.238" , <br>                "00:02:55.573", "00:02:57.382")<br><br>cls<br>Write-host "All the Starting Times`n"<br>foreach ($element in $TimeStartDT) {<br>  $element<br>}<br><br>Read-Host -Prompt "`n`nPress any key to continue"<br><br>Write-host "All the Ending Times`n"<br>foreach ($element in $TimeEndDT) {<br>  $element<br>}<br><br>Read-Host -Prompt "`n`nPress any key to continue"<br><br>Write-host "Add 01:01:01 to all Starting and Ending Times`n"<br><br># Create a new TimeSpan Object with Value:  01:01:01<br>$ts = New-TimeSpan -Hours 1 -Minutes 1 -Seconds 1 <br><br>Write-host "All the Starting Times`n"<br><br># Next 2 For Loops are the Same<br>#<br># ForEach $Element in ARRAY<br>#    Cast $Slice as a [DateTime] Object<br>#    Add [TimeSpan]$ts to [DateTime]$Slice<br>#    Display the result formatted <br>#        HH = 0 to 23 hours <br>#        mm = 0 to 59 minutes<br>#        ss = 0 to 59 seconds<br>#        fff = 0 to 999 milliseconds<br>  <br>foreach ($element in $TimeStartDT) {<br>  $Slice = [DateTime] $element + $ts<br>  $Slice.ToString('HH:mm:ss.fff')<br>}<br><br>Write-host "`nAll the Ending Times`n"<br><br>foreach ($element in $TimeEndDT) {<br>  $Slice = [DateTime] $element + $ts<br>  $Slice.ToString('HH:mm:ss.fff')<br>}<br></pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

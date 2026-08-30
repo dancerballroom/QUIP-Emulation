@@ -1,0 +1,10 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>AAA-CROP-StartHMS-End-S.bat</title>
+    </head>
+    <body>
+        AAA-CROP-StartHMS-End-S.bat<div><br></div><div>AAA-CROP-StartHMS-End-S.bat</div><div><div>@Echo Off</div><div>setlocal enableDelayedExpansion</div><div>set /p timeStart="Start Time -&gt; (00:00:00) :&gt; "</div><div>set /p timeEnd="END Seconds Off&nbsp; &nbsp;-&gt; (0) :&gt; "</div><div>REM echo "%~n1.mp4 -&gt; %~n1_.mp4"</div><div>Set "ext=mp4"</div><div>Set "opts=-v quiet"</div><div>Set "opts=%opts% -print_format "compact=print_section=0:nokey=1:escape=csv""</div><div>Set "opts=%opts% -show_entries "format=duration""</div><div>If Exist *.%ext% (If Not Exist "Trimmed\" MD Trimmed)</div><div>For %%a In (*.%ext%) Do Call :Sub "%%~a"</div><div>Exit /B</div><div>REM OLD</div><div>REM echo !timeStart! is the Start Time</div><div>REM echo !timeEnd! is the End Time</div><div>REM ffmpeg -i "%~n1.mp4" -ss !timeStart! -to !timeEnd! -codec:v copy -codec:a copy "%~n1_.mp4"</div><div>REM pause</div><div><br></div><div>REM Continued</div><div>:Sub</div><div>For /f "Tokens=1* Delims=." %%a In ('FFProbe %opts% %1') Do (Set /A "ws=%%a-!timeEnd!" &amp; Set "ps=%%b")</div><div>Set/A hh=ws/(60*60), lo=ws%%(60*60), mm=lo/60, ss=lo%%60</div><div>echo passed SET</div><div>If %hh% Lss 10 Set hh=0%hh%</div><div>If %mm% Lss 10 Set mm=0%mm%</div><div>If %ss% Lss 10 Set ss=0%ss%</div><div><br></div><div>REM FFMpeg Commands</div><div>FFMpeg -itsoffset -!timeEnd! -i %1 "Trimmed\%~1.eng.srt"</div><div>FFMpeg -i %1 -ss !timeStart! -to %hh%:%mm%:%ss% -c:v copy -c:a copy "Trimmed\%~1"</div><div><br></div></div><div><br></div><div><br></div>
+    </body>
+</html>

@@ -1,0 +1,580 @@
+<!doctype html>
+<html><head><title>Do Not Go Gentle into That Good Night BY DYLAN THOMAS and Analysis</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+</style></head><body><h1 id='EOHACAC28Pi'>Do Not Go Gentle into That Good Night BY DYLAN THOMAS and Analysis</h1>
+
+Do not go gentle into that good night,<br/>
+
+Old age should burn and rave at close of day;<br/>
+
+Rage, rage against the dying of the light.<br/>
+
+<br>Though wise men at their end know dark is right,<br/>
+
+Because their words had forked no lightning <br/>
+
+they Do not go gentle into that good night.<br/>
+
+<br>Good men, the last wave by, crying how bright<br/>
+
+Their frail deeds might have danced in a green bay,<br/>
+
+Rage, rage against the dying of the light.<br/>
+
+<br>Wild men who caught and sang the sun in flight,<br/>
+
+And learn, too late, they grieved it on its way,<br/>
+
+Do not go gentle into that good night.<br/>
+
+<br>Grave men, near death, who see with blinding sight<br/>
+
+Blind eyes could blaze like meteors and be gay,   <br/>
+
+Rage, rage against the dying of the light.<br/>
+
+<br>And you, my father, there on the sad height,<br/>
+
+Curse, bless, me now with your fierce tears, I pray.<br/>
+
+Do not go gentle into that good night.<br/>
+
+Rage, rage against the dying of the light.<br/>
+
+<br/>
+
+Share this text ..<br/>
+
+Dylan Thomas, “Do Not Go Gentle into That Good Night” from <i>The Poems of Dylan Thomas</i>. Copyright 1939, 1946 by New Directions Publishing Corporation. Reprinted with the permission of New Directions Publishing Corporation.<br/>
+
+<br/>
+
+<a href="http://www.articlemyriad.com/poem-analysis-gently-good-night/">http://www.articlemyriad.com/poem-analysis-gently-good-night/</a><br/>
+
+<br/>
+
+In this analysis of “Do Not Go Gentle into that Good Night” by Dylan Thomas, it will be explored how this is a poem that explores the helplessness associated with growing old and inching toward death. There are six stanzas in “Do Not Go Gentle into that Good Night” by Dylan Thomas with a simple rhyme structure that belies the complex message of the poem. In general, it is clear that this is a poem about death and dying but when examined closer, it becomes apparent that it is also about life and how it is lived. Through the structure of “Do Not Go Gentle into that Good Night” by Dylan Thomas as well as the use and choice of language that invokes certain images and employs certain techniques that arouse deep imagery/<br/>
+
+<br/>
+
+The speaker of the poem “Do Not Go Gentle into that Good Night” by Dylan Thomas seems to think it is not honorable or befitting for a great or interesting man to die quietly in old age and he encourages the reader to think that death is something that should be fought rather than mutely accepted. Interestingly, this poem can be divided into three parts, the first of which acts as an introduction to the speaker’s message. This is followed by four stanzas that offer examples of what he is expressing followed by the last stanza, the third part, in which the tone becomes far more personal as the speaker talks about his father. In many ways, one could read this poem and provide the suggestion in an analysis of “Do Not Go Gentle Into That Good Night” saying it is as a statement about living a strong life and refusing to go down quietly just as easily as it can be read as a poem about death and the process of dying or aging.<br/>
+
+<br/>
+
+When the speaker of “Do Not Go Gentle into that Good Night” by Dylan Thomas states in the second line of the first stanza, “Old age should burn and rave at the close of day; Rage, rage against the dying of that light” he is expressing the idea that moving toward death should not be something we do in a resigned way, but rather that we should fight it and go out in a blaze of glory. When he says, “rage, rage against the dying of the light” it is clear that the dying light is means darkness, which is a metaphor for death and that in old age, we should “burn” with life, which brings to mind images of brightness, light, and life. This first stanza almost acts as something of a thesis statement for the rest of the poem since it clearly defines and outlines the speaker’s beliefs about aging and death.<br/>
+
+<br/>
+
+The second stanza of them poem “Do Not Go Gentle into that Good Night” by Dylan Thomas is a departure from the first as it is less broad. At the beginning of this stanza the speaker states, “Though wise men at their end know dark is right” he is telling us that a wise man (presumably an old man) knows that death is approaching and that it should be accepted as a fact. He follows that statement up with, “because their words had forked no lightning they / do not go gentle into that good night” which expresses the speaker’s sentiment that they have a lived a long life but are now powerless, even if words were once their greatest ally. This desire to be known, heard, and understood means that they are likely to fight death, perhaps because they feel there is yet more to do. These ideas are echoed in the next two stanzas as the speaker discusses “good men” who cry “how bright their frail deeds might have danced in a green bay” as well as “Grave men, near death who see with blinding sight / Blind eyes could blaze like meteors and be gay” and how men who lived such full lives still rage against the “dying light” because they see their lives could have been more. Even men who were once wild such as those referred to in the third stanza realize too late the meaning of their lives and as a result should not fade away. The speaker encourages men such as these to rage against death simply because they are too special in one way or another to go gently into the “night” of death, which is the meaning of “Do Not Go Gentle”.<br/>
+
+<br/>
+
+The poem “Do Not Go Gentle into that Good Night” by Dylan Thomas becomes intensely personal in the last stanza as the author recalls his father and tells him, “curse, bless me now with your fierce tears, I pray” which means that he wants his father to burn with feeling and emotion while he still can, even if he curses his son—so long as he does not die with putting up a fight. While the poem addresses many types of men, the fact that it ends with his father shows that the speaker thinks of his father not as the grave, wild, or good men discussed previously, but that he is a category by himself. The fact that the speaker is not concerned with whether or not his father curses or blesses him shows that he is not necessarily concerned with what his father had to say, but only that he did not fade quietly into death.<br/>
+
+</body></html>

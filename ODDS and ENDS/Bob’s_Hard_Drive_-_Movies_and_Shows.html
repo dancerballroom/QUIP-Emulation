@@ -1,0 +1,888 @@
+<!doctype html>
+<html><head><title>Bob’s Hard Drive - Movies and Shows</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:YJFc31f0293ceac40348ffc827e7'>Bob’s Hard Drive - Movies and Shows</h1>
+
+<h2 id='temp:C:YJF9e15554cf08a47bcab40a07fd'>Saturday Morning Shows</h2>
+
+The Muppet Show<br/>
+
+The Pink Panther<br/>
+
+Felix the Cat<br/>
+
+Doctor Shrinker<br/>
+
+Electra Woman and Dyna Girl ((8)<br/>
+
+Land of the Lost<br/>
+
+H.R. Pufnstuf<br/>
+
+Lidsville<br/>
+
+Sigmund and the Sea Monsters<br/>
+
+The Lost Saucer<br/>
+
+<h2 id='temp:C:YJFa6a1d0e165d74cee8cb3d2319'>After School Shows</h2>
+
+Wacky Races (33)<br/>
+
+UltraMan (45)<br/>
+
+The Wild Wild West (103)<br/>
+
+Donny &amp; Marie<br/>
+
+Dragnet (15)<br/>
+
+The Flip Wilson Show (23)<br/>
+
+School House Rock<br/>
+
+Star Trek: The Animated Series<br/>
+
+Looney Tunes<br/>
+
+Fantasy Island (5)<br/>
+
+<h2 id='temp:C:YJFea404437e40f4feab1be63b27'>Classic Comedy</h2>
+
+The Carol Burnett Show<br/>
+
+Frasier (264)<br/>
+
+Hogan’s Heroes (153)<br/>
+
+Bewitched<br/>
+
+Batman<br/>
+
+The Odd Couple (17)<br/>
+
+The Addams Family<br/>
+
+Petticoat Junction (19)<br/>
+
+All in the Family<br/>
+
+Night Court<br/>
+
+Soap<br/>
+
+Sanford &amp; Son (16)<br/>
+
+Patty Duke (11)<br/>
+
+The Munsters(6)<br/>
+
+Mork and Mindy (47)<br/>
+
+<br/>
+
+<h2 id='temp:C:YJFe9e9141e7e194f88bbd3ea3a6'>Classic Series</h2>
+
+Night Gallery<br/>
+
+Adam-12<br/>
+
+Columbo<br/>
+
+Hawaii Five-O (41)<br/>
+
+I Dream of Jeannie (135)<br/>
+
+Touched by an Angel (185)<br/>
+
+Three’s Company (12)<br/>
+
+Doctor Who (1964 - Current)<br/>
+
+The Merv Griffin Show (38)<br/>
+
+Mission: Impossible (174)<br/>
+
+Quark <br/>
+
+Space 1999 (51)<br/>
+
+The Twilight Zone (33)<br/>
+
+<br/>
+
+<h2 id='temp:C:YJF383e3af66efa498993804ba8e'>Classic Animation Series</h2>
+
+The Flinstones<br/>
+
+The Pebbles and Bamm-bamm Show<br/>
+
+Popeye the Sailor<br/>
+
+The Jetsons<br/>
+
+<h2 id='temp:C:YJF076f4ea50e87409d9142fdf3f'>Animation Series</h2>
+
+The Croods<br/>
+
+Disenchantment<br/>
+
+Family Guy<br/>
+
+King of the Hill<br/>
+
+The Simpsons<br/>
+
+Zootopia<br/>
+
+Winx Club<br/>
+
+Undone<br/>
+
+Beast Wars<br/>
+
+Futurama<br/>
+
+Gravity Falls<br/>
+
+Hilda<br/>
+
+Green Eggs and Ham<br/>
+
+Simon the Cat<br/>
+
+SpongeBob SquarePants<br/>
+
+Home: Adventures with Tip and Oh<br/>
+
+<h2 id='temp:C:YJF604b675cba014a409191fc401'>Super-Hero Series</h2>
+
+The Boys<br/>
+
+The Flash<br/>
+
+Heroes<br/>
+
+Chuck<br/>
+
+Loki<br/>
+
+WandaVision<br/>
+
+Moon Knight<br/>
+
+What-If<br/>
+
+Modok<br/>
+
+<h2 id='temp:C:YJF481b36ebfa8a48679168bdb2c'>Best 1990-Current Series (Sci-Fi, Western, etc.)</h2>
+
+M*A*S*H<br/>
+
+Farscape<br/>
+
+Firefly<br/>
+
+Big-Bang Theory<br/>
+
+Call The Midwife<br/>
+
+CSI<br/>
+
+NCIS<br/>
+
+Doc Martin<br/>
+
+The Guardian<br/>
+
+Good Omens<br/>
+
+Obi-Wan Kenobi<br/>
+
+Once Upon a Time<br/>
+
+Sweet Tooth<br/>
+
+Space Force<br/>
+
+The Golden Girls<br/>
+
+House<br/>
+
+Loudermilk<br/>
+
+Deadwood<br/>
+
+Dr. Quinn, Medicine Woman<br/>
+
+Babylon-5<br/>
+
+Avenue 5<br/>
+
+Battlestar Galactica<br/>
+
+The Book of Boba Fett<br/>
+
+Dead Zone<br/>
+
+The Expanse<br/>
+
+Fringe<br/>
+
+<br/>
+
+<br/>
+
+<h2 id='temp:C:YJF5b7c180d6bb842ceada260a50'>Star-Trek, Star-Gates, Star-Wars Series</h2>
+
+Star Trek: TOS<br/>
+
+Star Trek: Picard<br/>
+
+Star Trek: Voyager<br/>
+
+Star Trek: Strange New Worlds<br/>
+
+Star Wars: Andor<br/>
+
+Star Gate SG-1<br/>
+
+Stargate Atlantis<br/>
+
+Star Trek: TOS<br/>
+
+Star Trek: Deep Space 9<br/>
+
+Star Trek: Discovery<br/>
+
+Star Trek: Enterprise<br/>
+
+Star Trek: The Next Generation<br/>
+
+<h2 id='temp:C:YJF4ffd8caf4d0240bd9aa7bd3cf'>Fantasy Series</h2>
+
+American Gods<br/>
+
+The 10th Kingdom<br/>
+
+Dead Like Me<br/>
+
+Eternal Law<br/>
+
+LOST<br/>
+
+From (Season 1 and 2: 2023, 2024)<br/>
+
+Ghosts US<br/>
+
+Ghosts UK<br/>
+
+Being Human<br/>
+
+The Good Place<br/>
+
+Manifest<br/>
+
+Medium<br/>
+
+Primeval<br/>
+
+School Spirits (Season 1: 2024)<br/>
+
+Wednesday<br/>
+
+Warren<br/>
+
+The Wilds<br/>
+
+<h2 id='temp:C:YJF1e9bf4aa6b0143e78bef0e7b8'>Reality Series</h2>
+
+Cash Cab<br/>
+
+Domino Masters (Season 1: 2022)<br/>
+
+Lego Masters<br/>
+
+Dude, You’re Screwed<br/>
+
+Emo-genius<br/>
+
+Flinch<br/>
+
+Hole in the Wall<br/>
+
+Comedians in Cars Getting Coffee<br/>
+
+The Masked Singer (10 Seasons, missing Season 2)<br/>
+
+Taskmaster<br/>
+
+The American Bible Challenge<br/>
+
+Naked and Afraid<br/>
+
+Night watch<br/>
+
+Extreme Rescues<br/>
+
+<h2 id='temp:C:YJF8f46b365ba294d32958433630'>Sampling of Super Hero, and Other Movies</h2>
+
+Project Power<br/>
+
+The Old Guard<br/>
+
+Shang-Chi - Legend of the 10 Rings<br/>
+
+Mystery Men<br/>
+
+Strange World<br/>
+
+Eternals<br/>
+
+Free Guy<br/>
+
+The Barbie Movie<br/>
+
+<h2 id='temp:C:YJFec325bebb125441cb6c221327'>More Adult Animated Series</h2>
+
+Robot Chicken<br/>
+
+Ronal the Barbarian<br/>
+
+Sausage Party<br/>
+
+South Park<br/>
+
+Archer<br/>
+
+Heavy Metal<br/>
+
+House Broken<br/>
+
+The Midnight Gospel<br/>
+
+<br/>
+
+Ugly Americans<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+Currently I have 6 hard drives with backups, each with about 5 Terabytes (although not full)<br/>
+
+NOTE:  PRON can be located in Send-To.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

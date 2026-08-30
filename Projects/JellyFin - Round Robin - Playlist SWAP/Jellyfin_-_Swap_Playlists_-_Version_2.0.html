@@ -1,0 +1,592 @@
+<!doctype html>
+<html><head><title>Jellyfin - Swap Playlists - Version 2.0</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:EWA8e9d79ca317e470e9e9a1a904'>Jellyfin - Swap Playlists - Version 2.0</h1>
+
+<h3 id='temp:C:EWA01806c3b89824d5f94e5e932f'>Purpose:  The <span style="color:#cc0300" textcolor="#cc0300">Jellyfin Movie Server</span> has very poor playlist management.  This program allows on the fly swapping of playlists with a single <span style="color:#cc0300" textcolor="#cc0300">Double-Click of a Desktop Shortcut</span>, and a <span style="color:#cc0300" textcolor="#cc0300">Jellyfin Library Refresh.</span></h3>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:EWAc3179d6d16e347f6a72a6b2b8'><li id='temp:C:EWA83634d2b7fce4d78a26d1b834' class='' value='1'><b>The Directory Location of Jellyfin Playlist “Classic Series - SWAP”</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/EWAAAAgUn1V/_Ko0xPL70-8qhhiqJh2_YQ?a=7tBpcK4GFR3L4lkrdVznBqJYutTV00k2Z9AAlG7d0i8a' id='temp:C:EWA178902d2058b46aa91e58a2f2' alt="Classic Series - SWAP.jpg"></img></div><br/>
+
+<div data-section-style='6' style="--indent0: 2" class="list-numbering-restart-at"><ul id='temp:C:EWA4d5e7151885a4a9b9d5a432fe'><li id='temp:C:EWAac0ee66a7d6d4624886e980c6' class='' value='1'><b>The SWAP Directory pre-loaded with Alternative Playlists.</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/EWAAAAgUn1V/8r82uLuRWlxuLX3BiuLU7Q?a=5BAuM4nTWVVnPMPfpCQi9PGz4mJ4PbSaPgqujp47yD0a' id='temp:C:EWA3284b52dcf8241c0a47b083dd' alt="Classic Series - Alternate SWAP Playlists.jpg"></img></div><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<div data-section-style='6' style="--indent0: 3" class="list-numbering-restart-at"><ul id='temp:C:EWA514c6a79bd81432b90708c685'><li id='temp:C:EWAb8695e6c1c9f43e2a00f7d559' class='' value='1'> <b>Clicking Swap.bat and Refreshing the Jellyfin Playlist (BEFORE)</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/EWAAAAgUn1V/teMeGexG_L8b6CFuB4USFg?a=Za9l56tfWaX9xgSalUrbxxja4e43K8YXTmJOSpy9GqIa' id='temp:C:EWA6dade866bafe456a90330138f' width='800' height='371' alt="1st.jpg"></img></div><div data-section-style='6' style="--indent0: 4" class="list-numbering-restart-at"><ul id='temp:C:EWAdb675d7456174a88873c4fb7b'><li id='temp:C:EWAb38c8d35e37e46ab9291d8ee2' class='' value='1'><b>Clicking Swap.bat and Refreshing the Jellyfin Playlist (AFTER)</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/EWAAAAgUn1V/ms5q09ycPc8eK8F9KyWpNQ?a=QbzQXbBVGpKRnj6k2sIfIN6q4F3HKHqZejOc0C0sl3Aa' id='temp:C:EWA88856f71a60644cb8e6bd1f3a' width='800' height='427' alt="2nd.jpg"></img></div><div data-section-style='6' style="--indent0: 4" class="list-numbering-restart-at"><ul id='temp:C:EWA439db52ac9394ea3be51a17f8'><li id='temp:C:EWA55e41f893f7740aa9b9fa987c' class='' value='1'><b>Clicking Swap.bat and Refreshing the Jellyfin Playlist (Another Time)</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/EWAAAAgUn1V/R7dXGaVyLRz1zql9DxZABA?a=lPdJaypaRxgk0xhoPaKo3gQJyUThpKehbndHkwnAaF0a' id='temp:C:EWAca6c4e97f7f94ff398c495430' width='800' height='346' alt="3rd.jpg"></img></div><h3 id='temp:C:EWAd994c5800a2b4eca8a025c268'>Pre-requisites</h3>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:EWA8b75b7f4f1c94abb96d70a684'><li id='temp:C:EWA832768b85e0f4a84b92c5b712' class='' value='1'>Jellyfin Installed on Windows machine
+
+<br/></li><li id='temp:C:EWA0792b4a6a0fb4b50a35110ac5' class='parent'>At least One Created Playlist
+
+<br/></li><ul><li id='temp:C:EWA456e93203e0a4d7d9a0d7678c' class='parent'>File Manager Location (with Hidden Files turned on)
+
+<br/></li><ul><li id='temp:C:EWA1234e6192dcc4b699fd988e8c' class=''>C:\ProgramData\Jellyfin\Server\data\playlists\[New Playlist Directory]
+
+<br/></li></ul></ul><li id='temp:C:EWAcae0063cfb3c45b792136e890' class='parent'>One Subdirectory “SWAP”
+
+<br/></li><ul><li id='temp:C:EWAdbb3502413d24b62bbe7a1602' class=''>C:\ProgramData\Jellyfin\Server\data\playlists\[New Playlist Directory]\SWAP
+
+<br/></li></ul><li id='temp:C:EWA23a603f1fdbf42df8728a8c6e' class='parent'>Two Files in the [New Playlist Directory]:  
+
+<br/></li><ul><li id='temp:C:EWA61a87e4ae9534eeea11b5bf9f' class=''>“Add_Playlist.bat”      # add playlists 
+
+<br/></li><li id='temp:C:EWA6dad3687bea347939a85d31e0' class=''>“SWAP.bat”                # SWAP playlists after there are playlists to SWAP.
+
+<br/></li></ul></ul></div><h3 id='temp:C:EWAffbd60481f9c41dc857aefa2c'>Recommended Setup:</h3>
+
+<b>After Creating the first playlist, locating the playlist, placing Add_Playlist.bat and SWAP.bat in the Playlist directory, and Creating the Subdirectory SWAP.</b><br/>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:EWAf7ec0ed69dff4d5c801d2be94'><li id='temp:C:EWA99513954520b4663a61de7f67' class='' value='1'>Create a New Playlist using the Jellyfin Movie Server GUI.
+
+<br/></li><li id='temp:C:EWA40d0cedabe7f433bab6af1c8a' class=''>Locate the “playlist.xml“ for the New playlist.
+
+<br/></li><li id='temp:C:EWAf7612c9aee3641938032237a3' class=''>Drag/Drop the “playlist.xml” Created by the Jellyfin GUI onto Add_Playlist.bat
+
+<br/></li><li id='temp:C:EWAef2c3a632c3e44c088ebd90d5' class=''>Et Voila!  Delete the Second Playlist you just created using Jellyfin
+
+<br/></li><li id='temp:C:EWA6106077252a54ce3abbcafe38' class=''>Run SWAP.bat (to test the SWAP function)
+
+<br/></li><li id='temp:C:EWAb1853e06d9474a6c8296f6988' class=''>Refresh Playlist in the Jellyfin GUI
+
+<br/></li><li id='temp:C:EWAc7ee30aec5cf4a36a43813d1a' class=''>Add other playlists and the SWAP LIST will grow.
+
+<br/></li></ul></div><h3 id='temp:C:EWA8bcd7580a7a74907ac02ff858'>1 of 2 - Add_Playlist.bat</h3>
+
+<pre id='temp:C:EWA602d7472e0f14440a54372312'>@Echo Off<br>setlocal enabledelayedexpansion<br><br>REM # Change this to the SWAP directory below the current Playlist Directory<br>pushd "C:\ProgramData\Jellyfin\Server\data\playlists\Classic Series - SWAP\SWAP"<br><br>REM # Count Backup Files<br>for /f %%A in ('dir *Playlist.* ^| find "File(s)"') do set cnt=%%A<br><br>REM # Calculate Next Number following existing playlists<br>SET /A cnt+=1<br><br>REM # Add Leading Zeroes to the filename<br>if %cnt% LEQ 9 SET Zeroes=00<br>if %cnt% GEQ 10 SET Zeroes=0<br>if %cnt% GEQ 100 SET Zeroes=<br><br>REM # Make a copy of the filelist dropped onto "Add_Playlist.bat"<br>copy %1 "!Zeroes!%cnt% - Playlist.xml"<br><br>popd</pre>
+
+<h3 id='temp:C:EWAed9d56a94150450f8ed8f5cb3'>2 of 2 - SWAP.bat</h3>
+
+<pre id='temp:C:EWA84f07a805d2b49b0acb3af019'>@Echo Off<br>setlocal enabledelayedexpansion<br><br>REM # Create New File From %1 variable<br>SET SWAP_DIR=SWAP<br><br>REM # Copy First-File to SWAP directory<br>MOVE "Playlist.xml" "%SWAP_DIR%\Playlist.xml"<br><br>REM # Make the SWAP Directory the Current Directory<br>pushd SWAP<br><br>REM # Count Backup Files<br>for /f %%A in ('dir *Playlist.* ^| find "File(s)"') do set cnt=%%A<br><br>REM # Calculate Zeroes Padding for Filenames<br>if (%cnt% LEQ 9) ( SET Zeroes=00)<br>if (%cnt% GEQ 10) ( SET Zeroes=0)<br>if (%cnt% GEQ 100) ( SET Zeroes=)<br><br>REM # Exit the SWAP directory<br>popd<br><br>REm # Copy SWAP\001_playlist.xml to playlist.xml<br>MOVE "%SWAP_DIR%\%Zeroes%1 - Playlist.xml" Playlist.xml<br><br>pushd SWAP<br><br>REM # RE-Count Files<br>for /f %%A in ('dir *Playlist.* ^| find "File(s)"') do set cnt=%%A<br><br>REM # Rename other Backup playlist.xml files<br>for /l %%x in (2, 1, %cnt%) do (<br><br>    set /a cnt3+=1<br>    if !cnt3! LEQ 9 SET Zeroes=00<br>    if !cnt3! GEQ 10 SET Zeroes=0<br>    if !cnt3! GEQ 100 SET Zeroes=<br><br>    if %%x LEQ 9 SET Zeroes1=00<br>    if %%x GEQ 10 SET Zeroes1=0<br>    if %%x GEQ 100 SET Zeroes1=<br><br>    MOVE "!Zeroes1!%%x - Playlist.xml" "!Zeroes!!cnt3! - Playlist.xml"<br>)<br><br>REM # Zero Placeholders Again<br>set /a cnt3+=1<br>if !cnt3! LEQ 9 SET Zeroes=00<br>if !cnt3! GEQ 10 SET Zeroes=0<br>if !cnt3! GEQ 100 SET Zeroes=<br><br>if %%x LEQ 9 SET Zeroes1=00<br>if %%x GEQ 10 SET Zeroes1=0<br>if %%x GEQ 100 SET Zeroes1=<br><br>REM # Give the first Playlist a Number<br>MOVE "Playlist.xml" "%Zeroes%%cnt3% - Playlist.xml"<br><br>REM # FOR DEBUG ONLY<br>Echo Current : <br>Type ..\Playlist.xml<br>Echo Archived : <br>REM # View Contents of each File<br>for /l %%x in (1, 1, %cnt%) do (<br>    if %%x LEQ 9 SET Zeroes=00<br>    if %%x GEQ 10 SET Zeroes=0<br>    if %%x GEQ 100 SET Zeroes=<br><br>    REM # Show Filename<br>    Type "!Zeroes!%%x - Playlist.xml"<br>)<br>popd<br>REM # UNREM Next Line to DEBUG<br>REM pause<br>REM # END DEBUG <br></pre>
+
+</body></html>

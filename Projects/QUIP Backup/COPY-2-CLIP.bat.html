@@ -1,0 +1,620 @@
+<!doctype html>
+<html><head><title>COPY-2-CLIP.bat</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:YTe550bde8fc8ad48b5accb35ab8'>COPY-2-CLIP.bat</h1>
+
+<h2 id='temp:C:YTecc2b63c6b61444edacfa4ad31'>BUG-TO-FIX:</h2>
+
+Unbeknownst to me until this eve, CODE using ! EXCLAMATION POINT ! will loose IT, making it non-functional, so pages generated will have to be very carefully edited until this bug is fixed.<br/>
+
+<h2 id='temp:C:YTe7eb29fd71fde4981b0cd71442'>Adding a Copy to Clipboard Button</h2>
+
+<b>Purpose:</b>  Insert Copy-2-Clipboard buttons beneath every QUIP.com code area.<br/>
+
+Isolate-ID Added:  Finds the CODE-ID for each CODE BOX<br/>
+
+<br/>
+
+<h2 id='temp:C:YTe7655e7ea71544514abf400ad5'>INDEX:</h2>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:YTe5bf6ca6769de401e8293f4447'><li id='temp:C:YTe50c98aed689b453a8813b90e9' class='' value='1'><a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe060e9fc35f434b21b15964dad">Web Page Before and After</a>
+
+<br/></li><li id='temp:C:YTe8c2cc64a1e844fed96bf498da' class=''><a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTea112c5b165c349f6b1c5f43ca">Program Notes</a>
+
+<br/></li><li id='temp:C:YTe751a5eb966ea4534a4fa2586e' class=''><a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe481dab044a344a42a49b46b52">Copy-2-Clip.bat</a>
+
+<br/></li><li id='temp:C:YTeee2cfe97afd6470f910e89033' class=''>Required File:  <a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTeaf77d1a472ee4cb4b860b8979">atom-copy-2-clipboard-function.txt</a>
+
+<br/></li><li id='temp:C:YTe8866402ef04d4af8a5d18db5e' class=''><a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe885d163445d34e46aa2f1ba29">Before and After HTML runs</a>
+
+<br/></li><li id='temp:C:YTe047de2f1b14c4c7a96d26e51b' class=''><a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe478b833bbf574203a0f72e10b">The Program inserted CODE</a>
+
+<br/></li></ul></div><a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe7655e7ea71544514abf400ad5">Back to INDEX:</a><br/>
+
+<h2 id='temp:C:YTe060e9fc35f434b21b15964dad'>Web Page Before  </h2>
+
+<h2 id='temp:C:YTeaadbccc6751841d0bbf3625ee'>Web Page After</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/YTeAAAKPBtM/I_nL5x8cjfrUUiTnE7FxAA?a=zK9uhBWgnbMcyvmzvmi972NASMn4av05ExIk5KsULRYa' id='temp:C:YTe8dfd9e029d3743dab85db87a4' alt="000455 - This is my Example Web Page.jpg"></img></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/YTeAAAKPBtM/y_Pq-8WuQmooLHOY_0afYA?a=mVVjHEJQRv9vVzLaQi2eYOKhz2swCceNT5SSqJcSonEa' id='temp:C:YTee987ded29bd54f45befff822f' alt="000456 - This is my Example Web Page.jpg"></img></div><pre id='temp:C:YTe6b66745ac46b4e3983ca69e8a'><b>NOTICE BUG ABOVE:</b>  Exclamation Point has disappeared. <br>    <span bgcolor="#afefa9" style="background-color:#afefa9">"!File:%Pattern%=%Replace%!"</span> <br>    <span bgcolor="#afefa9" style="background-color:#afefa9">File:</span> has also disappeared.</pre>
+
+<br/>
+
+<a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe7655e7ea71544514abf400ad5">Back to INDEX:</a><br/>
+
+<h2 id='temp:C:YTea112c5b165c349f6b1c5f43ca'>PROGRAM NOTES:</h2>
+
+<b>Requires in same directory: </b> atom-copy-2-clipboard-function.txt<br/>
+
+<h2 id='temp:C:YTe58e6485b58864ef4a12b6aabf'>Success with a couple of QUIP PRO QUOS when using this program:</h2>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:YTef6a00b986cc94ebbaa7762091'><li id='temp:C:YTe2ed2ac45b54e479abf2d934eb' class='parent' value='1'>This program as-is currently only handles file names without spaces:  
+
+<br/></li><ul><li id='temp:C:YTe1f5ef632ed8e456d8d5ae7f43' class=''>“My Cool Code.html“" change to "My-Cool-Code.html" or something similar before processing.
+
+<br/></li><li id='temp:C:YTe7265a53d434f4ff69d4154fbb' class=''>Afterwards you can change the name back.
+
+<br/></li></ul><li id='temp:C:YTe7e2b01764bd14d98a96dea2c1' class='parent'>There are going to be errors that need to be fixed in a text editor
+
+<br/></li><ul><li id='temp:C:YTe67b72369e6eb433aa73e8e5c8' class=''>keep and verify with the original looks the same.
+
+<br/></li><li id='temp:C:YTef6b2128a01124763ac5149fe0' class=''>and that the buttons work.
+
+<br/></li></ul><li id='temp:C:YTe69e040a6744b411ba434efc3e' class=''>Unicode and Special Character codes may be corrupted/corrupting to final output.
+
+<br/></li></ul></div><h2 id='temp:C:YTef018dfac74564ea8b36d716e7'>Trial and Error</h2>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:YTe1ec2c6f17be1447d8f0bdb1b0'><li id='temp:C:YTe85bc05bf2fb0496bae0474a85' class='' value='1'>This Program processes most QUIP html files, but does show 1 or more errors that can be ignored in the CMD window.
+
+<br/></li><li id='temp:C:YTee8e0bcaba5a24833af1e88bb4' class=''>Some files are processed 100% correct
+
+<br/></li><li id='temp:C:YTebb32cd710fbd43dc95bb88b19' class='parent'>Some files are mostly correct but have.
+
+<br/></li><ul><li id='temp:C:YTe53bcdd3e8c554254b2f8906eb' class=''>Missing ID’s
+
+<br/></li><li id='temp:C:YTec31e3cea9af84f2b8c898dc2c' class='parent'>Incorrect ID’s
+
+<br/></li><ul><li id='temp:C:YTe20a5ed7d2a794de0b25e5557d' class=''>Duplicated from Earlier
+
+<br/></li><li id='temp:C:YTe7a162344cf364888a62f1dda2' class=''>Appended with miscellaneous HTML
+
+<br/></li></ul></ul><li id='temp:C:YTe7d89856d37344885b000ee0c1' class=''>Some files are missing BUTTON code.
+
+<br/></li><li id='temp:C:YTec2889a26c6b44c4580b9ba0db' class=''>Some FEW files don’t work at all.
+
+<br/></li></ul></div><br/>
+
+<a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe7655e7ea71544514abf400ad5">Back to INDEX:</a><br/>
+
+<h2 id='temp:C:YTe481dab044a344a42a49b46b52'>COPY-2-CLIP.bat</h2>
+
+<pre id='temp:C:YTe0227c28eca684392bd1a602fe'>@echo off<br>SETLOCAL enabledelayedexpansion<br><br>Set CurFile=%~n1%~x1<br>Set OutFile=Temp.html<br>Set OutFile2=Temp2.html<br>Set OutFile3=Temp3.html<br>Set OutFile4=DONE\%~n1%~x1<br>Set DIV=<br><br>:: # Output Directory, Create if does not exist<br>if exist .\DONE (<br>  echo Subdirectory DONE Exists<br>) else (<br>  mkdir .\DONE<br>)<br><br>:: # Get JavaScript from external file<br>for /f "Tokens=* Delims=" %%x in (atom-copy-2-clipboard-function.txt) do (set Build=!Build!%%x)<br><br>:: # Replace Tabs resulting from QUIPs Unicode Encoding in HTML<br>SET CMD1="(gc !CurFile!) -replace '\xc2\xa0','&amp;nbsp;'"<br>Powershell -Command %CMD1% &gt; !OutFile!<br><br>:: # Replace ampersand code with AND<br>:: # Not sure if this really is a good idea since it screws with code.<br>SET CMD2="(gc !OutFile!) -replace '&amp;amp;',' and '"<br>Powershell -Command %CMD2% &gt; !OutFile2!<br><br>:: # Insert JavaScript <br>:: # SS=Search String<br>SET SS=^&lt;/HEAD^&gt;<br><br>:: # Three Quotes for each Quote to Pass args to Powershell replace function<br>SET Build=!Build:^"=^"^"^"!<br><br>:: # DS=Destination String<br>SET DS=!Build!^&lt;/HEAD^&gt;<br><br>:: # gc is an alias in PowerShell for Get-Content<br>SET CMD3="(gc !OutFile2!) -replace '%SS%','%DS%'"<br>Powershell -Command %CMD3% &gt; !OutFile3!<br><br>:: # Loop through HTML File<br>SET /a count=1<br>copy /y NUL !OutFile4! &gt;NUL<br>for /f "tokens=*" %%s in (!OutFile3!) do (<br>        SET /a count+=1<br>        echo."%%s" | findstr /C:"&lt;pre" 1&gt;nul<br>        if errorlevel 1 (<br>            :: # Match not found<br>            echo %%s &gt;&gt; !OutFile4!<br>        ) ELSE (<br>            :: # Match found<br>            echo %%s &gt;&gt; !OutFile4!<br>            set INPUT-STRING=%%s<br>            <br>            :: # Isolate the DIV ID for the current Code Block<br>            :: # Used to be: Set DIV=!INPUT-STRING:~9,11!<br>            CALL :SetDIV DIV "%%s" <br>            echo !DIV!<br>                        <br>            :: # Prepare your Button<br>            set HTML-Button=^&lt;button id="button!count!" onClick="CopyToClipboard('!DIV!')"^&gt;Click to copy^&lt;^/button^&gt;<br><br>            :: # Write the Button on the Next Line of HTML<br>            echo !HTML-Button! &gt;&gt; !OutFile4!<br>        )<br>)<br>goto :ENDER<br><br>REM # Function SetDIV - extract and return DIV string<br>REM # Merged from Isolate-ID.bat<br>:SetDIV<br>set LINE="%~2"<br>set STR=<br>set /a cnt = 0<br>set ID=<br>set Toggle=OFF<br>set /a ID_LEN=0<br><br>:: # Find the String Length<br>FOR /L %%N in (1,1,1024) DO (<br>    SET STR=!STR!!LINE:~%%N,1!<br>    if !LINE! == "!STR!" (<br>        set /a cnt=%%N<br>        goto :exit-for<br>    )<br>)<br>:exit-for<br><br>:: # Find the first and second single quote<br>:: # Toggle ID Capture ON and OFF<br>:: # Assign String to ID and Length to ID_LEN <br>FOR /L %%C in (1,1,!cnt!) DO (<br>    REM # Find the Single Quote and SET TOGGLE ON/OFF<br>    if "!LINE:~%%C,1!" == "'" (<br>        if "!Toggle!" == "ON" (<br>            Set Toggle=OFF<br>        ) ELSE (<br>            Set Toggle=ON<br>        )<br>    )<br><br>    REM # Capture ID and ID_LEN<br>    if "!Toggle!" == "ON" (<br>        if "!ID_LEN!" == "0" (<br>            REM # Initial Condition Increment<br>            set /a ID_LEN=!ID_LEN! + 1<br>        ) ELSE (<br>            set /a ID_LEN=!ID_LEN! + 1<br>            SET ID=!ID!!LINE:~%%C,1!<br>        )<br>    )<br>)<br>:: # Initial Condition Adjustment<br>:: # NOTE: The single quote doesn't add to the String Length.<br>set /a ID_LEN=!ID_LEN! - 1<br><br>:: Return the ID String<br>set "%~1=!ID!"<br>Exit /B 0<br><br>:ENDER<br><br>:: Clean Up<br>del Temp.html<br>del Temp2.html<br>del Temp3.html</pre>
+
+<a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe7655e7ea71544514abf400ad5">Back to INDEX:</a><br/>
+
+<h2 id='temp:C:YTeaf77d1a472ee4cb4b860b8979'>Required File:  </h2>
+
+<h2 id='temp:C:YTe2d75605a23104568b87642c5e'>atom-copy-2-clipboard-function.txt</h2>
+
+<br/>
+
+<pre id='temp:C:YTee484b03f5432410c92cab3112'># START of FILE<br>&lt;SCRIPT&gt;<br>function CopyToClipboard(containerid) {<br>  if (document.selection) {<br>    var range = document.body.createTextRange();<br>    range.moveToElementText(document.getElementById(containerid));<br>    range.select().createTextRange();<br>    document.execCommand("copy");<br>  } else if (window.getSelection) {<br>    var range = document.createRange();<br>    range.selectNode(document.getElementById(containerid));<br>    window.getSelection().removeAllRanges();<br>    window.getSelection().addRange(range);<br>    document.execCommand("copy");<br>  }<br>}<br>&lt;/SCRIPT&gt;<br># END of FILE</pre>
+
+<a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe7655e7ea71544514abf400ad5">Back to INDEX:</a><br/>
+
+<h2 id='temp:C:YTe159bbb70c341439ebe33634b9'>HTML</h2>
+
+<h2 id='temp:C:YTe885d163445d34e46aa2f1ba29'>Before program runs:</h2>
+
+<pre id='temp:C:YTef4d4a2fb375349ae8d38a1a54'>&lt;!doctype html&gt;<br>&lt;html&gt;<br>    &lt;head&gt;<br>        &lt;title&gt;This is my Example Web Page&lt;/title&gt;<br>        &lt;meta charset="UTF-8"&gt;<br>        &lt;style&gt;<br>            body {<br>                font-size: 15px;<br>                color: #333;<br>                background: white;<br>                padding: 60px 95px;<br>                max-width: 900px;<br>                margin: 0 auto;<br>                text-rendering: optimizeLegibility;<br>                font-feature-settings: "kern";<br>                font-kerning: normal;<br>                -moz-font-feature-settings: "kern";<br>                -webkit-font-feature-settings: "kern";<br>            }<br>            pre {<br>                font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",<br>                Courier, monospace;<br>                background: #f2f2f2;<br>            }<br>            code {<br>                padding: 1px;<br>                margin: 0 -1px;<br>                border-radius: 3px;<br>            }<br><br>            pre {<br>                display: block;<br>                line-height: 20px;<br>                text-shadow: 0 1px white;<br>                padding: 5px 5px 5px 30px;<br>                white-space: nowrap;<br>                position: relative;<br>                margin: 1em 0;<br>            }<br><br>            pre:before {<br>                content: "";<br>                position: absolute;<br>                top: 0;<br>                bottom: 0;<br>                left: 15px;<br>                border-left: solid 1px #dadada;<br>            }<br>        &lt;/style&gt;<br>    &lt;/head&gt;<br>    &lt;body&gt;<br>        &lt;h1 id='PfE7d18b430c05549e9b7d765618'&gt;Space-2-Underline.bat&lt;/h1&gt;<br>        &lt;pre id='ddNACALrUec'&gt;&lt;code&gt;@echo off&lt;br&gt;Setlocal enabledelayedexpansion&lt;br&gt;&lt;br&gt;Set "Pattern= "&lt;br&gt;Set "Replace=_"&lt;br&gt;&lt;br&gt;For %%a in (*.mp4) Do (&lt;br&gt;    Set "File=%%~a"&lt;br&gt;    Ren "%%a" "!File:%Pattern%=%Replace%!"&lt;br&gt;)&lt;br&gt;&lt;br&gt;Pause&amp;amp;Exit&lt;/code&gt;&lt;/pre&gt;<br>    &lt;/body&gt;<br>&lt;/html&gt;</pre>
+
+<a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe7655e7ea71544514abf400ad5">Back to INDEX:</a><br/>
+
+<h2 id='temp:C:YTed2da978bfbda4a2e93035f267'>After program runs:</h2>
+
+<pre id='temp:C:YTe6076719ef7864ec69fa3ca78f'>&lt;doctype html&gt; <br>&lt;html&gt; <br>    &lt;head&gt; <br>        &lt;title&gt;This is my Example Web Page&lt;/title&gt; <br>        &lt;meta charset="UTF-8"&gt; <br>        &lt;style&gt; <br>            body { <br>                font-size: 15px; <br>                color: #333; <br>                background: white; <br>                padding: 60px 95px; <br>                max-width: 900px; <br>                margin: 0 auto; <br>                text-rendering: optimizeLegibility; <br>                font-feature-settings: "kern"; <br>                font-kerning: normal; <br>                -moz-font-feature-settings: "kern"; <br>                -webkit-font-feature-settings: "kern"; <br>            } <br>            pre { <br>                font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web", <br>                Courier, monospace; <br>                background: #f2f2f2; <br>            } <br>            code { <br>                padding: 1px; <br>                margin: 0 -1px; <br>                border-radius: 3px; <br>            } <br>            pre { <br>                display: block; <br>                line-height: 20px; <br>                text-shadow: 0 1px white; <br>                padding: 5px 5px 5px 30px; <br>                white-space: nowrap; <br>                position: relative; <br>                margin: 1em 0; <br>            } <br>            pre:before { <br>                content: ""; <br>                position: absolute; <br>                top: 0; <br>                bottom: 0; <br>                left: 15px; <br>                border-left: solid 1px #dadada; <br>            } <br>    &lt;/style&gt; <span bgcolor="#afefa9" style="background-color:#afefa9"><br>&lt;SCRIPT&gt;<br>        function CopyToClipboard(containerid) {  <br>              if (document.selection) {    <br>                    var range = document.body.createTextRange();    <br>                    range.moveToElementText(document.getElementById(containerid));    <br>                    range.select().createTextRange();    <br>                    document.execCommand("copy");  <br>              } else if (window.getSelection) {    <br>                    var range = document.createRange();    <br>                    range.selectNode(document.getElementById(containerid));    <br>                    window.getSelection().removeAllRanges();    <br>                    window.getSelection().addRange(range);    <br>                    document.execCommand("copy");  }}<br></span><span bgcolor="#afefa9" style="background-color:#afefa9">&lt;/SCRIPT&gt;<br></span>&lt;/HEAD&gt; <br>&lt;body&gt; <br>    &lt;h1 id='PfE7d18b430c05549e9b7d765618'&gt;Space-2-Underline.bat&lt;/h1&gt; <br>    &lt;pre id='ddNACALrUec'&gt;&lt;code&gt;@echo off&lt;br&gt;Setlocal enabledelayedexpansion&lt;br&gt;&lt;br&gt;Set "Pattern= "&lt;br&gt;Set "Replace=_"&lt;br&gt;&lt;br&gt;For %%a in (*.mp4) Do (&lt;br&gt;&amp;nbsp;&amp;nbsp; &amp;nbsp;Set "File=%%~a"&lt;br&gt;&amp;nbsp;&amp;nbsp; &amp;nbsp;Ren "%%a" "%Pattern%=%Replace%"&lt;br&gt;)&lt;br&gt;&lt;br&gt;Pause and Exit&lt;/code&gt;&lt;/pre&gt; <br>    <span bgcolor="#afefa9" style="background-color:#afefa9">&lt;button id="button52" onClick="CopyToClipboard('ddNACALrUec')"&gt;Click to copy&lt;/button&gt;&lt;br&gt; </span><br>&lt;/body&gt; <br>&lt;/html&gt; <br></pre>
+
+<h2 id='temp:C:YTe478b833bbf574203a0f72e10b'><span style="color:#083f91" textcolor="#083f91"><span bgcolor="#afefa9" style="background-color:#afefa9">The Green Highlighted text is the program inserted CODE.</span></span></h2>
+
+<a href="https://quip.com/fc94AQlajh9R/COPY-2-CLIPbat#temp:C:YTe7655e7ea71544514abf400ad5">Back to INDEX:</a><br/>
+
+</body></html>

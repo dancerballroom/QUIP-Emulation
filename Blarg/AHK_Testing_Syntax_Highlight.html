@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>AHK_Testing_Syntax_Highlight</title>
+    </head>
+    <body>
+        <h2></h2><h2>Capture-All-Chrome-Urls-Setup-Ctl-Sh-S.ahk</h2><div><div></div></div>Copy<span style="white-space: pre-wrap; display: inline-block; width: 100%;">#Requires AutoHotkey v2.0
+        #SingleInstance Force
+
+
+        ; Press Ctrl + Shift + S to trigger the script when Chrome <span style="color:#D73A49;font-weight:bold;">is</span> active
+        ^+s:: {
+        &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> !<span style="color:#005CC5;">WinActive</span>("ahk_exe chrome.exe") {
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">MsgBox</span>("Please make sure Google Chrome <span style="color:#D73A49;font-weight:bold;">is</span> active before running this script.")
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">Return</span>
+        &nbsp; &nbsp; }
+        <div><br></div><div>&nbsp; &nbsp; ; --- CONFIGURATION ---
+        &nbsp; &nbsp; ; Change this path to your preferred folder directory
+        &nbsp; &nbsp; TargetDir := </div><span style="color:#6F42C1;">A_Desktop</span> "\LitRPG Recommendations\_Manhwa_Story_URL\_Saved_Chrome_Tabs"&nbsp;
+        &nbsp; &nbsp; ; ---------------------
+
+
+        &nbsp; &nbsp; ; Create folder <span style="color:#D73A49;font-weight:bold;">if</span> it doesn't exist
+        &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> !DirExist(TargetDir)
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">DirCreate</span>(TargetDir)
+        &nbsp; &nbsp;&nbsp;
+        &nbsp; &nbsp; CapturedTabs := <span style="color:#E36209;font-weight:bold;">Map</span>()
+        &nbsp; &nbsp; DuplicateCount := 0
+        &nbsp; &nbsp; MaxDuplicatesAllowed := 3 ; Security brake to prevent infinite looping
+
+
+        &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">MsgBox</span>("Capturing tabs... Please do not touch your keyboard or mouse.", "Running", "Iconi T2")
+
+
+        &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">Loop</span> {
+        &nbsp; &nbsp; &nbsp; &nbsp; ; --- THE FIX: Clear clipboard right before copying ---
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">A_Clipboard</span> := ""&nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; ; 1. Highlight and copy the current tab's URL
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">Send</span>("^l") ; Focus address bar
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">Sleep</span>(50)
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">Send</span>("^c") ; Copy URL
+        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> !ClipWait(1) {
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">MsgBox</span>("Failed to copy URL from address bar.")
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>
+        &nbsp; &nbsp; &nbsp; &nbsp; }
+        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; CurrentURL := <span style="color:#6F42C1;font-weight:bold;">A_Clipboard</span>
+        &nbsp; &nbsp; &nbsp; &nbsp; CurrentTitle := <span style="color:#005CC5;">WinGetTitle</span>("A")
+
+
+        &nbsp; &nbsp; &nbsp; &nbsp; ; Clean " - Google Chrome" from the window title suffix
+        &nbsp; &nbsp; &nbsp; &nbsp; CleanTitle := RegExReplace(CurrentTitle, " - Google Chrome$")
+        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; ; Remove forbidden Windows <span style="color:#E36209;">file</span> name characters: \ / : * ? " &lt; &gt; |
+        &nbsp; &nbsp; &nbsp; &nbsp; CleanTitle := RegExReplace(CleanTitle, '[\\/:*?"&lt;&gt;|]', "_")
+        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; ; Limit <span style="color:#E36209;">file</span> name length to prevent Windows filesystem crashes
+        &nbsp; &nbsp; &nbsp; &nbsp; CleanTitle := <span style="color:#005CC5;">SubStr</span>(CleanTitle, 1, 100)
+
+
+        &nbsp; &nbsp; &nbsp; &nbsp; ; 2. Check <span style="color:#D73A49;font-weight:bold;">if</span> we have already captured this exact URL
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> CapturedTabs.Has(CurrentURL) {
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DuplicateCount++
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; <span style="color:#D73A49;font-weight:bold;">If</span> we hit the same URL multiple times, we've cycled through all open tabs
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (DuplicateCount &gt;= MaxDuplicatesAllowed)
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>
+        &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; Track the URL and <span style="color:#E36209;font-weight:bold;">map</span> it to its clean title
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CapturedTabs[CurrentURL] := CleanTitle
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DuplicateCount := 0 ; Reset consecutive duplicate counter
+        &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+        &nbsp; &nbsp; &nbsp; &nbsp; ; 3. Move to the next tab
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">Send</span>("^{Tab}")
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">Sleep</span>(250) ; Increased slightly to ensure Chrome updates the window title <span style="color:#D73A49;">in</span> time
+        &nbsp; &nbsp; }
+
+
+        &nbsp; &nbsp; ; 4. Create the Windows URL shortcut files (.url)
+        &nbsp; &nbsp; SuccessCount := 0
+        &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> URL, Title <span style="color:#D73A49;">in</span> CapturedTabs {
+        &nbsp; &nbsp; &nbsp; &nbsp; FilePath := TargetDir "\" Title ".url"
+        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; ; Resolve potential title collisions (different URLs with the exact same title)
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">Loop</span> {
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> !<span style="color:#005CC5;">FileExist</span>(FilePath)
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FilePath := TargetDir "\" Title " (" <span style="color:#6F42C1;font-weight:bold;">A_Index</span> ").url"
+        &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; IniWrite(URL, FilePath, "InternetShortcut", "URL")
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SuccessCount++
+        &nbsp; &nbsp; &nbsp; &nbsp; }
+        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> {
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ; Skip individual write errors gracefully
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">continue</span>
+        &nbsp; &nbsp; &nbsp; &nbsp; }
+        &nbsp; &nbsp; }
+
+
+        &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">MsgBox</span>("Process Finished!`nCaptured " SuccessCount " unique tabs.`nSaved to: " TargetDir, "Success", "Iconi")
+        }
+
+
+        </span><div><br></div><div><br><div></div></div><div><div><br></div></div>
+    </body>
+</html>

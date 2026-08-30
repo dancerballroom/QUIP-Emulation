@@ -1,0 +1,606 @@
+<!doctype html>
+<html><head><title>000_HTML_FILES_GEN-main.bat</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:ObT7ec4b6c47211453f8df94f536'>000_HTML_FILES_GEN-main.bat</h1>
+
+<h3 id='temp:C:ObTd72996e491be4050a09193649'>Purpose:  Link up Directories to the QUIP-Backup Project</h3>
+
+<h3 id='temp:C:ObT4fb0d5e6ccfe466bb3d461872'>NOTE:  Requires the “resources“ Sub-Directory</h3>
+
+<h2 id='temp:C:ObT47b090e0bea9401398353eca5'><a href="https://quip.com/Zq3uAiouTDiN/HTMLDIRSGEN-mainbat#temp:C:OFY896f8b105fd3457997227f16a">SEE RESOURCES</a></h2>
+
+<h2 id='temp:C:ObT73ef1a13cde8451eadd72834c'>EXAMPLE-FOLDER-OUTPUT: </h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/ObTAAAWbHOy/OvPkYYWlkUQm_M1XMX8aIw?a=py4bJKtXWiT0pZtGjZwiMpomlgMwpLimoXkUv1akAo0a' id='temp:C:ObT700f15b04cf6415aa223ed9f7' width='800' height='402' alt="image"></img></div><h2 id='temp:C:ObT7a6a92fe766f484e8371115a5'>EXAMPLE-FILES-OUTPUT </h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/ObTAAAWbHOy/I9kNWC_d0TIxRU4ELiLyuw?a=UGWYim8uVKApcHjPhb2maABTl5o24aqzTBXsJZ7ZgQIa' id='temp:C:ObT96bcb4fd592d4021bb310088f' width='800' height='461' alt="image"></img></div><h3 id='temp:C:ObT6813831d28944a458d971fcfe'>Root Directory</h3>
+
+<pre id='temp:C:ObTc86959880b46482db831ffde5'><span bgcolor="#f2ef90" style="background-color:#f2ef90">DIRS </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Before</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Running</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">01</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">DIR</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">TREE</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">GEN</span><br>resources &lt;DIR&gt;<br><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">DIRS </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">After</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">Running</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">01</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">DIR</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">TREE</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">GEN</span><br>android-projects &lt;DIR&gt;<br>breakfast-and-lunch &lt;DIR&gt;<br>code-snippets &lt;DIR&gt;<br>dinner-dish &lt;DIR&gt;<br>how-to &lt;DIR&gt;<br>larrys-today-in-tech &lt;DIR&gt;<br>Navigate2Parent.png &lt;DIR&gt;<br>odds-and-ends &lt;DIR&gt;<br>projects-complete &lt;DIR&gt;<br>pseudo-code &lt;DIR&gt;<br><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">FILES</span><br>000_DISTRIBUTION-TOOL.bat<br>000_HTML_DIRS_GEN_main.bat<br>000_HTML_FILES_GEN_main.bat<br>01-DIR-TREE-GEN.bat<br>02-Run-All-DIRS-and-FILES-GEN.bat<br>border.png<br>Folder.jpg<br>index.html<br>main.html<br>menu.html<br>QUARTUS-TREE-GEN-DATA.txt<br>refresh.png<br>Search.html<br>Search.png<br>styles.css<br><br>C:\Users\Larry\Desktop\QUIP-EMU-DUODECIMUS&gt;</pre>
+
+<h3 id='temp:C:ObT0683cd4f4a2842c88e99477a3'>Resources File TREE </h3>
+
+<pre id='temp:C:ObT360106c7b5ff46aa8dbc668f4'>resources                          // Directory off of ROOT<br>¦   000_HTML_DIRS_GEN_main.bat     // This Program for DIRECTORY with SUB-DIRECTORIES<br>¦   000_HTML_FILES_GEN_main.bat    // This Program for DIRECTORY with DOCUMENTS<br>¦   TOP-MAIN.txt                   // Template HTML<br>¦   BOTTOM-MAIN.txt                // Template HTML<br>¦   border.png                     // Graphic<br>¦   Document.jpg                   // DOCUMENT ICON<br>¦   Folder.jpg                     // FOLDER ICON<br>¦   index.html                     // Template HTML<br>¦   main.html                      // GENERATED by this program<br>¦   menu.html                      // GENERATED by this program<br>¦   Navigate2Parent.png            // Graphic<br>¦   refresh.png                    // Graphic<br>¦   root_index.html                // ROOT index.html<br>¦   root_menu.html                 // ROOT main.html<br>¦   Search.html                    // Generated by SNAP2HTML and edited<br>¦   styles.css                     // Stylesheet</pre>
+
+<h3 id='temp:C:ObT319d21592a8c460f8bf66f5a5'>000_HTML_FILES_GEN-main.bat</h3>
+
+<pre id='temp:C:ObT8dd8b6d97ccb4513b34d1b210'>@echo off<br>SETLOCAL ENABLEDELAYEDEXPANSION<br>REM  For Each HTML<br>REM    Create an Entry in main.html<br>REM <br>REM  Exclude Files not to be processed<br>    set exclusionlist="index.html menu.html main_OLD.html menu.html main.html"<br>echo %~d0%~p0<br>    set atom_resources=%~d0%~p0resources\<br>    set cur_dir="%~d0%~p0"<br>    set default_menu=%~d0%~p0resources\menu.html<br><br>    set main_html="!cur_dir!main.html"<br><br>REM  Copy the Default Menu (left Frame)<br>echo copy "!default_menu!" .<br>    copy "!default_menu!" .<br><br>REM  START main.html<br>    type "!atom_resources!TOP-MAIN.txt" &gt; !main_html!<br>    set /a count=0<br>    set CRLF=^<br><br>REM  Build main.html TABLE<br>REM  1st Table Row Start<br>    Echo ^&lt;tr^&gt;  &gt;&gt; !main_html!<br><br>REM  Process MIDDLE<br>For %%a In (*.html) Do Call :Sub "%%a"<br>goto :Finish<br>goto :ENDER<br><br>::-- getFirstXChars<br>:getFirstXChars<br>    set sValIn=%1<br>    set /a iNo=%2<br>    set vWorkVal=%%sValIn:~0,%iNo%%%<br>    call:getFirstX %vWorkVal% vWorkVal2<br>    set %3=%vWorkVal2%<br><br>:getFirstX<br>    set %2=%~1<br>goto:eof<br><br>:Sub<br>echo.!exclusionlist! | findstr /C:%1 1&gt;nul<br><br>if errorlevel 1 (<br>    goto :process<br>) ELSE (<br>    goto :ENDER<br>)<br>:process<br><br>    REM  For Each HTML File<br>    REM    There is a LINK and a NAME <br>    set Document_Link=%~1<br>    echo !Document_Link!<br>    set "Document_Name=!Document_Link:~0,40!"<br>    ECHO !Document_Name!<br>    <br>    if !Document_Link! == !Document_Name! ( <br>        echo Equal <br>    ) else ( <br>        set Document_Name=!Document_Name!...<br>    )<br>    <br>Echo 1 !Document_Link!<br>Echo 2 !Document_Name!<br>    <br>    <br>:top<br>REM  For Each HTML<br>REM  BUILD Table CELL / COLUMN<br>    set /a count+=1<br>    Echo ^&lt;td^&gt;^&amp;nbsp; &gt;&gt; !main_html!<br>    Echo ^&lt;div class=^"image-container^"^&gt; &gt;&gt; !main_html!<br>    Echo ^&lt;a href=^"&gt;&gt; !main_html!<br>REM  DYNAMIC TOP MIDDLE<br>    Echo !Document_Link! &gt;&gt; !main_html!<br>REM  MIDDLE<br>    Echo ^" target=^"_self^"^&gt;^&lt;img src=^"Document.jpg^" alt=^"image^"^&gt; &gt;&gt; !main_html!<br>    ECHO ^&lt;div class=^"overlay-text^"^&gt; &gt;&gt; !main_html!<br>REM  DYNAMIC BOTTOM MIDDLE<br>Echo !Document_Name! &gt;&gt; !main_html!<br><br>REM  MIDDLE END<br>    ECHO ^&lt;/div^&gt; &gt;&gt; !main_html!<br>    ECHO ^&lt;/a^&gt; &gt;&gt; !main_html!<br>    ECHO ^&lt;/div^&gt; &gt;&gt; !main_html!<br>    ECHO ^&lt;/td^&gt; &gt;&gt; !main_html!<br><br>    REM  After 4 Columns ADD Table Row END<br>    IF "!count!"=="3" (<br>        Echo ^&lt;/tr^&gt; &gt;&gt; !main_html!<br>        Echo ^&lt;tr^&gt; &gt;&gt; !main_html!<br>        set /a count=0<br>    )<br>goto :ENDER<br><br>:Finish<br>REM  Finish main.html<br>    Echo ^&lt;/tr^&gt; &gt;&gt; !main_html!<br>    type "!atom_resources!BOTTOM-MAIN.txt" &gt;&gt; !main_html!<br>    goto :ENDER<br>    set menuitem=""<br>    goto :top<br>    ) ELSE (<br>      echo Try Again<br>      goto :top<br>    )<br>:ENDER<br>REM  Loop D Loop</pre>
+
+<h2 id='temp:C:ObT23e9005828c946d894f834045'>RESOURCES Required:</h2>
+
+<div class="" style="" data-section-style='6'><ul id='temp:C:ObT8139d3b467094b6b9d5c04f78'><li id='temp:C:ObT296697ed1e4c491088ad02f66' class='' value='1'><a href="https://quip.com/Zq3uAiouTDiN/HTMLDIRSGEN-mainbat#temp:C:OFYba1c558b4b8e4bd9b3ff72a77">Document.jpg</a>
+
+<br/></li><li id='temp:C:ObT76ed8042bef54f338d9052e44' class=''><a href="https://quip.com/Zq3uAiouTDiN/HTMLDIRSGEN-mainbat#temp:C:OFYe0149da5fdf849e38a83b0863">Folder.jpg</a>
+
+<br/></li><li id='temp:C:ObT1bce863a64124ad3b9fec76f0' class=''><a href="https://quip.com/Zq3uAiouTDiN/HTMLDIRSGEN-mainbat#temp:C:OFY4d2f70263ab94a98a74775650">styles.css</a>
+
+<br/></li><li id='temp:C:ObTa772461bab0b4a4f95b1b04d2' class=''><a href="https://quip.com/Zq3uAiouTDiN/HTMLDIRSGEN-mainbat#temp:C:OFY0be22ed8443342bd81d5cc763">TOP-MAIN.txt</a>
+
+<br/></li><li id='temp:C:ObT370572728d16408cbc365c9c2' class=''><a href="https://quip.com/Zq3uAiouTDiN/HTMLDIRSGEN-mainbat#temp:C:OFYa61d2abb8bde49c5a7f8d42e0">BOTTOM-MAIN.txt</a>
+
+<br/></li><li id='temp:C:ObT4a40c3d1fc5448b19fff37521' class=''><a href="https://quip.com/Zq3uAiouTDiN/HTMLDIRSGEN-mainbat#temp:C:OFY4be946e008fe4a619a1b988ac">index.html</a>
+
+<br/></li><li id='temp:C:ObT25baf5c130704d2b8db4085c6' class=''><a href="https://quip.com/Zq3uAiouTDiN/HTMLDIRSGEN-mainbat#temp:C:OFY945b47a0bf394c3ab7157c307">root_index.html</a>
+
+<br/></li><li id='temp:C:ObT27e1f8fa68ea43c79398de3ca' class=''><a href="http://root_menu.html">root_menu.html</a>
+
+<br/></li><li id='temp:C:ObT8a8d357de89b438ea23a3e48d' class=''>000_<a href="https://quip.com/289hAPFf48Su/HTMLFILESGEN-mainbat#temp:C:ObT74f8cc36f5a8407481016e940">HTML_FILES_GEN-main.bat</a>
+
+<br/></li><li id='temp:C:ObT1ab87afd7ad14e23be8c904cb' class=''>000_<a href="https://quip.com/Zq3uAiouTDiN/HTMLDIRSGEN-mainbat#temp:C:OFYd07aafe23e794516af3cc8ab4">HTML_DIRS_GEN-main.bat</a>
+
+<br/></li></ul></div><h2 id='temp:C:ObT3ffe930ce71f480ea1896e5d1'>1.  Document.jpg, Navigate2Parent.png, and refresh.png and Search.jpg</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/ObTAAAWbHOy/0eQhWPDr_Jx99IwMgld8Bg?a=TO3a5iqD68PVbOwr5KnOzEgWyDvHg1g1fM0lmalxJ1Ua' id='temp:C:ObT65837dbc6e1a4e3e8b7aab75e' width='800' height='178' alt="Document.jpg"></img></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/ObTAAAWbHOy/pZjMHz0PWAZu96AzNLxP_A?a=FUbbEI5Du0uGoW8EFVwa57Uqd5b1axcXwueci9z0epAa' id='temp:C:ObT276322f9667c42c596bfbf449' alt="image"></img></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/ObTAAAWbHOy/1quLddPUD-D5dd4SUGCwLQ?a=IfagigMJ6wpYS0dRHZ6k5Gqg8j8awPm51Ejq31aEFn4a' id='temp:C:ObT824822d90ee946aeb009983ba' alt="image"></img></div><br/>
+
+<br/>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/ObTAAAWbHOy/F89r873DI_c63HL89KBVtQ?a=hAqINpqyvUUi5LJqSxEeUoejPvyyTVMkRSIfTzHtmAoa' id='temp:C:ObT397493116e2141868562aae2a' alt="Search.png"></img></div><br/>
+
+<h2 id='temp:C:ObTd67d0ab61ac44fb0a305f482c'>2.  Folder.jpg</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/ObTAAAWbHOy/ZxIsSz04Z9L50Yv15hz-Gw?a=a2n9UaamaPCBaE76H4QFeQZ6vatYzr7I2LY4GAYrilwa' id='temp:C:ObTc3dabd58a7494cf78f01fc304' width='591' height='140' alt="Folder.jpg"></img></div><h2 id='temp:C:ObT758c1aacff8d4b7f91be71b49'>3.  styles.css</h2>
+
+<pre id='temp:C:ObTa1ca1a530cb44199874085e02'>/* Reset some default styles */<br><br>/* Set the image-container as a relative positioned element */<br>.image-container {<br>  position: relative;<br>  display: inline-block;<br>}<br><br>img {<br>    /*max-width: 100%;<br>    height: 50%; */<br>    border: 10px solid transparent;<br>    border-image: url(border.png) 50 round;<br>    width: 80%;<br>    min-height: 20px;<br>    min-width: 20px;<br>    max-height: 400px;<br>    float: left;<br>    margin: 2px;<br>    padding: 2px;<br>}<br><br>img.menu {<br>    background: white; <br>    width: 50px;<br>    height: 50px;<br>    padding: 2px;<br>}<br><br>/* Style the image<br>.image-container img {<br>  display: block;<br>  width: 100%;<br>  height: auto;<br>}<br>*/<br><br>a:link, a:visited {<br>  text-decoration: none;<br>  text-color: blue<br>}<br><br>/* Style the overlay-text */<br>.overlay-text {<br>  position: absolute;<br>  top: 55%; /* Adjust this value to vertically center the text */<br>  left: 50%; /* Adjust this value to horizontally center the text */<br>  transform: translate(-50%, -50%); /* Center the text precisely */<br>  background-color: Gold /* Set the background color with some transparency */<br>  color: #fff; /* Set the text color */<br>  padding: 0px 0px; /* Add some padding to the text */<br>  font-size: 1.5vw; /* This bases the font on the size of the browser window */<br>  /* font-size: 18px; */ /* Adjust the font size */<br>  font-weight: bold;<br>/*   text-align: center; /* Center the text horizontally */ */<br>}<br><br>.overlay-menu-text {<br>  position: absolute;<br>  top: 55%; /* Adjust this value to vertically center the text */<br>  left: 80%; /* Adjust this value to horizontally center the text */<br>  transform: translate(-50%, -50%); /* Center the text precisely */<br>  background-color: Gold /* Set the background color with some transparency */<br>  color: #fff; /* Set the text color */<br>  padding: 10px 10px; /* Add some padding to the text */<br>  font-size: 18px; /* Adjust the font size */<br>  font-weight: bold;<br>/*   text-align: center; /* Center the text horizontally */ */<br>}<br><br>/* unvisited link */<br>a:link {<br>  color: blue;<br>}<br><br>/* visited link */<br>a:visited {<br>  color: blue;<br>}<br><br>/* mouse over link */<br>a:hover {<br>  color: blue;<br>}<br><br>/* selected link */<br>a:active {<br>  color: blue;<br>}</pre>
+
+<h2 id='temp:C:ObT35ecce2e92d145609978cb715'>4. TOP-MAIN.txt</h2>
+
+<pre id='temp:C:ObT8856a648fd78454a9d44c9141'>&lt;!DOCTYPE html&gt;<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>  &lt;meta charset="UTF-8"&gt;<br>  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>  &lt;title&gt;Image Overlay with Text&lt;/title&gt;<br>  &lt;link rel="stylesheet" href="styles.css"&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;table&gt;<br>&lt;tbody&gt;</pre>
+
+<h2 id='temp:C:ObTecf94849986c47a9bd429c5d6'>5. BOTTOM-MAIN.txt</h2>
+
+<pre id='temp:C:ObTd0f878a1ebcc4a609e4f1ad37'>&lt;/tbody&gt;<br>&lt;/table&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;</pre>
+
+<h2 id='temp:C:ObTaa23fb72ec0d4ce189ec70390'>6. index.html</h2>
+
+<pre id='temp:C:ObT1558668d8bf246519aeb54bae'>&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br><br>   &lt;head&gt;<br>      &lt;title&gt;Larry's 1234 Quip Emulation&lt;/title&gt;<br>      &lt;meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /&gt; &lt;meta http-equiv="Pragma" content="no-cache" /&gt; &lt;meta http-equiv="Expires" content="0" /&gt;<br>   &lt;/head&gt;<br>    <br>   &lt;frameset cols = "100px, *"&gt;<br>      &lt;frame src = "menu.html" name = "menu_page" /&gt;<br>      &lt;frame src = "main.html" name = "main_page" /&gt;<br>      <br>      &lt;noframes&gt;<br>         &lt;body&gt;Your browser does not support frames.&lt;/body&gt;<br>      &lt;/noframes&gt;<br>   &lt;/frameset&gt;<br>    <br>&lt;/html&gt;</pre>
+
+<h2 id='temp:C:ObT24631f86973c4102a8c80a813'>7. root_index.html</h2>
+
+<pre id='temp:C:ObTf0865f91175c4d18ab0961f22'>&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br><br>   &lt;head&gt;<br>      &lt;title&gt;Larry's 1234 Quip Emulation&lt;/title&gt;<br>      &lt;meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /&gt; &lt;meta http-equiv="Pragma" content="no-cache" /&gt; &lt;meta http-equiv="Expires" content="0" /&gt;<br>   &lt;/head&gt;<br>    <br>   &lt;frameset cols = "100px, *"&gt;<br>      &lt;frame src = "menu.html" name = "menu_page" /&gt;<br>      &lt;frame src = "main.html" name = "main_page" /&gt;<br>      <br>      &lt;noframes&gt;<br>         &lt;body&gt;Your browser does not support frames.&lt;/body&gt;<br>      &lt;/noframes&gt;<br>   &lt;/frameset&gt;<br>    <br>&lt;/html&gt;</pre>
+
+<h2 id='temp:C:ObT3f6fb796d5b54f53a1308c0fb'>8. root_menu.html</h2>
+
+<pre id='temp:C:ObT0220b3b3cae3479a80fc36d76'>&lt;!DOCTYPE html&gt;<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>  &lt;meta charset="UTF-8"&gt;<br>  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>  &lt;title&gt;Generated Quip Emulation&lt;/title&gt;<br>  &lt;link rel="stylesheet" href="styles.css"&gt;<br>&lt;/head&gt;<br>   &lt;body&gt;<br>   &lt;div class="image-container"&gt;<br>   &lt;center&gt;<br>   &lt;A HREF="Search.html" target="main_page"&gt;<br>         &lt;IMG class="menu" src="Search.png"&gt; <br>         &lt;div class=".overlay-menu-text"&gt;Search&lt;/div&gt;<br>   &lt;/A&gt;<br>   &lt;/center&gt;<br>   <br>   &lt;center&gt;<br>   &lt;div class="image-container"&gt;<br>      &lt;a href="index.html" target="_top"&gt;<br>          &lt;IMG class="menu" src="Navigate2Parent.png"&gt;<br>          &lt;div class=".overlay-menu-text"&gt;Back&lt;/div&gt;<br>      &lt;/a&gt;<br>   &lt;/div&gt;&lt;/br&gt;<br>   &lt;/center&gt;<br>   &lt;center&gt;<br>   &lt;div class="image-container"&gt;<br>      &lt;a href="index.html" target="_top"&gt;<br>          &lt;IMG class="menu" src="Refresh.png"&gt;<br>          &lt;div class=".overlay-menu-text"&gt;Refresh&lt;/div&gt;<br>      &lt;/a&gt;<br>   &lt;/div&gt;<br>   &lt;/center&gt;<br>      &lt;br /&gt;<br>      &lt;br /&gt;<br>   &lt;/body&gt;<br>    <br>&lt;/html&gt;</pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

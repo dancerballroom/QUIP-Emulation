@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>URL2TXT_Renamer_RegEx</title>
+    </head>
+    <body>
+        <div></div><div class="code-box-container" data-voice-profile="1" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button></div><h1>Where all the RegEx Action Happens!</h1></div><span style="white-space: pre-wrap; display: inline-block; width: 100%;"><span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;"></span></span><div class="code-box-container" data-voice-profile="1" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 240px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, &quot;New York Times&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> convertFileNames() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> rawText = txtCurrent.value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!rawText.trim()) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> lines = rawText.split(/\r?\n/);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> processedLines = lines.map(line =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> s = line;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Strip out a leading <span style="color:#005CC5;">number</span> index wrapped <span style="color:#D73A49;">in</span> parentheses, like "(1) " or "( 20 )"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/^\(\s*\d+\s*\)\s*/g, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Remove the word "YouTube" completely, ignoring uppercase/lowercase differences
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/YouTube/gi, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Remove the word "Manhwa" completely, ignoring uppercase/lowercase differences
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/Manhwa/gi, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Remove the word "Recap" completely, ignoring uppercase/lowercase differences
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/Recap/gi, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Convert any pound/hashtag sign (#) to the literal word "<span style="color:#005CC5;">Number</span>"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/#/g, '<span style="color:#005CC5;">Number</span>');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Convert any ampersand <span style="color:#005CC5;">symbol</span> (&amp;) to the literal word "And"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/&amp;/g, 'And');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Replace any long chain of three or more consecutive periods (...) <span style="color:#D73A49;">with</span> a single hyphen
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/\.{3,}/g, '-');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Strip out everything except normal letters, numbers, spaces, periods, hyphens, and parentheses
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/[^\w\s\.\-\(\)]/g, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Capitalize the first letter of every single word and lowercase the rest (Title <span style="color:#D73A49;">Case</span> formatting)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/\b([a-zA-Z])([a-zA-Z0-9]*)\b/g, <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(match, first, rest) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> first.toUpperCase() + rest.toLowerCase();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Strip out exclamation points entirely
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/!/g, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Insert a clean space before the word "And" <span style="color:#D73A49;font-weight:bold;">if</span> it is stuck to the end of another word
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/([^\s])(And)\b/g, '$1 $2');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Insert a clean space before the word "<span style="color:#005CC5;">Number</span>" <span style="color:#D73A49;font-weight:bold;">if</span> it is stuck to the end of another word
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/([^\s])(<span style="color:#005CC5;">Number</span>)\b/g, '$1 $2');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Trim away any leftover trailing periods or hyphens from the end of the text <span style="color:#005CC5;font-weight:bold;">string</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/[\.\-]+$/g, '');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.trim();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Strip off a trailing hyphen <span style="color:#D73A49;font-weight:bold;">if</span> it has whitespace before it at the end of the line
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/\s+\-+$/g, '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Double check and clean up any trailing periods or hyphens left over after the previous space adjustments
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.replace(/[\.\-]+$/g, '');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s = s.trim();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> s;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtConverted.value = processedLines.join('\n');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+        </pre></div><div><br></div>
+
+
+        </span><div><br></div><div></div>
+
+        <script id="code-box-browser-scripts" contenteditable="false">
+        function readCodeBoxText(button) {
+        var container = button.closest('.code-box-container');
+        if (!container) return;
+        var contentBlock = container.querySelector('.code-box-content');
+        if (!contentBlock) return;
+        var textToRead = contentBlock.innerText || contentBlock.textContent;
+        if (!textToRead.trim()) return;
+
+        if (!('speechSynthesis' in window)) {
+        alert("Sorry, your browser does not support text-to-speech reading.");
+        return;
+        }
+        window.speechSynthesis.cancel();
+        var utterance = new SpeechSynthesisUtterance(textToRead);
+        var voiceChoice = container.getAttribute("data-voice-profile") || "1";
+        var voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+        if (voiceChoice === "2") {
+        var ukVoice = voices.find(v => v.lang.includes("GB") || v.lang.includes("en-GB"));
+        if (ukVoice) utterance.voice = ukVoice;
+        } else if (voiceChoice === "3") {
+        var femaleVoice = voices.find(v => v.name.includes("Zira") || v.name.includes("Female") || v.name.includes("Google US English"));
+        if (femaleVoice) utterance.voice = femaleVoice;
+        } else {
+        var usVoice = voices.find(v => v.lang.includes("US") || v.lang.includes("en-US"));
+        if (usVoice) utterance.voice = usVoice;
+        }
+        }
+        window.speechSynthesis.speak(utterance);
+        }
+
+        function copyCodeBoxText(button) {
+        var container = button.closest('.code-box-container');
+        if (!container) return;
+        var contentBlock = container.querySelector('.code-box-content');
+        if (!contentBlock) return;
+        var textToCopy = contentBlock.innerText || contentBlock.textContent;
+
+        if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(textToCopy).then(showCopyFeedback, fallbackCopy);
+        } else {
+        fallbackCopy();
+        }
+
+        function fallbackCopy() {
+        var tempTextArea = document.createElement("textarea");
+        tempTextArea.value = textToCopy;
+        tempTextArea.style.position = "fixed";
+        document.body.appendChild(tempTextArea);
+        tempTextArea.focus();
+        tempTextArea.select();
+        try {
+        document.execCommand('copy');
+        showCopyFeedback();
+        } catch (err) {
+        alert("Failed to copy code box contents.");
+        }
+        document.body.removeChild(tempTextArea);
+        }
+
+        function showCopyFeedback() {
+        var originalTitle = button.title || "Copy";
+        var originalBg = button.style.backgroundColor;
+        button.style.backgroundColor = "#d4edda";
+        button.title = "Copied!";
+        setTimeout(function() {
+        button.style.backgroundColor = originalBg;
+        button.title = originalTitle;
+        }, 1500);
+        }
+        }
+
+        function highlightCodeBoxText(button) {
+        var container = button.closest('.code-box-container');
+        if (!container) return;
+        var contentBlock = container.querySelector('.code-box-content');
+        if (!contentBlock) return;
+        var range = document.createRange();
+        range.selectNodeContents(contentBlock);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        }
+        </script>
+    </body>
+</html>

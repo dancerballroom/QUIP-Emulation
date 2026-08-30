@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>RegExTester.aspx.cs</title>
+    </head>
+    <body>
+        <h1>RegExTester.aspx.cs
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">RegExTester.aspx.cs
+
+
+<span style="color:#D73A49;font-weight:bold;">using</span> System;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.IO;&nbsp;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Text;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web.UI;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web.UI.WebControls;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Text.RegularExpressions;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web.Script.Serialization;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Collections.Generic;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Net;
+
+
+<span style="color:#D73A49;font-weight:bold;">public</span> partial <span style="color:#D73A49;font-weight:bold;">class</span> RegExTester : System.Web.UI.Page
+{
+<span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> Page_Load(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+{
+&nbsp; &nbsp; RenderSourceHistoryLinks();
+&nbsp; &nbsp; RenderResultHistoryLinks();
+
+
+&nbsp; &nbsp; // Move <span style="color:#D73A49;font-weight:bold;">this</span> completely outside the <span style="color:#D73A49;font-weight:bold;">If</span>/<span style="color:#D73A49;font-weight:bold;">Else</span> blocks!
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Session["LastFileName"] != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; hfLastFileName.Value = Session["LastFileName"].ToString();
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsPostBack)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; LoadRegExPresets();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Session["RegExOriginal"] != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtOriginal.Text = Session["RegExOriginal"].ToString();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Session.Remove("RegExOriginal");&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Session["RegExResult"] != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtResult.Text = Session["RegExResult"].ToString();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Session.Remove("RegExResult");&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span>
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; LoadRegExPresets();
+&nbsp; &nbsp; }
+}
+
+
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">void</span> RenderSourceHistoryLinks()
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (phHistoryLinks == <span style="color:#22863A;font-weight:bold;">null</span>) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; phHistoryLinks.Controls.Clear();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> history = Session["SourceHistory"] <span style="color:#D73A49;">as</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt;;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (history != <span style="color:#22863A;font-weight:bold;">null</span> &amp;&amp; history.Count &gt; 0)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> i = 0; i &lt; history.Count; i++)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> index = i;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LinkButton lnk = <span style="color:#D73A49;">new</span> LinkButton();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.ID = "lnkSrcHistory_" + index;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.Text = (index + 1).ToString();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.Style.Add("color", "#007bff");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.Style.Add("text-decoration", "none");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.Click += (s, ev) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtOriginal.Text = history[index];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; phHistoryLinks.Controls.Add(lnk);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (index &lt; history.Count - 1)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; phHistoryLinks.Controls.Add(<span style="color:#D73A49;">new</span> Literal { Text = ", " });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">void</span> RenderResultHistoryLinks()
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (phResultLinks == <span style="color:#22863A;font-weight:bold;">null</span>) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; phResultLinks.Controls.Clear();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> history = Session["ResultHistory"] <span style="color:#D73A49;">as</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt;;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (history != <span style="color:#22863A;font-weight:bold;">null</span> &amp;&amp; history.Count &gt; 0)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> i = 0; i &lt; history.Count; i++)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> index = i;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LinkButton lnk = <span style="color:#D73A49;">new</span> LinkButton();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.ID = "lnkResHistory_" + index;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.Text = (index + 1).ToString();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.Style.Add("color", "#007bff");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.Style.Add("text-decoration", "none");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lnk.Click += (s, ev) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtResult.Text = history[index];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; phResultLinks.Controls.Add(lnk);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (index &lt; history.Count - 1)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; phResultLinks.Controls.Add(<span style="color:#D73A49;">new</span> Literal { Text = ", " });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> btnSaveSource_Click(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(txtOriginal.Text)) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> history = Session["SourceHistory"] <span style="color:#D73A49;">as</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt; ?? <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt;();
+&nbsp; &nbsp; &nbsp; &nbsp; history.Add(txtOriginal.Text);
+&nbsp; &nbsp; &nbsp; &nbsp; Session["SourceHistory"] = history;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Retain file info <span style="color:#D73A49;font-weight:bold;">if</span> present during an immediate postback state
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(hfLastFileName.Value))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Session["LastFileName"] = hfLastFileName.Value;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; RenderSourceHistoryLinks();
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> btnSaveResult_Click(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(txtResult.Text)) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> history = Session["ResultHistory"] <span style="color:#D73A49;">as</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt; ?? <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt;();
+&nbsp; &nbsp; &nbsp; &nbsp; history.Add(txtResult.Text);
+&nbsp; &nbsp; &nbsp; &nbsp; Session["ResultHistory"] = history;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Retain file info <span style="color:#D73A49;font-weight:bold;">if</span> present during an immediate postback state
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(hfLastFileName.Value))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Session["LastFileName"] = hfLastFileName.Value;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; RenderResultHistoryLinks();
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> btnClearSession_Click(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; Session.Remove("SourceHistory");
+&nbsp; &nbsp; &nbsp; &nbsp; Session.Remove("ResultHistory");
+&nbsp; &nbsp; &nbsp; &nbsp; Session.Remove("LastFileName");
+&nbsp; &nbsp; &nbsp; &nbsp; txtOriginal.Text = "";
+&nbsp; &nbsp; &nbsp; &nbsp; txtResult.Text = "";
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect(Request.Url.AbsoluteUri);
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">void</span> LoadRegExPresets()
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> filePath = Server.MapPath("~/RegExTester.json");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(filePath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> jsonString = File.ReadAllText(filePath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JavaScriptSerializer serializer = <span style="color:#D73A49;">new</span> JavaScriptSerializer();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dynamic presets = serializer.Deserialize&lt;dynamic&gt;(jsonString);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> currentSelection = ddlPresets.SelectedValue;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ddlPresets.Items.Clear();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ddlPresets.Items.Add(<span style="color:#D73A49;">new</span> ListItem("-- YouTube Transcript 2 SRT RegEx --", ""));
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (<span style="color:#005CC5;font-weight:bold;">var</span> preset <span style="color:#D73A49;">in</span> presets)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ListItem item = <span style="color:#D73A49;">new</span> ListItem(preset["Name"].ToString(), preset["Name"].ToString());
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; item.Attributes.Add("data-find", preset["Find"].ToString());
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; item.Attributes.Add("data-replace", preset["Replace"].ToString());
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ddlPresets.Items.Add(item);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(currentSelection) &amp;&amp; ddlPresets.Items.FindByValue(currentSelection) != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ddlPresets.SelectedValue = currentSelection;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (<span style="color:#6F42C1;">Exception</span> ex)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtResult.Text = "Error loading JSON presets: " + ex.Message;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> btnApply_Click(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> pattern = txtFind.Text;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> replaceWith = txtReplace.Text;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> inputData = txtOriginal.Text;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(pattern))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtFind.Text = "[\\s\\S]*";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtReplace.Text = "$&amp;";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pattern = txtFind.Text;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; replaceWith = txtReplace.Text;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Regex regex = <span style="color:#D73A49;">new</span> Regex(pattern, RegexOptions.Multiline);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> finalResultText = "";
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (ddlPresets.SelectedValue.Contains("Isolate") || replaceWith == "$&amp;")
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MatchCollection matches = regex.Matches(inputData);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; StringBuilder extractedLines = <span style="color:#D73A49;">new</span> StringBuilder();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (Match match <span style="color:#D73A49;">in</span> matches)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (match.Success)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; extractedLines.AppendLine(match.Value.Trim());
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; finalResultText = extractedLines.ToString();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; finalResultText = regex.Replace(inputData, replaceWith);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Persist the custom drop file name across the redirect loop
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(hfLastFileName.Value))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Session["LastFileName"] = hfLastFileName.Value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Session["RegExOriginal"] = inputData;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Session["RegExResult"] = finalResultText;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect(Request.Url.AbsoluteUri);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (ArgumentException ex)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtResult.Text = "RegEx Parsing Error: " + ex.Message;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+        }</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

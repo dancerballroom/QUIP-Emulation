@@ -1,0 +1,508 @@
+<!doctype html>
+<html><head><title>sdl - Larry’s CD for UNIX Shell</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:PeTa3a8ac68a250469ba50e97f1a'>sdl - Larry’s CD for UNIX Shell</h1>
+
+<pre id='temp:C:PeTaa258531dc1c417c8f739befa'>#!/usr/bin/ksh<br>#************************************************************************<br>#<br>#  Programmer   : Larry Davies<br>#  Course       : CSCI 057               Section    : 1<br>#  Instructor   : Alice Tidwell<br>#  Date         : FALL 2000              Version    : 1.3<br>#<br>#************************************************************************<br>#  PseudoCode for (l)arry's (cd)see dee (sdl):<br>#  ------------------------------------<br># if user does not ask for -help then <br>#  while leave = no<br>#    clear screen<br>#    get the path<br>#    if number of files/directories &gt; 400<br>#          give user an option to not view them (Very Slow otherwise)<br>#    else <br>#          create menu <br>#          Ask for user to enter the number to change directory to into variable $selection<br>#          Select Case ($Selection)<br>#              Case 1<br>#                  shell the command:  CD ..<br>#              Case (2 - Max Directories)<br>#                  shell the command:  CD directoryname<br>#              Case x<br>#                  exit this script<br>#              Case other<br>#                  try to shell command to the unix prompt<br>#          End Select<br>#    end if<br>#  end while<br># else <br>#  give user help message<br># end if<br>#**************************************************************************<br>#  Instructions:<br>#  <br>#  To Install this Script Effectively, follow these instructions<br>#  1.  Save the script to a directory of your choice.<br>#  2.  Find out where the file is.  Type in 'pwd' at the UNIX prompt.  <br>#      Let's call this $FILEPATH (for this documentation only).<br>#  3.  In your root directory edit your .profile with any editor<br>#      (vi .profile) or (emacs .profile) or (pico .profile) or (vim .profile) etc.<br>#  4.  Place this line in your .profile:<br>#                      SYNTAX:  alias 1='. $FILEPATH/sdl'           (Don't forget the dot!!!)<br>#      HOME DIRECTORY EXAMPLE:  alias 1='. ~/sdl'<br>#       ABSOLUTE PATH EXAMPLE:  alias 1='. /user/s4/lwdavies/internet/CSCI057/script/sdl'<br>#  5.  Done!<br>#  6.  When you type in the number 1 plus ENTER it will now run the script in any directory.<br># <br>#  7.  NOTE:  Release of liability:  Feel Free to Use, Steal, Copy, Destroy, Mangle, or <br>#                 otherwise Disregard the existence of this script.  <br>#                                              -Lawrence W. Davies<br>#*************************************************************************<br>#  Limitations:  (4 that I know of)<br>#  1.  This script can really only handle 99 directories at present.<br>#  2.  This script can run arbitrary commands but not with "cd" from the Prompt<br>#  3.  CD .  and  CD .. both operate the  CD .. command<br>#  4.  Bug:  The Path at the Root has a double slash //.  <br>#<br>#  (Future Versions will include fixes for the 99 directory limitation)<br>#*************************************************************************<br>if [ "$1" != "-help" ] &amp;&amp; [ "$1" != "-h" ] &amp;&amp; \<br>   [ "$1" != "?" ] &amp;&amp; [ "$1" != "-?" ] &amp;&amp; \<br>   [ "$1" != "-HELP" ] &amp;&amp; [ "$1" != "-H" ]           #  If help wasn't asked for do commands<br>then<br>leave=no                                             #  End Condition is set to NO<br>while [ $leave = no ]                                #  While ( USER doesn't want to leave )  <br> do<br>   clear                                             #  Clear Screen<br>   pathinfo=`pwd`                                    #  Get Current Working Directory<br>   echo "--------[ CURRENT DIRECTORY ]--------"<br>   echo $pathinfo                                    #  Print Current Working Directory<br>   echo "---------[ SUB DIRECTORIES ]---------"<br>   count="1"                                         #  Count keeps track of Number of Directories<br>   totnum=`ls | wc -l`                               #  totnum = total number of Files and Directories<br><br>                                                     #  if number of files/directories &lt; 400<br>                                                     #     Show the Main Menu<br>   if [ $totnum -lt '400' ]    <br>      then<br>      directories=`ls -a -p | grep /`                #  directories = names of all the directories<br><br>                                                     #  Create the Main Menu<br>      for fn in $directories<br>         do<br>                  # Using echo  to use Ansi Escape Sequences for highlight<br>                  #<br>                  echo  "\033[7m"`expr $count` "\033[0mCD "`basename ./"$fn"`""<br>                  #<br>                  count=`expr $count + 1`            #  Increment the Directory Count<br>         done  # End For <br> <br>       pn=`expr $count - 1`  <br>                                                     #  else if number of files/directories &gt; 400<br>                                                     #     Give an option not to view the directories<br>   else<br>      pn=$totnum                                     #  pn stores the number to display at the bottom<br>                                                     #  ie:  -------------[ 4 ]----------------<br>      echo "Too many directories/files to display: (over 400)"<br>      echo "Do you want to display them anyway? (Y/N) "<br>#   if [ ${1} != "" ]<br>#   then<br>#      YN = ${1}<br>#      shift<br>#   else<br>      echo "Choice -&gt; \c"<br>      read YN<br>#   fi<br>      #<br>      # Using echo  to use Ansi Escape Sequences to highlight the Numbers<br>      #<br>      #  NOTE:   echo  " \033[" is the first part of the escape sequence     <br>      #          echo  " \033[7m"  makes the following text inverted (White)<br>      #          echo  " \033[0m"  turns the highlight off.<br>      #          <br><br>      echo  "\033[7mb)\033[0m CD Return Back"      #  Display:  CD Return Back<br>      echo  "\033[7mf)\033[0m CD .."               #            CD..<br>      echo  "\033[7mh)\033[0m CD $HOME"            #            CD home<br>                                                     #  if the user wants to see the files anyway<br>                                                     #  then display them (Takes some time)<br>      if [ $YN = Y -o $YN = y ]<br>      then <br>          directories=`ls -a -p | grep /`            #  directories = names of all the directories<br>          for fn in $directories<br>             do<br>                  #<br>                  # Using echo  to use Ansi Escape Sequences to highlight the Numbers<br>                  #<br>                  echo  "\033[7m"`expr $count` "\033[0mCD "`basename ./"$fn"`""<br>                  count=`expr $count + 1`            <br>                                                     #  Increment the Directory Count <br>             done<br>             pn=`expr $count - 1`                    #  pn stores the number to display at the bottom<br>      fi  # End If       <br>   fi  # End If<br>   # Using echo  to use Ansi Escape Sequences for highlighting<br>   echo  "\033[7mx)\033[0mExit                           "<br>   echo "-------------[ $pn ]----------------"       #  ie:  -------------[ 4 ]----------------<br>   echo "Please enter your selection. "<br><br>#   if [ ${1} != "" ]<br>#   then<br>#      YN = ${1}<br>#      shift<br>#   else<br>             echo "Choice -&gt; \c"<br>             read selection                         #  SELECT CASE<br>#   fi<br><br>   case $selection in<br>     1)                                              #  CD ..<br>    cd ..<br>    ;;<br>     f)<br>        cd ..<br>        ;;<br><br>     h)<br>        cd $HOME<br>        ;;<br><br>     b)<br>        cd $OLDPWD<br>        ;;<br><br>     x)<br>        currentdir=`pwd`                             #  EXIT the SCRIPT<br>        cd $currentdir<br>        leave=yes<br>    ;;<br><br>     *)<br>          chars=`expr $selection : '.*'`             #<br>                                                     #  chars = the number of characters entered by the user<br>                                                     #  This script only handles 98 directories.  ( 2 - 99 )<br>                                                     #  If the number of directories exceeds this, this script will<br>                                                     #  blow up.<br>                                                     #  Only the following 4 commands are excluded from the <br>                                                     #  cd command:  "ls" "ps" "vi" "ll"<br>                                                     #  if you need more, just add to the lines below<br>                                                     #  &amp;&amp; [ "$selection" != "??" ]<br>                                                     #<br>          if [ $chars -lt 3 ] &amp;&amp; [ "$selection" != "ls" ] &amp;&amp; [ "$selection" != "ps" ] \<br>                              &amp;&amp; [ "$selection" != "vi" ] &amp;&amp; [ "$selection" != "ll" ]<br>            then<br>            count="1"                                #  Start Directory count with Number 2<br>            NAME=`pwd`                               #  NAME = Current working Directory<br>                                                     #  Compare the $selection with the<br>                                                     #  Number associated with the directory<br>                                                     #  If they are equal operate the CD command<br>            # Check all directories<br>            for fn in $directories<br>                do<br>                      if [ $count -eq $selection ]<br>                      then<br>                             cd "$NAME/"$fn""        #  Main function of the Program<br>                      fi<br>                      count=`expr $count + 1`        #  Increment Count to next directory number<br><br>                done<br>                count="1"<br>          else<br>                                                     #  If the length of the entry is 2 or greater, as in<br>                                                     #  pwd, cat, emacs, vim, sed, grep, etc.<br>                                                     #  try to run the command<br>                                                     #  This is where a 3 digit directory would blow up.<br>            <br>            $selection                               #  Secondary function of the Program<br><br>            #<br>            # Using echo  to use Ansi Escape Sequences for highlight<br>            #<br>            echo  "\033[7mPress the Return Key to Continue \033[0m"<br>                                                     # Pause before clearing the screen<br>            read pauser<br>          fi  # End If<br>        ;;            <br>   esac  # End Select<br> done  # End While<br>#  Help was asked for<br>else<br>    cat &lt;&lt;++<br>---------------------------------------------------------------------------------------------<br>                     Larry's Change Directory Program<br>                     --------------------------------<br>                        sdl install Instructions:<br><br>To Install this Script Effectively, follow these instructions<br> 1.  Save the script to a directory of your choice.<br> 2.  Find out where the file is.  Type in 'pwd' at the UNIX prompt.<br>     Let's call this $FILEPATH (for this documentation only).<br> 3.  In your root directory edit your .profile with any editor<br>     (vi .profile) or (emacs .profile) or (pico .profile) or (vim .profile) etc.<br> 4.  Place this line in your .profile:<br>                     SYNTAX:  alias 1='. FILEPATH/sdl'           (Don't forget the dot!!!)<br>     HOME DIRECTORY EXAMPLE:  alias 1='. ~/sdl'<br>      ABSOLUTE PATH EXAMPLE:  alias 1='. /user/s4/lwdavies/internet/CSCI057/script/sdl'   <br> 5.  Done!<br> 6.  When you type in the number 1 plus ENTER it will now run the script in any directory.<br><br> 7.  NOTE:  Release of liability:  Feel Free to Use, Steal, Copy, Destroy, Mangle, or<br>                 otherwise Disregard the existence of this script. <br>                                              Sincerely,<br>                                              -Lawrence W. Davies<br><br>--------------------------------------------------------------------------------------------<br>++<br>fi<br># End Of File<br><br></pre>
+
+</body></html>

@@ -1,0 +1,674 @@
+<!doctype html>
+<html><head><title>From 0-100 New Computer Revamp</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:GNHb98cc814b9224732bd083f800'>From 0-100 New Computer Revamp</h1>
+
+<h2 id='temp:C:GNH93ad392bfbf5400b82a50e91c'>Backup</h2>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:GNHa3da82144f4a43e389250558b'><li id='temp:C:GNH77fae2f79b93436cb53caf4f4' class='parent' style='' value='1'><b>Passwords</b>
+
+<br/></li><ul><li id='temp:C:GNH1c42ed3891134f66bb686d683' class='' style=''>Windows
+
+<br/></li><li id='temp:C:GNHfd9278f5950b4f9698164ea30' class='' style=''>Chrome Stored Passwords
+
+<br/></li><li id='temp:C:GNHefba723173384fa3855d34cf1' class='' style=''>Shortcuts / Accounts
+
+<br/></li><li id='temp:C:GNH4271b09c00554fb0907ee8c84' class='' style=''>Desktop/Videos/Current Audiobooks/Current Movies &amp; Series
+
+<br/></li><li id='temp:C:GNHaef3f1acdf1b479e8f895eb41' class='parent' style=''>Important Directories Programming
+
+<br/></li><ul><li id='temp:C:GNH6c18b178627046d690eb38cb8' class='' style=''>C:\JELLYFIN_HOME
+
+<br/></li><li id='temp:C:GNH809eb4f6d5b04b77b6615616c' class='' style=''>C:\kirk
+
+<br/></li><li id='temp:C:GNH2e323fe1a9ad4fc0bd9703688' class='' style=''>C:\MENU_REG_GEN (WORKING)
+
+<br/></li><li id='temp:C:GNH8b5e0cbe653c4fde85e523c73' class='' style=''>C:\MENU-VIDS
+
+<br/></li><li id='temp:C:GNH8fd66fbcaa3042a383f0c3895' class='' style=''>C:\MY-MENU-TREE
+
+<br/></li><li id='temp:C:GNHd040790a193c4d02b2d5b3cf9' class='' style=''>C:\ZAP-Commercials
+
+<br/></li><li id='temp:C:GNH41c17c458ba843d89a67bb633' class='' style=''>C:\<a href="http://QUIP.com">QUIP.com</a>
+
+<br/></li></ul><li id='temp:C:GNHd1bf343f6c9e48d6afe490317' class='parent' style=''>Macro Related
+
+<br/></li><ul><li id='temp:C:GNHf67f6e56066546e288509c662' class='' style=''>C:\AHK Scripts
+
+<br/></li><li id='temp:C:GNH7787407543cf48f888be5c28c' class='' style=''>C:\BATCH-SCRIPTS
+
+<br/></li><li id='temp:C:GNH2898f727452349c8b96a4b368' class='' style=''>C:\Users\Larry\AppData\Roaming\Microsoft\Windows\SendTo
+
+<br/></li><li id='temp:C:GNH76d573370e63407a9b9d686f7' class='' style=''>C:\FFMPEG
+
+<br/></li><li id='temp:C:GNH7a0897b925ec4f49a0e7b5321' class='' style=''>C:\Python34
+
+<br/></li><li id='temp:C:GNHf543e180b27a49d8b490756c7' class='' style=''>C:\POWER-SHELL-SCRIPTS
+
+<br/></li></ul></ul></ul></div><h2 id='temp:C:GNH5e84fcce5a1746d3a0f6cdccb'>Install</h2>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:GNHf16a56a330344d85a62573a58'><li id='temp:C:GNH7d64ce07684843faa1413b9eb' class='' style='' value='1'>SubTitle EDIT
+
+<br/></li><li id='temp:C:GNHefb9ed4c66f7485faed9b7363' class='' style=''>PotPlayer Video Player
+
+<br/></li><li id='temp:C:GNH338cf49829c244478e710e5f3' class='' style=''>NotePad++
+
+<br/></li><li id='temp:C:GNH06390a42bc9c47518b9eb8761' class='parent' style=''>Restore NotePad++ Macros
+
+<br/></li><ul><li id='temp:C:GNH7e25149a022f42e8bfd6fb4bc' class='' style=''>MACRO: TRANS2SRT (Transcript to SRT)
+
+<br/></li><li id='temp:C:GNH57a67a1a0b1e42abad7ad4e4d' class='' style=''>MACRO: CHAP2NFOPLOT (Add Extracted Chapters to &lt;PLOT&gt; &lt;/PLOT&gt; Tags in .NFO for .MP4 with Chapters
+
+<br/></li><li id='temp:C:GNH9b2fefd115144cf1b48bcd5ea' class='' style=''>MACRO: MP4_Bookmark_Format_CSV (Eliminate/Change Illegal Chars)
+
+<br/></li><li id='temp:C:GNH85a626b3bd0b48248d318422a' class='' style=''>MACRO: Tab_Session_Batch_Gen: Create BAT from Copied URLS list to OPEN Chrome Windows)
+
+<br/></li></ul><li id='temp:C:GNH5c8ed4b20d2546fd801a72701' class='' style=''>ClipGrab - (YouTube Downloader)
+
+<br/></li><li id='temp:C:GNHc1a9afb3dc3f456bb576f35a4' class='' style=''>GreenShot - (Screen Capture - Replacement for Windows Clipper
+
+<br/></li><li id='temp:C:GNH87e091a931f74994939cf3568' class='' style=''>ShotCut - (Video Repair)
+
+<br/></li><li id='temp:C:GNHb8cb765e6b794936b62d8467a' class='' style=''>FFMPeg - (Audio/Video Editor - Video to Audio - Audio to Video - SRT Extraction)
+
+<br/></li><li id='temp:C:GNHb9f92d9ea0f04ccfaee9af4a5' class='' style=''>PowerShell - (Batch File Command Alternative)
+
+<br/></li><li id='temp:C:GNHf8ea3d0599014ebfa7a6f23e3' class='' style=''>HandBrake - (Change Video Size) - Conversions
+
+<br/></li><li id='temp:C:GNHaa3255036e6b4252b620afa57' class='' style=''>mp3splt - (Splits Subtitles - Calculates in LagTime)
+
+<br/></li><li id='temp:C:GNHfe92b218ad2f4abbabe13af6b' class='' style=''>MP3Tag - (MetaData Editor)
+
+<br/></li><li id='temp:C:GNH1082e7ef49864260b4f3e0f1f' class='parent' style=''>Chrome Browser
+
+<br/></li><ul><li id='temp:C:GNHda27cd806ded4e3aa9e2d18c6' class='' style=''>Extension: Copy All URLs
+
+<br/></li><li id='temp:C:GNHb18a20f921d043c381b81724d' class='' style=''>Extension: Pause All Videos
+
+<br/></li><li id='temp:C:GNH2015083676394d2f8248bc333' class='' style=''>Extension: Full Screen for Google...
+
+<br/></li><li id='temp:C:GNHc4040ecb752e4b7692aeb37b9' class='' style=''>Extension: TinEYE Reverse Image Search
+
+<br/></li><li id='temp:C:GNH4e52873d39ce4da1bb12f7712' class='' style=''>Extension: YouTube Non-Stop
+
+<br/></li><li id='temp:C:GNH5e7b9f25667a4cf8aa9f2b733' class='' style=''>Extension: Copyfish - OCR 
+
+<br/></li><li id='temp:C:GNHa37a26b4901248dca0df31318' class='' style=''>Extension: S - WebPage Full Page Snapshot
+
+<br/></li><li id='temp:C:GNHdb95d2ad624646999a214e647' class='' style=''>Extension: YouTube Add Auto-Skipper
+
+<br/></li></ul><li id='temp:C:GNH0ba5724d3a32495599ce3ecce' class='parent' style=''>AHK 2.0 - AutoHotKey Macro Recorder (Mouse/Keypad Macro Editor/Runner)
+
+<br/></li><ul><li id='temp:C:GNHf2e4e4c0d8534ddb943805da7' class='' style=''>REGEX_Macros_Goojara.ahk
+
+<br/></li></ul><li id='temp:C:GNHe0cf2fc18fba421a82ab924d2' class='' style=''>Capture2Text_CLI.exe from Capture2Text (<a href="http://SourceForge.net">SourceForge.net</a>) - (OCR)
+
+<br/></li><li id='temp:C:GNH47c8ba672ed84cb19b06c582a' class='parent' style=''>Batchfiles in SendTo
+
+<br/></li><ul><li id='temp:C:GNH93318ffc4b304b5a88fb513d8' class='' style=''>Search_Replace.bat
+
+<br/></li><li id='temp:C:GNHf84aecceccfa44cfa0c7db9aa' class='' style=''>MKV_2_MP4_ALL.bat
+
+<br/></li><li id='temp:C:GNH7ddf5413443f4b339cab559ef' class='' style=''>MP4_2_MP3_ALL.bat
+
+<br/></li><li id='temp:C:GNH4dbb8e9b635f41e0b719459f7' class='' style=''>Change_Volume.bat
+
+<br/></li><li id='temp:C:GNHbd980cc2dde047cfabfb15448' class='' style=''>DROP_JSON_HERE.bat
+
+<br/></li><li id='temp:C:GNHf9d9efbe64774ab89c8fa7509' class='' style=''>CROP-VID_01-59.bat
+
+<br/></li><li id='temp:C:GNH4beac14ef6224f7297e96a53e' class='' style=''>CROP-StartAndEnd.bat
+
+<br/></li><li id='temp:C:GNHa7e1da492aba4291a1ef99217' class='' style=''>SPLIT_SRT_20_2_LRC_LSS_100.bat
+
+<br/></li><li id='temp:C:GNHe1ed82dcaa584587b7733da1e' class='' style=''>SPLIT_SRT_20_2_LRC_GEQ_100.bat
+
+<br/></li><li id='temp:C:GNH98762eb7070e4279bfec5d3de' class='' style=''>SPLIT_SRT_20_2_LRC_LSS_10.bat
+
+<br/></li><li id='temp:C:GNH17b4b648b0c343bebb7d7bd93' class='' style=''>WebM_2_MP4.bat
+
+<br/></li></ul><li id='temp:C:GNH0d798fef975f430b9447e6fc8' class='parent' style=''>Batchfiles
+
+<br/></li><ul><li id='temp:C:GNH0e8f4b4bc266497b82f8c3d45' class='' style=''>Extract_Chapters.bat
+
+<br/></li><li id='temp:C:GNH2f1a6dfb73cd4bd997ce34580' class='' style=''>V5_TimeSig2MilliSec.bat
+
+<br/></li><li id='temp:C:GNHc3f56602fbef4299bce53f049' class='' style=''>V1_Sec2TimeSig.bat
+
+<br/></li><li id='temp:C:GNHceb71d18eda94ca6a73d71af2' class='parent' style=''>01_START_DROP_MP4_HERE_00.bat
+
+<br/></li><ul><li id='temp:C:GNHa97fccda703b45878022ad0dd' class='' style=''>1_TOP_iFrame_B4_VID_NAME.txt
+
+<br/></li><li id='temp:C:GNH2d42f709d308445891f416ecc' class='' style=''>2_TOP_iFrame_B4_CHAP_List.txt
+
+<br/></li><li id='temp:C:GNHa8fea30e71804b8182dbee158' class='' style=''>4_BOT_iFrame_A4_CHAP_List
+
+<br/></li><li id='temp:C:GNHc7cbd9a23116423eb06946b89' class='' style=''>3_MID_iFrame_GEN_CHAP_List_WORKING-SECONDS-INPUT.bat
+
+<br/></li></ul><li id='temp:C:GNH27abfafd72a5465d92c518e6a' class='parent' style=''>_1_SRCH.bat
+
+<br/></li><ul><li id='temp:C:GNH327d0ded2b9a4619ab4614614' class='' style=''>Could also use “Black_Detect_SEQUENCE.txt“
+
+<br/></li></ul></ul><li id='temp:C:GNH05399019590042019df442ef8' class='parent' style=''>AHK (AutoHotKey Files)
+
+<br/></li><ul><li id='temp:C:GNH06998f4a30bb42419a90bb871' class='' style=''>REGEX_Macros_Sleep_Paradox.ahk
+
+<br/></li><li id='temp:C:GNH4e14895d9da24b57b4905b6c8' class='' style=''>JELLYFIN_REFRESH_METADATA_UPDATE_MP3_IMAGE.ahk
+
+<br/></li><li id='temp:C:GNH758eb881b26541cba8224887c' class='' style=''>REGEX_Macros_Goojara.ahk
+
+<br/></li><li id='temp:C:GNH3bd8902f3817465b99b3eb24f' class='' style=''>CSV-YT-OCR_1CYCLE.ahk
+
+<br/></li></ul><li id='temp:C:GNHf94da1f72d1a4b87938818704' class='parent' style=''>Instructional Text Files
+
+<br/></li><ul><li id='temp:C:GNH79b165a6c2b14be5ac86caa92' class='' style=''>Black_Detect_SEQUENCE.txt
+
+<br/></li><li id='temp:C:GNH8d1fb328805748c5bed249494' class='' style=''>00_HOW_TO_Transcript2HTML.txt
+
+<br/></li><li id='temp:C:GNH1a16d31692174000922fb42f9' class='' style=''>___Transcript2CSV - STEPS.txt
+
+<br/></li><li id='temp:C:GNHbe5dc35b017f43f3b7f4785eb' class='' style=''>___STEPS_CREATE_CHAPLIST_FROM_TRANSCRIPT_SEARCH.txt
+
+<br/></li></ul></ul></div><br/>
+
+</body></html>

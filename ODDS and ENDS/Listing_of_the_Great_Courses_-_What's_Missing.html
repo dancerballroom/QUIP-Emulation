@@ -1,0 +1,534 @@
+<!doctype html>
+<html><head><title>Listing of the Great Courses - What's Missing</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:MKY92e2b43893bb4084966f92262'>Listing of the Great Courses - What's Missing</h1>
+
+<h2 id='temp:C:MKY29f2e139d1004095b86984a5f'>KEY:</h2>
+
+<b>ALL </b>- We have all the courses<br/>
+
+<b>Missing </b>- These still need to be downloaded<br/>
+
+<b>Rename </b>- These filenames need to be shortened<br/>
+
+<b>(# ?) </b>- We may or may not have ALL of the courses after the last number listed.<br/>
+
+<b>NOTE</b>: The courses after the ? may be downloading currently.<br/>
+
+<h2 id='temp:C:MKYe583d699017645f38119f82ef'>Current SCAN as of 05-14-2022</h2>
+
+<pre id='temp:C:MKYfc88ba573fea4f3fa6026dd40'>H:\GREAT COURSES\.<br>+---Cognitive Behavioral Therapy_ Techniques for Retraining Your Brain<br>|   ALL of 24<br>|                      <br>+---Dog Training 101<br>|   ALL of 24<br>|           <br><br>Do-It-Yourself Engineering<br> IN PROGRESS<br><br>Everyday Engineering_ Understanding the Marvels of Daily Life<br> IN PROGRESS<br><br>+---Fundamentals of Sustainable Living<br>|   ALL of 12<br>|    <br>+---Great Mythologies of the World<br>|   ALL of 60<br>|   <br>+---Great Utopian and Dystopian Works of Literature<br>|   ALL of 23<br>|   <br>+---Heroes and Legends_ The Most Influential Characters of Literature<br>|   ALL of 24<br>|   <br>+---How Jesus Became God<br>|   ALL of 24<br>|   <br>+---How the World Learns_ Comparative Educational Systems<br>|   ALL of 24<br>|   <br> +---How to Play Piano<br>|   ALL of 36<br>|      <br>+---How to Program_ Computer Science Concepts and Python Exercises<br>|   ALL of 24<br>|  <br>+---How to View and Appreciate Great Movies<br>|   ALL of 24<br>|<br> +---How to Write Best-Selling Fiction<br>|   ALL of 24<br>|  <br>+---King Arthur_ History and Legend<br>|   ALL of 24<br>|   <br>+---Language Families of the World <br>|   ALL of 34 <br>|   <br>+---Latin 101_ Learning a Classical Language<br>|   ALL of 36<br>|   <br>+---Law School for Everyone<br>|   ALL of 48<br>|  <br>+---Learning French_ A Rendezvous with French-Speaking Cultures<br>|   ALL of 30<br>|           <br>+---Learning German_ A Journey through Language and Culture<br>|   ALL of 30<br>|  <br>+---Mastering Stage Presence_ How to Present to Any Audience<br>|   ALL of 24<br>|   <br>+---Mastering Tai Chi<br>|   ALL of 22<br>|  <br><br> Mathematics Describing the Real World_ Precalculus and Trigonometry<br>  IN PROGRESS<br>   <br> Mind-Bending Math_ Riddles and Paradoxes<br>  IN PROGRESS<br>  <br>+---Medical School for Everyone_ Emergency Medicine<br>|   ALL of 24<br>|   <br>+---Medical School for Everyone_ Grand Rounds Cases<br>|   ALL of 24<br>|   <br>+---Music as a Mirror of History<br>|   ALL of 24<br>|  <br>+---Our Night Sky<br>|   ALL of 12<br>|   <br>+---Physics and Our Universe_ How It All Works<br>|   ALL of 60<br>|  <br>+---Plant Science_ An Introduction to Botany<br>|   ALL of 23<br>|  <br>+---Sacred Texts of the World<br>|   ALL of 36<br>|   <br>+---Sci-Phi_ Science Fiction as Philosophy<br>|   ALL of 24<br>|   <br>+---Scientific Secrets for Raising Kids Who Thrive<br>|   ALL of 24<br>|   <br>+---The Addictive Brain<br>|   ALL of 12<br>|   <br>+---The Apocryphal Jesus<br>|   ALL of 24<br>|  <br>+---The Art of Public Speaking - ( Lessons from the Greatest Speeches in History )<br>|   ALL of 12<br>|   <br> +---The Big History of Civilizations<br>|   ALL of 36<br>|   <br>+---The Big Questions of Philosophy<br>|   ALL of 36<br>|   <br>+---The Everyday Gourmet_ Cooking with Vegetables<br>|   ALL of 24<br>|   <br>+---The Everyday Gourmet_ Essential Secrets of Spices in Cooking<br>|   All of 6<br>|  <br>+---The Everyday Gourmet_ Making Healthy Food Taste Great<br>|   Missing 5 of 6<br>|   <br>+---The Joy of Mathematics<br>|   All of 24<br>| <br>+---The Learning Brain<br>|   All of 24<br>|   <br>+---The Meaning of Life - (Perspectives from the Worlds Great Intellectual Traditions)<br>|   Missing: E11 of 36, 2nd Fail<br>MISSING PERMANENTLY:  s01e11 - Human Finitude - The Epicurean Synthesis<br>|  <br>+---The National Geographic Guide to Birding in North America<br>|   ALL of 24 <br>|   <br>+---The Pagan World_ Ancient Religions before Christianity<br>|   All of 24<br>|  <br>+---The Power of Mathematical Visualization<br>|   All of 24<br>|      <br>+---The Rise of Communism_ From Marx to Lenin<br>|   All of 12<br>|   <br>+---The Science of Natural Healing<br>|   ALL of 24  <br>|  <br>+---The Worlds Greatest Geological Wonders_ 36 Spectacular Sites<br>|   All of 36<br>|  <br>+---Understanding Modern Electronics<br>|   All of 24<br>|   <br>+---Understanding Russia_ A Cultural History<br>|   All of 24<br>|    <br>+---Warriors, Queens, and Intellectuals_ 36 Great Women before 1400<br>|   All of 36<br>|  <br>+---Your Best Brain<br>|   All of 24<br>|    <br>\---Zoology_ Understanding the Animal World<br>|   All of 24 <br>|   </pre>
+
+<br/>
+
+<br/>
+
+<h2 id='temp:C:MKY2d929ffc0eb14947b0b7f4723'>For Comparison I kept the </h2>
+
+<h2 id='temp:C:MKYba24bd97cd2645fda815a706d'>1st SCAN from 13 days previous</h2>
+
+<h2 id='temp:C:MKYe3451163f73c48a19608fc712'>OLD SCAN as of 05-01-2022</h2>
+
+<pre id='temp:C:MKY3f8dbf40890641a98ae38b328'><br>External Hard Drive(HDD) Name: LARZ-3 or Third Hard Drive Updated 5/1/2022<br>H:\GREAT COURSES\.<br>+---Cognitive Behavioral Therapy_ Techniques for Retraining Your Brain<br>|   ALL<br>|           <br>+---Dog Training 101<br>|   Missing: 09, 12, 15-17, (19+ ?)<br>|   <br>+---Fundamentals of Sustainable Living<br>|   ALL<br>|           <br>+---Great Utopian and Dystopian Works of Literature<br>|   Missing: 15, 21-23   <br>|           <br>+---Great Mythologies of the World<br>|   Missing: 30<br>|           <br>+---Heroes and Legends_ The Most Influential Characters of Literature<br>|   ALL<br>|           <br>+---How the World Learns_ Comparative Educational Systems<br>|   ALL<br>|           <br>+---How to Grow Anything_ Your Best Garden and Landscape in 6 Lessons<br>|   ALL<br>|           <br>+---How to Play Piano<br>|   ALL<br>|           <br>+---How to Program_ Computer Science Concepts and Python Exercises<br>|   ALL<br>|           <br>+---How to View and Appreciate Great Movies<br>|   ALL<br>|           <br>+---How to Write Best-Selling Fiction<br>|   ALL<br>|           <br>+---King Arthur_ History and Legend<br>|   Missing:  17-19           <br>|   <br>+---Language Families of the World<br>|   Missing:  31<br>|           <br>+---Latin 101_ Learning a Classical Language<br>|   Missing: 3<br>|           <br>+---Law School for Everyone<br>|   ALL<br>|           <br>+---Learning French_ A Rendezvous with French-Speaking Cultures<br>|   Missing:  7-9, 11, 14, 17, 19, 23-25<br>|           <br>+---Learning German_ A Journey through Language and Culture<br>|   ALL<br>|           <br>+---Mastering Stage Presence_ How to Present to Any Audience<br>|   ALL<br>|   <br>+---Mastering Tai Chi<br>|   ALL<br>|   <br>+---Medical School for Everyone_ Emergency Medicine<br>|   ALL<br>|           <br>+---Medical School for Everyone_ Grand Rounds Cases<br>|   ALL<br>|           <br>+---Music as a Mirror of History<br>|   1-3, 5, 7, 9-24<br>|           <br>+---Our Night Sky<br>|   ALL<br>|           <br>+---Physics and Our Universe_ How It All Works<br>|   ALL<br>|           <br>+---Plant Science_ An Introduction to Botany<br>|   Missing: 14<br>|           <br>+---Sacred Texts of the World<br>|   ALL<br>|           <br>+---Sci-Phi_ Science Fiction as Philosophy<br>|   ALL<br>|           <br>+---Scientific Secrets for Raising Kids Who Thrive<br>|   ALL<br>|           <br>+---The Addictive Brain<br>|   ALL<br>|           <br>+---The Apocryphal Jesus<br>|   ALL<br>|           <br>+---The Art of Public Speaking_ Lessons from the Greatest Speeches in History<br>|   ALL, Need to be Renamed/Shortened: 0-2, 5<br>|           <br>+---The Big History of Civilizations<br>|   Missing: 10-12, 18, 31, 35<br>|           <br>+---The Big Questions of Philosophy<br>|   ALL<br>|           <br>+---The Everyday Gourmet_ Cooking with Vegetables<br>|   7-24<br>|           <br>+---The Everyday Gourmet_ Essential Secrets of Spices in Cooking<br>|   ALL<br>|           <br>+---The Everyday Gourmet_ Making Healthy Food Taste Great<br>|   Missing: 4-6<br>|           <br>+---The Joy of Mathematics<br>|   ALL<br>|   <br>+---The Learning Brain<br>|   ALL<br>|           <br>+---The Meaning of Life_ Perspectives from the Worlds Great Intellectual Traditions<br>|   Missing: 11, 24, 36<br>|           <br>+---The National Geographic Guide to Birding in North America<br>|   Missing: 15<br>|           <br>+---The Pagan World_ Ancient Religions before Christianity<br>|   ALL<br>|           <br>+---The Power of Mathematical Visualization<br>|   ALL<br>|           <br>+---The Rise of Communism_ From Marx to Lenin<br>|   ALL<br>|           <br>+---The Science of Natural Healing<br>|   Missing: 15-24<br>|           <br>+---The Worlds Greatest Geological Wonders_ 36 Spectacular Sites<br>|   Missing: 20, 23-25<br>|           <br>+---Understanding Modern Electronics<br>|   ALL<br>|           <br>+---Understanding Russia_ A Cultural History<br>|   ALL<br>|           <br>+---Warriors, Queens, and Intellectuals_ 36 Great Women before 1400<br>|   ALL<br>|           <br>+---Your Best Brain<br>|   ALL<br>|           <br>\---Zoology_ Understanding the Animal World<br>|   Missing: 10-24<br>|   <br>    <br>END of Listing</pre>
+
+</body></html>

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>Web.config</title>
+    </head>
+    <body>
+        <h1>Web.config</h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">Web.config
+
+
+&lt;?xml version="1.0" encoding="<span style="color:#000000;font-weight:bold;">utf-8</span>"?&gt;
+&lt;configuration&gt;
+&nbsp; &lt;system.web&gt;
+&nbsp; &nbsp; &lt;compilation debug="true" targetFramework="4.8" /&gt;
+&nbsp; &nbsp; &lt;httpRuntime targetFramework="4.8" maxRequestLength="2097151" executionTimeout="7200" requestValidationMode="2.0" /&gt;
+&nbsp; &nbsp; &lt;customErrors mode="Off" /&gt;
+&nbsp; &nbsp; &lt;globalization requestEncoding="<span style="color:#000000;font-weight:bold;">utf-8</span>" responseEncoding="<span style="color:#000000;font-weight:bold;">utf-8</span>" fileEncoding="<span style="color:#000000;font-weight:bold;">utf-8</span>" /&gt;
+&nbsp; &lt;/system.web&gt;
+&nbsp; &lt;system.webServer&gt;
+&nbsp; &nbsp; &lt;security&gt;
+&nbsp; &nbsp; &nbsp; &lt;requestFiltering&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;requestLimits maxAllowedContentLength="2147483647" /&gt;
+&nbsp; &nbsp; &nbsp; &lt;/requestFiltering&gt;
+&nbsp; &nbsp; &lt;/security&gt;
+&nbsp; &lt;/system.webServer&gt;
+&nbsp; &lt;runtime&gt;
+&nbsp; &nbsp; &lt;assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1"&gt;
+&nbsp; &nbsp; &nbsp; &lt;dependentAssembly&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;assemblyIdentity <span style="color:#D73A49;font-weight:normal;">name</span>="Antlr3.Runtime" publicKeyToken="eb42632606e9261f" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;bindingRedirect oldVersion="0.0.0.0-3.5.0.2" newVersion="3.5.0.2" /&gt;
+&nbsp; &nbsp; &nbsp; &lt;/dependentAssembly&gt;
+&nbsp; &nbsp; &nbsp; &lt;dependentAssembly&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;assemblyIdentity <span style="color:#D73A49;font-weight:normal;">name</span>="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;bindingRedirect oldVersion="0.0.0.0-12.0.0.0" newVersion="12.0.0.0" /&gt;
+&nbsp; &nbsp; &nbsp; &lt;/dependentAssembly&gt;
+&nbsp; &nbsp; &nbsp; &lt;dependentAssembly&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;assemblyIdentity <span style="color:#D73A49;font-weight:normal;">name</span>="WebGrease" publicKeyToken="31bf3856ad364e35" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;bindingRedirect oldVersion="0.0.0.0-1.6.5135.21930" newVersion="1.6.5135.21930" /&gt;
+&nbsp; &nbsp; &nbsp; &lt;/dependentAssembly&gt;
+&nbsp; &nbsp; &lt;/assemblyBinding&gt;
+&nbsp; &lt;/runtime&gt;
+        &lt;/configuration&gt;</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

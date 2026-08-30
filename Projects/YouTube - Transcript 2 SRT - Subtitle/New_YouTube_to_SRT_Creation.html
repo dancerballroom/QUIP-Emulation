@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<title>Saved Note</title>
+		<style>body {font-family: Arial, sans-serif;margin: 40px;background-color: #f7f7f7;}.note-view {max-width: 900px;background: white;border: 1px solid #ccc;padding: 25px;font-size: 18px;line-height: 1.5;}.note-view img {max-width: 820px;display: block;margin: 15px 0;border: 1px solid #ccc;}</style>
+	</head>
+	<body>
+		<div class='note-view'>
+			<h2>Uses: AHK, Windows File Explorer, ClipGrab, NotePad++, Subtitle Edit</h2>
+			<h3>Step 1:   The Setup (EST: 10 Minutes) Downloading File / Transcript</h3>
+			<ol>
+				<li style="list-style-type:decimal">Run TRANSCRIPT_FIX_4.AHK</li>
+				<li style="list-style-type:decimal">Copy Video Name from ClipGrab</li>
+				<li style="list-style-type:decimal">Download Video Using ClipGrab</li>
+				<li style="list-style-type:decimal">CNTRL+SHIFT+O (File Explorer)</li>
+				<ol>
+					<li style="list-style-type:lower-alpha">Create Text File with Copied Name</li>
+				</ol>
+				<li style="list-style-type:decimal">Transcript into Text File using NotePad++</li>
+			</ol>
+			<h3>Step 2:  Format the Transcript (EST:  10 Minutes)</h3>
+			<ol>
+				<li style="list-style-type:decimal">CNTRL+SHIFT+E (NotePad++)</li>
+				<ol>
+					<li style="list-style-type:lower-alpha">Copy Time-Sigs to New1.txt</li>
+				</ol>
+				<li style="list-style-type:decimal">Click in the Middle of Time-Sigs</li>
+				<li style="list-style-type:decimal">CNTRL+SHIFT+T (NotePad++)</li>
+				<ol>
+					<li style="list-style-type:lower-alpha">Format Time-Sigs (00:00:00)</li>
+				</ol>
+				<li style="list-style-type:decimal">Click on [Transcript Name].txt</li>
+				<li style="list-style-type:decimal">CNTRL+SHIFT+R (NotePad++)</li>
+				<ol>
+					<li style="list-style-type:lower-alpha">Remove All Time-Sigs</li>
+				</ol>
+				<li style="list-style-type:decimal">CNTRL+SHIFT+I (NotePad++)</li>
+				<ol>
+					<li style="list-style-type:lower-alpha">Remove all ## Hours ## Minutes ## Seconds</li>
+				</ol>
+				<li style="list-style-type:decimal">Click on New1.txt</li>
+				<li style="list-style-type:decimal">Click in the Middle of Formatted Time Sigs</li>
+				<li style="list-style-type:decimal">CNTRL+SHIFT+Y (NotePad++)</li>
+				<li style="list-style-type:decimal">Merge New.txt with [Transcript Name].txt</li>
+				<li style="list-style-type:decimal">Save [Transcript Name].txt, Close NotePad++_</li>
+			</ol>
+			<h3>Step 3:  Format TXT in SubTitleEdit (EST: 5 Minutes)</h3>
+			<ol>
+				<li style="list-style-type:decimal">Open DRAG/DROP [Transcript Name].txt,  in SubTitleEdit</li>
+				<li style="list-style-type:decimal">CNTRL+SHIFT+] (SubTitleEdit), WAIT</li>
+				<ol>
+					<li style="list-style-type:lower-alpha">Break/Split Long Lines</li>
+				</ol>
+				<li style="list-style-type:decimal">Shift+TAB(x3), ENTER (Save Changes)</li>
+				<li style="list-style-type:decimal">Repeat Step 17 and 18 (IF any Changes Highlighted)</li>
+				<li style="list-style-type:decimal">CNTRL+SHIFT+S (SubTitleEdit)</li>
+				<ol>
+					<li style="list-style-type:lower-alpha">Save TXT file as .SRT</li>
+				</ol>
+				<li style="list-style-type:decimal">ENTER (Save Changes)</li>
+				<li style="list-style-type:decimal">CNTRL+SHIFT+N (SubTitleEdit)</li>
+				<ol>
+					<li style="list-style-type:lower-alpha">NEW / Clear SubTitle Edit for Next Drag/Drop or Open TXT File</li>
+				</ol>
+			</ol>
+		</div>
+	</body>
+</html>

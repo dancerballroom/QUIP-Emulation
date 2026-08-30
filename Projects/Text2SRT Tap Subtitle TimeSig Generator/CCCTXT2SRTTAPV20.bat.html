@@ -1,0 +1,558 @@
+<!doctype html>
+<html><head><title>CCC_TXT2SRT_TAP_V20.bat</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:cCS6a0f1b2c802f463aa7d6e4ae8'>CCC_TXT2SRT_TAP_V20.bat</h1>
+
+<b>Program</b>:  Create Subtitle “File.srt”<br/>
+
+<b>Requires</b>:<br/>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:cCSffe189410b544e2cb3aa5c406'><li id='temp:C:cCS016db72535804eb38a117447b' class='' value='1'>“File.mp4” Movie
+
+<br/></li><li id='temp:C:cCSd76da83dbfe746f68131ca46b' class=''>“File.txt”  FLAT FILE Lyrics without Time Signatures
+
+<br/></li><li id='temp:C:cCS58feca45d3af4e1895b4b4e42' class=''>CCC_TXT2SRT_TAP_V20.bat
+
+<br/></li></ul></div><b>Procedure</b>:<br/>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:cCS1deac29095f84a74a5fab8197'><li id='temp:C:cCS80d6a9d8440f425bb5c7e8d45' class='' value='1'>DRAG/DROP “File.mp4” on to CCC_TXT2SRT_TAP_V20.bat
+
+<br/></li><li id='temp:C:cCS6c7ab6e831ba4c888997a8b03' class=''>After Program starts Playing “File.mp4”, Manually click back to CMD Window to Give Focus
+
+<br/></li><li id='temp:C:cCS7b137953a0ef44ff8bb277caf' class=''>FIRST TIME: Click ONCE at beginning of Singing or Talking
+
+<br/></li><li id='temp:C:cCSfb9aa4e6f69f44dea26d17135' class=''>FOR-EACH New Set of 2 LINES: Click ONCE at the end of Singing or Talking.
+
+<br/></li><li id='temp:C:cCS1b0c2034c832494f9b8c68f0b' class=''>At End of Song, Click ONCE to establish the LAST Termination Time
+
+<br/></li><li id='temp:C:cCSb63144d1d9aa4ec9beb483b70' class=''>Click ONCE to END Program
+
+<br/></li><li id='temp:C:cCS449d57da415d4e939f443786e' class=''>OPEN “File.mp4 with ”Subtitle Edit” and make Synchronization adjustment.
+
+<br/></li><li id='temp:C:cCS8cc07c54cf904514b2cfb1272' class=''>DONE!
+
+<br/></li></ul></div><h2 id='temp:C:cCS413c748cb22f4c268eda420ed'>CCC_TXT2SRT_TAP_V20.bat</h2>
+
+<pre id='temp:C:cCS3cd516ca0cb14b5692324178a'>@Echo Off<br>SETLOCAL enabledelayedexpansion<br><br>REM Show HELP if NOT MP4 DRAG/DROPPED or ARG1 missing<br>IF "%~1" == "" (<br>     CALL :Help<br>     EXIT<br>)<br><br>REM #            TRUE = SHOW DEBUGGING <br>set /A TRUE=1<br>REM #            FALSE = HIDE DEBUGGING<br>set /A FALSE=0<br>REM # SHOW/HIDE DEBUGGING<br>set /A DEBUG=!FALSE!<br><br>SET FIRST_TIME=%TIME%<br><br>REM # LOAD Subtitle TEXT-ONLY-FILE<br>SET File="%~d1%~p1%~n1.txt"<br>CALL :LOAD_TEXT output line_count !File!<br>SET /A TEST_LIMIT=(!line_count!/2)+2<br><br>REM # *** BELOW this line SET CRLF Leave 2 Lines Blank ***<br>SET CRLF=^<br><br><br>REM # *** ABOVE this line SET CRLF Leave 2 Lines Blank ***<br>set /A count=!count!+1  <br>REM Loop Counter<br><br>CALL :CALC_FIRST_TIME !FIRST_TIME! firsttime<br>CALL :NUM2STR_FIRST_TIME firsttime FIRST_TIME_STR<br>Echo TIME: !FIRST_TIME!<br>Echo firsttime Number: !firsttime!<br>Echo firsttime String: !FIRST_TIME_STR!<br><br>Start /b "" "%~d1%~p1%~n1%~x1"<br><br>REM # COPY NAME-SESSION.MP4<br>REM # OUTPUT-FILE: NAME-SESSION.SRT<br>SET SRT_NAME="%~d1%~p1%~n1-!firsttime!.srt"<br>copy "%~d1%~p1%~n1%~x1" "%~d1%~p1%~n1-!firsttime!%~x1"<br><br>:BEGIN<br>if !DEBUG! EQU !TRUE! Echo BEGIN<br><br>REM # Load LINES 2 at a Time<br>if !count! GEQ 2 (<br>    SET /A MODULUS="!count! %% 2"<br>    REM # PROCESS after LINE1 Start and LINE2 End Processed<br>    if !MODULUS! == 0 (    <br>        SET NEXT_TIME=%TIME%<br>        CALL :CALC_NEXT_TIME !NEXT_TIME! nexttime<br>        CALL :NUM2STR_NEXT_TIME nexttime NEXT_TIME_STR<br>        CALL :CALC_SRT_NEXT_TIME nexttime firsttime srtnexttime<br>        CALL :NUM2STR_SRT_DIFFERENCE_TIME srtnexttime SRT_DIFFERENCE_TIME_STR<br>        SET /A DUAL_COUNT=!DUAL_COUNT! + 1<br>        SET /A Minus_One=!DUAL_COUNT!<br>        set SUBT[!Minus_One!][1]=!SRT_DIFFERENCE_TIME_STR!<br>        Set /A LINE_1=!SUBTITLE_COUNT! + 1<br>        for %%i in (!LINE_1!) do (<br>            set element=!output[%%i]!<br>            set SUBT[!DUAL_COUNT!][2]=!element!<br>        )<br>        Set /A LINE_2=!SUBTITLE_COUNT! + 2<br>        for %%i in (!LINE_2!) do (<br>            set element=!output[%%i]!<br>            set SUBT[!DUAL_COUNT!][3]=!element!<br>        )<br>        <br>        for /l %%n in (!DUAL_COUNT!,1,!DUAL_COUNT!) do (<br>             REM echo SUBT %%n: !SUBT[%%n][1]!<br>             echo ********* %%n of !TEST_LIMIT! **********<br>             echo SUBT %%n: !SUBT[%%n][2]!<br>             echo SUBT %%n: !SUBT[%%n][3]!<br>        )<br>        SET /A SUBTITLE_COUNT=!SUBTITLE_COUNT! + 1<br>        SET /a SUBTITLE_NEXT=!SUBTITLE_COUNT! + 1<br>        SET /P wait="........[ READ Next 2 Lines ].........."<br>        echo ********* CURRENT ABOVE **********<br>        SET /A SUBTITLE_COUNT=!SUBTITLE_COUNT! + 1<br>    )<br>)<br>SET /A count=!count! + 1<br>if !DUAL_COUNT! EQU !TEST_LIMIT! (<br>        set /A TEST_LIMIT_MINUS_ONE = !TEST_LIMIT! - 1<br>        for /l %%m in (1,1,!TEST_LIMIT_MINUS_ONE!) do (<br>             Set /A Next_N = %%m + 1<br>             if %%m lss !TEST_LIMIT_MINUS_ONE! (Echo %%m)<br>             if %%m lss !TEST_LIMIT_MINUS_ONE! (Echo %%m &gt;&gt; !SRT_NAME!)<br>             for /l %%n in (!Next_N!,1,!Next_N!) do (<br>                if %%n lss !TEST_LIMIT! (<br>                    echo !SUBT[%%m][1]! --^&gt; !SUBT[%%n][1]!<br>                    echo !SUBT[%%m][1]! --^&gt; !SUBT[%%n][1]! &gt;&gt; !SRT_NAME!<br>                )<br>            )<br>            if %%m lss !TEST_LIMIT_MINUS_ONE! (echo !SUBT[%%m][2]!)<br>            if %%m lss !TEST_LIMIT_MINUS_ONE! (echo !SUBT[%%m][2]! &gt;&gt; !SRT_NAME!)<br>            if %%m lss !TEST_LIMIT_MINUS_ONE! (echo !SUBT[%%m][3]!)<br>            if %%m lss !TEST_LIMIT_MINUS_ONE! (echo !SUBT[%%m][3]! &gt;&gt; !SRT_NAME!)<br>            echo.<br>            echo. &gt;&gt; !SRT_NAME!<br>        )<br>        Echo End of Program...<br>    pause<br>    SET /P wait="........[ EXITING PROGRAM ].........."<br>    Exit<br>)<br><br>REM # END-MAIN-LOOP<br>GOTO :BEGIN<br><br>REM # FUNCTIONS SECTION<br>:CALC_FIRST_TIME<br>if !DEBUG! EQU !TRUE! ECHO CALC_FIRST_TIME<br>for /F "tokens=1-4 delims=:.," %%a in ("!FIRST_TIME!") do (<br>    set /A "firsttime=(((%%a*60)+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 100"<br>) <br>Exit /b<br><br>:CALC_START_TIME<br>if !DEBUG! EQU !TRUE! ECHO CALC_START_TIME<br>for /F "tokens=1-4 delims=:.," %%a in ("!START_TIME!") do (<br>    set /A "starttime=(((%%a*60)+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 100"<br>    REM if !starttime! GEQ 235 (set /A starttime=!starttime! - 235)<br>) <br>Exit /b<br><br>:CALC_NEXT_TIME<br>if !DEBUG! EQU !TRUE! ECHO CALC_NEXT_TIME<br>for /F "tokens=1-4 delims=:.," %%a in ("!NEXT_TIME!") do (<br>    set /A "nexttime=(((%%a*60)+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 100"<br>    REM if !nexttime! GEQ 235 (set /A nexttime=!nexttime! - 235)<br>) <br>Exit /b<br><br>:LOAD_TEXT<br>if !DEBUG! EQU !TRUE! ECHO LOAD_TEXT<br>     echo !File!<br>     set /a line_count=0<br>     set /a lines=0<br>     for /F "tokens=*" %%a in ('Type !File!') do (<br>         Set /a line_count=!line_count!+1<br>         Set output[!line_count!]=%%a<br>     )<br>     Echo Total Lines (line_count):      !line_count!<br>Exit /b<br><br>:SHOW_LINE<br>if !DEBUG! EQU !TRUE! ECHO SHOW_LINE<br>for %%i in (!SUBTITLE_COUNT!) do (<br>    set element=!output[%%i]!<br>    echo !element!<br>    set /a SECOND=!SUBTITLE_COUNT!+1<br>    for %%j in (!SECOND!) do (<br>      set element2=!output[%%j]!<br>    )<br>    echo !element2!<br>)<br>Exit /b<br><br>:NUM2STR_FIRST_TIME <br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_FIRST_TIME<br>set /A hh=firsttime/(60*60*100), rest=firsttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set FIRST_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>:NUM2STR_START_TIME <br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_START_TIME <br>set /A hh=starttime/(60*60*100), rest=starttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set START_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>:NUM2STR_NEXT_TIME<br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_NEXT_TIME<br>set /A hh=nexttime/(60*60*100), rest=nexttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set NEXT_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>:CALC_SRT_START_TIME <br>if !DEBUG! EQU !TRUE! ECHO CALC_SRT_START_TIME <br>    set /A srtstarttime=(!starttime! - !firsttime!) <br>Exit /b<br><br>:CALC_SRT_NEXT_TIME<br>if !DEBUG! EQU !TRUE! ECHO CALC_SRT_NEXT_TIME <br>    set /A srtnexttime=(!nexttime! - !firsttime!) <br>Exit /b<br><br>:NUM2STR_SRT_START_TIME <br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_SRT_START_TIME<br>set /A hh=srtstarttime/(60*60*100), rest=srtstarttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set SRT_START_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>:NUM2STR_SRT_DIFFERENCE_TIME <br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_SRT_DIFFERENCE_TIME <br>set /A hh=srtnexttime/(60*60*100), rest=srtnexttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set SRT_DIFFERENCE_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>:Help<br>if !DEBUG! EQU !TRUE! ECHO HELP<br>Echo # Purpose: Quickly Generate .SRT (Subtitle) file for Video<br>Echo # USAGE:  <br>Echo Drag/Drop VIDEO_NAME.MP4 that has corresponding VIDEO_NAME.TXT<br>Echo 1. VIDEO_NAME.MP4 Plays<br>Echo 2. Press ENTER ONCE to Start Generating <br>Echo    * VIDEO_NAME_TIME-STAMP.SRT<br>Echo    * Copys VIDEO_NAME.MP4 to VIDEO_NAME_TIME-STAMP.mp4<br>Echo.<br>Echo 3. As Video Plays <br>Echo    * PRESS ENTER each time you hear each PAIR of LINES of TEXT <br>Echo.<br>Echo Example: <br>Echo    *  TXT2SRT-TAP.bat (NO ARGS) for this HELP listing<br>Echo    *  TXT2SRT-TAP.bat VIDEO_NAME.MP4  <br>Echo           Copies VIDEO_NAME.MP4 to VIDEO_NAME_TIME-STAMP.MP4<br>Echo           Creates VIDEO_NAME_TIME-STAMP.SRT<br>Echo    *  The program terminates when the BLANK line of lyric/TEXT/LINES is Reached.<br>Echo.<br>Echo # Produces:<br>Echo    *  Playable VIDEO_NAME_TIME-SESSION.MP4 and VIDEO_NAME_TIME-SESSION.SRT<br>Echo #  *  Required: Needs adjustment using SUBTITLE EDIT<br>pause<br>Exit /b</pre>
+
+<h2 id='temp:C:cCS2e3c848d469c4d30b44d2ff4e'>Example RUN:  </h2>
+
+<h3 id='temp:C:cCS5ed5252c04b0448e8b14113f1'>DRAG/DROP “Dua Lipa - Illusion.mp4” on to “CCC_TXT2SRT_TAP_V20.bat”</h3>
+
+<h2 id='temp:C:cCS73f513bec5b4425d948450fcd'>Example FILE.txt:   Dua Lipa - Illusion.txt (Lyrics or TEXT without TIME Data)</h2>
+
+<pre id='temp:C:cCS66e274d024bb4a16b6a88d09f'>I been known to miss a red flag<br>I been known to put<br>my lover on a pedestal<br>In the end, those<br>things just don't last<br>And it's time I take my<br>rose-colored glasses off<br>I already know your type,<br>tellin' me the things I like<br>Tryin' make me yours<br>for life, takin' me for a ride<br>I already know your type, think<br>you can play your cards right<br>Don't you know I could<br>do this dance all night?<br>Ooh, what you doin'?<br>Don't know who you<br>think that you're confusin'<br>I be like, "Ooh, it's amusin'"<br>You think I'm gonna<br>fall for an illusion<br>Dance all night<br>Dance all night<br>Dance all night<br>Dance all night (I be like)<br>Dance all night<br>Dance all night<br>Dance all night<br>Dance, dance<br>Was a time when that<br>shit might have worked<br>Was a time when I just<br>threw a match and let it burn<br>Now I'm grown, I<br>know what I deserve<br>I still like dancin' with the<br>lessons I already learned<br>I already know your type,<br>tellin' me the things I like<br>Tryin' make me yours<br>for life, takin' me for a ride<br>I already know your type, think<br>you can play your cards right<br>Don't you know I could<br>do this dance all night?<br>Ooh, what you doin'?<br>Don't know who you<br>think that you're confusin'<br>I be like, "Ooh, it's amusin'"<br>You think I'm gonna<br>fall for an illusion<br>Dance all night<br>Dance all night<br>Dance all night<br>Dance all night (I be like)<br>Dance all night<br>Dance all night<br>Dance all night<br>Dance, dance<br>Illusion, I really like<br>the way you're movin'<br>Yeah, I just wanna<br>dance with the illusion<br>Yeah, I just wanna dance with<br>Yeah, I just wanna dance with<br>I could dance all night<br>Ooh, what you doin'?<br>Don't know who you<br>think that you're confusin'<br>I be like, "Ooh, it's amusin'"<br>You think I'm<br>gonna fall for an illu–<br>Ooh, what you doin'?<br>Don't know who you<br>think that you're confusin'<br>I be like, "Ooh, it's amusin'"<br>You think I'm gonna<br>fall for an illusion</pre>
+
+<h2 id='temp:C:cCSf0c771fab1c243c4872575a9f'>Example FILE.srt (Output):      Dua Lipa - Illusion-5269104.srt</h2>
+
+(The Number at the End is the SESSION Number which matches MP4 Session <b>Dua Lipa - Illusion-5269104.mp4</b>)<br/>
+
+<pre id='temp:C:cCScfc88b1418384479b4feb7bc2'>1<br>00:00:00,19 --&gt; 00:00:01,31<br>I been known to miss a red flag<br>I been known to put<br><br>2<br>00:00:01,31 --&gt; 00:00:07,73<br>my lover on a pedestal<br>In the end, those<br><br>3<br>00:00:07,73 --&gt; 00:00:11,31<br>things just don't last<br>And it's time I take my<br><br>4<br>00:00:11,31 --&gt; 00:00:15,57<br>rose-colored glasses off<br>I already know your type,<br><br>5<br>00:00:15,57 --&gt; 00:00:19,39<br>tellin' me the things I like<br>Tryin' make me yours<br><br>6<br>00:00:19,39 --&gt; 00:00:22,54<br>for life, takin' me for a ride<br>I already know your type, think<br><br>7<br>00:00:22,54 --&gt; 00:00:26,98<br>you can play your cards right<br>Don't you know I could<br><br>8<br>00:00:26,98 --&gt; 00:00:30,23<br>do this dance all night?<br>Ooh, what you doin'?<br><br>9<br>00:00:30,23 --&gt; 00:00:35,88<br>Don't know who you<br>think that you're confusin'<br><br>10<br>00:00:35,88 --&gt; 00:00:39,45<br>I be like, "Ooh, it's amusin'"<br>You think I'm gonna<br><br>11<br>00:00:39,45 --&gt; 00:00:44,67<br>fall for an illusion<br>Dance all night<br><br>12<br>00:00:44,67 --&gt; 00:00:49,64<br>Dance all night<br>Dance all night<br><br>13<br>00:00:49,64 --&gt; 00:00:53,38<br>Dance all night (I be like)<br>Dance all night<br><br>14<br>00:00:53,38 --&gt; 00:00:57,09<br>Dance all night<br>Dance all night<br><br>15<br>00:00:57,09 --&gt; 00:01:00,92<br>Dance, dance<br>Was a time when that<br><br>16<br>00:01:00,92 --&gt; 00:01:04,58<br>shit might have worked<br>Was a time when I just<br><br>17<br>00:01:04,58 --&gt; 00:01:08,40<br>threw a match and let it burn<br>Now I'm grown, I<br><br>18<br>00:01:08,40 --&gt; 00:01:11,70<br>know what I deserve<br>I still like dancin' with the<br><br>19<br>00:01:11,70 --&gt; 00:01:16,04<br>lessons I already learned<br>I already know your type,<br><br>20<br>00:01:16,04 --&gt; 00:01:19,63<br>tellin' me the things I like<br>Tryin' make me yours<br><br>21<br>00:01:19,63 --&gt; 00:01:22,93<br>for life, takin' me for a ride<br>I already know your type, think<br><br>22<br>00:01:22,93 --&gt; 00:01:27,53<br>you can play your cards right<br>Don't you know I could<br><br>23<br>00:01:27,53 --&gt; 00:01:30,66<br>do this dance all night?<br>Ooh, what you doin'?<br><br>24<br>00:01:30,66 --&gt; 00:01:36,60<br>Don't know who you<br>think that you're confusin'<br><br>25<br>00:01:36,60 --&gt; 00:01:40,03<br>I be like, "Ooh, it's amusin'"<br>You think I'm gonna<br><br>26<br>00:01:40,03 --&gt; 00:01:45,28<br>fall for an illusion<br>Dance all night<br><br>27<br>00:01:45,28 --&gt; 00:01:50,05<br>Dance all night<br>Dance all night<br><br>28<br>00:01:50,05 --&gt; 00:01:53,69<br>Dance all night (I be like)<br>Dance all night<br><br>29<br>00:01:53,69 --&gt; 00:01:57,71<br>Dance all night<br>Dance all night<br><br>30<br>00:01:57,71 --&gt; 00:02:01,16<br>Dance, dance<br>Illusion, I really like<br><br>31<br>00:02:01,16 --&gt; 00:02:05,99<br>the way you're movin'<br>Yeah, I just wanna<br><br>32<br>00:02:05,99 --&gt; 00:02:09,65<br>dance with the illusion<br>Yeah, I just wanna dance with<br><br>33<br>00:02:09,65 --&gt; 00:02:14,36<br>Yeah, I just wanna dance with<br>I could dance all night<br><br>34<br>00:02:14,36 --&gt; 00:02:33,17<br>Ooh, what you doin'?<br>Don't know who you<br><br>35<br>00:02:33,17 --&gt; 00:02:38,36<br>think that you're confusin'<br>I be like, "Ooh, it's amusin'"<br><br>36<br>00:02:38,36 --&gt; 00:02:48,76<br>You think I'm<br>gonna fall for an illuû<br><br>37<br>00:02:48,76 --&gt; 00:02:53,41<br>Ooh, what you doin'?<br>Don't know who you<br><br>38<br>00:02:53,41 --&gt; 00:02:59,61<br>think that you're confusin'<br>I be like, "Ooh, it's amusin'"<br><br>39<br>00:02:59,61 --&gt; 00:03:05,73<br>You think I'm gonna<br>fall for an illusion</pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

@@ -1,0 +1,578 @@
+<!doctype html>
+<html><head><title>TXT2SRT-TAP</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:KLIae6e6dd96ff942e288b4738b1'>TXT2SRT-TAP</h1>
+
+<b>Purpose</b>: Quickly Generate .SRT (Subtitle) file for Video<br/>
+
+<b>USAGE</b>:  <br/>
+
+Drag/Drop VIDEO_NAME.MP4 that has corresponding VIDEO_NAME.TXT<br/>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:KLI75b3d43baf4d4d02a8b8adff6'><li id='temp:C:KLIba02210a45b54f8c8f32701e8' class='' value='1'>Launches Play of VIDEO_NAME.MP4
+
+<br/></li><li id='temp:C:KLIda1fab8293c44cca9b03dfcc5' class=''>Press ENTER Twice to Start Meshing together Text and Time Signatures
+
+<br/></li></ul></div><div class="" style="" data-section-style='5'><ul id='temp:C:KLI5cf58694b3314082ada695be6'><ul><li id='temp:C:KLIb489430ed65347feb1482891b' class='' value='1'><b>Generates </b>VIDEO_NAME_TIME-STAMP.SRT
+
+<br/></li><li id='temp:C:KLId856c2e4d47a4dc69919c7bf4' class=''><b>Copies </b>VIDEO_NAME.MP4 to VIDEO_NAME_TIME-STAMP.mp4
+
+<br/></li></ul></ul></div><div data-section-style='6' style="--indent0: 3" class="list-numbering-restart-at"><ul id='temp:C:KLIacb3df1a2c4245d48b0c66a17'><li id='temp:C:KLI3eb19420c4a54be0bf74f044d' class='' value='1'>As Video Plays 
+
+<br/></li></ul></div><div class="" style="" data-section-style='5'><ul id='temp:C:KLIba02829410ed41c788dfd8452'><ul><li id='temp:C:KLI98bc25562e884cf584728fcc7' class='' value='1'><b>PRESS ENTER</b> each time you hear <b>each line of TEXT</b> 
+
+<br/></li></ul></ul></div><b>Example</b>: <br/>
+
+<div class="" style="" data-section-style='5'><ul id='temp:C:KLIa09a7105843047309339286b8'><li id='temp:C:KLI424b815df89c4913b207898f1' class='' value='1'><b> TXT2SRT-TAP.bat</b> (NO ARGS) for this HELP listing
+
+<br/></li><li id='temp:C:KLI25b3841f10a1405195f0bc660' class='parent'> <b>TXT2SRT-TAP.bat</b> VIDEO_NAME.MP4  
+
+<br/></li><ul><li id='temp:C:KLI1fc116aaec204ae586148da27' class=''>Copies VIDEO_NAME.MP4 to VIDEO_NAME_TIME-STAMP.MP4
+
+<br/></li><li id='temp:C:KLI2d926dcc3df24dd593f088414' class=''>Creates VIDEO_NAME_TIME-STAMP.SRT
+
+<br/></li></ul><li id='temp:C:KLIa86638305e75479a89e450ce9' class=''> The program terminates when the last lyric/TEXT/LINE is Reached.
+
+<br/></li></ul></div><b>Produces</b>:<br/>
+
+<div class="" style="" data-section-style='5'><ul id='temp:C:KLIe31d118657404a2aa2df5f887'><li id='temp:C:KLI44d6af431f1a4c5b892672e4e' class='' value='1'> Playable <b>VIDEO_NAME_TIME-STAMP.MP4</b> and <b>VIDEO_NAME_TIME-STAMP.SRT</b>
+
+<br/></li><li id='temp:C:KLI4dcba0857aff4d84a5228ba75' class=''> The final SRT will need adjustment using SUBTITLE EDIT
+
+<br/></li></ul></div><h2 id='temp:C:KLI01455e28e8284d0099b949d84'>TXT2SRT-TAP.bat</h2>
+
+<pre id='temp:C:KLI6e5b7f7787424111b041c12c6'>@Echo Off<br>SETLOCAL enabledelayedexpansion<br><br>REM Show HELP if NOT MP4 DRAG/DROPPED<br>IF "%~1" == "" (<br>     CALL :Help<br>     EXIT<br>)<br><br>REM INITIALIZE VARIABLES<br>set /A elapsed=0<br>set /A cumelapsed=0<br>set lastloop_elapsed=00:00:00,000        REM STRING<br>set CUM_ELAPSED_TIME=!lastloop_elapsed!  REM STRING<br><br>REM count=How many times looped<br>set /A count=!count!+1<br><br>REM DEBUGGING<br>set /A TRUE=1<br>set /A FALSE=0<br><br>REM HIDE DEBUGGING<br>set /A DEBUG=!FALSE!<br><br>REM Start Video to Sync Subtitles<br>Start /b "" "%~d1%~p1%~n1%~x1"<br><br>REM The Great Loop<br>REM Do... Loop until Subtitles END<br>:BEGIN<br><br>set lastloop_elapsed=!CUM_ELAPSED_TIME!<br><br>REM Get the Current Time from the Computer<br>set STARTTIME=%TIME%<br><br>REM CRLF=CARRIAGE RETURN<br>REM BELOW the SET CRLF Leave 2 Lines Blank<br>SET CRLF=^<br><br><br>REM ABOVE This LINE Leave 2 Lines Blank<br><br>REM Only at the Beginning, HIT ENTER TWICE<br>REM Once to Load the START and Twice to Load the START and END<br>if !count! EQU 1 (<br>      SET /P wait="........[Hit Enter Twice to START]..........."<br>)<br><br>REM Hit ENTER ONCE<br>REM ROUND ROBIN START=END and Calculate NEW END <br>if !count! GTR 1 (<br>      SET /P wait="........[Hit Enter Once to Continue].............."<br>)<br><br>REM Get the Current Time from the Computer<br>set ENDTIME=%TIME%<br><br>REM Time Functions<br>REM CALC (MATH) and FORMAT (STRING)<br>Call :CALC_START_TIME start                  <br>Call :CALC_END_TIME                            <br><br>Call :FORMAT_START_TIME                      <br>Call :FORMAT_END_TIME                        <br><br>Call :CALC_ELAPSED_TIME                      <br>CALL :FORMAT_ELAPSED_TIME CUM_ELAPSED_TIME   <br>                                             <br>if !DEBUG! EQU !TRUE! echo !CRLF!Last Statement<br><br>REM The Main Loop of the Entire Program<br>if !count! GEQ 3 (<br>     <br>     REM Run ONCE when count=3<br>     if !count! EQU 3 (<br>         set File="%~d1%~p1%~n1.txt"<br>         CALL :LOAD_TEXT output line_count !File!<br>         set SRT_NAME="%~d1%~p1%~n1-!start!.srt"<br>         copy "%~d1%~p1%~n1%~x1" "%~d1%~p1%~n1-!start!.mp4"<br>     )<br><br>     REM SUB_NUMBER=The Number of the Subtitle<br>     Set /A SUB_NUMBER=!SUB_NUMBER!+1<br>     Echo !CRLF!!SUB_NUMBER!<br><br>     REM WRITE TO THE NEW SUBTITLE FILE.SRT<br>     Echo !SUB_NUMBER! &gt;&gt; !SRT_NAME!<br><br>     Echo !lastloop_elapsed! --^&gt; !CUM_ELAPSED_TIME!<br>     Echo !lastloop_elapsed! --^&gt; !CUM_ELAPSED_TIME! &gt;&gt; !SRT_NAME!<br><br>     REM LOAD TEXT and Create SRT (Subtitle File)<br>     CALL :SHOW_LINE output SUB_NUMBER SRT_NAME line_count<br>     Echo.<br>     <br>     REM END PROGRAM when NO MORE LINES of TEXT<br>     If !SUB_NUMBER! EQU !line_count! (<br>          Echo End of Program<br>          Pause<br>          Exit<br>     )<br>)<br>Goto :BEGIN<br><br>if !DEBUG! EQU !TRUE! Echo. <br>Pause<br>Exit /b<br><br>REM Show/Process Variable ARRAY with Variable Index<br>:SHOW_LINE<br>Echo Line Number: !SUB_NUMBER! of !line_count!<br>for %%i in (!SUB_NUMBER!) do (<br>  set element=!output[%%i]!<br>  echo !element!<br><br>REM WRITE TO SRT (Subtitle FILE)<br>  echo !element! &gt;&gt; !SRT_NAME!<br>  echo. &gt;&gt; !SRT_NAME!<br>)<br>Exit /b<br><br>REM Load the Subtitle Lines from the TEXT FILE<br>:LOAD_TEXT<br>     echo !File!<br>     set /a line_count=0<br>     set /a lines=0<br>     for /F "tokens=*" %%a in ('Type !File!') do (<br>         Set /a line_count=!line_count!+1<br>         Set output[!line_count!]=%%a<br>     )<br>     Echo Total Lines:      !line_count!<br><br>Exit /b<br><br>REM ONLY used for DEBUGGING<br>:LINE_NUMBER<br>     REM Purpose: DEBUGGING<br>     REM USAGE <br>     REM CALL :LINE_NUMBER 20<br>     if !DEBUG! EQU !TRUE! powershell -Command "Write-Host '%1.. ' -NoNewline"<br>Exit /b<br><br>REM start=NUMBER<br>:CALC_START_TIME<br>REM MATHEFY start TIME<br>for /F "tokens=1-4 delims=:.," %%a in ("!STARTTIME!") do (<br>    set /A "start=(((%%a*60)+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 1000"<br>) <br>Exit /b<br><br>REM end=NUMBER<br>:CALC_END_TIME<br>REM MATHEFY end TIME<br>if !DEBUG! EQU !TRUE! powershell -Command "Write-Host '1.. ' -NoNewline"<br>for /F "tokens=1-4 delims=:.," %%a in ("!ENDTIME!") do (<br>    set /A "end=(((%%a*60)+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 1000"<br>)<br>REM DEBUGGING<br>if !DEBUG! EQU !TRUE! powershell -Command "Write-Host '2.. ' -NoNewline"<br>if !DEBUG! EQU !TRUE! powershell -Command "Write-Host '3.. ' -NoNewline"<br>if !DEBUG! EQU !TRUE! Echo.<br>Exit /b<br><br>REM MATH<br>REM Part of the ROUND ROBIN Current/Previous Elapsed TIME<br>:CALC_ELAPSED_TIME<br>if defined elapsed ( set /A prevelapsed=!cumelapsed! ) else ( set /A prevelapsed=0 )<br><br>REM MAKE-UP FOR COMPUTER DELAY (Computer Dependent)<br>set /A ARBITRARY_DELAY_FUDGE=5<br><br>set /A elapsed=(!end! - !start!) + !ARBITRARY_DELAY_FUDGE!<br>set /A cumelapsed=!elapsed!+!prevelapsed!<br>Exit /b<br><br>REM STRING<br>:FORMAT_START_TIME <br><br>set /A hh=start/(60*60*100), rest=start%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%1000<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set STARTTIME_FORMATTED=!hh!:!mm!:!ss!,!cc!<br><br>REM DEBUGGING<br>if !DEBUG! EQU !TRUE! Echo !CRLF!<br>if !DEBUG! EQU !TRUE! Echo START(Formatted): !CRLF!!STARTTIME_FORMATTED!<br>Exit /b<br><br>REM STRING<br>:FORMAT_END_TIME <br>set /A ehh=end/(60*60*100), rest=end%%(60*60*100), emm=rest/(60*100), rest%%=60*100, ess=rest/100, ecc=rest%%1000<br>if !ehh! lss 10 set ehh=0!ehh!<br>if !emm! lss 10 set emm=0!emm!<br>if !ess! lss 10 set ess=0!ess!<br>if !ecc! lss 10 set ecc=0!ecc!<br>set ENDTIME_FORMATTED=!CRLF!!ehh!:!emm!:!ess!,!ecc!<br><br>REM DEBUGGING<br>if !DEBUG! EQU !TRUE! echo !CRLF!END(Formatted) !ENDTIME_FORMATTED!<br><br>Exit /b<br><br>REM STRING<br>:FORMAT_ELAPSED_TIME<br>set /A ethh=!elapsed!/(60*60*100), rest=!elapsed!%%(60*60*100), etmm=rest/(60*100), rest%%=60*100, etss=rest/100, etcc=rest%%1000<br>CALL :LINE_NUMBER 179<br>if !ethh! lss 10 set ethh=0!ethh!<br>if !etmm! lss 10 set etmm=0!etmm!<br>if !etss! lss 10 set etss=0!etss!<br>if !etcc! lss 10 set etcc=0!etcc!<br>CALL :LINE_NUMBER 184<br>set /A cethh=!cumelapsed!/(60*60*100), rest=!cumelapsed!%%(60*60*100), cetmm=rest/(60*100), rest%%=60*100, cetss=rest/100, cetcc=rest%%1000<br>CALL :LINE_NUMBER 186<br>if !cethh! lss 10 set cethh=0!cethh!<br>if !cetmm! lss 10 set cetmm=0!cetmm!<br>if !cetss! lss 10 set cetss=0!cetss!<br>if !cetcc! lss 10 set cetcc=0!cetcc!<br><br>set ELAPSED_TIME=!CRLF!!ethh!:!etmm!:!etss!,!etcc!<br>set CUM_ELAPSED_TIME=!cethh!:!cetmm!:!cetss!,!cetcc!<br><br>REM DEBUGGING<br>if !DEBUG! EQU !TRUE! echo !CRLF!Last Loop Elapsed: !lastloop_elapsed! <br>if !DEBUG! EQU !TRUE! echo !CRLF!ELAPSED_TIME(Formatted) = !ELAPSED_TIME!!CRLF!<br>if !DEBUG! EQU !TRUE! echo Cumulated Time:           !CRLF!!CUM_ELAPSED_TIME!<br><br>set /A count=!count!+1<br>Exit /b<br><br>:Help<br>Echo Purpose: Quickly Generate .SRT (Subtitle) file for Video<br>Echo USAGE:  <br>Echo Drag/Drop VIDEO_NAME.MP4 that has corresponding VIDEO_NAME.TXT<br>Echo 1. VIDEO_NAME.MP4 Plays<br>Echo 2. Press ENTER Twice to Start Generating <br>Echo    * VIDEO_NAME_TIME-STAMP.SRT<br>Echo    * Copys VIDEO_NAME.MP4 to VIDEO_NAME_TIME-STAMP.mp4<br>Echo.<br>Echo 3. As Video Plays <br>Echo    * PRESS ENTER each time you hear each line of TEXT <br>Echo.<br>Echo Example: <br>Echo    *  TXT2SRT-TAP.bat (NO ARGS) for this HELP listing<br>Echo    *  TXT2SRT-TAP.bat VIDEO_NAME.MP4  <br>Echo           Copies VIDEO_NAME.MP4 to VIDEO_NAME_TIME-STAMP.MP4<br>Echo           Creates VIDEO_NAME_TIME-STAMP.SRT<br>Echo    *  The program terminates when the last lyric/TEXT/LINE is Reached.<br>Echo.<br>Echo Produces:<br>Echo    *  Playable VIDEO_NAME_TIME-STAMP.MP4 and VIDEO_NAME_TIME-STAMP.SRT<br>Echo    *  The final SRT will need adjustment using SUBTITLE EDIT<br>pause<br>Exit /b</pre>
+
+<h2 id='temp:C:KLIcf172cef84db4f19b890ca2ac'>PICTURES say a 1000 Words</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/KLIAAA51uF2/ajf6ZPByb_87VdBqpgZYpw?a=m4Hdz1NJakQ1IdKaPVEeVZRIPW39Oi7TivYxySJaV2Aa' id='temp:C:KLIfb7a06e5037f4f368a3fe5ab4' alt="image"></img></div><br/>
+
+<div data-section-style='6' class="list-numbering-restart-at" style="--indent0: 0"><ul id='temp:C:KLIfabbaa6f9b854159b514dcdd2'><li id='temp:C:KLIba20bd981b40458c9db0e6915' class='' value='1'><b>TEXT FILE with LYRICS</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/KLIAAA51uF2/FWLlueBu35XGHZ3fLJMDvQ?a=jH3aszB3ZECcHbA6V9iSNawNXKTNKe8lN1tEtkDTZFYa' id='temp:C:KLIf0acd0bdfd104d758428d26b8' alt="Dua Lipa - Illusion-TXT.jpg"></img></div><br/>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:KLI13507dafdc3c4dde9da903515'><li id='temp:C:KLI68f0604401e84726bab7ce52d' class='' value='1'><b>DRAG-DROP MP4 onto TXT2SRT.TAP.bat</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/KLIAAA51uF2/cEKhQdcToaCbJJ0hmcaAXA?a=2BJaLzvwVmtX4B23LC8INcrAPjA9s1B83CdYg43uTgca' id='temp:C:KLIcea205a40b7d4e9da182c4741' alt="Dua Lipa - Illusion-DRAG-DROP.jpg"></img></div><br/>
+
+<div data-section-style='6' style="--indent0: 2" class="list-numbering-restart-at"><ul id='temp:C:KLIa2c6b0b34a874f7aaeb745a09'><li id='temp:C:KLI166e297bb4914fb38bee2430d' class='' value='1'><b>GIVE FOCUS to CMD-WIndow and CLICK TWICE to START PROCESS</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/KLIAAA51uF2/2A-TlfWyQavSWlM9MoVuAw?a=mQ4HLSHvPnFnjkSBSoHE6e6YPabh2HkCAjcSPK4vtbMa' id='temp:C:KLI7b1da2b167e044d9a41a8500d' alt="Dua Lipa - Illusion-START.jpg"></img></div><br/>
+
+<div data-section-style='6' style="--indent0: 3" class="list-numbering-restart-at"><ul id='temp:C:KLI53bd208507234d4dacce82b92'><li id='temp:C:KLI22cfa266a6e94d53b2da437e9' class='' value='1'><b>AT THE BEGINNING</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/KLIAAA51uF2/FGGdvnSSpId6Kh1eARl7IA?a=TiotMbsh1O2aadaejV7ny2sXQwGGUzyY18sagaFlWS4a' id='temp:C:KLI1fc3dd8047774ce19a1ad987e' alt="Dua Lipa - Illusion-BEGIN.jpg"></img></div><br/>
+
+<div data-section-style='6' class="list-numbering-restart-at" style="--indent0: 4"><ul id='temp:C:KLIc98d19c9e5904daf801e6a702'><li id='temp:C:KLI39390851f19c4304833021502' class='' value='1'><b>IN THE MIDDLE</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/KLIAAA51uF2/Bv6nVZ7Dtf2l1yARz7-vlw?a=wViavAxM4RoxyZanOXxgq5Q22WJglbmh72Eb4EqTBGYa' id='temp:C:KLI370ea90a26f8483bb2bb7c955' alt="Dua Lipa - Illusion-MID.jpg"></img></div><br/>
+
+<div data-section-style='6' class="list-numbering-restart-at" style="--indent0: 5"><ul id='temp:C:KLI5c4291992c7c429b8f41d7ce8'><li id='temp:C:KLIc82949864e0d4007a4c943bb0' class='' value='1'><b>SRT OUTPUT</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/KLIAAA51uF2/4RiW71U677bMFeKz4cGbUQ?a=uIB4RuUaVz89oSlAVVGMaWQsiIIibCqRvMABdjMddMga' id='temp:C:KLI0a773b6e6b38415387550d79f' alt="Dua Lipa - Illusion-SRT.jpg"></img></div><br/>
+
+<div data-section-style='6' class="list-numbering-restart-at" style="--indent0: 6"><ul id='temp:C:KLI11e1963b47c94f4db62d4888f'><li id='temp:C:KLIbcc717f48d1347f0ad9a30314' class='' value='1'><b>OUTPUT - Watching the Video</b>
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/KLIAAA51uF2/ajf6ZPByb_87VdBqpgZYpw?a=m4Hdz1NJakQ1IdKaPVEeVZRIPW39Oi7TivYxySJaV2Aa' id='temp:C:KLIbbfed11b2db347ea93ab385b4' alt="FINAL.jpg"></img></div><br/>
+
+</body></html>

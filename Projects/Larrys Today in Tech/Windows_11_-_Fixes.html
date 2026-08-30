@@ -1,0 +1,612 @@
+<!doctype html>
+<html><head><title>Windows 11 - Fixes</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:bVMf6b19195557e4a48a4ed858af'>Windows 11 - Fixes</h1>
+
+NEW: March 9, 2023<br/>
+
+<br/>
+
+Source:     <a href="https://www.makeuseof.com/windows-11-set-up-without-internet-connection/">https://www.makeuseof.com/windows-11-set-up-without-internet-connection/</a><br/>
+
+<h2 id='temp:C:bVM2e999292a1714b80abc1f961b'>Bypass Out-of-the-Box-Experience (OOBE) Internet Requirement</h2>
+
+<pre id='temp:C:bVM7c3b2031971d43098aaa2d64a'>In the<b> Let’s connect you to a network </b>screen, press <b>Shift + F10</b> to launch the <b>Command Prompt.</b></pre>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:bVMef2c769a18334bc3a42ef2017'><li id='temp:C:bVM567d333350c8445f835b0af19' class='' value='1'>In the Command Prompt window, type the following command and press <b>Enter</b>:
+
+<br/></li></ul></div><pre id='temp:C:bVM8d6fdca0098044dba88ad8c4e'>OOBE\BYPASSNRO</pre>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:bVM582eb5dfdb3046a59e8ba3f59'><li id='temp:C:bVMded05169fc4949e6bf7f36d83' class='' value='1'>Upon successful execution, your system will restart and relaunch the OOBE dialog.
+
+<br/></li><li id='temp:C:bVMb3c4c257538c4d918c3538331' class=''>Follow the on-screen instructions to complete the setup. When you reach the <b>Let’s connect you to a network screen</b>, click on <b>I don’t have Internet<b> </b></b>option.
+
+<br/></li><li id='temp:C:bVM3e12a41d57b64064919a0c54f' class=''>Next, click on<b><b> </b>Continue with limited setup.</b>
+
+<br/></li><li id='temp:C:bVM6d5b5ca830094b36bbf0bdb76' class=''>Accept the <b>License Agreement<b> </b></b>and proceed to create your local user account.
+
+<br/></li></ul></div><br/>
+
+Everything I’ve heard about Windows 11 is negative so far, but I’m going to put a happy face on and do some research before my computer arrives. - L.W.D.<br/>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:bVM3dc9c0bda8f04d60aefe92322'><li id='temp:C:bVM68a37fcb07a74ea0ba5262461' class='' value='1'><b>Setup - First Time -<span style="color:#ff3633" textcolor="#ff3633"> WORKED 07-15-2022</span></b>
+
+<br/></li></ul></div><pre id='temp:C:bVM7d7a3111e8ca4387a5b639710'>Luckily, there is a really simple trick to complete the setup, <br>which I will show you now. The procedure works for both Wi-Fi <br>and Ethernet users.<br><br>When you first boot your new installation, connect to a Wi-Fi network, <br>and click <b>Next</b>.<br><br>The setup will ask you to enter the computer name. <br>This step can be also skipped.<br><br>As you can see, Microsoft wants you to sign in with a Microsoft account.<br><br>Press the Shift+F10 keys to open the command prompt.<br><br>Next, type ncpa.cpl to open the network connections control panel.<br><br>Right-click your Wi-Fi adapter (or Ethernet) and click <b>Disable</b>. <br>This will disconnect you from the Internet.<br><br>Close the settings and the command prompt, and click the back arrow.<br><br>The setup will refresh and determine that the Internet is not available.<br><br>At this point, you are asked to enter an offline (local) account username.<br><br>Enter your password and finish the setup. <br>Once you get into the system, <br>don''t forget to enable your Wi-Fi or Ethernet. <br>This can be done via ncpa.cpl or Settings.<br></pre>
+
+<b>More advanced, more confusing</b>:<br/>
+
+<br/>
+
+<a href="https://www.makeuseof.com/windows-11-set-up-without-internet-connection/">https://www.makeuseof.com/windows-11-set-up-without-internet-connection/</a><br/>
+
+<br/>
+
+<br/>
+
+When you first boot your new installation, connect to a Wi-Fi network, and click <b>Next</b>.<br/>
+
+The setup will ask you to enter the computer name. This step can be also skipped.<br/>
+
+<br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 2" data-section-style='6'><ul id='temp:C:bVMff2b582449e7463da20119b0d'><li id='temp:C:bVM5e8a44ce61264b9a8d4e2e533' class='' value='1'><b>Installing Windows 11 Without internet</b>
+
+<br/></li></ul></div><a href="https://winaero.com/how-to-install-windows-11-without-an-internet-connection/">https://winaero.com/how-to-install-windows-11-without-an-internet-connection/</a><br/>
+
+<br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 3" data-section-style='6'><ul id='temp:C:bVM6e69e927624f452391db2bfb6'><li id='temp:C:bVM98f9b58900de4557a83d42aee' class='' value='1'><b>Enabling Offline Files</b>
+
+<br/></li></ul></div><span bgcolor="#f7f7f7" style="background-color:#f7f7f7">Please go to Control Panel then click on the view icon and change it to Large icons, then look for Sync Center, then on the left side pane choose manage offline files, then under General tab choose Enable offline files, click Apply then click Okay then restart the machine.</span><br/>
+
+<div class="list-numbering-restart-at" data-section-style='6' style="--indent0: 4"><ul id='temp:C:bVMa9657e0d02a548dbaf1391b35'><li id='temp:C:bVM73438e81fbb34724a3f097d3f' class='' value='1'><b>Windows 11 Features</b>
+
+<br/></li></ul></div><a href="https://www.cnet.com/tech/services-and-software/9-windows-11-features-thatll-totally-change-how-you-use-the-os/">https://www.cnet.com/tech/services-and-software/9-windows-11-features-thatll-totally-change-how-you-use-the-os/</a><br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 5" data-section-style='6'><ul id='temp:C:bVMca8c682917f64651960840e3d'><li id='temp:C:bVM29665a2036c84465bd3eaa450' class='' value='1'><b>Look and Feel</b>
+
+<br/></li></ul></div><a href="https://www.pcworld.com/article/541452/make-windows-11-look-like-windows-10.html">https://www.pcworld.com/article/541452/make-windows-11-look-like-windows-10.html</a><br/>
+
+<div class="list-numbering-restart-at" style="--indent0: 6" data-section-style='6'><ul id='temp:C:bVM3f78485bb2fa4f75b7578605f'><li id='temp:C:bVM2c5cbb3851ef424bb7b8bae45' class='' value='1'><b>Installing Chrome in Windows 11</b>
+
+<br/></li></ul></div><div style="" data-section-style='6' class=""><ul id='temp:C:bVMeeefb2ee6d4145a7b28d1530b'><ul><li id='temp:C:bVM208b0f7b143748b994fc5a5fb' class='' value='1'>In Edge, go to <a href="https://www.google.com/chrome/">https://www.google.com/chrome/</a>.
+
+<br/></li><li id='temp:C:bVM3ad6334a7a6b4b43a011ffff5' class=''>Download Installation File
+
+<br/></li><li id='temp:C:bVMdda61c7bf7944147aa1fffeb3' class=''>If you don’t have Edge open anymore, <a href="https://www.lifewire.com/open-file-explorer-in-windows-11-5192605">open File Explorer</a>, navigate to the location where you downloaded Chrome, and double click the ChromeSetup icon.
+
+<br/></li><li id='temp:C:bVM2e67dd9063314029b359cdc55' class=''>If prompted by User Account Control (UAC), click Yes. The Chrome installer will automatically download and install the necessary files.
+
+<br/></li><li id='temp:C:bVM5e9f0d956dc649f89eb6fadb2' class=''>When it’s done, Chrome will launch. You can start using it right away by typing a website address into the URL bar.
+
+<br/></li></ul><li id='temp:C:bVM0111bf2ee51847aa828e656f3' class=''><b>Making Chrome The Default Browser:</b>
+
+<br/></li></ul></div><div style="" data-section-style='6' class=""><ul id='temp:C:bVM787ad83d395e423e995d12169'><ul><li id='temp:C:bVM39bd762a89fc4a2391b919fbb' class='' value='1'>Open Chrome, and click Set as default.
+
+<br/></li><li id='temp:C:bVMa7ddcfe51bc44597bdf12b960' class=''>Right click the Windows icon on the taskbar.
+
+<br/></li><li id='temp:C:bVM78ea5b138ebb4570bfaf7ffdc' class=''>Click Settings.
+
+<br/></li><li id='temp:C:bVMcda803eac9f84a55911e7c3c0' class=''>Click Apps.
+
+<br/></li><li id='temp:C:bVM9be66b0bee7d443984e62dafa' class=''>Click Default apps.
+
+<br/></li><li id='temp:C:bVM372fed7f31ba4da9a964b2abc' class=''>Type Chrome into the set defaults for applications search field, and click Google Chrome in the results.
+
+<br/></li><li id='temp:C:bVMc9391026af494d1c9372974b9' class=''>Click the box under .htm.
+
+<br/></li><li id='temp:C:bVM008a2e5237c7449ebab2b2766' class=''>Select Google Chrome, and click OK.
+
+<br/></li><li id='temp:C:bVMcb4a52da9c014b9f82c0378d1' class=''>Click the box under .html.
+
+<br/></li><li id='temp:C:bVMa1ceea8dfa7d4b10b421c54b7' class=''>Select Google Chrome, and click OK.
+
+<br/></li></ul></ul></div><h2 id='temp:C:bVM3efd4b497b77455c82991a79b'></h2>
+
+<br><br/>
+
+</body></html>

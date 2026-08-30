@@ -1,0 +1,1418 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>RegExTester.aspx</title>
+    </head>
+    <body>
+        <h1>RegExTester.aspx
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">RegExTester.aspx
+
+
+&lt;%@ Page Language="C#" AutoEventWireup="<span style="color:#22863A;font-weight:bold;">true</span>" CodeFile="RegExTester.aspx.cs" Inherits="RegExTester" %&gt;
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head runat="server"&gt;
+&nbsp; &nbsp; &lt;link rel="icon" href="data:,"&gt;
+&nbsp; &nbsp; &lt;title&gt;YouTube to SRT Utility&lt;/title&gt;
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;style&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; body { <span style="color:#005CC5;">font-family</span>: Arial, sans-serif; <span style="color:#005CC5;">margin</span>: 8px; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #f4f6f9; <span style="color:#005CC5;font-weight:bold;">color</span>: #333; }
+&nbsp; &nbsp; &nbsp; &nbsp; .container { max-<span style="color:#005CC5;">width</span>: 1600px; <span style="color:#005CC5;">margin</span>: 0 auto; <span style="color:#005CC5;">background</span>: #fff; <span style="color:#005CC5;">padding</span>: 14px 18px; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); min-<span style="color:#005CC5;">height</span>: calc(100vh - 16px); <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; }
+&nbsp; &nbsp; &nbsp; &nbsp; h2 { <span style="color:#005CC5;">margin</span>: 0 0 10px; <span style="color:#005CC5;">font-size</span>: 22px; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">align-items</span>: center; <span style="color:#005CC5;">gap</span>: 8px; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-wrap</span>: wrap; }
+&nbsp; &nbsp; &nbsp; &nbsp; .form-group { <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 10px; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; }
+&nbsp; &nbsp; &nbsp; &nbsp; label { <span style="color:#005CC5;">font-weight</span>: 600; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">block</span>; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 4px; <span style="color:#005CC5;">font-size</span>: 13px; <span style="color:#005CC5;font-weight:bold;">color</span>: #0b3d91; <span style="color:#005CC5;">background</span>: #e8f1ff; <span style="color:#005CC5;">border</span>: 1px solid #9bbcff; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px; <span style="color:#005CC5;">padding</span>: 2px 6px; }
+&nbsp; &nbsp; &nbsp; &nbsp; textarea, select, <span style="color:#D73A49;">input</span>[type="text"] { <span style="color:#005CC5;">width</span>: 100%; <span style="color:#005CC5;">padding</span>: 8px 10px; <span style="color:#005CC5;">border</span>: 1px solid #ccc; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box; <span style="color:#005CC5;">font-family</span>: monospace; <span style="color:#005CC5;">font-size</span>: 13px; }
+&nbsp; &nbsp; &nbsp; &nbsp; textarea { <span style="color:#005CC5;">height</span>: 100%; min-<span style="color:#005CC5;">height</span>: 120px; resize: vertical; <span style="color:#005CC5;">overflow</span>: auto; }
+&nbsp; &nbsp; &nbsp; &nbsp; .line-numbered-editor { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">border</span>: 1px solid #ccc; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px; <span style="color:#005CC5;">overflow</span>: hidden; <span style="color:#005CC5;">background</span>: #fff; <span style="color:#005CC5;">height</span>: clamp(140px, 22vh, 220px); min-<span style="color:#005CC5;">height</span>: 140px; max-<span style="color:#005CC5;">height</span>: 220px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .line-number-pane { <span style="color:#005CC5;">width</span>: 42px; <span style="color:#22863A;">flex</span>-shrink: 0; <span style="color:#005CC5;">background</span>: #f1f3f5; <span style="color:#005CC5;font-weight:bold;">color</span>: #6c757d; <span style="color:#005CC5;">padding</span>: 8px 6px 8px 0; <span style="color:#005CC5;">text-align</span>: <span style="color:#005CC5;">right</span>; <span style="color:#005CC5;">font-family</span>: monospace; <span style="color:#005CC5;">font-size</span>: 13px; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1.5; <span style="color:#005CC5;">overflow</span>: hidden; user-select: <span style="color:#22863A;font-style:italic;">none</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; .line-number-pane span { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">block</span>; <span style="color:#005CC5;">height</span>: 1.5em; }
+&nbsp; &nbsp; &nbsp; &nbsp; .line-numbered-editor textarea { <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 0; min-<span style="color:#005CC5;">height</span>: 120px; resize: <span style="color:#22863A;font-style:italic;">none</span>; <span style="color:#005CC5;">overflow</span>: auto; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">right</span>-column .line-numbered-editor { <span style="color:#22863A;">flex</span>: 1 1 auto; min-<span style="color:#005CC5;">height</span>: 0; <span style="color:#005CC5;">height</span>: 100%; max-<span style="color:#005CC5;">height</span>: <span style="color:#22863A;font-style:italic;">none</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">right</span>-column .line-numbered-editor textarea { min-<span style="color:#005CC5;">height</span>: 0; <span style="color:#005CC5;">height</span>: 100%; }
+&nbsp; &nbsp; &nbsp; &nbsp; .line-numbered-editor textarea:<span style="color:#6F42C1;font-style:italic;">focus</span> { outline: <span style="color:#22863A;font-style:italic;">none</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#22863A;">flex</span>-row { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">gap</span>: 12px; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-wrap</span>: wrap; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#22863A;">flex</span>-child { <span style="color:#22863A;">flex</span>: 1 1 240px; min-<span style="color:#005CC5;">width</span>: 240px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .two-column { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">gap</span>: 16px; <span style="color:#005CC5;">align-items</span>: stretch; <span style="color:#22863A;">flex</span>: 1 1 auto; min-<span style="color:#005CC5;">height</span>: 0; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">left</span>-column { <span style="color:#22863A;">flex</span>: 1 1 0; min-<span style="color:#005CC5;">width</span>: 280px; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; min-<span style="color:#005CC5;">height</span>: 0; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">right</span>-column { <span style="color:#22863A;">flex</span>: 1 1 0; min-<span style="color:#005CC5;">width</span>: 280px; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; min-<span style="color:#005CC5;">height</span>: 0; <span style="color:#005CC5;">overflow</span>: hidden; }
+&nbsp; &nbsp; &nbsp; &nbsp; .toolbar { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">align-items</span>: center; <span style="color:#005CC5;">gap</span>: 8px; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-wrap</span>: wrap; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 6px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">right</span>-column .stacked-boxes { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; <span style="color:#005CC5;">gap</span>: 10px; <span style="color:#22863A;">flex</span>: 1 1 auto; min-<span style="color:#005CC5;">height</span>: 0; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">right</span>-column .stacked-boxes .form-group { <span style="color:#22863A;">flex</span>: 1 1 0; min-<span style="color:#005CC5;">height</span>: 0; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">right</span>-column .stacked-boxes textarea { min-<span style="color:#005CC5;">height</span>: 0; <span style="color:#22863A;">flex</span>: 1 1 auto; }
+&nbsp; &nbsp; &nbsp; &nbsp; .section-header { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">align-items</span>: center; <span style="color:#005CC5;">gap</span>: 8px; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-wrap</span>: wrap; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 5px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .section-header label { <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 0; }
+&nbsp; &nbsp; &nbsp; &nbsp; .processing-file-label { <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 6px; <span style="color:#005CC5;">font-size</span>: 12px; <span style="color:#005CC5;font-weight:bold;">color</span>: #0b3d91; <span style="color:#005CC5;">font-weight</span>: 600; <span style="color:#005CC5;">background</span>: #e8f1ff; <span style="color:#005CC5;">border</span>: 1px solid #9bbcff; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px; <span style="color:#005CC5;">padding</span>: 2px 6px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .section-header .editor-toggle { <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">left</span></span>: auto; <span style="color:#005CC5;">padding</span>: 4px 10px; <span style="color:#005CC5;">border</span>: 1px solid #ced4da; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px; <span style="color:#005CC5;">background</span>: #f8f9fa; <span style="color:#005CC5;font-weight:bold;">color</span>: #495057; <span style="color:#005CC5;">font-size</span>: 12px; <span style="color:#005CC5;">font-weight</span>: 600; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; .section-header .editor-toggle:<span style="color:#6F42C1;font-style:italic;">hover</span> { <span style="color:#005CC5;">background</span>: #e9ecef; }
+&nbsp; &nbsp; &nbsp; &nbsp; .editor-toggle.close-btn {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 4px 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 50%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 28px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">height</span>: 28px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: inline-<span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">right</span>-column .editor-shell { <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">relative</span>; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; <span style="color:#22863A;">flex</span>: 1 1 auto; min-<span style="color:#005CC5;">height</span>: 0; }
+&nbsp; &nbsp; &nbsp; &nbsp; .editor-shell.fullscreen {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">fixed</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; inset: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 2000;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">overflow</span>: hidden;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .editor-shell.fullscreen .section-header {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 6px 10px 10px 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">bottom</span>: 1px solid #e9ecef;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>-shrink: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">relative</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">height</span>: 36px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .editor-shell.fullscreen .editor-toggle {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">absolute</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">right</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 40;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .editor-shell.fullscreen .line-numbered-editor {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1 1 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">height</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">height</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .divider { <span style="color:#005CC5;font-weight:bold;">color</span>: #ccc; <span style="color:#005CC5;">margin</span>: 0 3px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .history-links, .result-links { <span style="color:#005CC5;font-weight:bold;">display</span>: inline-<span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">gap</span>: 8px; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>; <span style="color:#005CC5;">align-items</span>: center; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-wrap</span>: wrap; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn, .btn-secondary, .btn-danger, .btn-back-history { <span style="color:#005CC5;">padding</span>: 6px 10px; <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>; <span style="color:#005CC5;">font-size</span>: 12px; <span style="color:#005CC5;">font-weight</span>: 600; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn { <span style="color:#005CC5;">background</span>: #007bff; <span style="color:#005CC5;font-weight:bold;">color</span>: white; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn:<span style="color:#6F42C1;font-style:italic;">hover</span> { <span style="color:#005CC5;">background</span>: #0056b3; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-secondary { <span style="color:#005CC5;">background</span>: #28a745; <span style="color:#005CC5;font-weight:bold;">color</span>: white; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-secondary:<span style="color:#6F42C1;font-style:italic;">hover</span> { <span style="color:#005CC5;">background</span>: #218838; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-danger { <span style="color:#005CC5;">background</span>: #dc3545; <span style="color:#005CC5;font-weight:bold;">color</span>: white; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-danger:<span style="color:#6F42C1;font-style:italic;">hover</span> { <span style="color:#005CC5;">background</span>: #bd2130; }
+&nbsp; &nbsp; &nbsp; &nbsp; .status-msg { <span style="color:#005CC5;font-weight:bold;">color</span>: green; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">left</span></span>: 6px; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;font-style:italic;">none</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; .file-drop-zone { <span style="color:#005CC5;font-weight:bold;">display</span>: inline-<span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">align-items</span>: center; <span style="color:#005CC5;">justify-content</span>: center; min-<span style="color:#005CC5;">width</span>: 140px; <span style="color:#005CC5;">padding</span>: 4px 8px; <span style="color:#005CC5;">border</span>: 1px dashed #6c757d; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px; <span style="color:#005CC5;">background</span>: #f8f9fa; <span style="color:#005CC5;font-weight:bold;">color</span>: #495057; <span style="color:#005CC5;">font-size</span>: 12px; <span style="color:#005CC5;">font-weight</span>: 600; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>; user-select: <span style="color:#22863A;font-style:italic;">none</span>; transition: all 0.15s ease; }
+&nbsp; &nbsp; &nbsp; &nbsp; .file-drop-zone.drag-over { <span style="color:#005CC5;">background</span>: #e8f4ff; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #007bff; <span style="color:#005CC5;font-weight:bold;">color</span>: #007bff; }
+&nbsp; &nbsp; &nbsp; &nbsp; .file-queue-row { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">align-items</span>: stretch; <span style="color:#005CC5;">gap</span>: 8px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .file-queue-actions { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; <span style="color:#005CC5;">gap</span>: 6px; align-self: center; }
+&nbsp; &nbsp; &nbsp; &nbsp; .file-queue-box { <span style="color:#005CC5;">width</span>: 100%; min-<span style="color:#005CC5;">height</span>: 64px; max-<span style="color:#005CC5;">height</span>: 120px; resize: vertical; }
+&nbsp; &nbsp; &nbsp; &nbsp; .file-queue-load { align-self: center; <span style="color:#005CC5;">white-space</span>: nowrap; }
+&nbsp; &nbsp; &nbsp; &nbsp; .no-wrap-text { <span style="color:#005CC5;">white-space</span>: <span style="color:#D73A49;">pre</span>; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-x</span>: auto; }
+&nbsp; &nbsp; &lt;/style&gt;
+</span>&nbsp;<span style="white-space: pre-wrap; display: inline-block; width: 100%;"> &nbsp; &lt;script type="text/javascript"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> onPresetChange(ddl) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!ddl) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> selectedOption = ddl.options[ddl.selectedIndex];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!selectedOption) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> findVal = selectedOption.getAttribute("data-find");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> replaceVal = selectedOption.getAttribute("data-replace");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> findBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtFind.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> replaceBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtReplace.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (findBox) findBox.value = findVal || '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (replaceBox) replaceBox.value = replaceVal || '';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> copyToClipboard() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> txtResult = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtResult.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!txtResult) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtResult.select();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtResult.setSelectionRange(0, 99999);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (navigator.clipboard &amp;&amp; navigator.clipboard.writeText) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; navigator.clipboard.writeText(txtResult.value).then(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> status = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById("copyStatus");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (status) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; status.style.display = "inline";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setTimeout(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() { status.style.display = "none"; }, 2000);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }).<span style="color:#D73A49;font-weight:bold;">catch</span>(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.warn("Clipboard access denied.");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> clearSource() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> sourceBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtOriginal.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (sourceBox) { sourceBox.value = ''; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; syncProcessingFileLabel();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> clearResult() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> resultBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtResult.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (resultBox) { resultBox.value = ''; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> moveResultToSource() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> sourceBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtOriginal.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> resultBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtResult.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (sourceBox &amp;&amp; resultBox) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (resultBox.value.trim() !== '') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sourceBox.value = resultBox.value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; resultBox.value = '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; syncProcessingFileLabel();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> copyResultToBox1() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> resultBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtResult.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> box1 = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox1.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (resultBox &amp;&amp; box1) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box1.value = resultBox.value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; refreshLineNumbers(box1, <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lineNumbers_txtBox1'));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> copyResultToBox2() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> resultBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtResult.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> box2 = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox2.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (resultBox &amp;&amp; box2) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box2.value = resultBox.value;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; refreshLineNumbers(box2, <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lineNumbers_txtBox2'));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> applyAutoTooltips() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> buttonSelector = 'button, input[type="button"], input[type="submit"], input[type="reset"]';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> buttons = <span style="color:#6F42C1;font-weight:bold;">document</span>.querySelectorAll(buttonSelector);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#D73A49;font-weight:bold;">var</span> i = 0; i &lt; buttons.length; i++) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> button = buttons[i];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> existingTitle = (button.getAttribute('title') || '').trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (existingTitle) <span style="color:#D73A49;font-weight:bold;">continue</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> textValue = '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (button.tagName &amp;&amp; button.tagName.toLowerCase() === 'button') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textValue = (button.textContent || '').trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textValue = (button.value || '').trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (textValue) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; button.setAttribute('title', textValue);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> setButtonTextAndTooltip(element, text) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!element) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (element.tagName &amp;&amp; element.tagName.toLowerCase() === 'button') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; element.textContent = text;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; element.value = text;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; element.setAttribute('title', text);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> updateStepUiByQueueState() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> hasQueuedFiles = droppedTextFileQueue.length &gt; 0;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> dropZone = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtFileDropZone');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (dropZone) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> dropZoneText = hasQueuedFiles ? 'Files Loaded' : 'Step 1: Drop Text Files Here';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.textContent = dropZoneText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.setAttribute('title', dropZoneText);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.setAttribute('aria-label', dropZoneText);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setButtonTextAndTooltip(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnProcessQueueLoad'), hasQueuedFiles ? 'Step 1: Load' : 'Step 2: Load');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setButtonTextAndTooltip(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnRunTranscriptToSrt'), hasQueuedFiles ? 'Step 2: Transcript to SRT' : 'Step 3: Transcript to SRT');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setButtonTextAndTooltip(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnSaveBox3File'), hasQueuedFiles ? 'Step 3: Save to File' : 'Step 4: Save to File');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setButtonTextAndTooltip(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnClearSession.ClientID %&gt;'), hasQueuedFiles ? 'Step 4: Clear Session' : 'Step 5: Clear Session');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> mergeBoxesColumnMode() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> box1 = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox1.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> box2 = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox2.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> box3 = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox3.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!box1 || !box2 || !box3) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> lines1 = box1.value.replace(/\r\n/g, "\n").split("\n");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> lines2 = box2.value.replace(/\r\n/g, "\n").split("\n");
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> maxLines = <span style="color:#005CC5;">Math</span>.max(lines1.length, lines2.length);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> mergedLines = [];
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#D73A49;font-weight:bold;">var</span> i = 0; i &lt; maxLines; i++) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> part1 = lines1[i] !== <span style="color:#22863A;font-style:italic;">undefined</span> ? lines1[i] : "";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> part2 = lines2[i] !== <span style="color:#22863A;font-style:italic;">undefined</span> ? lines2[i] : "";
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (part1 !== "" || part2 !== "" || i &lt; maxLines - 1) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (part1 !== "" &amp;&amp; part2 !== "") {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mergedLines.push(part1 + " " + part2);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mergedLines.push(part1 + part2);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box3.value = mergedLines.join("\n");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; refreshLineNumbers(box3, <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lineNumbers_txtBox3'));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+
+
+<span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> saveBox3ToFile() {
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> txtBox3 = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox3.ClientID %&gt;');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!txtBox3) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> currentBox3Text = txtBox3.value || '';
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (currentBox3Text.trim() === '') <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> saveButton = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnSaveBox3File');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> dropZone = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtFileDropZone');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> hiddenField = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('hfLastFileName');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> suggestedName = (saveButton &amp;&amp; saveButton.getAttribute('data-last-file-name'))
+&nbsp; &nbsp; &nbsp; &nbsp; || (hiddenField &amp;&amp; hiddenField.value)
+&nbsp; &nbsp; &nbsp; &nbsp; || (dropZone &amp;&amp; (dropZone.getAttribute('data-last-file-name') || dropZone.dataset.lastFileName))
+&nbsp; &nbsp; &nbsp; &nbsp; || (<span style="color:#D73A49;">typeof</span> lastDroppedTextFileName !== '<span style="color:#22863A;font-style:italic;">undefined</span>' ? lastDroppedTextFileName : <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; || 'box3.txt';
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!suggestedName) {
+&nbsp; &nbsp; &nbsp; &nbsp; suggestedName = 'box3.txt';
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!/\.txt$/i.test(suggestedName)) {
+&nbsp; &nbsp; &nbsp; &nbsp; suggestedName += '.txt';
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> blob = <span style="color:#D73A49;">new</span> Blob([currentBox3Text], { type: 'text/plain;charset=utf-8' });
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> ('showSaveFilePicker' <span style="color:#D73A49;">in</span> <span style="color:#6F42C1;font-weight:bold;">window</span>) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> handle = <span style="color:#D73A49;font-weight:bold;">await</span> <span style="color:#6F42C1;font-weight:bold;">window</span>.showSaveFilePicker({
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suggestedName: suggestedName,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; types: [{
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; description: 'Text Files',
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; accept: { 'text/plain': ['.txt'] }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }]
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> writable = <span style="color:#D73A49;font-weight:bold;">await</span> handle.createWritable();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">await</span> writable.write(blob);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">await</span> writable.close();
+&nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> url = <span style="color:#6F42C1;font-weight:bold;">window</span>.URL.createObjectURL(blob);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> link = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement('a');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; link.href = url;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; link.download = suggestedName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.appendChild(link);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; link.click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.removeChild(link);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.URL.revokeObjectURL(url);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (err &amp;&amp; err.name !== 'AbortError') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.<span style="color:#005CC5;">error</span>('Unable to save file', err);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+}
+
+
+<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> copyBox3ToClipboard() {
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> txtBox3 = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox3.ClientID %&gt;');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!txtBox3 || txtBox3.value.trim() === '') <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // Create a temporary hidden, editable textarea
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> tempTextArea = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement("textarea");
+&nbsp; &nbsp; tempTextArea.value = txtBox3.value;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // Position completely off-screen so the user doesn't see it layout flash
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">Object</span>.assign(tempTextArea.style, {
+&nbsp; &nbsp; &nbsp; &nbsp; position: "fixed",
+&nbsp; &nbsp; &nbsp; &nbsp; top: "0",
+&nbsp; &nbsp; &nbsp; &nbsp; left: "-9999px",
+&nbsp; &nbsp; &nbsp; &nbsp; width: "2em",
+&nbsp; &nbsp; &nbsp; &nbsp; height: "2em",
+&nbsp; &nbsp; &nbsp; &nbsp; padding: "0",
+&nbsp; &nbsp; &nbsp; &nbsp; border: "none",
+&nbsp; &nbsp; &nbsp; &nbsp; outline: "none",
+&nbsp; &nbsp; &nbsp; &nbsp; boxShadow: "none",
+&nbsp; &nbsp; &nbsp; &nbsp; background: "transparent"
+&nbsp; &nbsp; });
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.appendChild(tempTextArea);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // Explicitly focus and highlight the entire text structure
+&nbsp; &nbsp; tempTextArea.focus();
+&nbsp; &nbsp; tempTextArea.select();
+&nbsp; &nbsp; tempTextArea.setSelectionRange(0, tempTextArea.value.length);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> success = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; // execCommand bypasses the user gesture constraint <span style="color:#D73A49;font-weight:bold;">for</span> macro execution loops
+&nbsp; &nbsp; &nbsp; &nbsp; success = <span style="color:#6F42C1;font-weight:bold;">document</span>.execCommand('copy');
+&nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; success = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; }
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // Clean up the DOM element
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.removeChild(tempTextArea);
+
+
+&nbsp; &nbsp; // <span style="color:#D73A49;font-weight:bold;">If</span> execCommand falls behind, hit the modern API as a dual fallback layered layer
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!success &amp;&amp; navigator.clipboard &amp;&amp; navigator.clipboard.writeText) {
+&nbsp; &nbsp; &nbsp; &nbsp; navigator.clipboard.writeText(txtBox3.value).then(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; success = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }).<span style="color:#D73A49;font-weight:bold;">catch</span>(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; success = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.warn("Clipboard access denied.");
+&nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (success) {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> status = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById("copyStatus");
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (status) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; status.innerHTML = "Box 3 Copied!";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; status.style.display = "inline";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setTimeout(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; status.style.display = "none";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; status.innerHTML = "Copied!";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, 2000);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+}
+
+
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Persistent Macro Pipeline Tracking Engine ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> runTranscriptToSRT() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> txtOriginal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtOriginal.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!txtOriginal || txtOriginal.value.trim() === '') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert("Enter YouTube transcript Code <span style="color:#D73A49;">in</span> the Source Input Box");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; persistTextFileQueue();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Active", "<span style="color:#22863A;font-weight:bold;">true</span>");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "1");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> selectPresetByText(textValue) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> ddl = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= ddlPresets.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!ddl) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#D73A49;font-weight:bold;">var</span> i = 0; i &lt; ddl.options.length; i++) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (ddl.options[i].text.indexOf(textValue) !== -1) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ddl.selectedIndex = i;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; onPresetChange(ddl);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> cancelMacro(stepDescription) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.removeItem("SRT_Macro_Active");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.removeItem("SRT_Macro_Step");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert("Macro execution canceled at step: " + stepDescription);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Helper <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> to inject and display toaster messages
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> showToast(message) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> toast = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById("macro-toaster");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!toast) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toast = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement("div");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toast.id = "macro-toaster";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">Object</span>.assign(toast.style, {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; position: "fixed",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bottom: "20px",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; right: "20px",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; backgroundColor: "#333",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color: "#fff",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; padding: "12px 24px",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; borderRadius: "4px",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; boxShadow: "0 4px 6px rgba(0,0,0,0.2)",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; zIndex: "99999",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fontFamily: "sans-serif",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fontSize: "14px",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: "opacity 0.3s ease"
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.appendChild(toast);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toast.innerText = message;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toast.style.opacity = "1";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setTimeout(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toast.style.opacity = "0";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, 5000);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> getMacroStepDelay() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> speedSelect = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('ddlMacroSpeed');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> selectedSpeed = (speedSelect &amp;&amp; speedSelect.value) || <span style="color:#6F42C1;">localStorage</span>.getItem("SRT_Macro_Speed") || "Medium";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Speed", selectedSpeed);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">switch</span> (selectedSpeed) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> "Slow":
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> 1000;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> "Medium":
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> 500;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> "Fast":
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">default</span>:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> 10;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> executeNextMacroStep() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#6F42C1;">localStorage</span>.getItem("SRT_Macro_Active") !== "<span style="color:#22863A;font-weight:bold;">true</span>") <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // FIXED: Changed txtSource to txtOriginal to prevent the CS0103 context <span style="color:#005CC5;">error</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> txtOriginal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtOriginal.ClientID %&gt;');&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (txtOriginal &amp;&amp; txtOriginal.value.trim() === "") {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert("Enter YouTube Transcript");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.removeItem("SRT_Macro_Active");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.removeItem("SRT_Macro_Step");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> currentStep = parseInt(<span style="color:#6F42C1;">localStorage</span>.getItem("SRT_Macro_Step") || "1");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> macroDelay = getMacroStepDelay();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setTimeout(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">switch</span> (currentStep) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 1: ELIMINATE CHAPTER LINES ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 1:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("1. Eliminate Chapter Lines");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("1. Eliminate Chapter Lines");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "2");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 2:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "3");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 3:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "4");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === BACKUP SOURCE ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 4:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "5");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnSaveSource.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 2: ISOLATE TIME SIGNATURES ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 5:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("2. Isolate Time Signatures");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("2. Isolate Time Signatures");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "6");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 6:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "7");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 7:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "8");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 3: STANDARDIZE TIME 3a ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 8:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("3a. H:MM:SS to HH:MM:SS");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("3a. Standardize Time (H:MM:SS)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "9");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 9:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "10");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 10:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "11");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 4: STANDARDIZE TIME 3b ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 11:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("3b. MM:SS to HH:MM:SS");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("3b. Standardize Time (MM:SS)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "12");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 12:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "13");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 13:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "14");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 5: STANDARDIZE TIME 3c ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 14:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("3c. M:SS to HH:MM:SS");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("3c. Standardize Time (M:SS)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "15");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 15:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "16");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 16:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "17");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === SAVE TIMELINE MILESTONE RESULT ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 17:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "18");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnSaveResult.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === RESTORE INITIAL SOURCE BACKUP ("1" next to Source Input) ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 18:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> sourceHistoryLink = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById("lnkSource_0") || <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById("lnkSrcHistory_0");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (sourceHistoryLink) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "19");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sourceHistoryLink.click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "19");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 6: <span style="color:#D73A49;">DELETE</span> OLD TIME SIGNATURES ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 19:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("4. <span style="color:#D73A49;">Delete</span> Old Time Signatures");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("4. <span style="color:#D73A49;">Delete</span> Old Time Signatures");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "20");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 20:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "21");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 21:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "22");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 7: PURGE HOURS (5a) ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 22:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("5a. <span style="color:#D73A49;">Delete</span> Hours");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("5a. <span style="color:#D73A49;">Delete</span> unwanted Data (hours/minutes/seconds)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "23");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 23:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "24");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 24:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "25");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 8: PURGE HOUR (5b) ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 25:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("5b. <span style="color:#D73A49;">Delete</span> Hour");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("5b. <span style="color:#D73A49;">Delete</span> unwanted Data (hours/minutes/seconds)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "26");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 26:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "27");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 27:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "28");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 9: PURGE MINUTES (5c) ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 28:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("5c. <span style="color:#D73A49;">Delete</span> Minutes");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("5c. <span style="color:#D73A49;">Delete</span> unwanted Data (hours/minutes/seconds)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "29");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 29:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "30");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 30:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "31");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 10: PURGE MINUTE (5d) ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 31:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("5c. <span style="color:#D73A49;">Delete</span> Minute");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("5d. <span style="color:#D73A49;">Delete</span> unwanted Data (hours/minutes/seconds)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "32");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 32:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "33");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 33:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "34");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 11: PURGE SECONDS (5e) ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 34:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("5e. <span style="color:#D73A49;">Delete</span> Seconds");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("5e. <span style="color:#D73A49;">Delete</span> unwanted Data (hours/minutes/seconds)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "35");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 35:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "36");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 36:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "37");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 12: PURGE SECOND (5f) ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 37:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("5f. <span style="color:#D73A49;">Delete</span> Second");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("5f. <span style="color:#D73A49;">Delete</span> unwanted Data (hours/minutes/seconds)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "38");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 38:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "39");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 39:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "40");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 13: PURGE STRUCTURAL MINUTES (5g) ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 40:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("5g. <span style="color:#D73A49;">Delete</span> Minutes");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("5g. <span style="color:#D73A49;">Delete</span> unwanted Data (hours/minutes/seconds)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "41");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 41:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "42");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 42:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "43");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === STEP 14: PURGE STRUCTURAL MINUTE (5h) ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 43:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("5h. <span style="color:#D73A49;">Delete</span> Minute");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selectPresetByText("5h. <span style="color:#D73A49;">Delete</span> unwanted Data (hours/minutes/seconds)");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "44");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 44:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "45");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnApply.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 45:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; moveResultToSource();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "46");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === SAVE TEXT-CLEANED RESULT ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 46:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "47");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnSaveResult.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // === COMPILATION &amp; MERGING STAGE ===
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 47:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("6. Saving, Merging, Finishing");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; copyResultToBox2(); // Populates text Box 2 <span style="color:#D73A49;">with</span> clean transcript
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "48");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 48:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Restores snapshot index 0 from result milestones histories ("1" next to Result Output)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> resultHistoryLink = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById("lnkResHistory_0");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (resultHistoryLink) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "49");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; resultHistoryLink.click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "49");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 49:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Step 15 execution matching requirement specifications
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; copyResultToBox1(); // Transfers recovered timeline back up to text Box 1
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "50");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 50:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mergeBoxesColumnMode();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "51");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 51:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; copyBox3ToClipboard();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem("SRT_Macro_Step", "52");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">case</span> 52:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.removeItem("SRT_Macro_Active");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.removeItem("SRT_Macro_Step");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast("Done! \nClick 'Step 3: Save to File'\n\nNext:\n1.&nbsp; Open <span style="color:#D73A49;">with</span> SubTitleEdit.\n2.&nbsp; Cntl+Shift+S to Save as .SRT");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, macroDelay);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> goBackToReferrer() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = "FilingCabinet.aspx";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> toggleEditorFullscreen(editorShellId, button) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> shell = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById(editorShellId);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!shell) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> isFullscreen = shell.classList.toggle('fullscreen');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (button) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; button.textContent = isFullscreen ? '×' : '⬍';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; button.title = isFullscreen ? 'Restore' : 'Full Screen';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; button.classList.toggle('close-btn', isFullscreen);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (isFullscreen) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> overlayContainer = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement('div');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlayContainer.style.position = 'fixed';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlayContainer.style.top = '16px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlayContainer.style.right = '16px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlayContainer.style.zIndex = '99999';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlayContainer.style.display = 'flex';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlayContainer.style.gap = '8px';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> copyOverlay = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement('button');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; copyOverlay.type = 'button';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; copyOverlay.className = 'editor-toggle close-btn';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; copyOverlay.textContent = '📋';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; copyOverlay.title = 'Copy All';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; copyOverlay.onclick = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> targetTextarea = shell.querySelector('textarea');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (targetTextarea) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; targetTextarea.select();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; targetTextarea.setSelectionRange(0, targetTextarea.value.length);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.execCommand('copy');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> closeOverlay = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement('button');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; closeOverlay.type = 'button';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; closeOverlay.className = 'editor-toggle close-btn';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; closeOverlay.textContent = '×';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; closeOverlay.title = 'Restore';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; closeOverlay.onclick = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleEditorFullscreen(editorShellId, button);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (overlayContainer.parentNode) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlayContainer.parentNode.removeChild(overlayContainer);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlayContainer.appendChild(copyOverlay);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlayContainer.appendChild(closeOverlay);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.appendChild(overlayContainer);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> existingOverlay = <span style="color:#6F42C1;font-weight:bold;">document</span>.body.querySelector('div[style*="position: fixed"][style*="top: 16px"][style*="right: 16px"]');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (existingOverlay) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; existingOverlay.remove();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.style.overflow = isFullscreen ? 'hidden' : '';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('keydown', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (event) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (event.key === 'Escape') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> activeShell = <span style="color:#6F42C1;font-weight:bold;">document</span>.querySelector('.editor-shell.fullscreen');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (activeShell) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleEditorFullscreen(activeShell.id, activeShell.querySelector('.editor-toggle'));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> refreshLineNumbers(textarea, gutter) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!textarea || !gutter) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> value = textarea.value || '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> lineCount = value === '' ? 1 : value.split(/\r\n|\r|\n/).length;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> lines = [];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#D73A49;font-weight:bold;">var</span> i = 1; i &lt;= lineCount; i++) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lines.push('&lt;span&gt;' + i + '&lt;/span&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; gutter.innerHTML = lines.join('');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> attachLineNumbers(textarea, gutter) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!textarea || !gutter) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> updateLineNumbers() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; refreshLineNumbers(textarea, gutter);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (textarea.id === '&lt;%= txtOriginal.ClientID %&gt;') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; syncProcessingFileLabel();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textarea.addEventListener('input', updateLineNumbers);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textarea.addEventListener('scroll', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; gutter.scrollTop = textarea.scrollTop;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textarea.addEventListener('keyup', updateLineNumbers);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textarea.addEventListener('paste', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setTimeout(updateLineNumbers, 0);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateLineNumbers();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> lastDroppedTextFileName = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> droppedTextFileQueue = [];
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> textFileQueueStorageKey = 'SRT_Text_File_Queue';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> syncProcessingFileLabel() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> processingLabel = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtProcessingFileLabel');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!processingLabel) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> txtOriginal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtOriginal.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> sourceText = txtOriginal ? (txtOriginal.value || '').trim() : '';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!sourceText) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; processingLabel.textContent = 'Text File Processing:';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> fileName = <span style="color:#6F42C1;">localStorage</span>.getItem('SRT_Last_File_Name') || lastDroppedTextFileName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; processingLabel.textContent = fileName ? ('Text File Processing: ' + fileName) : 'Text File Processing:';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> persistTextFileQueue() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem(textFileQueueStorageKey, <span style="color:#005CC5;font-weight:bold;">JSON</span>.stringify(droppedTextFileQueue));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.warn('Unable to persist text file queue.', err);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> restoreTextFileQueue() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> rawQueue = <span style="color:#6F42C1;">localStorage</span>.getItem(textFileQueueStorageKey);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!rawQueue) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; droppedTextFileQueue = [];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> parsedQueue = <span style="color:#005CC5;font-weight:bold;">JSON</span>.parse(rawQueue);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">Array</span>.isArray(parsedQueue)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; droppedTextFileQueue = [];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; droppedTextFileQueue = parsedQueue.filter(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (item) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> item &amp;&amp; <span style="color:#D73A49;">typeof</span> item.name === '<span style="color:#005CC5;font-weight:bold;">string</span>' &amp;&amp; <span style="color:#D73A49;">typeof</span> item.content === '<span style="color:#005CC5;font-weight:bold;">string</span>';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; droppedTextFileQueue = [];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.warn('Unable to restore text file queue.', err);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> renderTextFileQueue() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> queueBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtProcessTextFiles');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!queueBox) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; queueBox.value = droppedTextFileQueue.map(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (item) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> item.name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }).join('\n');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; persistTextFileQueue();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStepUiByQueueState();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> queueDroppedTextFiles(fileList) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> txtFiles = <span style="color:#005CC5;font-weight:bold;">Array</span>.prototype.slice.call(fileList || []).filter(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (file) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> file &amp;&amp; /\.txt$/i.test(file.name);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!txtFiles.length) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert('Please drop one or more .txt files.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">Promise</span>.all(txtFiles.map(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (file) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#005CC5;font-weight:bold;">Promise</span>(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (resolve, reject) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> reader = <span style="color:#D73A49;">new</span> FileReader();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; reader.onload = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; resolve({
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; name: file.name,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content: e.target.result || ''
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; reader.onerror = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; reject(file.name);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; reader.readAsText(file);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; })).then(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (loadedFiles) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; droppedTextFileQueue = droppedTextFileQueue.concat(loadedFiles);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderTextFileQueue();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }).<span style="color:#D73A49;font-weight:bold;">catch</span>(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert('Unable to read one or more selected text files.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> loadNextQueuedTextFile() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!droppedTextFileQueue.length) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToast('Please Drag / Drop Files First');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> nextFile = droppedTextFileQueue.shift();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderTextFileQueue();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> txtOriginal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtOriginal.ClientID %&gt;');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> gutter = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lineNumbers_txtOriginal');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (txtOriginal) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtOriginal.value = nextFile.content || '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (gutter) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; refreshLineNumbers(txtOriginal, gutter);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lastDroppedTextFileName = nextFile.name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem('SRT_Last_File_Name', nextFile.name);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> dropZone = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtFileDropZone');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (dropZone) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.setAttribute('data-last-file-name', nextFile.name);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.dataset.lastFileName = nextFile.name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> hfName = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('hfLastFileName');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (hfName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hfName.value = nextFile.name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> saveButton = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnSaveBox3File');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (saveButton) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; saveButton.setAttribute('data-last-file-name', nextFile.name);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; syncProcessingFileLabel();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> clearProcessTextFileQueue() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; droppedTextFileQueue = [];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderTextFileQueue();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> attachTextFileDropZone() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> dropZone = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtFileDropZone');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!dropZone) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> preventDefault(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopPropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (eventName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.addEventListener(eventName, preventDefault);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.addEventListener('dragenter', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.classList.add('drag-over');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.addEventListener('dragover', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.classList.add('drag-over');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.addEventListener('dragleave', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!dropZone.contains(e.relatedTarget)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.classList.remove('drag-over');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.addEventListener('drop', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropZone.classList.remove('drag-over');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> files = e.dataTransfer &amp;&amp; e.dataTransfer.files;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!files || !files.length) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; queueDroppedTextFiles(files);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.addEventListener('load', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> speedSelect = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('ddlMacroSpeed');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (speedSelect) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> savedSpeed = <span style="color:#6F42C1;">localStorage</span>.getItem("SRT_Macro_Speed") || "Medium";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; speedSelect.value = savedSpeed;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; restoreTextFileQueue();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderTextFileQueue();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> restoredFileName = <span style="color:#6F42C1;">localStorage</span>.getItem('SRT_Last_File_Name');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (restoredFileName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> restoredHiddenField = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('hfLastFileName');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (restoredHiddenField) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; restoredHiddenField.value = restoredFileName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> restoredDropZone = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtFileDropZone');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (restoredDropZone) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; restoredDropZone.setAttribute('data-last-file-name', restoredFileName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; restoredDropZone.dataset.lastFileName = restoredFileName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> restoredSaveButton = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnSaveBox3File');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (restoredSaveButton) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; restoredSaveButton.setAttribute('data-last-file-name', restoredFileName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lastDroppedTextFileName = restoredFileName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; attachTextFileDropZone();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; attachLineNumbers(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtOriginal.ClientID %&gt;'), <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lineNumbers_txtOriginal'));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; attachLineNumbers(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtResult.ClientID %&gt;'), <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lineNumbers_txtResult'));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; attachLineNumbers(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox1.ClientID %&gt;'), <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lineNumbers_txtBox1'));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; attachLineNumbers(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox2.ClientID %&gt;'), <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lineNumbers_txtBox2'));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; attachLineNumbers(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtBox3.ClientID %&gt;'), <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lineNumbers_txtBox3'));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; syncProcessingFileLabel();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStepUiByQueueState();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; applyAutoTooltips();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#6F42C1;">localStorage</span>.getItem("SRT_Macro_Active") === "<span style="color:#22863A;font-weight:bold;">true</span>") {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeNextMacroStep();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &lt;/script&gt;
+</span>&lt;/head&gt;
+&lt;body&gt;
+&nbsp; &nbsp; &lt;form id="form1" runat="server"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Maintain File Name on Post-Back --&gt;
+&lt;asp:HiddenField ID="hfLastFileName" runat="server" ClientIDMode="<span style="color:#D73A49;font-weight:bold;">Static</span>" /&gt;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="container"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h2&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn-back-history" onclick="goBackToReferrer();"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg style="width:16px; height:16px; vertical-align:middle; margin-right:6px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;line x1="19" y1="12" x2="5" y2="12"&gt;&lt;/line&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;polyline points="12 19 5 12 12 5"&gt;&lt;/polyline&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span&gt;Back&lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/button&gt;&amp;nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; YouTube to SRT Utility
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span style="margin-left:12px; font-size:14px; font-weight:normal; display:inline-flex; align-items:center; gap:8px; flex-wrap:nowrap;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="ddlMacroSpeed" style="margin-right:0; white-space:nowrap;"&gt;Speed:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;select id="ddlMacroSpeed" onchange="localStorage.setItem('SRT_Macro_Speed', <span style="color:#D73A49;font-weight:bold;">this</span>.value);" style="padding:4px 8px;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;option value="Slow"&gt;Slow&lt;/option&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;option value="Medium" selected&gt;Medium&lt;/option&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;option value="Fast"&gt;Fast&lt;/option&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/select&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="txtFileDropZone" <span style="color:#D73A49;font-weight:bold;">class</span>="file-drop-zone" title="Step 1: Drop Text Files Here" aria-label="Step 1: Drop Text Files Here"&gt;Step 1: Drop Text Files Here&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/h2&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="two-column"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="left-column"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtProcessTextFiles"&gt;Process Text Files:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="file-queue-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;textarea id="txtProcessTextFiles" <span style="color:#D73A49;font-weight:bold;">class</span>="file-queue-box no-wrap-text" <span style="color:#D73A49;">readonly</span>="<span style="color:#D73A49;">readonly</span>"&gt;&lt;/textarea&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="file-queue-actions"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button id="btnProcessQueueLoad" type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn file-queue-load" onclick="<span style="color:#D73A49;font-weight:bold;">return</span> loadNextQueuedTextFile();"&gt;Step 2: Load&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-danger" onclick="<span style="color:#D73A49;font-weight:bold;">return</span> clearProcessTextFileQueue();"&gt;Clear Queue&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="ddlPresets"&gt;Load Preset RegEx Rule:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:DropDownList ID="ddlPresets" runat="server" onchange="onPresetChange(<span style="color:#D73A49;font-weight:bold;">this</span>);"&gt;&lt;/asp:DropDownList&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="flex-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group flex-child"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtFind"&gt;Find (RegEx Pattern):&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtFind" runat="server" TextMode="SingleLine" CssClass="no-wrap-text"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group flex-child"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtReplace"&gt;Replace With:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtReplace" runat="server" TextMode="SingleLine" CssClass="no-wrap-text"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="section-header"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtOriginal"&gt;Source Input:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="editor-toggle" onclick="toggleEditorFullscreen('editorShell_txtOriginal', <span style="color:#D73A49;font-weight:bold;">this</span>);" title="Full Screen"&gt;⬍&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Button ID="btnSaveSource" runat="server" Text="Save Source" OnClick="btnSaveSource_Click" CssClass="btn" Style="padding: 4px 10px; font-size: 12px; background: #6c757d;" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button id="btnRunTranscriptToSrt" type="button" onclick="<span style="color:#D73A49;font-weight:bold;">return</span> runTranscriptToSRT();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-secondary"&gt;Step 3: Transcript to SRT&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="divider"&gt;|&lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="historyLinksContainer" <span style="color:#D73A49;font-weight:bold;">class</span>="history-links"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:PlaceHolder ID="phHistoryLinks" runat="server"&gt;&lt;/asp:PlaceHolder&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="txtProcessingFileLabel" <span style="color:#D73A49;font-weight:bold;">class</span>="processing-file-label"&gt;Text File Processing:&lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Label ID="lblParserError" runat="server" ForeColor="Red" Font-Bold="<span style="color:#22863A;font-weight:bold;">true</span>" Style="display: block; margin-bottom: 5px; font-size: 12px;"&gt;&lt;/asp:Label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="editor-shell" id="editorShell_txtOriginal"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-numbered-editor"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-number-pane" id="lineNumbers_txtOriginal"&gt;&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtOriginal" runat="server" TextMode="MultiLine" CssClass="no-wrap-text"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="toolbar"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Button ID="btnApply" runat="server" Text="Apply RegEx" OnClick="btnApply_Click" CssClass="btn" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" onclick="clearSource();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-danger"&gt;Clear Source&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" onclick="clearResult();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-danger"&gt;Clear Result&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" onclick="copyToClipboard();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-secondary"&gt;Copy&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" onclick="moveResultToSource();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-secondary"&gt;Result to Source&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Button ID="btnClearSession" runat="server" Text="Step 5: Clear Session" OnClick="btnClearSession_Click" CssClass="btn btn-danger" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span id="copyStatus" <span style="color:#D73A49;font-weight:bold;">class</span>="status-msg"&gt;Copied!&lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="section-header"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtResult"&gt;Result Output:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="editor-toggle" onclick="toggleEditorFullscreen('editorShell_txtResult', <span style="color:#D73A49;font-weight:bold;">this</span>);" title="Full Screen"&gt;⬍&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Button ID="btnSaveResult" runat="server" Text="Save Result" OnClick="btnSaveResult_Click" CssClass="btn" Style="padding: 4px 10px; font-size: 12px; background: #6c757d;" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="resultLinksContainer" <span style="color:#D73A49;font-weight:bold;">class</span>="result-links"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:PlaceHolder ID="phResultLinks" runat="server"&gt;&lt;/asp:PlaceHolder&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="editor-shell" id="editorShell_txtResult"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-numbered-editor"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-number-pane" id="lineNumbers_txtResult"&gt;&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtResult" runat="server" TextMode="MultiLine" <span style="color:#D73A49;">ReadOnly</span>="<span style="color:#22863A;font-weight:bold;">true</span>" CssClass="no-wrap-text"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="right-column"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="toolbar"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" onclick="copyResultToBox1();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-secondary"&gt;Result to Box 1&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" onclick="copyResultToBox2();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-secondary"&gt;Result to Box 2&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" onclick="mergeBoxesColumnMode();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn"&gt;Merge Box 1 and Box 2&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" onclick="copyBox3ToClipboard();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-secondary"&gt;Copy 2 Clipbd&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button id="btnSaveBox3File" type="button" onclick="<span style="color:#D73A49;font-weight:bold;">return</span> saveBox3ToFile();" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-secondary"&gt;Step 4: Save to File&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="stacked-boxes"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="section-header"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtBox1"&gt;Box 1:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="editor-toggle" onclick="toggleEditorFullscreen('editorShell_txtBox1', <span style="color:#D73A49;font-weight:bold;">this</span>);" title="Full Screen"&gt;⬍&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="editor-shell" id="editorShell_txtBox1"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-numbered-editor"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-number-pane" id="lineNumbers_txtBox1"&gt;&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtBox1" runat="server" TextMode="MultiLine" CssClass="no-wrap-text"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="section-header"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtBox2"&gt;Box 2:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="editor-toggle" onclick="toggleEditorFullscreen('editorShell_txtBox2', <span style="color:#D73A49;font-weight:bold;">this</span>);" title="Full Screen"&gt;⬍&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="editor-shell" id="editorShell_txtBox2"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-numbered-editor"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-number-pane" id="lineNumbers_txtBox2"&gt;&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtBox2" runat="server" TextMode="MultiLine" CssClass="no-wrap-text"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="form-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="section-header"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#D73A49;font-weight:bold;">for</span>="txtBox3"&gt;Box 3 (Merged Output):&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="editor-toggle" onclick="toggleEditorFullscreen('editorShell_txtBox3', <span style="color:#D73A49;font-weight:bold;">this</span>);" title="Full Screen"&gt;⬍&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="editor-shell" id="editorShell_txtBox3"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-numbered-editor"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="line-number-pane" id="lineNumbers_txtBox3"&gt;&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtBox3" runat="server" TextMode="MultiLine" <span style="color:#D73A49;">ReadOnly</span>="<span style="color:#22863A;font-weight:bold;">true</span>" CssClass="no-wrap-text"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &lt;/form&gt;
+&lt;/body&gt;
+        &lt;/html&gt;</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

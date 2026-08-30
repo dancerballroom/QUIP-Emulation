@@ -1,0 +1,592 @@
+<!doctype html>
+<html><head><title>Joining Multiple .srt Files with Subtitle Edit</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:cEa13d3384fa4854aba929ef12d2'>Joining Multiple .srt Files with Subtitle Edit</h1>
+
+<b><span style="color:#cc0300" textcolor="#cc0300">TESTED: FAILED</span></b>, but <b><span style="color:#430891" textcolor="#430891">ALMOST Works!</span></b><br/>
+
+Since Subtitles don’t end when the movie has reached its length, the addition of Times calculates incorrectly.  <br/>
+
+<br/>
+
+<u><b>The method should be:  </b></u><br/>
+
+CHAPTER 1.srt [TIME START = 00:00:00]<br/>
+
+plus<br/>
+
+CHAPTER 2.srt [TIME START = LENGTH of CHAPTER 1.srt]<br/>
+
+...<br/>
+
+<br/>
+
+NOTE:  The subtitles in CHAPTER 2.srt will be start with the beginning of CHAPTER 2.mp4<br/>
+
+NOT the ending of TIME SIGNATURES in CHAPTER 1.srt.<br/>
+
+<br/>
+
+If you already have the Chapter Videos and the Chapter SRTs.<br/>
+
+This isn’t automatic, but it is<b><span style="color:#5a0ac2" textcolor="#5a0ac2"> a Simple and Fast BRUTE STRENGTH Method.</span></b><br/>
+
+<pre id='temp:C:cEa03ee27ef508d4d908486e6b2e'><span bgcolor="#dfe1e1" style="background-color:#dfe1e1">1) Open </span><a href="https://www.videohelp.com/tools?tool=Subtitle_Workshop">Subtitle Workshop</a><span bgcolor="#dfe1e1" style="background-color:#dfe1e1">.</span><br><br><span bgcolor="#dfe1e1" style="background-color:#dfe1e1">2) Go to Tools --&gt; Join Subtitles</span><br><br><span bgcolor="#dfe1e1" style="background-color:#dfe1e1">3) When the new window opens click the ADD button to add your SRT files. Set the frames per second (FPS) of your M2V, AVI, etc.</span><br><br><span bgcolor="#dfe1e1" style="background-color:#dfe1e1">4) Click JOIN, name your file, and click OK.<br><br><br></span></pre>
+
+<h2 id='temp:C:cEa16c9eba27dda494599c2b9380'><span style="color:#430891" textcolor="#430891">EXAMPLE</span></h2>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:cEa7528d06f70234b1c80b6e2cbd'><li id='temp:C:cEac329d0e3f3754b3d813cc8abd' class='parent' value='1'>I run the Following on the Movie “Clash of the Titans.mp4”
+
+<br/></li><ul><li id='temp:C:cEa5d5b374e951e4cf0ade460401' class=''>This<b><span style="color:#218118" textcolor="#218118"> generates the TEXT .SRT File Chapter Subtitles without the commercials </span></b>
+
+<br/></li><li id='temp:C:cEaf75a748b376644f8953e32f1e' class=''>based on my script that reports on the Duration and Time Values. (To Be Improved)
+
+<br/></li></ul></ul></div><pre id='temp:C:cEa06b6bf02cb3942d484bf469ac'>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 00:00:00 -t 00:06:44 -y "1.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 00:08:18 -t 00:19:12 -y "3.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 00:28:32 -t 00:20:57 -y "5.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 00:51:02 -t 00:12:16 -y "7.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 01:05:06 -t 00:11:47 -y "9.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 01:18:24 -t 00:20:44 -y "11.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 01:40:35 -t 00:14:19 -y "13.srt"<br></pre>
+
+<div class="list-numbering-restart-at" style="--indent0: 2" data-section-style='6'><ul id='temp:C:cEa748357787d6a4209bbf3699ca'><li id='temp:C:cEa4832b9ff829743d89410981fc' class='' value='1'>Then Merge the Subtitles per the method at the Beginning.
+
+<br/></li></ul></div><div style="" class="" data-section-style='6'><ul id='temp:C:cEac79ad1ed6da944d791aa0cd73'><ul><li id='temp:C:cEa08a10ffa745745f2b69b901e4' class='' value='1'>Open “Subtitle Edit”, 
+
+<br/></li><li id='temp:C:cEa45917506539d4f7bafe8fb4ec' class=''>MENU: TOOLS, 
+
+<br/></li><li id='temp:C:cEa6cb150a986cd40a1bd6a73aa7' class=''>OPTION: Join Subtitles (at the bottom)
+
+<br/></li><li id='temp:C:cEa85c6496ca60b424e9440cc7da' class=''>Click OPTION BUTTON: Add end time of previous file.
+
+<br/></li><li id='temp:C:cEaa25445b139d64734a8005e543' class=''>DRAG/DROP the MOUSE-Highlighted SRT Files into the BOX. 
+
+<br/></li><li id='temp:C:cEa6ecc1c685b454d65aa37b5ad7' class=''>Click Join
+
+<br/></li><li id='temp:C:cEa6ca47c8ec9574517a993ae1fe' class=''>FIle/Save As 
+
+<br/></li><li id='temp:C:cEa9f03096938394714a6c45dfb7' class=''>Navigate to Correct Directory, 
+
+<br/></li><li id='temp:C:cEa59b1ef8b23a645c69d6b765d9' class=''>NAME: “Clash of the Titans.eng.srt”
+
+<br/></li><li id='temp:C:cEad43b3d7fc354499cbae984bdc' class=''>Click “SAVE”
+
+<br/></li></ul></ul></div><h2 id='temp:C:cEadbedc4057675473894b856f23'><span style="color:#cc0300" textcolor="#cc0300">DOESN’T Work</span><span style="color:#430891" textcolor="#430891"> but ALMOST</span>!</h2>
+
+<b>Next:  IMPROVE Report Generation and automate Chapter .SRT Automation</b><br/>
+
+<br/>
+
+Based ON<br/>
+
+Source:  <a href="https://forum.videohelp.com/threads/191107-Help-Joining-Two-srt-Files-As-One">https://forum.videohelp.com/threads/191107-Help-Joining-Two-srt-Files-As-One</a><br/>
+
+<h2 id='temp:C:cEa3d9f172344184d8687b31f37d'>Back to the Drawing Board : Got the Milliseconds, Baby!</h2>
+
+<h3 id='temp:C:cEa2451922cbd874a3c8a6629625'>1.  Find the Chapter length of the video in milliseconds.</h3>
+
+EXAMPLE:<br/>
+
+<br/>
+
+<pre id='temp:C:cEa5ce1b6c06712429089f72ded6'>// ALL on one line when run.  Formatted for QUIP Viewing here<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 01 - Clash of the Titans.mp4"<br>&gt;404.<u><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">338</span></u>000<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 03 - Clash of the Titans.mp4"<br>&gt;1152.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">018</span>000<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 05 - Clash of the Titans.mp4"<br>&gt;1257.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">557</span>000<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 07 - Clash of the Titans.mp4"<br>&gt;736.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">903</span>000<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 09 - Clash of the Titans.mp4"<br>&gt;707.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">307</span>000<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 11 - Clash of the Titans.mp4"<br>&gt;1244.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">877</span>000<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 13 - Clash of the Titans.mp4"<br>&gt;859.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">859</span>000</pre>
+
+</body></html>

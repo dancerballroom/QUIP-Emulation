@@ -1,0 +1,622 @@
+<!doctype html>
+<html><head><title>MP3 Foreign Language Lyric Generator</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:dLac7bfcea3a92e4ddfa169c9486'>MP3 Foreign Language Lyric Generator</h1>
+
+<b>Purpose:</b>  <span style="color:#083f91" textcolor="#083f91"><b>Generate Foreign Subs added to MP3 Sound Files  </b></span><br/>
+
+and Convert into English-German, or French/Spanish/Etc. into Cell Phone Lyrics<br/>
+
+<br/>
+
+<br/>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/dLaAAACO7Qw/r9lKsOuSb3fJZoS2qlc1fQ?a=Rujg6iYtkEZjKGycRKq61sCLaka0YaYhotZHYtf2fd8a' id='temp:C:dLab2423e083f4541b680b92fa3a' alt="000592 - Le Hobbit  - J.R.R. Tolkien.jpg"></img></div><br/>
+
+<br/>
+
+<b>Requires:</b>  <span style="color:#083f91" textcolor="#083f91"><b>Subtitle Edit (Free Subtitle Editing Software)</b></span><br/>
+
+<div style="" data-section-style='5' class=""><ul id='temp:C:dLa0565518ea4fa4d1ab7c4bf4d4'><li id='temp:C:dLaec85cd0b73684cc0a09bf28ad' class='' value='1'>Usually creates .SRT for Videos
+
+<br/></li><li id='temp:C:dLa7a9e01de3a5b4035bb223f922' class=''>We use it to create .LRC for Audio
+
+<br/></li></ul></div><b>Requires</b>:  <b><a href="https://play.google.com/store/apps/details?id=in.krosbits.musicolet&amp;hl=en_US&amp;gl=US"><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">Musicolet</span></a> (Free MP3 Player that allows you to view Lyrics)</b><br/>
+
+<div style="" data-section-style='5' class=""><ul id='temp:C:dLa4717bb7a9a5b4531a965653e0'><li id='temp:C:dLab70b1c9e808a499a8bf4b7877' class='' value='1'>Android Version (Maybe others?)
+
+<br/></li></ul></div><h3 id='temp:C:dLad0741206dd0d40079019e1de3'>Addendum:  After Batch Extract of All Subs(.srt) for all book/books: </h3>
+
+<div style="" data-section-style='5' class=""><ul id='temp:C:dLadc5cc279c2434540b15d19747'><li id='temp:C:dLa745a44c37ed7424a9f2997622' class='' value='1'><control data-remapped="true" id="temp:C:dLa4ed50cf0e7a84773840e2131e"><a href="https://quip.com/5ghxArNioCjc">Convert SRT to LRC (Subtitles to Lyrics)</a></control>
+
+<br/></li></ul></div><h2 id='temp:C:dLafc7f4c69a9b5446593de7af95'>Example of Adding English Subs to German MP3</h2>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:dLa3892fea99f704bbeb2447a598'><li id='temp:C:dLacf418167bb9648cabcc3c67b5' class='' value='1'>Open Empty <span style="color:#083f91" textcolor="#083f91"><b>Subtitle Edit </b></span>Window
+
+<br/></li><li id='temp:C:dLaac66e9da72674487831455028' class=''>Drag/Drop <b>MP3</b> into Play Window
+
+<br/></li><li id='temp:C:dLa0ab140c80edb4c798addf3b65' class=''>Click on the <b>Black Strip at the Bottom</b> (to add the Wave Form)
+
+<br/></li><li id='temp:C:dLa78e3a34f92a54bd385068cb29' class=''>Click Menu:  <b>Video </b>then<b> Video-Audio to Text</b>
+
+<br/></li><li id='temp:C:dLa23e725d4eb1f47a3afbbfce62' class=''>Click Ellipses <b>...</b>
+
+<br/></li><li id='temp:C:dLa0aa0fc019ccb4a0ab203475d6' class=''>Choose <b>German - Model Large</b> or whatever language you are translating into.
+
+<br/></li><li id='temp:C:dLab8adf198df7a4021b880a0ef4' class=''>Click <b>Download</b>
+
+<br/></li><li id='temp:C:dLa8f843681d0bc4352aa66fbe63' class=''>Choose the Language Model:  <b>vosk-model-de-(version)</b>
+
+<br/></li><li id='temp:C:dLa7f877e23c63e4adca1b9b3655' class=''>Click <b>Generate</b>
+
+<br/></li><li id='temp:C:dLa2b4c14f99bf44c14834c9f5e6' class='parent'>Wait for Program to Generate Subtitles
+
+<br/></li><ul><li id='temp:C:dLa92ec14577e2f47c6b34b52337' class=''>Loading/Transcribing (4min. to finish 20min.)
+
+<br/></li></ul></ul></div><h2 id='temp:C:dLae4899d9da2db4ecbb86297578'>Now to get the English Translation</h2>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:dLa070404886cd246b49efbf21fb'><li id='temp:C:dLa57a4d2dab0204b8caeb8e1a82' class='parent' value='1'>Menu: <b> Auto-Translate</b>
+
+<br/></li><ul><li id='temp:C:dLa8ecf151bbe194c74aaca66e38' class=''>Language: <b>English</b>
+
+<br/></li></ul><li id='temp:C:dLadd3cb07b1e3942fc9183d1cae' class=''>Click Translate.  <b>Click OK if message shows.</b>
+
+<br/></li><li id='temp:C:dLa1ed15c195b1348da97d2ad1b9' class=''>Check translation.  <b>Make corrections to Subs/Lyrics</b>.  (There are usually a lot)
+
+<br/></li><li id='temp:C:dLa6f7fc82f9fe24abcb1ea11e80' class=''>Save as a LRC or Lyric File  (Keep both English and German to create DUAL Lyrics: <b>below</b>)
+
+<br/></li></ul></div><pre id='temp:C:dLab37d0d5324c84f7d9a2e5bd01'><b>NOTE</b>:  The best Music Player for my Android Phone<br>        that allows LRC I have found is <a href="https://play.google.com/store/apps/details?id=in.krosbits.musicolet&amp;hl=en_US&amp;gl=US"><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">Musicolet</span></a><br>        Musicolet has <span bgcolor="#cfe1fc" style="background-color:#cfe1fc">SETTINGS</span> that need to be changed to <span bgcolor="#cfe1fc" style="background-color:#cfe1fc">view </span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">Lyrics</span> (LRC) <br>        There is what looks like a <span bgcolor="#cfe1fc" style="background-color:#cfe1fc">Page</span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc"> ICON</span> that allows you to <span bgcolor="#cfe1fc" style="background-color:#cfe1fc">view the </span><span bgcolor="#cfe1fc" style="background-color:#cfe1fc">Lyrics/Subs</span></pre>
+
+<h2 id='temp:C:dLa527ba19547ab4409b11d5fbac'><u>One further Step:  <span style="color:#083f91" textcolor="#083f91">Having both English and German available:</span></u></h2>
+
+<h3 id='temp:C:dLa160cc59fe4b6482fb3dcc5d20'>Save 1 file in German:</h3>
+
+01 of 19 - 2001 Odyssee Im Weltraum - Arthur C. Clarke - 1968.de.lrc<br/>
+
+<h3 id='temp:C:dLa6175ec8ac6bf47e1b8120795c'>Save 1 file in English:</h3>
+
+01 of 19 - 2001 Odyssee Im Weltraum - Arthur C. Clarke - 1968.en.lrc<br/>
+
+<br/>
+
+<h2 id='temp:C:dLaa34390b05e964365bb44b3dc9'>Merge the two using the type command </h2>
+
+<h3 id='temp:C:dLab335ae22f3394f84a7fad943a'>from the cmd (Windows command prompt) </h3>
+
+<pre id='temp:C:dLa877ff3c6524243b0908b01442'>1.  type "01 of 19 - 2001 Odyssee Im Weltraum - Arthur C. Clarke - 1968.de.lrc" <b>&gt;</b> "01 of 19<br>- 2001 Odyssee Im Weltraum - Arthur C. Clarke - 1968.lrc"<br>2.  type "01 of 19 - 2001 Odyssee Im Weltraum - Arthur C. Clarke - 1968.en.lrc" <b>&gt;&gt;</b> "01 of 19<br> - 2001 Odyssee Im Weltraum - Arthur C. Clarke - 1968.lrc"<br>3.  Open the Lyric file (.lrc) with NotePad++<br>4.  Edit/Line Operations/Sort as Numbers Ascending</pre>
+
+<h3 id='temp:C:dLa3d0f860ae241490cbb2683a94'>Or use the following Batch File: </h3>
+
+Click the two files and left click Open With(SendTo)  Concat.bat<br/>
+
+<h2 id='temp:C:dLaf88b716330f94128971083356'>Concat.bat</h2>
+
+<pre id='temp:C:dLa719beeeb52e74f929c02eefcb'>@Echo off<br>Setlocal enabledelayedexpansion<br><br>Set File1="%~n1%~x1"<br>Set File2="%~n2%~x2"<br>Set File3=!File1:~0,-8!.lrc"<br><br>type !File1! &gt; !File3!<br>type !File2! &gt;&gt; !File3!    </pre>
+
+<h3 id='temp:C:dLa8479e54ab3ae49268c33b3cd7'>A Couple of Fixes:</h3>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:dLab6a6c48c9a314c7aa9280851b'><li id='temp:C:dLa53eae647727a4dfaa4d86f2b9' class='' value='1'>Move the last line (the Title) to the first line <span bgcolor="#cfe1fc" style="background-color:#cfe1fc">after SORTING</span>
+
+<br/></li><li id='temp:C:dLa32072f20c4f0484abe0008db9' class=''>NOTE:  On Each line If you don’t care the order of ENG/GERM or GERM/ENG, (they will flip-flop based on which is alphabetically first), just leave things be.  Otherwise SLOG thru making the adjustment!
+
+<br/></li></ul></div><h2 id='temp:C:dLa98527df1a07e42f78e35c7f2d'>SEE <control data-remapped="true" id="temp:C:dLa382ce7360edf412fbbc1a3203"><a href="https://quip.com/EbmIAeY96shP">Sorting It Out - Addendum to MP3 Foreign Language Lyric Generator</a></control> </h2>
+
+<h2 id='temp:C:dLaf6c1f06201c04f8e8b9895142'>to FIX the Sorting order.</h2>
+
+<h3 id='temp:C:dLa7277fc851e6a431db8a632ef7'>Drop the Final .lrc file with the same name as your .mp3.</h3>
+
+<pre id='temp:C:dLa0ce6093a277740b4b3ebea97c'>DIRECTORY LISTING (Each mp3 has its corresponding lyric file)<br><br>01 of 19 - 2001 Odyssee Im Weltraum - Arthur C. Clarke - 1968.lrc<br>01 of 19 - 2001 Odyssee Im Weltraum - Arthur C. Clarke - 1968.mp3</pre>
+
+<h3 id='temp:C:dLa104df90fcf5c4aa79aa178e3b'>Result Sample (in the .lrc file) Starting (34.89 Seconds - 45.24 Seconds)</h3>
+
+<pre id='temp:C:dLae1b6ff286e574f14828047f76'>[00:34.89]Büchse der Pandora<br>[00:34.89]Pandoras Box<br>[00:36.36]<br>[00:36.36]<br>[00:36.66]Dachte Floyd.<br>[00:36.66]Floyd thought.<br>[00:37.66]<br>[00:37.66]<br>[00:37.89]And a dark premonition seized him.<br>[00:37.89]Und eine dunkle Vorahnung ergriff ihn.<br>[00:44.49]<br>[00:44.49]<br>[00:45.24]And what would you find inside?<br>[00:45.24]Und was würden Sie darin finden?</pre>
+
+<h2 id='temp:C:dLa3f06e776204c4e7281adc2e65'>Et Voila!  C’est Ca. Enjoy!</h2>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

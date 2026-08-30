@@ -1,0 +1,550 @@
+<!doctype html>
+<html><head><title>1st Step Prep - MkLink Batchfiles</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:UeD6e00e2038fb74b05aa140507f'>1st Step Prep - MkLink Batchfiles</h1>
+
+<h2 id='temp:C:UeD19c965e2aaed4cf7b7b6414ae'>Setting up a Virtual Path for Snap2HTML and Playlist Generator</h2>
+
+<h4 id='temp:C:UeD5a8178eacff44564a226dd81d'>Before (<a href="https://quip.com/DMueA65QLiEs/Four-MkLink-Batchfiles#temp:C:MMZec1a7c6105164b73aa2f5b601">After</a> is at the Bottom of this Document)</h4>
+
+<pre id='temp:C:UeDf513ae99951f4a62bbfa7f1a8'>C:\&gt;tree JELLYFIN_HOME<br>Folder PATH listing<br>Volume serial number is AA96-C106<br>C:\JELLYFIN_HOME<br>├───HDD-1<br>├───HDD-2<br>├───HDD-3<br>├───HDD-4<br>└───HDD-5</pre>
+
+<h3 id='temp:C:UeD114fbc62db3445ae90d6fa399'>HDD-1 Script</h3>
+
+<pre id='temp:C:UeD8d99b0fb4c0c4b90b6018225a'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME\HDD-1<br>REM FIRST HDD<br>REM F:\<br><br>mklink /j "C:\JELLYFIN_HOME\HDD-1\ANIMATED Movies A-L" "F:\ANIMATED Movies A-L"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\ANIMATED Movies M-Z" "F:\ANIMATED Movies M-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\ANIMATED SEQUELS" "F:\ANIMATED SEQUELS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\ANIMATED Series" "F:\ANIMATED Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\AUDIOBOOKS" "F:\AUDIOBOOKS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\AWARD WINNING Movies" "F:\AWARD WINNING Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\BOOKS-TXT-PDF-LIT-MOBI" "F:\BOOKS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\CHRISTMAS Movies" "F:\CHRISTMAS Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\CHRISTMAS Movies and Shows" "F:\CHRISTMAS Movies and Shows"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\CLASSIC Series" "F:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\COMEDY and DRAMATIC Series" "F:\COMEDY and DRAMATIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\COMEDY Movies A-M" "F:\COMEDY Movies A-M"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\COMEDY Movies N-Z" "F:\COMEDY Movies N-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\FANTASY Movies" "F:\FANTASY Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\FANTASY Series" "F:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\FOREIGN Movies" "F:\FOREIGN Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\HORROR Movies" "F:\HORROR Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\MUSICALS" "F:\MUSICALS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\REALITY Movies" "F:\REALITY Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\REALITY Series" "F:\REALITY Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\RELIGIOUS" "F:\RELIGIOUS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\SCI-FI Movies A-R" "F:\SCI-FI Movies A-R"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\SCI-FI Movies S-Z" "F:\SCI-FI Movies S-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\SCI-FI Series" "F:\SCI-FI Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\SPY and Kick Ass Movies" "F:\SPY and Kick Ass Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\STAND-UP Comedy" "F:\STAND-UP Comedy"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\SUPER HERO Movies" "F:\SUPER HERO Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\SUPER-HERO Series" "F:\SUPER-HERO Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\WESTERN Series" "F:\WESTERN Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-1\YouTube Videos" "F:\YouTube Videos"<br></pre>
+
+<h3 id='temp:C:UeD8be24308279c4f709925700f9'>HDD-2 Script</h3>
+
+<pre id='temp:C:UeDf5f0b67eb8474a60addac43ce'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME\HDD-2<br>REM SECOND HDD<br>REM G:\<br><br>mklink /j "C:\JELLYFIN_HOME\HDD-2\ANIMATED Adult Movies" "G:\ANIMATED Adult Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\ANIMATED Adult Series" "G:\ANIMATED Adult Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\ANIMATED Movies A-L" "G:\ANIMATED Movies A-L"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\ANIMATED Movies M-Z" "G:\ANIMATED Movies M-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\ANIMATED Sequels" "G:\ANIMATED Sequels"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\ANIMATED Series" "G:\ANIMATED Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\AWARD WINNING Movies" "G:\AWARD WINNING Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\CHRISTMAS Movies" "G:\CHRISTMAS Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\CLASSIC Movies" "G:\CLASSIC Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\CLASSIC Series" "G:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\COMEDY and DRAMATIC Series" "G:\COMEDY and DRAMATIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\COMEDY Movies A-M" "G:\COMEDY Movies A-M"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\COMEDY Movies N-Z" "G:\COMEDY Movies N-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\DOCU-MOVIES" "G:\DOCU-MOVIES"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\DOCU-SERIES" "G:\DOCU-SERIES"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\FANTASY Movies" "G:\FANTASY Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\FANTASY Series" "G:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\FOREIGN Movies" "G:\FOREIGN Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\HORROR Movies" "G:\HORROR Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\MUSICALS" "G:\MUSICALS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\REALITY Movies" "G:\REALITY Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\REALITY Series" "G:\REALITY Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\RELIGIOUS" "G:\RELIGIOUS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\SCI-FI Movies A-R" "G:\SCI-FI Movies A-R"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\SCI-FI Movies S-Z" "G:\SCI-FI Movies S-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\SCI-FI Series" "G:\SCI-FI Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\SPY and Kick Ass Movies" "G:\SPY and Kick Ass Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\STAND-UP Comedy" "G:\STAND-UP Comedy"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\SUPER HERO Movies" "G:\SUPER HERO Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\SUPER-HERO Series" "G:\SUPER-HERO Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\WESTERN Movies" "G:\WESTERN Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-2\WESTERN Series" "G:\WESTERN Series"<br></pre>
+
+<h3 id='temp:C:UeD380721cc06f1426abde3397b1'>HDD-3 Script</h3>
+
+<pre id='temp:C:UeDc27ad854735845e99c544f8cc'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME\HDD-3<br>REM THIRD HDD<br>REM H:\<br><br>mklink /j "C:\JELLYFIN_HOME\HDD-3\ANIMATED Adult Movies" "H:\ANIMATED Adult Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\ANIMATED Adult Series" "H:\ANIMATED Adult Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\ANIMATED Movies A-L" "H:\ANIMATED Movies A-L"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\ANIMATED Movies M-Z" "H:\ANIMATED Movies M-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\ANIMATED Series" "H:\ANIMATED Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\ANIMATED Shorts" "H:\ANIMATED Shorts"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\AUDIOBOOKS" "H:\AUDIOBOOKS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\AWARD WINNING Movies" "H:\AWARD WINNING Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\CLASSIC Movies" "H:\CLASSIC Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\CLASSIC Series" "H:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\COMEDY and DRAMATIC Series" "H:\COMEDY and DRAMATIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\COMEDY Movies A-M" "H:\COMEDY Movies A-M"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\COMEDY Movies N-Z" "H:\COMEDY Movies N-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\DOCU-MOVIES" "H:\DOCU-MOVIES"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\DOCU-SERIES" "H:\DOCU-SERIES"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\FANTASY Movies" "H:\FANTASY Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\FANTASY Series" "H:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\FOREIGN Movies" "H:\FOREIGN Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\GREAT COURSES" "H:\GREAT COURSES"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\HORROR Movies" "H:\HORROR Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\MUSICALS" "H:\MUSICALS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\REALITY Movies" "H:\REALITY Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\REALITY Series" "H:\REALITY Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\RELIGIOUS Series" "H:\RELIGIOUS Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\SCI-FI Movies" "H:\SCI-FI Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\SCI-FI Movies A-R" "H:\SCI-FI Movies A-R"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\SCI-FI Movies S-Z" "H:\SCI-FI Movies S-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\SPY and Kick Ass Movies" "H:\SPY and Kick Ass Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\STAND-UP Comedy" "H:\STAND-UP Comedy"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\SUPER HERO Movies" "H:\SUPER HERO Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\SUPER-HERO Series" "H:\SUPER-HERO Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\Veggie Tales" "H:\Veggie Tales"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\WESTERN Movies" "H:\WESTERN Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\WESTERN Series" "H:\WESTERN Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-3\YouTube Videos" "H:\YouTube Videos"<br></pre>
+
+<h3 id='temp:C:UeDd8241e3eca0c48d5be795fd7c'>HDD-4 Script</h3>
+
+<pre id='temp:C:UeD25c0fa3e81c74dcb85124f69e'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME\HDD-4<br>REM FOURTH HDD<br>REM I:\<br><br>mklink /j "C:\JELLYFIN_HOME\HDD-4\ANIMATED Adult Movies" "I:\ANIMATED Adult Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\ANIMATED Adult Series" "I:\ANIMATED Adult Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\ANIMATED Movies A-L" "I:\ANIMATED Movies A-L"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\ANIMATED Movies M-Z" "I:\ANIMATED Movies M-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\ANIMATED Series" "I:\ANIMATED Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\Award Winning Movies" "I:\Award Winning Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\CLASSIC Movies" "I:\CLASSIC Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\CLASSIC Series" "I:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\COMEDY and DRAMATIC Series" "I:\COMEDY and DRAMATIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\COMEDY Movies A-M" "I:\COMEDY Movies A-M"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\COMEDY Movies N-Z" "I:\COMEDY Movies N-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\DOCU-MOVIES" "I:\DOCU-MOVIES"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\DOCU-SERIES" "I:\DOCU-SERIES"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\FANTASY Movies" "I:\FANTASY Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\FANTASY Series" "I:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\FOREIGN Movies" "I:\FOREIGN Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\HORROR Movies" "I:\HORROR Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\MUSICALS" "I:\MUSICALS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\REALITY Movies" "I:\REALITY Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\REALITY Series" "I:\REALITY Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\RELIGIOUS" "I:\RELIGIOUS"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\SCI-FI Movies" "I:\SCI-FI Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\SCI-FI Movies A-R" "I:\SCI-FI Movies A-R"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\SCI-FI Movies S-Z" "I:\SCI-FI Movies S-Z"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\SCI-FI Series" "I:\SCI-FI Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\SPY and Kick Ass Movies" "I:\SPY and Kick Ass Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\SUPER HERO Movies" "I:\SUPER HERO Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\SUPER-HERO Series" "I:\SUPER-HERO Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-4\WESTERN Movies" "I:\WESTERN Movies"</pre>
+
+<h3 id='temp:C:UeDa42022b789734baf8eca44b3d'>HDD-5 Script</h3>
+
+<pre id='temp:C:UeD50356c41840846259bf0e4819'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME\HDD-5<br>REM FIFTH HDD<br>REM J:\<br><br>mklink /j "C:\JELLYFIN_HOME\HDD-5\Award Winning Movies" "J:\Award Winning Movies"<br>mklink /j "C:\JELLYFIN_HOME\HDD-5\CLASSIC Series" "J:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-5\COMEDY and DRAMATIC Series" "J:\COMEDY and DRAMATIC Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-5\FANTASY Series" "J:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-5\SCI-FI Series" "J:\SCI-FI Series"<br>mklink /j "C:\JELLYFIN_HOME\HDD-5\SUPER HERO Movies" "J:\SUPER HERO Movies"<br></pre>
+
+<br/>
+
+<h4 id='temp:C:UeD38e56ccb8b924b60a0f16e8d7'>After</h4>
+
+<pre id='temp:C:UeDf80db03bbcd8449aa0c7047d2'>C:\&gt;tree JELLYFIN_HOME<br>Folder PATH listing<br>Volume serial number is AA96-C106<br>C:\JELLYFIN_HOME<br>├───HDD-1<br>│   ├───ANIMATED Movies A-L<br>│   ├───ANIMATED Movies M-Z<br>│   ├───ANIMATED SEQUELS<br>│   │   ├───CARS (3)<br>│   │   ├───Cloudy with a chance of Meatballs (2)<br>│   │   ├───Despicable Me (3)<br>│   │   ├───Fantasia (2)<br>│   │   ├───Frozen (2)<br>│   │   ├───Happy Feet (2)<br>│   │   ├───How to Train Your Dragon (3)<br>│   │   ├───Ice Age (5)<br>│   │   ├───Kung Fu Panda (3)<br>│   │   ├───LEGO Movies (3)<br>│   │   ├───LEGO Star Wars (6)<br>│   │   ├───Muppet Movies (7)<br>│   │   ├───Paddington (2)<br>│   │   ├───Sing (2)<br>│   │   ├───STUDIO GHIBLI<br>│   │   ├───The Boss Baby (2)<br>│   │   ├───The Croods (2)<br>│   │   ├───The Incredibles (2)<br>│   │   ├───The Secret Life of Pets (2)<br>│   │   ├───Toy Story (4)<br>│   │   ├───Trolls (2)<br>│   │   └───TRON (2)<br>│   ├───ANIMATED Series<br>│   │   ├───Disenchantment<br>│   │   │   ├───metadata<br>│   │   │   ├───Season 1<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 2<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 3<br>│   │   │   │   └───metadata<br>│   │   │   └───Season 4<br>│   │   │       └───metadata<br>│   │   ├───Futurama<br>│   │   │   ├───Season 01<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 02<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 03<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 04<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 05<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 06<br>│   │   │   │   └───metadata<br>│   │   │   └───Season 07<br>│   │   │       └───metadata<br>│   │   ├───Green Eggs and Ham<br>│   │   │   ├───metadata<br>│   │   │   └───Season 1<br>│   │   │       └───metadata<br>│   │   ├───Monsters at Work<br>│   │   │   └───Season 1<br>│   │   │       └───metadata<br>│   │   ├───Shaun the Sheep<br>│   │   │   ├───metadata<br>│   │   │   ├───Season 1<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 2<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 3<br>│   │   │   │   └───metadata<br>│   │   │   ├───Season 4<br>│   │   │   │   └───metadata<br>│   │   │   └───Season 5<br>│   │   │       └───metadata<br>│   │   └───Star Trek - The Animated Series<br>│   │       ├───Season 1<br>│   │       │   └───metadata<br>│   │       └───Season 2<br>│   │           └───metadata<br>│   ├───AUDIOBOOKS<br>│   │   ├───100 Best Sci-Fi Audiobooks - Selections<br>│   │   │   ├───1 - Ender's Game - Orson Scott Card - 1985<br>│   │   │   ├───10 - I, Robot - Isaac Asimov - 1950<br>│   │   │   ├───11 - Neuromancer - William Gibson - 1984<br>│   │   │   ├───12 - Do Androids Dream of Electric Sheep - Philip K Dick - 1968<br>│   │   │   ├───15 - Hyperion - Dan Simmons - 1989<br>│   │   │   ├───17 - The Time Machine - H G Wells - 1895<br>│   │   │   ├───18 - Childhood's End - Arthur C Clarke - 1954<br>│   │   │   ├───19 - The Moon is a Harsh Mistress - Robert A Heinlein - 1966<br>│   │   │   ├───1996 - The Green Mile (read by Frank Muller)<br>│   │   │   ├───2 - Dune - Frank Herbert - 1965<br>│   │   │   ├───20 - The War of the Worlds - H G Wells - 1898<br>│   │   │   ├───21 - The Forever War - Joe Haldeman - 1974<br>│   │   │   ├───22 - The Martian Chronicles - Ray Bradbury - 1950<br>│   │   │   ├───23 - Slaughterhouse Five - Kurt Vonnegut - 1969<br>│   │   │   ├───25 - The Mote in God's Eye - Niven &amp; Pournelle - 1975<br>│   │   │   ├───26 - The Left Hand of Darkness - Ursula K Le Guin - 1969<br>│   │   │   ├───27 - Speaker for the Dead - Orson Scott Card - 1986<br>│   │   │   ├───28 - Jurassic Park - Michael Crichton - 1990<br>│   │   │   ├───29 - The Man in the High Castle - Philip K Dick - 1962<br>│   │   │   ├───3- Foundation - Isaac Asimov - 1951<br>│   │   │   ├───30 - The Caves of Steel - Isaac Asimov - 1954<br>│   │   │   ├───31 - The Stars My Destination - Alfred Bester - 1956<br>│   │   │   ├───33 - Lord of Light - Roger Zelazny - 1967<br>│   │   │   ├───34 - Solaris - Lem Stanislaw - 1961<br>│   │   │   ├───36 - A Wrinkle in Time - Madelein L'Engle - 1962<br>│   │   │   ├───38 - Contact - Carl Sagan - 1985<br>│   │   │   ├───39 - The Andromeda Strain - Michael Crichton - 1969<br>│   │   │   ├───4 - Hitchhiker's Guide to the Galaxy - Douglas Adams - 1979<br>│   │   │   ├───4 - Hitchhiker's Guide to the Galaxy - Douglas Adams - 1979 - (20)<br>│   │   │   ├───43 - The Day of the Triffids - John Wyndham - 1951<br>│   │   │   ├───44 - UBIK - Philip K Dick - 1969<br>│   │   │   ├───45 - Time Enough For Love - Robert A Heinlein - 1973<br>│   │   │   ├───46 - A Clockwork Orange - Anthony Burgess - 1962<br>│   │   │   ├───47 - Red Mars - Kim Stanley Robinson - 1992<br>│   │   │   ├───48 - Flowers for Algernon - Daniel Keyes<br>│   │   │   ├───49 - A Canticle for Leibowitz - Walter M Miller - 1959<br>│   │   │   ├───4th Element Series - Kat Ross<br>│   │   │   │   ├───Bk 1 The Midnight Sea - 20 min<br>│   │   │   │   ├───Bk 2 Blood of the Prophet - 20 min<br>│   │   │   │   └───Bk 3 Queen of Chaos - 20 min<br>│   │   │   ├───5 - 1984 - George Orwell - 1949<br>│   │   │   ├───50 - The End of Eternity - Isaac Asimov - 1955<br>│   │   │   ├───51 - Battlefield Earth - L Ron Hubbard - 1982<br>│   │   │   ├───52 - Frankenstein - Mary Shelley - 1818<br>│   │   │   ├───53 - Journey to the Center of the Earth - Jules Verne - LIBRIVOX - 1864<br>│   │   │   ├───55 - The Diamond Age - Neal Stephenson - 1995<br>│   │   │   ├───58 - Startide Rising - David Brin - 1983<br>│   │   │   ├───6 - Stranger in a Strange Land - Robert A Heinlein - 1961<br>│   │   │   ├───60 - Eon - Greg Bear - 1985<br>│   │   │   ├───61 - Ender's Shadow - Orson Scott Card - 1999<br>│   │   │   ├───67 - The Stainless Steel Rat - Harry Harrison - 1961<br>│   │   │   ├───70 - Sphere - Michael Crichton - 1987<br>│   │   │   ├───77 - The Invisible Man - H G Wells - LIBRIVOX - 1897<br>│   │   │   ├───78 - Have Space-Suit Will Travel - Robert A Heinlein - 1958<br>│   │   │   ├───81 - A Princess of Mars - Edgar Rice Burroughs - 1912<br>│   │   │   ├───82 - The Lathe of Heaven - Ursula K Le Guin - 1971<br>│   │   │   ├───85 - Way Station - Clifford Simak - 1963<br>│   │   │   ├───86 - Flatland - Edwin A Abbott - 1884<br>│   │   │   ├───87 - Altered Carbon - Richard Morgan - 2002<br>│   │   │   ├───88 - Old Man's War - John Scalzi - 2005<br>│   │   │   ├───9 - Starship Troopers - Robert A Heinlein - 1959<br>│   │   │   └───91 - The Postman - David Brin - 1985<br>│   │   ├───2001 2010 2061 A Space Odyssey<br>│   │   │   ├───01 - 2001 A Space Odyssey - Arthur C Clarke - 1968<br>│   │   │   ├───02 - 2010 Odyssey Two - 1983<br>│   │   │   └───03 - 2061 Odyssey Three - 1988<br>│   │   ├───2022<br>│   │   │   ├───1st and 2nd Book of Adam and Eve (1927)<br>│   │   │   ├───Beyond the Blue Event Horizon (1980) - Frederik Pohl<br>│   │   │   ├───Bones of the Earth (2002) - Michael Swanwick<br>│   │   │   ├───Casanova read by Benedict Cumberbatch (1998)<br>│   │   │   ├───Gather Darkness (1950) - Fritz Leiber<br>│   │   │   ├───Invaders (2016) - 1 of 4 - Vaughn Heppner<br>│   │   │   ├───Lux Series (2021) -  Jennifer L Armentrout<br>│   │   │   ├───Star Carrier Deep Time (2015) - 6 of 9 - Ian Douglas<br>│   │   │   ├───The Awakening (2015) - K E Ganshert<br>│   │   │   └───The Quantum Thief (2010) - Hannu Rajaniemi<br>│   │   ├───A Brief History of Time(1988) - S Hawking<br>│   │   ├───A History of the World in 50 of 100 objects(2010) - Neil MacGreggor<br>│   │   ├───Alex Craft Grave Witch Series (5 of 7)<br>│   │   │   ├───01 Grave Witch(2010)<br>│   │   │   ├───02 Grave Dance(2011)<br>│   │   │   ├───03 Grave Memory(2012)<br>│   │   │   ├───04 Grave Visions(2016)<br>│   │   │   └───05 Grave Ransom(2017)<br>│   │   ├───Anne McCaffrey<br>│   │   │   ├───Acorna<br>│   │   │   │   ├───1 Acorna<br>│   │   │   │   ├───2 Acorna's Quest<br>│   │   │   │   ├───3 Acorna's People<br>│   │   │   │   ├───4 Acorna's World<br>│   │   │   │   ├───5 Acorna's Search<br>│   │   │   │   ├───6 Acorna's Rebels<br>│   │   │   │   ├───7 Acorna's Triumph<br>│   │   │   │   ├───Acorna The Unicorn Girl<br>│   │   │   │   ├───Acorna's Quest (dled)<br>│   │   │   │   ├───First Warning<br>│   │   │   │   └───Second Wave<br>│   │   │   ├───Anne McCaffrey (Pern)<br>│   │   │   │   ├───Pern01 - Dragonflight<br>│   │   │   │   ├───Pern02 - Dragonquest<br>│   │   │   │   ├───Pern03 - Dragonsong<br>│   │   │   │   ├───Pern04 - Dragonsinger<br>│   │   │   │   ├───Pern05 - Dragondrums<br>│   │   │   │   └───Pern06 - The White Dragon<br>│   │   │   ├───Anne McCaffrey - Crystal Singer Series<br>│   │   │   │   ├───01 Crystal Singer<br>│   │   │   │   ├───02 Killashandra<br>│   │   │   │   └───03 Crystal Line<br>│   │   │   ├───Anne McCaffrey - Dragons of Pern Series<br>│   │   │   │   ├───01 - Dragonflight<br>│   │   │   │   ├───02 - Dragonquest<br>│   │   │   │   ├───03 - The White Dragon<br>│   │   │   │   ├───04 Moreta Dragonlady of Pern (1983) Late 6th Pass - 1550 years after landing<br>│   │   │   │   ├───05 Dragons Dawn (1988) - 1st Pass - 0 to 50 years after landing (AL)<br>│   │   │   │   ├───06 Nerikas Story (1986) - 6th Pass - coincident with Moreta<br>│   │   │   │   ├───07 Renegades of Pern (1989) - 9th Pass<br>│   │   │   │   └───Harpers of Pern<br>│   │   │   │       ├───01 Dragon Song (1976) sim Dragonquest<br>│   │   │   │       ├───02 Dragon Singer (1977) 7 days after Dragon Song<br>│   │   │   │       └───03 Dragon Drums (1979) before end of White Dragon<br>│   │   │   ├───Doona<br>│   │   │   │   ├───D1 Decision at Doona<br>│   │   │   │   ├───D2 Crisis on Doona<br>│   │   │   │   └───D3 Treaty at Doona<br>│   │   │   ├───Dragon Riders of Pern<br>│   │   │   │   ├───01 Dragon Flight (1968) 9th Pass<br>│   │   │   │   ├───02 Dragon Quest (1970) 9th Pass<br>│   │   │   │   ├───03 The White Dragon (1978) 9th Pass<br>│   │   │   │   ├───04 Moreta Dragonlady of Pern (1983) Late 6th Pass - 1550 years after landing<br>│   │   │   │   ├───05 Dragons Dawn (1988) - 1st Pass - 0 to 50 years after landing (AL)<br>│   │   │   │   ├───06 Nerikas Story (1986) - 6th Pass - coincident with Moreta<br>│   │   │   │   └───07 Renegades of Pern (1989) - 9th Pass<br>│   │   │   ├───Freedom<br>│   │   │   │   ├───Freedom Series - Book 01 - Freedoms Landing<br>│   │   │   │   ├───Freedom Series - Book 02 - Freedom's Choice<br>│   │   │   │   ├───Freedom Series - Book 03 - Freedom's Challenge<br>│   │   │   │   ├───Freedom Series - Book 04 - Freedom's Ransom<br>│   │   │   │   ├───Freedom's Challenge<br>│   │   │   │   ├───Freedom's Landing<br>│   │   │   │   ├───Freedom's Ransom<br>│   │   │   │   ├───Freedoms Choice<br>│   │   │   │   └───McCaffrey - Catteni  - Book 02 - Freedoms Choice<br>│   │   │   ├───Harpers of Pern<br>│   │   │   │   ├───01 Dragon Song (1976) sim Dragonquest<br>│   │   │   │   ├───02 Dragon Singer (1977) 7 days after Dragon Song<br>│   │   │   │   └───03 Dragon Drums (1979) before end of White Dragon<br>│   │   │   ├───Ireta - Pirate Planet<br>│   │   │   │   ├───Book 01 - Dinosaur Planet<br>│   │   │   │   ├───Dinosaur Planet<br>│   │   │   │   ├───Dinosaur Planet Survivors<br>│   │   │   │   ├───Generation Warriors<br>│   │   │   │   ├───Sassinak<br>│   │   │   │   └───The Death of Sleep<br>│   │   │   ├───Non-Series<br>│   │   │   │   ├───A Quiet One<br>│   │   │   │   ├───Anne McCaffrey - If Madam Likes You - Novella<br>│   │   │   │   ├───Black Horses For The King<br>│   │   │   │   ├───Nimisha's Ship<br>│   │   │   │   ├───Nimisha's Ship (dled)<br>│   │   │   │   ├───Restoree<br>│   │   │   │   ├───The Carradyne Touch<br>│   │   │   │   └───The Coelura<br>│   │   │   ├───Pegasus Series<br>│   │   │   │   ├───1 To Ride Pegasus<br>│   │   │   │   ├───2 Pegasus in Flight<br>│   │   │   │   ├───3 Pegasus in Space<br>│   │   │   │   └───Pegasus in Space mp3cd<br>│   │   │   ├───PTB<br>│   │   │   │   ├───Anne McCaffrey - Twins of Petaybee 02 - Maelstrom<br>│   │   │   │   ├───P1 Powers That Be<br>│   │   │   │   ├───P2 Power Lines<br>│   │   │   │   ├───P3 Power Play<br>│   │   │   │   ├───P4 Changelings<br>│   │   │   │   └───P5 Maelstrom<br>│   │   │   └───Talents<br>│   │   │       ├───T1 The Rowan<br>│   │   │       └───T2 Damia<br>│   │   ├───Anne Rice<br>│   │   │   ├───-Anne Rice ebooks<br>│   │   │   │   ├───Beauty<br>│   │   │   │   ├───The Mayfair Witches<br>│   │   │   │   └───Vampires<br>│   │   │   ├───-Short fiction<br>│   │   │   │   └───1982 - The Master of Rampling Gate<br>│   │   │   ├───1976 - Interview With the Vampire (Vampire Chronicles 1)<br>│   │   │   ├───1982 - Cry to Heaven<br>│   │   │   │   ├───1_ Part I<br>│   │   │   │   ├───2_ Part II<br>│   │   │   │   ├───3_ Part III<br>│   │   │   │   ├───4_ Part IV<br>│   │   │   │   ├───5_ Part V<br>│   │   │   │   ├───6_ Part VI<br>│   │   │   │   └───7_ Part VII<br>│   │   │   ├───1983 - The Claiming of Sleeping Beauty (Beauty 1)<br>│   │   │   ├───1984 - Beauty's Punishment (Beauty 2)<br>│   │   │   ├───1985 - Beauty's Release (Beauty 3)<br>│   │   │   ├───1985 - Exit to Eden<br>│   │   │   ├───1985 - The Vampire Lestat (Vampire Chronicles 2)<br>│   │   │   │   ├───1_ Part I - Lelio Rising<br>│   │   │   │   ├───1_ Part II - The Legacy of Magnus<br>│   │   │   │   ├───1_ Part III - Viaticum for the Marquise<br>│   │   │   │   ├───1_ Part IV - The Children of Darkness<br>│   │   │   │   ├───1_ Part V - The Vampire Armand<br>│   │   │   │   ├───1_ Part VI - On the Devil's Road From Paris to Cairo<br>│   │   │   │   └───1_ Part VII - Ancient Magic, Ancient Mysteries<br>│   │   │   ├───1986 - Belinda<br>│   │   │   │   ├───1_ Part I - The World of Jeremy Walker<br>│   │   │   │   ├───2_ Part II - And Introducing Belinda<br>│   │   │   │   └───3_ Part III - The Champagne Flight<br>│   │   │   ├───1988 - The Queen of the Damned (Vampire Chronicles 3)<br>│   │   │   ├───1989 - The Mummy or Ramses the Damned<br>│   │   │   └───1990 - The Witching Hour (Mayfair Witches 1)<br>│   │   │       ├───1_ Part I - Come Together<br>│   │   │       ├───2_ Part II - The Mayfair Witches<br>│   │   │       ├───3_ Part III - Come Into My Parlor<br>│   │   │       └───4_ Part IV - The Devil's Bride<br>│   │   ├───Art Bell<br>│   │   │   ├───Aliens in the Bible<br>│   │   │   ├───D. Brinkley Near Death Experiences<br>│   │   │   ├───Dr Lorraine Day 1999<br>│   │   │   ├───Dreamland - UFO Abduction<br>│   │   │   ├───George Carlin Interview 1999<br>│   │   │   ├───John Titor - Time Travel<br>│   │   │   ├───Malachi Martin Last Interview 1998<br>│   │   │   ├───Night Terrors and Dreams<br>│   │   │   └───Shadow People<br>│   │   ├───Art Bell - Coast to Coast AM - Most Used Bumber Music<br>│   │   ├───Art Bell Matrix CDs<br>│   │   │   ├───'Victor'_and_Area_51_-_05-23-97_-_Sean_David_Morton_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───1995_classic_Ghost_to_Ghost_-_10-30-95_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───2003_Predictions_Art's_Farewell_Show_-_12-31-02_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───2004_Trends_for_2004_-_01-18-04_-_Gerald_Celente_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Abduction_Enigmas_-_05-09-04_-__Budd_Hopkins_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Aliens,_Demons_and_Souls_-_10-10-04_-__Zeph_Daniel_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Aliens_and_Disclosure_-_06-25-05_-__Robert_O._Dean_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Aliens_in_the_Solar_System_-_09-26-04_-_David_Darling_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Alien_Communications_classic_-_07-21-98_-__Alex_Collier_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Alien_Investigations_-_02-10-98_-_Derrel_Sims_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Alien_Vehicles_-_11-07-04_-_Bill_McDonald_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Amityville_Horror'_Case_[classic]_-_12-27-02_-_George_Lutz_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Ancient_Cosmology_-_03-13-01_-__Richard_Thompson_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Ancient_Evidence_[classic]_-_10-23-02_-_Graham_Hancock_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Antigravity_-_03-14-04_-_Nick_Cook_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───An_Extraordinary_Career_[classic]_-_04-26-96_-_Dr._Edgar_Mitchell_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Area_51_and_UFOs_[classic]_-_06-06-02_-_Bob_Lazar_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Area_51_Employees_Call-in_[classic]_-_09-11-97_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───A_Dark_Future_-_02-08-04_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───A_Dire_Forecast_-_11-21-04_-_Evelyn_Paglini_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───A_Hellish_NDE_-_05-03-01_-_Rev._Howard_Storm_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───A_Pretext_for_War_(with_Iraq)_-_07-31-04_-_James_Bamford_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───B.Cook_and_B.McBeath_-_11-18-05_-_EVP_in_the_House_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Barbara_McBeath_EVPs_-_02-07-04_-_Brendan_Cook_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Best_of_Open_Lines_[classic]_-_08-29-97_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Biblical_History_-_11-26-98_-_Father_Charles_Moore_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Biblical_History_[classsic]_-_11-26-98_-_Father_Charles_Moore_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Biblical_Prophecy_-_02-09-99_-__Hal_Lindsey_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Biocommunication_-_10-03-04_-_Cleve_Backster_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Biotechnology_Developments_-_04-17-04_-_Michael_Fumento_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Bloodlines_and_Control_[classic]_-_11-11-98_-__David_Icke_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Bottomless_Hole_[classic]_-_01-29-02_-_Mel_Waters_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Cancer_Recovery_(classic)_-_03-15-99_-__Dr._Lorraine_Day_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Chemtrails_and_Weather_Modification_-_09-18-04_-_Will_Thomas_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───China_and_U.S._War_Scenarios_-_07-18-04_-__Charles_Smith_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Civilization,_Space_and_String_Theory_-_01-22-06_-_Michio_Kaku_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Climate_Change_-_05-29-04_-_Robert_Felix_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Consciousness_and_Psi_-_06-26-05_-_Dean_Radin_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Controlled_Remote_Viewing_-_01-10-04_-_Lyn_Buchanan_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Cosmology_and_Evolution_-_04-11-04_-_James_Gardner_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───D.Wilcock_-_Time_of_Global_Shift_-_04-30-01_-_S.Mandelker_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Dangerous_Animals_-_05-28-98_-_Don_Zaidle_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───David_Bannon_BPL_and_Interpol_-_03-20-04_-_Jim_Haynie_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Detective_Work_[classic]_-_02-02-99_-_Ed_Pankau_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Disaster_in_Space_-_10-02-04_-_Dr._Tess_Gerritsen_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Disclosure,_Contact_and_Energy_-_08-08-04_-_Steven_Greer_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Earth_and_Universe_-_05-08-04_-_Guillermo_Gonzales_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Earth_Change_Prophecy_[classic]_-_05-08-98_-_Lori_Toye_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───EBEs_and_Spacecraft_-_12-07-03_-_William_Louis_McDonald_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───ET_Information_-_04-25-04_-_George_Green_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───EVP_-_06-19-04_-_B._Cook_and_B._McBeath_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───EVP_2002_-_11-08-02_-_B.Cook_and_B._McBeath_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Exorcisms,_Satan_and_The_Occult_-_05-15-01_-_Bob_Larson_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Exorcism_and_Possession_-_12-17-02_-_Father_Malachi_Martin_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Exploring_Alien_Experience_[classic]_-_04-18-01_-_John_Mack_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Finding_UFOs_-_07-25-04_-_Peter_Davenport_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Fossils_on_Mars_-_04-18-04_-_Sir_Charles_Shults_III_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Free_Energy_1997_-_06-10-97_-__Eugene_Mallove_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Future_of_Earth_-_05-15-04_-__Richard_Hoagland,_David_Wilcock_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Future_Technology_-_02-29-04_-_Jan_Hodges_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───George_Carlin_and_Government_Agents_[classic]_-_11-10-99_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Ghost-to-Ghost-2005_-_10-31-05_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Ghost-to-Ghost_2000_[classic]_-_04-25-02_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Ghost-to-Ghost_2004_-_10-31-04_-_SPIRICOM_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Global_Warming_and_Climate_Change_-_03-06-04_-_Jim_Motavalli_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Halloween_1996_[classic]_-_10-30-96_-_Ghost_to_Ghost_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Harlot_Speaks_-_10-23-97_-_Dark_Witch_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Harlot_Speaks_[classic]_-_10-23-97_-_The_Dark_Witch_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───His_predictions_for_2004_-_01-31-04_-_Sean_David_Morton_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Hopi_Elders_Speak_-_06-15-98_-_Robert_Ghostwolf_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Human_Consciousness_-_10-23-04_-__J.J._Hurtak_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Intent_and_'The_Field'_-_09-12-04_-_Lynne_McTaggart_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Intuitive_-_05-20-99_-_Kevin_Ryerson_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Intuitive_[classic]_-_11-21-02_-_Gordon-Michael_Scallion_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Invisibility_Technology_[classic]_-_10-10-02_-_Ray_Alden_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Joe_Meyer_Economic_Armageddon_-_05-01-04_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───John_Lear_Interview_-_01-15-98_-_John_Lear_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Life_of_Einstein_-_05-16-04_-__Michio_Kaku_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Live_-_08-28-05_-__Hurricane_Katrina_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Living_off_the_Power_Grid_-_08-07-04_-_Richard_Perez_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Luciferian_Thought_Remote_Viewing_-_02-15-04_-_Aaron_Donahue_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Male_Extinction_-_05-02-04_-_Bryan_Sykes_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Martian_Fossils_-_06-06-04_-_Sir_Charles_Shults_III_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Mass_Consciousness_-_01-24-04_-_Dr._Garland_Landrith_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Mexican_UFOs_-_06-13-04_-_David_Sereda_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Murder_in_Brentwood_[classic]_-_09-04-97_-_Mark_Fuhrman_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Mysterious_Sightings_of_E._Texas_-_01-10-02_-_Rob_Riggs_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Nanomaterials_-_07-24-04_-_Bart_Kosko_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───NASA_career_and_UFOs_[classic]_-_09-09-99_-_Gordon_Cooper_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───NDEs_and_Sarah's_Hell_-_02-04-99_-_J.Long_and_T.McGill_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───NDE_Research_[classic]_-_08-19-98_-_Dr.J_Long_and_Dr.T_McGill_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Near_Death_Accounts_-_09-19-04_-_Dr._Jeff_Long_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Near_Death_Experiences_[classic]_-_01-03-97_-_D._Brinkley_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Near_Death_Experience_-_09-08-99_-_Betty_Eadie_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Nostradamus_and_Our_Future_-_07-03-04_-_John_Hogue_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Nuclear_9-11_-_08-21-04_-_Howard_Bloom_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Oil_Dependence_-_04-04-04_-_Richard_Heinberg_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Open_Lines_-_01-25-04_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Open_Lines_-_03-28-04_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Open_Lines_Antichrist_and_Time_Travelers_-_03-23-01_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Out-of-Body_Experiences_-_02-14-04_-_William_Buhlman_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Parapsychology_and_Hauntings_-_01-10-97_-_Dr._Barry_Taff_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Past_and_Future_Lives_-_12-11-04_-_Dr._Brian_Weiss_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Patch_Adams_Interview_-_05-07-01_-_Dr._Patch_Adams_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Philosophical_Physics_-_11-06-04_-_Dr._Anthony_Rizzi_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Physics_of_the_Universe_-_02-28-04_-_Brian_Greene_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Planet_X,_Comets_and_More_-_12-12-04_-_James_McCanney_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Practicing_Witchcraft_[classic]_-_07-16-97_-_Dr._Evelyn_Paglini_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Preston_Nichols_1994_-_11-13-05_-_Rebroadcast_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Prophecy_-_01-20-99_-_Arvol_Looking_Horse_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Psi_Evidence_-_06-20-04_-_Dean_Radin_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Psychedelic_Drugs_-_07-10-04_-_Daniel_Pinchbeck_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Psychic_Forecasts_-_09-25-04_-_Sean_David_Morton_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Psychoactive_Plants_-_03-08-01_-_Dr._Dennis_McKenna_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───R._Raith_-_The_Captured_Alien_[classic]_-_12-09-99_-_J._Reed_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Rare_Earth_Hypothesis_-_04-03-04_-_Peter_Ward_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Rebroadcast_of_Ghost-to-Ghost_from_'93_-_10-30-05_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Remote_Viewing_'Penetration'_-_03-30-00_-_Ingo_Swann_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Remote_Viewing_-_01-30-97_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Remote_Viewing_-_03-27-04_-__Russell_Targ_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Remote_Viewing_-_09-04-04_-_Stephan_Schwartz_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Remote_Viewing_Our_Doom_-_10-09-04_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Remote_Viewing_Penetration_[classic]_-_03-30-00_-_Ingo_Swann_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Remote_Viewing_[classic]_-_10-03-02_-_Major_Edward_A._Dames_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Renowned_Psychic_[classic]_-_12-19-02_-_Sylvia_Browne_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Reptilian_Encounters_[classic]_-_02-05-98_-_Pam_Stonebrooke_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Revealing_Spiritual_Truth_-_06-05-04_-_Maurice_Cotterell_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Revelations_-_03-21-04_-_John_Lear_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Rocket_Science_[classic]_-_08-19-97_-_David_Adair_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Sex_and_the_Occult_-_07-11-04_-_Dr._Evelyn_Paglini_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Shadow_People_-_05-31-01_-_Dr._Morgan_Spence_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Shares__Predictions_-_12-19-02_-_Sylvia_Browne_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Signs_of_Martian_Life_-_10-16-04_-_Sir_Charles_Shults_III_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Skycars_and_Vampires_(classic)_-_10-25-03_-_Paul_Moller_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Space_Exploration_-_02-01-04_-_Robert_Zimmerman_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Space_Technology_and_Mars_-_08-21-05_-__Charles_Shults_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Spiritual_Messages_[classic]_-_04-10-97_-_Elizabeth_C._Prophet_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Spontaneous_Invisibility_[classic]_-_12-13-02_-_Donna_G._Higbee_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Star_Children1_-_01-11-04_-_Dr._Richard_Boylan_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Star_Children_-_01-11-04_-_Dr._Richard_Boylan_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Stem_Cell_Research_-_08-01-04_-_Dr._Ronald_Klatz_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Technology_and_Terrorism_-_12-04-04_-_Bart_Kosko_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Terrorism,_Iraq_and_9-11_-_11-14-04_-_Joel_Skousen_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Theoretical_Physics_[classic]_-_08-22-97_-_Michio_Kaku_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_9-11_Show_[classic]_-_09-11-01_-_Open_Lines_Special_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Billy_Meier_Contacts_-_03-07-04_-_Michael_Horn_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Brain_and_Spirituality_-_12-05-04_-_Mathew_Alper_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Captured_Alien_-_12-09-99_-_Dr._Jonathan_Reed_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Captured_Spirit_-_11-23-96_-_Rodney_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Captured_Spirit_[classic]_-_11-23-96_-_Rodney_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Coming_Cataclysm_-_04-10-04_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Day_After_Roswell_[classic]_-_07-23-97_-_Col._Philip_Corso_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Dead_Speak_-_10-30-04_-_B.Cook_B.McBeath_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_End_of_the_World_-_05-30-04_-_Open_Lines_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Final_Warning_[classic]_-_02-02-02_-_Kathleen_Keating_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Hydristor_-_Open_Lines_-_09-11-04_-_Tom_Kasmer_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Internet_and_Privacy_-_06-12-04_-_Lauren_Weinstein_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Killshot_-_07-17-04_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Life_of_Edgar_Cayce_-_02-19-98_-_Edgar_Evans_Cayce_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Phildephia_Experiment_[classic]_-_03-20-97_-_Al_Bielek_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Prophet_Show_-_07-04-04_-_Open_Lines_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Psychedelic_Experience_-_03-19-98_-_Terence_McKenna_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Simple_Life_-_08-28-04_-_Eric_Brende_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Skeptic's_View_-_10-17-04_-_Dr._Michael_Shermer_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───The_Visitor_Experience_[classic]_-_11-01-03_-_W._Strieber_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Time_Travels_[classic]_-_07-30-96_-_'Mad_Man'_Markham_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Time_Travel_-_07-05-02_-_John_Chambers_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Time_Travel_-_11-13-04_-_Dr._Fred_Alan_Wolf_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Time_Travel_and_Cosmology_-_11-06-02_-_Lawrence_Krauss_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Time_Travel_Open_Lines_-_08-22-04_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Time_Travel_[classic]_-_03-11-97_-_Fred_Bell_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Time_Travel_[classic]_-_04-05-00_-_Dr._David_Anderson_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Time_Wave_Zero_[classic]_-_05-22-97_-_Terence_McKenna_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───To_Live_Forever_-_11-20-04_-_Dr._Terry_Grossman_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───UFOs_and_Area_51_[classic]_-_09-26-97_-_Bob_Lazar_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───UFOs_and_Area_51_[classic]_-_11-17-97_-_David_Adair_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───UFOs_and_Gov._Knowledge_[classic]_-_05-07-98_-__Robert_O._Dean_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───UFO_Disclosure_1999_[classic]_-_01-08-99_-_Many_Guests_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───UFO_Phenomena_-_04-24-04_-__Colm_Kelleher_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───UFO_Reports_-_01-17-04_-_Peter_Davenport_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───UFO_Symposium_-_10-09-02_-_Many_Guests_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Underground_Expeditions_[classic]_-_09-18-02_-_Bonnie_Crystal_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Unusual_Perceptions_-_09-05-04_-_Rupert_Sheldrake_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Varginha_UFO_Case_-_08-29-04_-__Dr._Roger_Leir_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Vision_of_Tribulation_-_03-13-04_-__Benjamin_Baruch_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Wacky_911_Calls_-_01-03-04_-_Leland_Gregory_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Web_Bot_Forecasting_-_01-04-04_-_George_Ure_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───Witchcraft_and_the_Occult_-_09-13-02_-_Dr._Evelyn_Paglini_-_AM_C2C_with_Art_Bell_original<br>│   │   │   ├───World_Trade_Center_Attacks_-_05-22-02_-_Richard_Picciotto_-_AM_C2C_with_Art_Bell_original<br>│   │   │   └───Zecharia_Sitchin,_Neale_Donald_Walsch_[classic]_-_11-24-98_-_AM_C2C_with_Art_Bell_original<br>│   │   ├───Art Bell Matrix CDs - 20 minutes<br>│   │   │   ├───'Victor'_and_Area_51_-_05-23-97_-_Sean_David_Morton_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───1995_classic_Ghost_to_Ghost_-_10-30-95_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───2003_Predictions_Art's_Farewell_Show_-_12-31-02_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───2004_Trends_for_2004_-_01-18-04_-_Gerald_Celente_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Abduction_Enigmas_-_05-09-04_-__Budd_Hopkins_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Aliens,_Demons_and_Souls_-_10-10-04_-__Zeph_Daniel_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Aliens_and_Disclosure_-_06-25-05_-__Robert_O._Dean_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Aliens_in_the_Solar_System_-_09-26-04_-_David_Darling_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Alien_Communications_classic_-_07-21-98_-__Alex_Collier_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Alien_Investigations_-_02-10-98_-_Derrel_Sims_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Alien_Vehicles_-_11-07-04_-_Bill_McDonald_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Amityville_Horror'_Case_[classic]_-_12-27-02_-_George_Lutz_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Ancient_Cosmology_-_03-13-01_-__Richard_Thompson_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Ancient_Evidence_[classic]_-_10-23-02_-_Graham_Hancock_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Antigravity_-_03-14-04_-_Nick_Cook_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───An_Extraordinary_Career_[classic]_-_04-26-96_-_Dr._Edgar_Mitchell_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Area_51_and_UFOs_[classic]_-_06-06-02_-_Bob_Lazar_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Area_51_Employees_Call-in_[classic]_-_09-11-97_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───A_Dark_Future_-_02-08-04_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───A_Dire_Forecast_-_11-21-04_-_Evelyn_Paglini_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───A_Hellish_NDE_-_05-03-01_-_Rev._Howard_Storm_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───A_Pretext_for_War_(with_Iraq)_-_07-31-04_-_James_Bamford_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───B.Cook_and_B.McBeath_-_11-18-05_-_EVP_in_the_House_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Barbara_McBeath_EVPs_-_02-07-04_-_Brendan_Cook_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Best_of_Open_Lines_[classic]_-_08-29-97_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Biblical_History_-_11-26-98_-_Father_Charles_Moore_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Biblical_History_[classsic]_-_11-26-98_-_Father_Charles_Moore_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Biblical_Prophecy_-_02-09-99_-__Hal_Lindsey_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Biocommunication_-_10-03-04_-_Cleve_Backster_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Biotechnology_Developments_-_04-17-04_-_Michael_Fumento_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Bloodlines_and_Control_[classic]_-_11-11-98_-__David_Icke_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Bottomless_Hole_[classic]_-_01-29-02_-_Mel_Waters_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Cancer_Recovery_(classic)_-_03-15-99_-__Dr._Lorraine_Day_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Chemtrails_and_Weather_Modification_-_09-18-04_-_Will_Thomas_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───China_and_U.S._War_Scenarios_-_07-18-04_-__Charles_Smith_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Civilization,_Space_and_String_Theory_-_01-22-06_-_Michio_Kaku_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Climate_Change_-_05-29-04_-_Robert_Felix_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Consciousness_and_Psi_-_06-26-05_-_Dean_Radin_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Controlled_Remote_Viewing_-_01-10-04_-_Lyn_Buchanan_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Cosmology_and_Evolution_-_04-11-04_-_James_Gardner_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───D.Wilcock_-_Time_of_Global_Shift_-_04-30-01_-_S.Mandelker_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Dangerous_Animals_-_05-28-98_-_Don_Zaidle_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───David_Bannon_BPL_and_Interpol_-_03-20-04_-_Jim_Haynie_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Detective_Work_[classic]_-_02-02-99_-_Ed_Pankau_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Disaster_in_Space_-_10-02-04_-_Dr._Tess_Gerritsen_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Disclosure,_Contact_and_Energy_-_08-08-04_-_Steven_Greer_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Earth_and_Universe_-_05-08-04_-_Guillermo_Gonzales_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Earth_Change_Prophecy_[classic]_-_05-08-98_-_Lori_Toye_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───EBEs_and_Spacecraft_-_12-07-03_-_William_Louis_McDonald_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───ET_Information_-_04-25-04_-_George_Green_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───EVP_-_06-19-04_-_B._Cook_and_B._McBeath_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───EVP_2002_-_11-08-02_-_B.Cook_and_B._McBeath_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Exorcisms,_Satan_and_The_Occult_-_05-15-01_-_Bob_Larson_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Exorcism_and_Possession_-_12-17-02_-_Father_Malachi_Martin_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Exploring_Alien_Experience_[classic]_-_04-18-01_-_John_Mack_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Finding_UFOs_-_07-25-04_-_Peter_Davenport_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Fossils_on_Mars_-_04-18-04_-_Sir_Charles_Shults_III_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Free_Energy_1997_-_06-10-97_-__Eugene_Mallove_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Future_of_Earth_-_05-15-04_-__Richard_Hoagland,_David_Wilcock_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Future_Technology_-_02-29-04_-_Jan_Hodges_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───George_Carlin_and_Government_Agents_[classic]_-_11-10-99_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Ghost-to-Ghost-2005_-_10-31-05_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Ghost-to-Ghost_2000_[classic]_-_04-25-02_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Ghost-to-Ghost_2004_-_10-31-04_-_SPIRICOM_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Global_Warming_and_Climate_Change_-_03-06-04_-_Jim_Motavalli_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Halloween_1996_[classic]_-_10-30-96_-_Ghost_to_Ghost_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Harlot_Speaks_-_10-23-97_-_Dark_Witch_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Harlot_Speaks_[classic]_-_10-23-97_-_The_Dark_Witch_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───His_predictions_for_2004_-_01-31-04_-_Sean_David_Morton_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Hopi_Elders_Speak_-_06-15-98_-_Robert_Ghostwolf_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Human_Consciousness_-_10-23-04_-__J.J._Hurtak_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Intent_and_'The_Field'_-_09-12-04_-_Lynne_McTaggart_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Intuitive_-_05-20-99_-_Kevin_Ryerson_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Intuitive_[classic]_-_11-21-02_-_Gordon-Michael_Scallion_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Invisibility_Technology_[classic]_-_10-10-02_-_Ray_Alden_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Joe_Meyer_Economic_Armageddon_-_05-01-04_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───John_Lear_Interview_-_01-15-98_-_John_Lear_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Life_of_Einstein_-_05-16-04_-__Michio_Kaku_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Live_-_08-28-05_-__Hurricane_Katrina_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Living_off_the_Power_Grid_-_08-07-04_-_Richard_Perez_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Luciferian_Thought_Remote_Viewing_-_02-15-04_-_Aaron_Donahue_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Male_Extinction_-_05-02-04_-_Bryan_Sykes_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Martian_Fossils_-_06-06-04_-_Sir_Charles_Shults_III_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Mass_Consciousness_-_01-24-04_-_Dr._Garland_Landrith_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Mexican_UFOs_-_06-13-04_-_David_Sereda_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Murder_in_Brentwood_[classic]_-_09-04-97_-_Mark_Fuhrman_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Mysterious_Sightings_of_E._Texas_-_01-10-02_-_Rob_Riggs_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Nanomaterials_-_07-24-04_-_Bart_Kosko_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───NASA_career_and_UFOs_[classic]_-_09-09-99_-_Gordon_Cooper_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───NDEs_and_Sarah's_Hell_-_02-04-99_-_J.Long_and_T.McGill_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───NDE_Research_[classic]_-_08-19-98_-_Dr.J_Long_and_Dr.T_McGill_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Near_Death_Accounts_-_09-19-04_-_Dr._Jeff_Long_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Near_Death_Experiences_[classic]_-_01-03-97_-_D._Brinkley_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Near_Death_Experience_-_09-08-99_-_Betty_Eadie_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Nostradamus_and_Our_Future_-_07-03-04_-_John_Hogue_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Nuclear_9-11_-_08-21-04_-_Howard_Bloom_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Oil_Dependence_-_04-04-04_-_Richard_Heinberg_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Open_Lines_-_01-25-04_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Open_Lines_-_03-28-04_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Open_Lines_Antichrist_and_Time_Travelers_-_03-23-01_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Out-of-Body_Experiences_-_02-14-04_-_William_Buhlman_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Parapsychology_and_Hauntings_-_01-10-97_-_Dr._Barry_Taff_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Past_and_Future_Lives_-_12-11-04_-_Dr._Brian_Weiss_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Patch_Adams_Interview_-_05-07-01_-_Dr._Patch_Adams_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Philosophical_Physics_-_11-06-04_-_Dr._Anthony_Rizzi_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Physics_of_the_Universe_-_02-28-04_-_Brian_Greene_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Planet_X,_Comets_and_More_-_12-12-04_-_James_McCanney_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Practicing_Witchcraft_[classic]_-_07-16-97_-_Dr._Evelyn_Paglini_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Preston_Nichols_1994_-_11-13-05_-_Rebroadcast_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Prophecy_-_01-20-99_-_Arvol_Looking_Horse_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Psi_Evidence_-_06-20-04_-_Dean_Radin_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Psychedelic_Drugs_-_07-10-04_-_Daniel_Pinchbeck_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Psychic_Forecasts_-_09-25-04_-_Sean_David_Morton_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Psychoactive_Plants_-_03-08-01_-_Dr._Dennis_McKenna_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───R._Raith_-_The_Captured_Alien_[classic]_-_12-09-99_-_J._Reed_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Rare_Earth_Hypothesis_-_04-03-04_-_Peter_Ward_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Rebroadcast_of_Ghost-to-Ghost_from_'93_-_10-30-05_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Remote_Viewing_'Penetration'_-_03-30-00_-_Ingo_Swann_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Remote_Viewing_-_01-30-97_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Remote_Viewing_-_03-27-04_-__Russell_Targ_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Remote_Viewing_-_09-04-04_-_Stephan_Schwartz_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Remote_Viewing_Our_Doom_-_10-09-04_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Remote_Viewing_Penetration_[classic]_-_03-30-00_-_Ingo_Swann_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Remote_Viewing_[classic]_-_10-03-02_-_Major_Edward_A._Dames_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Renowned_Psychic_[classic]_-_12-19-02_-_Sylvia_Browne_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Reptilian_Encounters_[classic]_-_02-05-98_-_Pam_Stonebrooke_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Revealing_Spiritual_Truth_-_06-05-04_-_Maurice_Cotterell_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Revelations_-_03-21-04_-_John_Lear_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Rocket_Science_[classic]_-_08-19-97_-_David_Adair_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Sex_and_the_Occult_-_07-11-04_-_Dr._Evelyn_Paglini_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Shadow_People_-_05-31-01_-_Dr._Morgan_Spence_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Shares__Predictions_-_12-19-02_-_Sylvia_Browne_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Signs_of_Martian_Life_-_10-16-04_-_Sir_Charles_Shults_III_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Skycars_and_Vampires_(classic)_-_10-25-03_-_Paul_Moller_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Space_Exploration_-_02-01-04_-_Robert_Zimmerman_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Space_Technology_and_Mars_-_08-21-05_-__Charles_Shults_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Spiritual_Messages_[classic]_-_04-10-97_-_Elizabeth_C._Prophet_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Spontaneous_Invisibility_[classic]_-_12-13-02_-_Donna_G._Higbee_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Star_Children1_-_01-11-04_-_Dr._Richard_Boylan_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Star_Children_-_01-11-04_-_Dr._Richard_Boylan_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Stem_Cell_Research_-_08-01-04_-_Dr._Ronald_Klatz_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Technology_and_Terrorism_-_12-04-04_-_Bart_Kosko_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Terrorism,_Iraq_and_9-11_-_11-14-04_-_Joel_Skousen_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Theoretical_Physics_[classic]_-_08-22-97_-_Michio_Kaku_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_9-11_Show_[classic]_-_09-11-01_-_Open_Lines_Special_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Billy_Meier_Contacts_-_03-07-04_-_Michael_Horn_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Brain_and_Spirituality_-_12-05-04_-_Mathew_Alper_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Captured_Alien_-_12-09-99_-_Dr._Jonathan_Reed_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Captured_Spirit_-_11-23-96_-_Rodney_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Captured_Spirit_[classic]_-_11-23-96_-_Rodney_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Coming_Cataclysm_-_04-10-04_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Day_After_Roswell_[classic]_-_07-23-97_-_Col._Philip_Corso_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Dead_Speak_-_10-30-04_-_B.Cook_B.McBeath_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_End_of_the_World_-_05-30-04_-_Open_Lines_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Final_Warning_[classic]_-_02-02-02_-_Kathleen_Keating_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Hydristor_-_Open_Lines_-_09-11-04_-_Tom_Kasmer_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Internet_and_Privacy_-_06-12-04_-_Lauren_Weinstein_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Killshot_-_07-17-04_-_Major_Ed_Dames_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Life_of_Edgar_Cayce_-_02-19-98_-_Edgar_Evans_Cayce_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Phildephia_Experiment_[classic]_-_03-20-97_-_Al_Bielek_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Prophet_Show_-_07-04-04_-_Open_Lines_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Psychedelic_Experience_-_03-19-98_-_Terence_McKenna_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Simple_Life_-_08-28-04_-_Eric_Brende_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Skeptic's_View_-_10-17-04_-_Dr._Michael_Shermer_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───The_Visitor_Experience_[classic]_-_11-01-03_-_W._Strieber_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Time_Travels_[classic]_-_07-30-96_-_'Mad_Man'_Markham_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Time_Travel_-_07-05-02_-_John_Chambers_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Time_Travel_-_11-13-04_-_Dr._Fred_Alan_Wolf_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Time_Travel_and_Cosmology_-_11-06-02_-_Lawrence_Krauss_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Time_Travel_Open_Lines_-_08-22-04_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Time_Travel_[classic]_-_03-11-97_-_Fred_Bell_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Time_Travel_[classic]_-_04-05-00_-_Dr._David_Anderson_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───Time_Wave_Zero_[classic]_-_05-22-97_-_Terence_McKenna_-_AM_C2C_with_Art_Bell<br>│   │   │   ├───To_Live_Forever_-_11-20-04_-_Dr._Terry_Grossman_-_AM_C2C_with_Art_Bell</pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

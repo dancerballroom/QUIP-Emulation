@@ -1,0 +1,696 @@
+<!doctype html>
+<html><head><title>Beginning Piano/Keyboard</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:IGOf6f6fff1f48f4a81b6085d3e8'><b>Beginning Piano/Keyboard</b></h1>
+
+<h2 id='temp:C:IGO4cdcdfb4c8e6433d9e68a79a5'><b>A “By the chords” approach </b></h2>
+
+<h2 id='temp:C:IGO0da52e990aba49f7ad5e0705e'>Table of Contents</h2>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:IGO365610554d034724a95efa01e'><li id='temp:C:IGO14c31cf4b3da41cd8586d49c5' class='' value='1'>Dedication (Edgar Waddell)
+
+<br/></li><li id='temp:C:IGO4319326011574fad91ec8714f' class='parent'>A Little Background information
+
+<br/></li><ul><li id='temp:C:IGOd7e425bda0534cd7a563588f0' class='parent'>Piano Mechanics
+
+<br/></li><ul><li id='temp:C:IGO1814dbb0097141798f339e1ab' class=''>The Harp in the Piano
+
+<br/></li><li id='temp:C:IGOf8ff3840176a4dffad3e9d630' class='parent'>Keyboard types 
+
+<br/></li><ul><li id='temp:C:IGO460bf0114a3747e69e8105d1b' class='parent'>Quality Considerations
+
+<br/></li><ul><li id='temp:C:IGOa7412dacc4f145b9a462d547c' class=''>Weighted Action, 
+
+<br/></li><li id='temp:C:IGOd3363e400b42459a84245b33a' class=''>88 Keys/64 Keys, 
+
+<br/></li><li id='temp:C:IGO6ef8a75cd61943529c29d2d81' class=''>Quality of Sound
+
+<br/></li></ul><li id='temp:C:IGO88bdf324e8d043cbac3f9aa7f' class='parent'>Harpsichord/Organ/Electric Piano
+
+<br/></li><ul><li id='temp:C:IGO8383cb003e454c629a1998dc9' class=''>Musical Notation
+
+<br/></li><li id='temp:C:IGO8f53e7bd772f443aab5951772' class=''>Time required to become proficient.
+
+<br/></li></ul></ul><li id='temp:C:IGO03b2b6d0f42b4fd491ab9e713' class='parent'>Well Tempered Tuning
+
+<br/></li><ul><li id='temp:C:IGO23e4cfd9971a4a118ac66a5e4' class=''>The Physics of A(440)
+
+<br/></li><li id='temp:C:IGO2bcc77941f5b4fbc9ec0dc9af' class=''>Perfect Tuning versus Well Tempered Tuning
+
+<br/></li></ul></ul><li id='temp:C:IGObf79de53131f47a392cd20de6' class='parent'>The Classical Approach to learning Piano
+
+<br/></li><ul><li id='temp:C:IGObdd3082c980449bba24c7d465' class=''>Fingering
+
+<br/></li><li id='temp:C:IGO040dcdb778c845f7bb0f0aba4' class=''>Scales
+
+<br/></li><li id='temp:C:IGOcb245ed29b1c4b439bba043be' class=''>Chords
+
+<br/></li><li id='temp:C:IGO36c06b8a1ce44fc09df48cbc8' class=''>Practicing
+
+<br/></li><li id='temp:C:IGObeb76db446994d339818701ba' class=''>Styles
+
+<br/></li><li id='temp:C:IGO672117b6b9c8444282d47cd81' class=''>Rhythms
+
+<br/></li><li id='temp:C:IGO5fcb40aa8e524b5387dc67d96' class=''>Simple Pieces to More Complex
+
+<br/></li></ul><li id='temp:C:IGO7b8caddd168f453f89058fda8' class=''>Learning by Ear versus Learning by Reading Music (Finding a Balance)
+
+<br/></li></ul><li id='temp:C:IGO4aa3b0d9f119465c9af8e4232' class='parent'>The “By the chords” approach
+
+<br/></li><ul><li id='temp:C:IGO7c05cf5359f340bab00e990c8' class=''>Half- and whole- steps
+
+<br/></li><li id='temp:C:IGO77f08281820b44239c5272980' class=''>Standard 20th Century Classical Musical Notation example
+
+<br/></li><li id='temp:C:IGO361031295dad497ea577ef56f' class=''>Standard 20th Century Jazz Musical Notation example
+
+<br/></li></ul><li id='temp:C:IGOdbe0cafa10af491fa8c61e47d' class='parent'>What's a major scale
+
+<br/></li><ul><li id='temp:C:IGOd4857ca309a14d38a9b7fcfc5' class='parent'>The Scale of C Major
+
+<br/></li><ul><li id='temp:C:IGO53150acd8ad14125afc1f9c1b' class=''>Half-Steps and Whole Steps
+
+<br/></li><li id='temp:C:IGOed962efc42744f18a71c1bfda' class=''>The Key of C
+
+<br/></li></ul></ul><li id='temp:C:IGOf2cf03c643174cf4aa1c68841' class='parent'>What's a minor Scale
+
+<br/></li><ul><li id='temp:C:IGOa192dba5a4e944ad9e6c8c491' class=''>The Scale of A natural minor
+
+<br/></li><li id='temp:C:IGObfe563c4b0d34b1c80e29942d' class=''>The Key of A minor
+
+<br/></li></ul><li id='temp:C:IGOdce42ec1b14a42e99727825ff' class='parent'>Introduction to Chords: I-IV-V  (C-F-G)
+
+<br/></li><ul><li id='temp:C:IGO814a5a56794a4092be143ca8b' class=''>C-Major Chord, F-Major Chord, G-Major Chord
+
+<br/></li><li id='temp:C:IGO406f293e512c4617b2b050517' class=''>Simple Example
+
+<br/></li></ul><li id='temp:C:IGO2d155b35399c48aaa83ad716b' class='parent'>Introduction to the most common Chord progressions.
+
+<br/></li><ul><li id='temp:C:IGO3a49cb8faa7249908929dd570' class=''>Most traditional songs:  I-V-vi-IV  (C-G-am-F)
+
+<br/></li></ul><li id='temp:C:IGOdb865f9547dd406585acaf34b' class='parent'>How to fake it til you make it.
+
+<br/></li><ul><li id='temp:C:IGO081edf35ff224fe9847744c22' class='parent'>Read Melodies in the RH.
+
+<br/></li><ul><li id='temp:C:IGO740ab870575d4329aa0943203' class=''>Soprano Melody Line (Usually)
+
+<br/></li><li id='temp:C:IGO4ce4db1fa9a94178b96d4f860' class=''>Melody Line with occasional partial Chords
+
+<br/></li><li id='temp:C:IGOe43b7a7c746c469c8c84dcab6' class=''>Soprano Melody Line and Alto Harmony Line
+
+<br/></li></ul><li id='temp:C:IGObb974e3e16b74c48ba6359597' class=''>Play Chords in the LH. with Melodies in the RH.
+
+<br/></li><li id='temp:C:IGO04cd845a4bff4dc7851afb885' class='parent'>Simple Variation of Chords with Melodies
+
+<br/></li><ul><li id='temp:C:IGO6e058d333de34ea8b3fc9ea3a' class=''>Breaking up the Chord
+
+<br/></li><li id='temp:C:IGOf91db18576a742c4a1d8e9b5b' class=''>Playing inversions
+
+<br/></li><li id='temp:C:IGOe245457ef43d4e1dac0ae0197' class=''>Using arpeggios
+
+<br/></li><li id='temp:C:IGO7001fa31bd8d435a99649d931' class=''>Using Ostinato
+
+<br/></li></ul><li id='temp:C:IGOeb7d4f30bc44481d829370550' class='parent'>More Complex Chords with Melodies
+
+<br/></li><ul><li id='temp:C:IGO5c05fa90447e4cd4a303da467' class=''>7th Chords
+
+<br/></li><li id='temp:C:IGO987aaa5317174f94b1f8dc4c8' class=''>9th, 11th, 13th Chords
+
+<br/></li></ul><li id='temp:C:IGO71e80586109043828ddad2f11' class=''>The Time Signature 
+
+<br/></li><li id='temp:C:IGO83a936c4920f45ebbee1a6418' class=''>Adding Rhythm
+
+<br/></li><li id='temp:C:IGO6ef3a1ed60dc4c61b54fbbc3c' class=''>Adding Harmony
+
+<br/></li><li id='temp:C:IGO479c00500ce943bc8ae7d4151' class=''>Adding a Counter Melody
+
+<br/></li></ul><li id='temp:C:IGOc43586b7272c434088a23481d' class='parent'>How to practice
+
+<br/></li><ul><li id='temp:C:IGO94c4f937ce7b4bcebe64566f2' class='parent'>Practice Keeping Time
+
+<br/></li><ul><li id='temp:C:IGO755b0a63a2d945458e68d3f6f' class=''>Play at a Slow at a perfect Metronome marking (no slowing down or speeding up)
+
+<br/></li><li id='temp:C:IGOd71cb0c40faa4b02af3049c98' class=''>Increase the Metronome rate and maintain no slowing down or speeding up.
+
+<br/></li></ul><li id='temp:C:IGO91ee6a67bb954cdaa99da449e' class='parent'>Practice Jumping out and back in with the Time of the Music
+
+<br/></li><ul><li id='temp:C:IGO0444a12ab7374a9896f886472' class=''>Leave out a measure or a couple of notes keeping track of the timing.
+
+<br/></li><li id='temp:C:IGOce110f63c54c49999c7083fff' class=''>(This is good practice for playing with other instruments or voices)
+
+<br/></li></ul><li id='temp:C:IGOfdfd25869b994fad8bee12e52' class='parent'>Practice Reading ahead
+
+<br/></li><ul><li id='temp:C:IGO406c1cf7bb454f5fa01f85855' class=''>Memorize Hard passages.
+
+<br/></li><li id='temp:C:IGO5e44241a34e14afb944824f4d' class=''>(Read ahead to handle rough passages and page turns)
+
+<br/></li></ul><li id='temp:C:IGO2326122770394cad8aea352ac' class='parent'>Practice Transposing
+
+<br/></li><ul><li id='temp:C:IGOc78dcc631cfa4d7e858715db0' class=''>Add a Sharp to the Signature,  Key of C to Key of G
+
+<br/></li><li id='temp:C:IGOf3648dd0e811445aae09889be' class=''>Add a Flat to the Signature:  Key of C to Key of F
+
+<br/></li></ul><li id='temp:C:IGO52e30baf8478455e99143b951' class='parent'>Practice Playing for the best Sound
+
+<br/></li><ul><li id='temp:C:IGO421fb95d26b54d38bb5e60916' class=''>Dynamic Range (Quiet to Loud)
+
+<br/></li><li id='temp:C:IGO704cd1382bc346a5ae5bc6872' class=''>Expression
+
+<br/></li><li id='temp:C:IGOdea896ec344e4ae5b2481e573' class=''>Voicing
+
+<br/></li></ul><li id='temp:C:IGOa93ffa0e353d46a496287e55c' class='parent'>Practice Playing Chords and Singing the Melody
+
+<br/></li><ul><li id='temp:C:IGOce247df481c14d3c991294b44' class=''>Keeping the timing accurate.
+
+<br/></li><li id='temp:C:IGO41da9735ebb74296b10bf604b' class=''>Emphasize he natural Breathing Pauses/Phrases
+
+<br/></li></ul></ul><li id='temp:C:IGOde4138f033af445399352bf8b' class='parent'>Composing Music Track by Track 
+
+<br/></li><ul><li id='temp:C:IGOcb47fa7497ba4d26b66ef2991' class='parent'>Considerations
+
+<br/></li><ul><li id='temp:C:IGO6fbe415ad67e467d9706d1518' class=''>Form ABA
+
+<br/></li><li id='temp:C:IGO4e78456583ec46fb8a7ec163a' class=''>Lyrics or no Lyrics
+
+<br/></li><li id='temp:C:IGO95fa746ef4c642978ab05d260' class='parent'>Choosing a Chord Progression
+
+<br/></li><ul><li id='temp:C:IGOe7b2ba7fabbd454984afa321c' class=''>Happy (faster or majestic) Major Chords
+
+<br/></li><li id='temp:C:IGOdc83dcfba230410c839e4de4a' class=''>Sad Sounds (slower or tense dissonant) Minor Chords
+
+<br/></li></ul><li id='temp:C:IGO03f9fddd969345a3acd031274' class=''>Harmonies
+
+<br/></li></ul></ul><li id='temp:C:IGO7fd239e6e80a4b05a5fbf5df0' class='parent'>Composing Music on a Synthesizer or Electric Piano
+
+<br/></li><ul><li id='temp:C:IGOcaf8652df31b471ea7adecda9' class='parent'>Considerations
+
+<br/></li><ul><li id='temp:C:IGO806b006e74744ea3a89e62ea0' class=''>Instrument Selection
+
+<br/></li><li id='temp:C:IGO5cb6b0a6fb26492e95fe63273' class=''>Quality of the Sound Bank (Midi versus Wav)
+
+<br/></li><li id='temp:C:IGO193d729fa114474ab99f31e1c' class=''>Editing Software
+
+<br/></li></ul></ul></ul></div></body></html>

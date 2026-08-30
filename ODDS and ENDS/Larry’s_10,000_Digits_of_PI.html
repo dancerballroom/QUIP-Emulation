@@ -1,0 +1,536 @@
+<!doctype html>
+<html><head><title>Larry’s 10,000 Digits of PI</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='BEaACAWnxB2'>Larry’s 10,000 Digits of PI</h1>
+
+<code>3.</code><br/>
+
+<br><u><span bgcolor="#3d87f5" style="background-color:#3d87f5"><code>1415926535 8979323846 2643383279 5028841971 6939937510</code><br><code>5820974944 5923078164 0628620899 8628034825 3421170679</code><br><code>8214808651 3282306647 0938446095 5058223172 5359408128</code><br><code>4811174502 8410270193 8521105559 6446229489 5493038196</code><br><code>4428810975 6659334461 2847564823 3786783165 2712019091</code></span></u><br/>
+
+<br><code>4564856692 3460348610 4543266482 1339360726 0249141273</code><br><code>7245870066 0631558817 4881520920 9628292540 9171536436</code><br><code>7892590360 0113305305 4882046652 1384146951 9415116094</code><br><code>3305727036 5759591953 0921861173 8193261179 3105118548</code><br/>
+
+<br><u><code>0744623799 6274956735 1885752724 8912279381 8301194912</code><br><code>9833673362 4406566430 8602139494 6395224737 1907021798</code><br><code>6094370277 0539217176 2931767523 8467481846 7669405132</code><br><code>0005681271 4526356082 7785771342 7577896091 7363717872</code><br><code>1468440901 2249534301 4654958537 1050792279 6892589235</code><br><code>4201995611 2129021960 8640344181 5981362977 4771309960</code><br><code>5187072113 4999999837 2978049951 0597317328 1609631859</code><br><code>5024459455 3469083026 4252230825 3344685035 2619311881</code></u><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br><code>7101000313 7838752886 5875332083 8142061717 7669147303</code><br><code>5982534904 2875546873 1159562863 8823537875 9375195778</code><br><code>1857780532 1712268066 1300192787 6611195909 2164201989</code><br><code>3809525720 1065485863 2788659361 5338182796 8230301952</code><br/>
+
+<br><u><code>0353018529 6899577362 2599413891 2497217752 8347913151</code><br><code>5574857242 4541506959 5082953311 6861727855 8890750983</code><br><code>8175463746 4939319255 0604009277 0167113900 9848824012</code><br><code>8583616035 6370766010 4710181942 9555961989 4676783744</code></u><br/>
+
+<br><code>9448255379 7747268471 0404753464 6208046684 2590694912</code><br><code>9331367702 8989152104 7521620569 6602405803 8150193511</code><br><code>2533824300 3558764024 7496473263 9141992726 0426992279</code><br><code>6782354781 6360093417 2164121992 4586315030 2861829745</code><br><code>5570674983 8505494588 5869269956 9092721079 7509302955</code><br><code>3211653449 8720275596 0236480665 4991198818 3479775356</code><br><code>6369807426 5425278625 5181841757 4672890977 7727938000</code><br><code>8164706001 6145249192 1732172147 7235014144 1973568548</code><br><code>1613611573 5255213347 5741849468 4385233239 0739414333</code><br/>
+
+<br><u><code>4547762416 8625189835 6948556209 9219222184 2725502542</code><br><code>5688767179 0494601653 4668049886 2723279178 6085784383</code></u><br/>
+
+<br><code>8279679766 8145410095 3883786360 9506800642 2512520511</code><br/>
+
+<br><del><code>7392984896 0841284886 2694560424 1965285022 2106611863</code><br><code>0674427862 2039194945 0471237137 8696095636 4371917287</code><br><code>4677646575 7396241389 0865832645 9958133904 7802759009</code><br><code>9465764078 9512694683 9835259570 9825822620 5224894077</code><br><code>2671947826 8482601476 9909026401 3639443745 5305068203</code><br><code>4962524517 4939965143 1429809190 6592509372 2169646151</code><br><code>5709858387 4105978859 5977297549 8930161753 9284681382</code><br><code>6868386894 2774155991 8559252459 5395943104 9972524680</code><br><code>8459872736 4469584865 3836736222 6260991246 0805124388</code><br><code>4390451244 1365497627 8079771569 1435997700 1296160894</code><br><code>4169486855 5848406353 4220722258 2848864815 8456028506</code><br><code>0168427394 5226746767 8895252138 5225499546 6672782398</code><br><code>6456596116 3548862305 7745649803 5593634568 1743241125</code><br><code>1507606947 9451096596 0940252288 7971089314 5669136867</code><br><code>2287489405 6010150330 8617928680 9208747609 1782493858</code><br><code>9009714909 6759852613 6554978189 3129784821 6829989487</code><br><code>2265880485 7564014270 4775551323 7964145152 3746234364</code><br><code>5428584447 9526586782 1051141354 7357395231 1342716610</code><br><code>2135969536 2314429524 8493718711 0145765403 5902799344</code><br><code>0374200731 0578539062 1983874478 0847848968 3321445713</code><br><code>8687519435 0643021845 3191048481 0053706146 8067491927</code><br><code>8191197939 9520614196 6342875444 0643745123 7181921799</code><br><code>9839101591 9561814675 1426912397 4894090718 6494231961</code><br><code>5679452080 9514655022 5231603881 9301420937 6213785595</code><br><code>6638937787 0830390697 9207734672 2182562599 6615014215</code><br><code>0306803844 7734549202 6054146659 2520149744 2850732518</code><br><code>6660021324 3408819071 0486331734 6496514539 0579626856</code><br><code>1005508106 6587969981 6357473638 4052571459 1028970641</code><br><code>4011097120 6280439039 7595156771 5770042033 7869936007</code><br><code>2305587631 7635942187 3125147120 5329281918 2618612586</code><br><code>7321579198 4148488291 6447060957 5270695722 0917567116</code><br><code>7229109816 9091528017 3506712748 5832228718 3520935396</code><br><code>5725121083 5791513698 8209144421 0067510334 6711031412</code><br><code>6711136990 8658516398 3150197016 5151168517 1437657618</code><br><code>3515565088 4909989859 9823873455 2833163550 7647918535</code><br><code>8932261854 8963213293 3089857064 2046752590 7091548141</code><br><code>6549859461 6371802709 8199430992 4488957571 2828905923</code><br><code>2332609729 9712084433 5732654893 8239119325 9746366730</code><br><code>5836041428 1388303203 8249037589 8524374417 0291327656</code><br><code>1809377344 4030707469 2112019130 2033038019 7621101100</code><br><code>4492932151 6084244485 9637669838 9522868478 3123552658</code><br><code>2131449576 8572624334 4189303968 6426243410 7732269780</code><br><code>2807318915 4411010446 8232527162 0105265227 2111660396</code><br><code>6655730925 4711055785 3763466820 6531098965 2691862056</code><br><code>4769312570 5863566201 8558100729 3606598764 8611791045</code><br><code>3348850346 1136576867 5324944166 8039626579 7877185560</code><br><code>8455296541 2665408530 6143444318 5867697514 5661406800</code><br><code>7002378776 5913440171 2749470420 5622305389 9456131407</code><br><code>1127000407 8547332699 3908145466 4645880797 2708266830</code><br><code>6343285878 5698305235 8089330657 5740679545 7163775254</code><br><code>2021149557 6158140025 0126228594 1302164715 5097925923</code><br><code>0990796547 3761255176 5675135751 7829666454 7791745011</code><br><code>2996148903 0463994713 2962107340 4375189573 5961458901</code><br><code>9389713111 7904297828 5647503203 1986915140 2870808599</code><br><code>0480109412 1472213179 4764777262 2414254854 5403321571</code><br><code>8530614228 8137585043 0633217518 2979866223 7172159160</code><br><code>7716692547 4873898665 4949450114 6540628433 6639379003</code><br><code>9769265672 1463853067 3609657120 9180763832 7166416274</code><br><code>8888007869 2560290228 4721040317 2118608204 1900042296</code><br><code>6171196377 9213375751 1495950156 6049631862 9472654736</code><br><code>4252308177 0367515906 7350235072 8354056704 0386743513</code><br><code>6222247715 8915049530 9844489333 0963408780 7693259939</code><br><code>7805419341 4473774418 4263129860 8099888687 4132604721</code><br><code>5695162396 5864573021 6315981931 9516735381 2974167729</code><br><code>4786724229 2465436680 0980676928 2382806899 6400482435</code><br><code>4037014163 1496589794 0924323789 6907069779 4223625082</code><br><code>2168895738 3798623001 5937764716 5122893578 6015881617</code><br><code>5578297352 3344604281 5126272037 3431465319 7777416031</code><br><code>9906655418 7639792933 4419521541 3418994854 4473456738</code><br><code>3162499341 9131814809 2777710386 3877343177 2075456545</code><br><code>3220777092 1201905166 0962804909 2636019759 8828161332</code><br><code>3166636528 6193266863 3606273567 6303544776 2803504507</code><br><code>7723554710 5859548702 7908143562 4014517180 6246436267</code><br><code>9456127531 8134078330 3362542327 8394497538 2437205835</code><br><code>3114771199 2606381334 6776879695 9703098339 1307710987</code><br><code>0408591337 4641442822 7726346594 7047458784 7787201927</code><br><code>7152807317 6790770715 7213444730 6057007334 9243693113</code><br><code>8350493163 1284042512 1925651798 0694113528 0131470130</code><br><code>4781643788 5185290928 5452011658 3934196562 1349143415</code><br><code>9562586586 5570552690 4965209858 0338507224 2648293972</code><br><code>8584783163 0577775606 8887644624 8246857926 0395352773</code><br><code>4803048029 0058760758 2510474709 1643961362 6760449256</code><br><code>2742042083 2085661190 6254543372 1315359584 5068772460</code><br><code>2901618766 7952406163 4252257719 5429162991 9306455377</code><br><code>9914037340 4328752628 8896399587 9475729174 6426357455</code><br><code>2540790914 5135711136 9410911939 3251910760 2082520261</code><br><code>8798531887 7058429725 9167781314 9699009019 2116971737</code><br><code>2784768472 6860849003 3770242429 1651300500 5168323364</code><br><code>3503895170 2989392233 4517220138 1280696501 1784408745</code><br><code>1960121228 5993716231 3017114448 4640903890 6449544400</code><br><code>6198690754 8516026327 5052983491 8740786680 8818338510</code><br><code>2283345085 0486082503 9302133219 7155184306 3545500766</code><br><code>8282949304 1377655279 3975175461 3953984683 3936383047</code><br><code>4611996653 8581538420 5685338621 8672523340 2830871123</code><br><code>2827892125 0771262946 3229563989 8989358211 6745627010</code><br><code>2183564622 0134967151 8819097303 8119800497 3407239610</code><br><code>3685406643 1939509790 1906996395 5245300545 0580685501</code><br><code>9567302292 1913933918 5680344903 9820595510 0226353536</code><br><code>1920419947 4553859381 0234395544 9597783779 0237421617</code><br><code>2711172364 3435439478 2218185286 2408514006 6604433258</code><br><code>8856986705 4315470696 5747458550 3323233421 0730154594</code><br><code>0516553790 6866273337 9958511562 5784322988 2737231989</code><br><code>8757141595 7811196358 3300594087 3068121602 8764962867</code><br><code>4460477464 9159950549 7374256269 0104903778 1986835938</code><br><code>1465741268 0492564879 8556145372 3478673303 9046883834</code><br><code>3634655379 4986419270 5638729317 4872332083 7601123029</code><br><code>9113679386 2708943879 9362016295 1541337142 4892830722</code><br><code>0126901475 4668476535 7616477379 4675200490 7571555278</code><br><code>1965362132 3926406160 1363581559 0742202020 3187277605</code><br><code>2772190055 6148425551 8792530343 5139844253 2234157623</code><br><code>3610642506 3904975008 6562710953 5919465897 5141310348</code><br><code>2276930624 7435363256 9160781547 8181152843 6679570611</code><br><code>0861533150 4452127473 9245449454 2368288606 1340841486</code><br><code>3776700961 2071512491 4043027253 8607648236 3414334623</code><br><code>5189757664 5216413767 9690314950 1910857598 4423919862</code><br><code>9164219399 4907236234 6468441173 9403265918 4044378051</code><br><code>3338945257 4239950829 6591228508 5558215725 0310712570</code><br><code>1266830240 2929525220 1187267675 6220415420 5161841634</code><br><code>8475651699 9811614101 0029960783 8690929160 3028840026</code><br><code>9104140792 8862150784 2451670908 7000699282 1206604183</code><br><code>7180653556 7252532567 5328612910 4248776182 5829765157</code><br><code>9598470356 2226293486 0034158722 9805349896 5022629174</code><br><code>8788202734 2092222453 3985626476 6914905562 8425039127</code><br><code>5771028402 7998066365 8254889264 8802545661 0172967026</code><br><code>6407655904 2909945681 5065265305 3718294127 0336931378</code><br><code>5178609040 7086671149 6558343434 7693385781 7113864558</code><br><code>7367812301 4587687126 6034891390 9562009939 3610310291</code><br><code>6161528813 8437909904 2317473363 9480457593 1493140529</code><br><code>7634757481 1935670911 0137751721 0080315590 2485309066</code><br><code>9203767192 2033229094 3346768514 2214477379 3937517034</code><br><code>4366199104 0337511173 5471918550 4644902636 5512816228</code><br><code>8244625759 1633303910 7225383742 1821408835 0865739177</code><br><code>1509682887 4782656995 9957449066 1758344137 5223970968</code><br><code>3408005355 9849175417 3818839994 4697486762 6551658276</code><br><code>5848358845 3142775687 9002909517 0283529716 3445621296</code><br><code>4043523117 6006651012 4120065975 5851276178 5838292041</code><br><code>9748442360 8007193045 7618932349 2292796501 9875187212</code><br><code>7267507981 2554709589 0455635792 1221033346 6974992356</code><br><code>3025494780 2490114195 2123828153 0911407907 3860251522</code><br><code>7429958180 7247162591 6685451333 1239480494 7079119153</code><br><code>2673430282 4418604142 6363954800 0448002670 4962482017</code><br><code>9289647669 7583183271 3142517029 6923488962 7668440323</code><br><code>2609275249 6035799646 9256504936 8183609003 2380929345</code><br><code>9588970695 3653494060 3402166544 3755890045 6328822505</code><br><code>4525564056 4482465151 8754711962 1844396582 5337543885</code><br><code>6909411303 1509526179 3780029741 2076651479 3942590298</code><br><code>9695946995 5657612186 5619673378 6236256125 2163208628</code><br><code>6922210327 4889218654 3648022967 8070576561 5144632046</code><br><code>9279068212 0738837781 4233562823 6089632080 6822246801</code><br><code>2248261177 1858963814 0918390367 3672220888 3215137556</code><br><code>0037279839 4004152970 0287830766 7094447456 0134556417</code><br><code>2543709069 7939612257 1429894671 5435784687 8861444581</code><br><code>2314593571 9849225284 7160504922 1242470141 2147805734</code><br><code>5510500801 9086996033 0276347870 8108175450 1193071412</code><br><code>2339086639 3833952942 5786905076 4310063835 1983438934</code><br><code>1596131854 3475464955 6978103829 3097164651 4384070070</code><br><code>7360411237 3599843452 2516105070 2705623526 6012764848</code><br><code>3084076118 3013052793 2054274628 6540360367 4532865105</code><br><code>7065874882 2569815793 6789766974 2205750596 8344086973</code><br><code>5020141020 6723585020 0724522563 2651341055 9240190274</code><br><code>2162484391 4035998953 5394590944 0704691209 1409387001</code><br><code>2645600162 3742880210 9276457931 0657922955 2498872758</code><br><code>4610126483 6999892256 9596881592 0560010165 525637567</code></del><br/>
+
+<br/>
+
+Reading between the lines.<br/>
+
+</body></html>

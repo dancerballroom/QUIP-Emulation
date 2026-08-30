@@ -1,0 +1,640 @@
+<!doctype html>
+<html><head><title>01-DIR-TREE-GEN.bat - Dynamic Web Site builder</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:bGf4948a231fc67441a95015bced'>01-DIR-TREE-GEN.bat - Dynamic Web Site builder</h1>
+
+<h3 id='temp:C:bGf929a053ed33e4c99a281693f4'>Purpose:  </h3>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:bGf47a1b923d68e4af7839962636'><li id='temp:C:bGf68a1e212fc8949b2881035d0d' class='' value='1'>Save Backup of QUIP documents on Google DRIVE.
+
+<br/></li><li id='temp:C:bGf1d5237764b4f4aca91f2a38e0' class=''>Creates the Folder Structure on the HOST computer.
+
+<br/></li><li id='temp:C:bGf5b1bfdfd5a85493c9260b4643' class=''>Creates the HTML using FRAMES to generate Navigation.
+
+<br/></li></ul></div><h3 id='temp:C:bGff873e2c6e2464740b2cf2e878'>Preparation:</h3>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:bGff4473d016a27420e83b5d1f29'><li id='temp:C:bGf1c9f5d8031734eaba37b7a4da' class='parent' value='1'>Download your QUIP Files into your desired Tree Structure.  See <a href="https://quip.com/DhLBAFvhWgoU/DIR-TREE-GENbat-Dynamic-Web-Site#temp:C:bGf3890b088739f431b86d31429c">folder-TREE</a>
+
+<br/></li><ul><li id='temp:C:bGfbad7e29247854eb184cb92c44' class=''>I recommend to download to a TEST-DATA directory with the same desired TREE as on the FINAL-DATA directory.
+
+<br/></li><li id='temp:C:bGf9748c4b226da4d21bdaf5c34f' class=''>You can copy into the original QUIP HTML FILES to a PRODUCTION-SERVER Directory later
+
+<br/></li></ul><li id='temp:C:bGfb0a445d0b4b84147b090469ec' class='parent'>Create a New Unique Google G-mail E-mail.  Find the link to Google Drive and set it up for use.
+
+<br/></li><ul><li id='temp:C:bGf8760b89ee2284e69adcf612a9' class=''>This Google DRIVE will only host your backup QUIP HTML Files and Directories.
+
+<br/></li></ul><li id='temp:C:bGfe00478a9c9644271999ef87b6' class='parent'>After the Files and Folders are uploaded to Google DRIVE
+
+<br/></li><ul><li id='temp:C:bGf171b19475aee4e2f847557e81' class=''>Set all file permissions to public
+
+<br/></li><li id='temp:C:bGf6be8f16f1dea48678724262e7' class=''>Set all folder permissions to public.
+
+<br/></li><li id='temp:C:bGf8f4d046a5d4e48549045292da' class=''>Double check this for the current directory(Folder) and all subdirectories(Sub-Folders)
+
+<br/></li></ul><li id='temp:C:bGf6067151c3c18422bb1ea00034' class='parent'> Visit <a href="http://drv.tw">drv.tw</a> and set up your Google DRIVE according to the instructions.
+
+<br/></li><ul><li id='temp:C:bGf811eb065f9dc44fc8e0dd07de' class=''>Example:  <a href="https://larrys-today-in-coding.on.drv.tw/">https://larrys-today-in-coding.on.drv.tw/</a>
+
+<br/></li></ul></ul></div><h2 id='temp:C:bGf4641989ae5d74e2bb20341186'>NOTE:  Common Errors:  </h2>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:bGf0071332beacc4cb4b8a5e1b8e'><li id='temp:C:bGffeb3d52ce56b462e8970a4d40' class='' value='1'>Not setting Folders and Files to Public on Google DRIVE.
+
+<br/></li><li id='temp:C:bGf33b28df09fd54765bdda19e7d' class='parent'>The Browser doesn’t refresh without a FORCED refresh if changes have been made.
+
+<br/></li><ul><li id='temp:C:bGf7eb8248494174d709c4ae5d00' class=''>Control+Shift+R
+
+<br/></li></ul></ul></div><h3 id='temp:C:bGf92152aae398145bcb593d7826'>Later Addition: </h3>
+
+Use free Windows software: SNAP2HTML to Generate a Search component.<br/>
+
+Edit the Generated HTML (I use NotePad++)<br/>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:bGf81fa791321de41ddae65d1a2f'><li id='temp:C:bGf7573fb1867b14f148931de2ea' class='' value='1'>Delete any local Folder Path references on the SNAP2HTML Generated Webpage.
+
+<br/></li></ul></div><h3 id='temp:C:bGf1c03abb210e7434192167102c'>Free Web Page Storage Option:</h3>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:bGf889a9bc540e743ab85f003170'><li id='temp:C:bGf84cea9faa39042eeae48788be' class='' value='1'>After Web pages generated and fully tested and working, mount to Google Drive
+
+<br/></li><li id='temp:C:bGf5dc601be6cd7413e9f989ebbb' class='parent'>For Updates:
+
+<br/></li><ul><li id='temp:C:bGf7882b89f0c934e62ab332afa2' class=''>Save new QUIP pages to Windows Data-Tree
+
+<br/></li><li id='temp:C:bGf658ac9480ad94f14923d4740a' class=''>For Generating main.html Directory containing HTML Documents:  <control data-remapped="true" id="temp:C:bGfb0e9a30a4d8f4a0a955240281"><a href="https://quip.com/289hAPFf48Su">HTML_FILES_GEN-main.bat</a></control>
+
+<br/></li><li id='temp:C:bGf2d6d22f8345d48ad9c52d482f' class=''>For Generating main.html Directory containing Sub-Directories: <control data-remapped="true" id="temp:C:bGfb3e64050a3bf4d68863292793"><a href="https://quip.com/Zq3uAiouTDiN">HTML_DIRS_GEN-main.bat</a></control>
+
+<br/></li><li id='temp:C:bGf0bd3ed4adb764c41ae40a4146' class=''>Generate and Test the local HTML (click index.html on the root) 
+
+<br/></li><li id='temp:C:bGfd233e73fb1b54406b1eb1179e' class=''>Upload to Google DRIVE.
+
+<br/></li><li id='temp:C:bGf1d2445ad78ff4850905ad1e65' class=''>Refresh link at  <a href="http://drv.tw">drv.tw</a> 
+
+<br/></li><li id='temp:C:bGf8e95379221cb4fa3979833e36' class=''>Force Refresh the Browser (I use Chrome) after changes using Control+Shift+R
+
+<br/></li></ul></ul></div><h2 id='temp:C:bGf33db21db33da49efb75193a5a'>Steps</h2>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:bGfe8f734207d5743fb938262c2f'><li id='temp:C:bGfadaa00de635a435b80fef4622' class='' value='1'>How do you want your Folders and Sub-Folders to be?
+
+<br/></li><li id='temp:C:bGfd2b9f71214d843d4a78ca9aef' class=''>What html files do you want in your folders?
+
+<br/></li><li id='temp:C:bGf464a5781bded4fbbb62af7438' class=''>Design the <a href="https://quip.com/DhLBAFvhWgoU/DIR-TREE-GENbat-Dynamic-Web-Site#temp:C:bGfed1a719e80c6451592582aa8a">TREE-GEN-TEST-DATA</a> to create the Directory Structure.
+
+<br/></li><li id='temp:C:bGfccb5192611e643dca672e7978' class=''>Run <a href="https://quip.com/DhLBAFvhWgoU/DIR-TREE-GENbat-Dynamic-Web-Site#temp:C:bGff526b5f68ef6419bb578686fc">DIR-TREE-GEN.bat</a>
+
+<br/></li><li id='temp:C:bGf95cf957a48c54b58bad4aa7b6' class=''>Copy the <a href="https://quip.com/DhLBAFvhWgoU/DIR-TREE-GENbat-Dynamic-Web-Site#temp:C:bGfed1a719e80c6451592582aa8a">TREE-GEN-TEST-DATA</a> into the newly created Directory Tree.
+
+<br/></li><li id='temp:C:bGff22834a51f8646b19143de394' class=''>Follow directions and Run <control data-remapped="true" id="temp:C:bGffebd73e87e5847caafe7e3e11"><a href="https://quip.com/289hAPFf48Su">HTML_FILES_GEN-main.bat</a></control> in each File directory
+
+<br/></li><li id='temp:C:bGfb64d449514d8476a92ffff244' class=''>Mount to Google DRIVE
+
+<br/></li><li id='temp:C:bGf0ad43de69127486c9983da462' class=''>Set Permissions to Public (All Files and Directories)
+
+<br/></li><li id='temp:C:bGf332051c7a497482faf6076964' class=''>Set up DRV.TW (See <a href="https://quip.com/DhLBAFvhWgoU/DIR-TREE-GENbat-Dynamic-Web-Site#temp:C:bGf1c03abb210e7434192167102c">Free Webpage Storage Option</a>)
+
+<br/></li><li id='temp:C:bGf98d023d3522f4d4eac246b61b' class=''>Share your link!
+
+<br/></li><li id='temp:C:bGfd484c22dc33149d6a349e6e6b' class=''>All Done!
+
+<br/></li></ul></div><h3 id='temp:C:bGf18206bfb770f4a408e46bedcf'>NOTE:  This program only allows Folders to contain Just Folders or Just Files.  More Later...</h3>
+
+<h2 id='temp:C:bGf08cb523fe7654bbc949b2faf7'>File TREE</h2>
+
+<pre id='temp:C:bGfb9d959fb114e42a3a5db45921'>Folder PATH listing<br>Volume serial number is AA96-C106<br>C:.<br>+---alpha<br>¦   +---delta<br>¦   +---rho<br>¦   +---theta<br>+---omega</pre>
+
+<h2 id='temp:C:bGf3890b088739f431b86d31429c'>Folder TREE</h2>
+
+<pre id='temp:C:bGf101f01eb2db0465ba303553e4'>C:.<br>¦   Folder.jpg<br>¦   index.html<br>¦   main.html<br>¦   menu.html<br>¦   Search.html<br>¦   <br>+---alpha<br>¦   ¦   Count-Numbers.html<br>¦   ¦   Document.jpg<br>¦   ¦   Folder.jpg<br>¦   ¦   index.html<br>¦   ¦   main.html<br>¦   ¦   menu.html<br>¦   ¦   run-file.txt<br>¦   ¦   styles.css<br>¦   ¦   <br>¦   +---delta<br>¦   ¦   Auntie Edna.mp4<br>¦   ¦   Document.jpg<br>¦   ¦   Folder.jpg<br>¦   ¦   index.html<br>¦   ¦   main.html<br>¦   ¦   menu.html<br>¦   ¦   run-file.txt<br>¦   ¦   styles.css<br>¦   ¦   Video Short.html<br>¦   ¦       <br>¦   +---rho<br>¦   ¦   Document.jpg<br>¦   ¦   Folder.jpg<br>¦   ¦   index.html<br>¦   ¦   main.html<br>¦   ¦   menu.html<br>¦   ¦   Play-Media.html<br>¦   ¦   run-file.txt<br>¦   ¦   Saturday In The Park.mp3<br>¦   ¦   styles.css<br>¦   ¦      <br>¦   +---theta<br>¦       Document.jpg<br>¦       Folder.jpg<br>¦       index.html<br>¦       main.html<br>¦       menu.html<br>¦       run-file.txt<br>¦       styles.css<br>¦       The Datalist Element.html<br>¦               <br>+---omega<br>¦   Document.jpg<br>¦   Document.png<br>¦   Floating Text.html<br>¦   Folder.jpg<br>¦   index.html<br>¦   main.html<br>¦   menu.html<br>¦   run-file.txt<br>¦   styles.css</pre>
+
+<br/>
+
+<h2 id='temp:C:bGff526b5f68ef6419bb578686fc'>DIR-TREE-GEN.bat - also - 01-DIR-TREE-GEN.bat</h2>
+
+<pre id='temp:C:bGf54fc011b581544a496db14dda'>@echo off<br>Setlocal enabledelayedexpansion<br>set file_resources=%~d0%~p0resources\FILES\*.*<br>set dir_resources=%~d0%~p0resources\DIRS\*.*<br>set dir_resources2=%~d0%~p0resources\DIRS\resources<br>set root_index=%~d0%~p0resources\root_index.html<br>set root_menu=%~d0%~p0resources\root_menu.html<br>set search_html=%~d0%~p0resources\Search.html<br>set folder_icon=%~d0%~p0resources\Folder.jpg<br>set document_icon=%~d0%~p0resources\Menu.jpg<br>set main_html=main.html<br>set /a DIRLevel=1<br>set CRLF=^<br><br><br>:top<br>::Main Menu<br>set root_prompt="0 = Exit!CRLF!1 = Create Directory!CRLF!2 = Create File!CRLF!3 = To Parent or TREE!CRLF!: "<br><br>set /p menuitem=!root_prompt!<br>REM :: Menu Choices<br>REM :: 0 = Exit Program<br>IF "!menuitem!"=="0" (<br>    Set /a DIRLevel = 0<br>    copy ^"!root_index!^" index.html<br>    copy ^"!root_menu!^" menu.html<br>    copy ^"!folder_icon!^" .<br>    copy ^"!document_icon!^" .<br>    copy ^"!search_html!^" .<br>    <br>    Echo Level: !DIRLevel!<br>    tree<br>    echo Goodbye!<br>    pause<br>    Exit 0<br>) ELSE IF "!menuitem!"=="1" (<br>    set /a DIRLevel+=1<br>    Echo Level: !DIRLevel!<br>    set DIR_prompt="DIR-NAME -&gt; "<br>    set /p DIR-Name=!DIR_prompt!<br>    md "!DIR-Name!"<br>    echo run directory script &gt; run-dir.txt<br>    pushd "!DIR-Name!"<br>    echo run files script &gt; run-file.txt<br>    copy "!dir_resources!" .<br>    md resources<br>    xcopy "!dir_resources2!" .\resources /r /d /h /y<br>    goto :top<br>) ELSE IF "!menuitem!"=="2" (<br>    REM set FILE_prompt="FILE-NAME-&gt; "<br>    REM set /p File-Name=!FILE_prompt!<br>    copy "!file_resources!" .<br>    REM copy /b NUL "!FILE-Name!"<br>    goto :top<br>) ELSE IF "!menuitem!"=="3" (<br>    set /a DIRLevel-=1<br>    Echo Level: !DIRLevel!<br>    popd<br>    tree<br>    goto :top<br>) ELSE (<br>  echo Try Again<br>  goto :top<br>)</pre>
+
+<h2 id='temp:C:bGfdb56b73932f244cead1413e9c'>Copy-and-Paste into above Batch file to Generate Folder Structure </h2>
+
+<h3 id='temp:C:bGfed1a719e80c6451592582aa8a'>TREE-GEN-TEST-DATA</h3>
+
+<pre id='temp:C:bGf1af88684fe3c400899f3073ae'>1<br>alpha<br>1<br>delta<br>3<br>1<br>theta<br>3<br>1<br>rho<br>3<br>3<br>1<br>omega<br>3<br>0</pre>
+
+<h2 id='temp:C:bGfb9b22aef657c44c5b1e658002'>Folder Structure</h2>
+
+<pre id='temp:C:bGfac9430fcb15b42d7b69f93cb1'>C:.<br>+---alpha<br>¦   +---delta<br>¦   +---rho<br>¦   +---theta<br>+---omega</pre>
+
+<h2 id='temp:C:bGf1fe6be4bdfe74ceaa39124aa9'>Copy in Test Data from DIR-GEN-DATA directory</h2>
+
+<h3 id='temp:C:bGff0eda1ec863644e58eaa26d77'>DIR-GEN-DATA TREE</h3>
+
+<pre id='temp:C:bGffe1899d723544595bc2b33d8c'>DIR-GEN-DATA<br>+---alpha<br>¦   ¦   Count-Numbers.html<br>¦   ¦   <br>¦   +---delta<br>¦   ¦       Auntie Edna.mp4<br>¦   ¦       Video Short.html<br>¦   ¦       <br>¦   +---rho<br>¦   ¦       Play-Media.html<br>¦   ¦       Saturday In The Park.mp3<br>¦   ¦       <br>¦   +---theta<br>¦           Frames - Example.html<br>¦           The Datalist Element.html<br>¦           <br>+---omega<br>        Floating Text.html</pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

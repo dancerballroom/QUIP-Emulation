@@ -1,0 +1,542 @@
+<!doctype html>
+<html><head><title>JellyFin Root Directory</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:BJfb37b7276e133444781adbb664'>JellyFin Root Directory</h1>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/BJfAAAbUX7j/vRcW-5il1QhVfd3XO6KvYQ?a=kv819CYjlPdCDxCSdQhSLCexms0R9j0akBS86FcO8bca' id='temp:C:BJf5aaabcc121cc41e4b2a7e5fdf' width='800' height='410' alt="000494 - Larry&#x27;s 1964 JellyFin Home Library Online.jpg"></img></div><div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/BJfAAAbUX7j/CGeCSaDNRL6JytKlLPtFzQ?a=pQkmEtlUOJHZV8M0QK0SwEnbk6zwuaeDCVNpOKCegUka' id='temp:C:BJf28631030cb7348e2bc5ef5f69' width='800' height='387' alt="000495 - Larry&#x27;s 1964 JellyFin Home Library Online.jpg"></img></div><br/>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/BJfAAAbUX7j/pc8p902mJSzPDcwKV2x8zQ?a=z3zaULzFNUkKzul6Rcz2jielQGpnT0OhTTx0jtxpiIga' id='temp:C:BJfa273d37b899a4f79a51296ee0' width='800' height='402' alt="000496 - Larry&#x27;s 1964 JellyFin Home Library Online.jpg"></img></div><br/>
+
+<h2 id='temp:C:BJf557864386e174f969fa4aa672'>Index.html</h2>
+
+<pre id='temp:C:BJf2f36b58a091640efbf49a4356'>&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br><br>   &lt;head&gt;<br>      &lt;title&gt;Larry's 1964 JellyFin Home Library Online&lt;/title&gt;<br>      &lt;meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /&gt; &lt;meta http-equiv="Pragma" content="no-cache" /&gt; &lt;meta http-equiv="Expires" content="0" /&gt;<br>   &lt;/head&gt;<br>    <br>   &lt;frameset cols = "100 px;, *"&gt;<br>      &lt;frame src = "menu.html" name = "menu_page" /&gt;<br>      &lt;frame src = "main.html" name = "main_page" /&gt;<br>      <br>      &lt;noframes&gt;<br>         &lt;body&gt;Your browser does not support frames.&lt;/body&gt;<br>      &lt;/noframes&gt;<br>   &lt;/frameset&gt;<br>    <br>&lt;/html&gt;</pre>
+
+<h2 id='temp:C:BJfd4666450b009445caa3881de7'>Main.html</h2>
+
+<pre id='temp:C:BJff143e726b8c445039b74aaf36'>&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;<br>&lt;style&gt;<br>.parallax {<br>  /* The image used */<br>  background-image: url("backdrop.jpg");<br>  /*opacity:0.5; */<br><br>  /* Set a specific height */<br>  min-height: 1000px; <br><br>  /* Create the parallax scrolling effect */<br>  background-attachment: fixed;<br>  background-position: center;<br>  background-repeat: no-repeat;<br>  background-size: cover;<br>}<br><br>.card {<br>  font-size: 24px;<br>  width: 75%;<br>  padding: 5%;<br>  border: solid 1px gray;<br>  background: rgba(240,230,220, .8);<br>  margin-top: 20px;<br>  margin-left: 20px;<br>  margin-bottom: 20px;<br>  margin-right: 20px;<br>}<br><br>.mini {<br>    width: 25%;<br>}<br><br>.mid {<br>    width: 90%;<br>}<br>&lt;/style&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br><br>&lt;!--&lt;p&gt;Scroll Up and Down this page to see the parallax scrolling effect.&lt;/p&gt; --&gt;<br><br>&lt;div class="parallax"&gt;<br>&lt;table class="GeneratedTable"&gt;<br>  &lt;thead&gt;<br>    &lt;tr&gt;<br>      &lt;th&gt;&lt;/th&gt;<br>      &lt;th&gt;&lt;/th&gt;<br>      &lt;th&gt;&lt;/th&gt;<br>      &lt;th&gt;&lt;/th&gt;<br>    &lt;/tr&gt;<br>  &lt;/thead&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;&lt;A HREF="Animated Adult Movies\index.html" target="_top"&gt;&lt;IMG SRC="Animated Adult Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Animated Adult Series\index.html" target="_top"&gt;&lt;IMG SRC="Animated Adult Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Animated Movies A-L\index.html" target="_top"&gt;&lt;IMG SRC="Animated Movies A-L.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Animated Movies M-Z\index.html" target="_top"&gt;&lt;IMG SRC="Animated Movies M-Z.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;&lt;A HREF="Animated Series\index.html" target="_top"&gt;&lt;IMG SRC="Animated Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Award Winning Movies\index.html" target="_top"&gt;&lt;IMG SRC="Award Winning Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Christmas Movies\index.html" target="_top"&gt;&lt;IMG SRC="Christmas Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Classic Movies\index.html" target="_top"&gt;&lt;IMG SRC="Classic Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;&lt;A HREF="Classic Series\index.html" target="_top"&gt;&lt;IMG SRC="Classic Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Comedy and Dramatic Series\index.html" target="_top"&gt;&lt;IMG SRC="Comedy and Dramatic Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Comedy Movies A-M\index.html" target="_top"&gt;&lt;IMG SRC="Comedy Movies A-M.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Comedy Movies N-Z\index.html" target="_top"&gt;&lt;IMG SRC="Comedy Movies N-Z.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;&lt;A HREF="Docu-Movies\index.html" target="_top"&gt;&lt;IMG SRC="Docu-Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Docu-Series\index.html" target="_top"&gt;&lt;IMG SRC="Docu-Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Fantasy Movies\index.html" target="_top"&gt;&lt;IMG SRC="Fantasy Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Fantasy Series\index.html" target="_top"&gt;&lt;IMG SRC="Fantasy Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;&lt;A HREF="Foreign Movies\index.html" target="_top"&gt;&lt;IMG SRC="Foreign Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Great Courses\index.html" target="_top"&gt;&lt;IMG SRC="Great Courses.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Horror Movies\index.html" target="_top"&gt;&lt;IMG SRC="Horror Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Musicals\index.html" target="_top"&gt;&lt;IMG SRC="Musicals.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;&lt;A HREF="Reality Movies\index.html" target="_top"&gt;&lt;IMG SRC="Reality Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Reality Series\index.html" target="_top"&gt;&lt;IMG SRC="Reality Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Religious Movies\index.html" target="_top"&gt;&lt;IMG SRC="Religious Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Religious Series\index.html" target="_top"&gt;&lt;IMG SRC="Religious Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;&lt;A HREF="Sci-Fi Movies A-R\index.html" target="_top"&gt;&lt;IMG SRC="Sci-Fi Movies A-R.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Sci-Fi Movies S-Z\index.html" target="_top"&gt;&lt;IMG SRC="Sci-Fi Movies S-Z.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Sci-Fi Series\index.html" target="_top"&gt;&lt;IMG SRC="Sci-Fi Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Spy and Kick-Ass Movies\index.html" target="_top"&gt;&lt;IMG SRC="Spy and Kick-Ass Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;&lt;A HREF="Super-Hero Movies\index.html" target="_top"&gt;&lt;IMG SRC="Super-Hero Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Super-Hero Series\index.html" target="_top"&gt;&lt;IMG SRC="Super-Hero Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Western Movies\index.html" target="_top"&gt;&lt;IMG SRC="Western Movies.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>      &lt;td&gt;&lt;A HREF="Western Series\index.html" target="_top"&gt;&lt;IMG SRC="Western Series.jpg" class="card"&gt;&lt;/A&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;<br><br><br>&lt;/div&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></pre>
+
+<h2 id='temp:C:BJf3c0a50d9d61244f0b62ee5d43'>Menu.html</h2>
+
+<pre id='temp:C:BJf8a0bc8ca8529412b9be50ac29'>&lt;!DOCTYPE html&gt;<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>  &lt;meta charset="UTF-8"&gt;<br>  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>  &lt;title&gt;Generated Quip Emulation&lt;/title&gt;<br>  &lt;link rel="stylesheet" href="styles.css"&gt;<br>&lt;/head&gt;<br>   &lt;body&gt;<br>   &lt;div class="image-container"&gt;<br>   &lt;center&gt;<br>    &lt;!--<br>   &lt;A HREF="Search.html" target="main_page"&gt;<br>         &lt;IMG class="menu" src="Search.png"&gt; <br>         &lt;div class=".overlay-menu-text"&gt;Search&lt;/div&gt;<br>   &lt;/A&gt;<br>   --&gt;<br>   &lt;!-- &lt;button type="button" onClick="window.location.reload()"&gt;<br>      Reload Menu<br>   &lt;br&gt;<br>   &lt;hr style="height:4px;border-width:0;color:navy;background-color:navy"&gt;<br>   &lt;/button&gt;  --&gt;<br>   &lt;/center&gt;<br>   <br>   &lt;center&gt;<br>   &lt;div class="image-container"&gt;<br>      &lt;a href="index.html" target="_top"&gt;<br>          &lt;IMG class="menu" src="Navigate2Parent.png"&gt;<br>          &lt;div class=".overlay-menu-text"&gt;Back&lt;/div&gt;<br>      &lt;/a&gt;<br>   &lt;/div&gt;&lt;/br&gt;<br>   &lt;/center&gt;<br>   &lt;center&gt;<br>   &lt;div class="image-container"&gt;<br>      &lt;a href="index.html" target="_top"&gt;<br>          &lt;IMG class="menu" src="Refresh.png"&gt;<br>          &lt;div class=".overlay-menu-text"&gt;Refresh&lt;/div&gt;<br>      &lt;/a&gt;<br>   &lt;/div&gt;<br>   &lt;/center&gt;<br>      &lt;br /&gt;<br>      &lt;br /&gt;<br>   &lt;/body&gt;<br>    <br>&lt;/html&gt;<br><br></pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

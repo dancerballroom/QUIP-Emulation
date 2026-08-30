@@ -1,0 +1,546 @@
+<!doctype html>
+<html><head><title>Converting Movie Bookmarks to TXT/JSON - Precision Subtitle Editing out Commercials</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:UdZ3b4fe2f8d45f48a9bd4d98cdd'>Converting Movie Bookmarks to TXT/JSON - Precision Subtitle Editing out Commercials</h1>
+
+<h2 id='temp:C:UdZ3670a6a1dea9499a9ea6b6105'>Process for Normal (Not Broken) MP4 to set up Automatic SubtitleEdit MARKERS.</h2>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:UdZc87df1175c184c47ab2cfc9d3'><li id='temp:C:UdZc934d29a2dc44828b647dfa20' class='' value='1'>After Chopping Normal.MP4 Front and Back (CC-CHOP-CHOP...BAT)
+
+<br/></li><li id='temp:C:UdZd8c4e05fdb0744278c3d93d44' class='parent'>Drag-Drop Normal.MP4 with Pattern SHOW-COMMS-SHOW-COMMS (ODD Show Placement:  1, 3, 5, 7) 
+
+<br/></li><ul><li id='temp:C:UdZea5e30e5bbe44dd9bfbc7710e' class=''>onto BKMK-2-JSON-ODD.
+
+<br/></li></ul><li id='temp:C:UdZ2ff0f6ead7664f10bb5e35df5' class=''>Drag-Drop Normal.txt onto TXT2JSON.bat
+
+<br/></li><li id='temp:C:UdZ2c598dbde5d44ff2b0ef5fee3' class=''>Double Click NORMAL.JSON
+
+<br/></li><li id='temp:C:UdZ5f33bf3b0b7e47128bf61ae28' class=''>Check Each Commercial Start-End
+
+<br/></li><li id='temp:C:UdZ5cf0c10cbabd4b1f98ccf5109' class=''>Drag Start-End to Eliminate Commercial REMNANTS
+
+<br/></li><li id='temp:C:UdZ41856501811b415ab904561da' class=''>Save NORMAL.JSON
+
+<br/></li><li id='temp:C:UdZ343e623bb1374796968398114' class=''>Right-Click/SendTo/DROP-JSON-HERE.bat to Eliminate Commercials
+
+<br/></li></ul></div><h2 id='temp:C:UdZa14140cd2f554004972ccb581'>BKMK-2-JSON-ODD.bat</h2>
+
+<pre id='temp:C:UdZ0b85dbb39adf4977a5bb84c49'>@Echo Off<br>setlocal enableDelayedExpansion<br><br>SET PSScript=C:\POWER-SHELL-SCRIPTS\BKMK-2-JSON-ODD.ps1<br>SET PowerShellDir=C:\Windows\System32\WindowsPowerShell\v1.0<br><br>REM # SETUP STRING VARIABLES<br>Set "ext=mp4"<br>Set "opts=-v quiet"<br>Set "opts=%opts% -print_format "compact=print_section=0:nokey=1:escape=csv""<br>Set "opts=%opts% -show_entries "format=duration""<br><br>REM # FOR-EACH FILE DO SUB<br>For %%a In (*.%ext%) Do Call :Sub "%%~a"<br>Exit /B<br><br>REM # EXTRACT TIME<br>:Sub<br>SET FQ_Filename=%~1            <br>REM # FIle    <br>SET Filename_No_Ext=%~n1<br>REM # FIle.mp4<br>SET Video_FIleName=%~n1%~x1<br>REM # C:\DIR\DIR\DIR\<br>SET MP4_File_Path=%~d1%~p1<br>Copy "C:\POWER-SHELL-SCRIPTS\TXT2JSON.bat" "%MP4_File_Path%" <br><br>SET PSScript=C:\POWER-SHELL-SCRIPTS\BKMK-2-JSON-ODD.PS1<br>SET PowerShellDir=C:\Windows\System32\WindowsPowerShell\v1.0<br>pushd "%PowerShellDir%"<br><br>Powershell -Command "&amp; '%PSScript%' '%Video_FIleName%' '%MP4_File_Path%' '%Filename_No_Ext%'"<br>cd<br><br>popd<br>goto :END_OF_LINE<br><br>:END_OF_LINE</pre>
+
+<h2 id='temp:C:UdZf85788427b86483d94cee67b1'>BKMK-2-JSON-ODD.PS1</h2>
+
+<br/>
+
+<pre id='temp:C:UdZ0ef8fbc2f0384a2ca8a94e12b'>Set-Alias rh Read-Host<br>Set-Alias ds Write-Host<br><br>$path=$args[1]<br>$file_with_ext=$path + $args[0]<br>$filename=$args[2]<br>$file=$path + $filename<br>Write-Host "filename: $filename"<br>Write-Host "file: $file"<br>Write-Host "path: $path"<br><br>$index = "index"<br>$start = "start"<br>$end = "end"<br>$text = "text"<br>$comms = "Comms"<br><br># Life Saver Function<br>function Q([String]$x)<br>{<br>  $result = "`"$x`""<br>  #` QUIP<br>  return $result<br>}<br># <br><br># Path here is to the folder with ffmpeg.exe and ffprobe.exe<br>cd "C:\FFMPEG\bin" #"<br><br>#Get Chapters from file, Convert from json<br>$json = (.\ffprobe.exe -i "$file_with_ext" -show_chapters -print_format json) | Out-String | ConvertFrom-Json<br>#Output only endtimes to varible<br>$Endtimes = $json.chapters.end_time<br><br>$INFO = $INFO + "[`n" <br><br># Target Format: Laverne and Shirley - 0s08e17 - Ghost Story<br>#[<br>#{"index":2,"start":00:01:16:523,"end":00:02:02:130,"text":["Comms"]},<br>#{"index":4,"start":00:10:21:881,"end":00:11:36:922,"text":["Comms"]},<br>#{"index":6,"start":00:24:54:636,"end":00:25:09:829,"text":["Comms"]},<br>#]<br><br><br>for ($i=2; $i -lt $Endtimes.length; $i+=2) {<br><br>    $St = [timespan]::fromseconds($Endtimes[$i - 2])<br>    $Et = [timespan]::fromseconds($Endtimes[$i - 1])<br>    $INFO = $INFO + "{"<br>    $INFO = $INFO + (Q $index) + ":"<br>    $INFO = $INFO + $i + ","    <br>    $INFO = $INFO + (Q $start) + ":"<br>    $INFO = $INFO + $St.ToString("hh\:mm\:ss\:fff") + ","<br>    $INFO = $INFO + (Q $end) + ":"<br>    $INFO = $INFO + $Et.ToString("hh\:mm\:ss\:fff") + ","<br>    $INFO = $INFO + (Q $text)    <br>    $INFO = $INFO + ":[" + (Q $comms) + "]},"<br>    $INFO = $INFO + "`n"<br> }<br><br>$INFO = $INFO + "]" <br>$Infofile = "$file.txt"<br><br>$Stream = [System.IO.StreamWriter]::new($Infofile)<br>$Stream.WriteLine($INFO)<br>$Stream.Close()<br><br># After Extracting COMMERCIAL Start-End Time Signatures<br># Convert txt to JSON :  Drop the MOVIE.txt onto TXT2JSON.bat<br># TXT2JSON.bat<br>#      SubtitleEdit.exe is in the Environmental Variables PATH<br># Note:<br># PREP for TXT2JSON.bat<br># SubtitleEdit.exe /convert %1 json<br>#<br># Open JSON with SubtitleEdit.exe <br># Verify Start-END, Adjust and Save JSON <br># Finally Drop JSON on DROP-JSON-HERE.bat in Windows SendTo<br><br><br></pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

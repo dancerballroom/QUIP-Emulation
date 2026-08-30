@@ -1,0 +1,636 @@
+<!doctype html>
+<html><head><title>Another Mutation in .SRTs to consider</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:PLY8338f50bca8d4b9c809f50cd3'>Another Mutation in .SRTs to consider</h1>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:PLY2355ea270a674f31ae1a2b953'><li id='temp:C:PLY3aca9bd0f63a4028ad79454da' class='' value='1'>Write Chapters and their SRT lines to files with the same HH:MM:SS values
+
+<br/></li><li id='temp:C:PLYd4be2c7c50b146ae8a99d4701' class=''>Apply the following to the Chapters based on the totals to subtract:
+
+<br/></li></ul></div><pre id='temp:C:PLYfc447a1124b2496b89afa54e6'>You can also use ffmpeg to shift sub times.<br><span bgcolor="#f2ef90" style="background-color:#f2ef90">ffmpeg -i in.srt -c copy -output_ts_offset 4.52 out.srt</span><br>All subtitle times will be delayed 4.52 seconds.<br>You can make them earlier, to bring forward 2.1 secs<br><span bgcolor="#fefccb" style="background-color:#fefccb">ffmpeg -i in.srt -c copy -output_ts_offset -2.1 out.srt</span><br><br>However, when bringing them forward, ffmpeg will not produce negative timings.<br>So if in the above case, the first line starts at 1.5 secs, then the offset <br>will be -1.5 i.e. first line starts at 0, and all other timings are decreased <br>by 1.5.</pre>
+
+<br/>
+
+and then there is<br/>
+
+<br/>
+
+<pre id='temp:C:PLY1dee71648cd14ad49308f706f'><span style="color:#232629" textcolor="#232629">I managed to cut the video and keep subtitle in sync <br>by embedding the subtitles in the video:</span></pre>
+
+<pre id='temp:C:PLY19c695f0f4c04c2b97dfb0858'><code>$ ffmpeg -i sample-mp4-file.mp4 -hide_banner \<br>    -vf subtitles=subtitles.srt -ss 0:30:00 -t 1:33:31 \<br>    OutputVideo.mp4</code></pre>
+
+<h2 id='temp:C:PLYf669d67ec14c4597a7f6ca81e'><span style="color:#cc0300" textcolor="#cc0300"><b>ABOVE DOES NOT WORK</b></span></h2>
+
+also working ONLY with the SRT file<br/>
+
+<br/>
+
+<pre id='temp:C:PLY7773221d30d24a4783c924654'><code>$ cat subtitles.srt<br>1<br>00:00:06,000 --&gt; 00:00:20,000<br>This is demo subtitle 1<br><br>2<br>00:00:20,000 --&gt; 00:00:40,000<br>This is demo subtitle 2<br><br>$ ffmpeg -i subtitles.srt -ss 5 -t 60 -y cut.srt<br><br>(From what I gather the -ss is start at stream position and<br> -y is to fork the process into cut.srt)<br> (Further testing required -LWD)<br><br>$ cat cut.srt<br>1<br>00:00:01,000 --&gt; 00:00:15,000<br>This is demo subtitle 1<br><br>2<br>00:00:15,000 --&gt; 00:00:35,000<br>This is demo subtitle 2<br><br>The following does work<br>$ <span bgcolor="#f2ef90" style="background-color:#f2ef90">ffmpeg </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">-i subtitles.srt -ss 10 -t 60 -y cut.srt</span><br><br>$ cat cut.srt<br>1<br>00:00:10,000 --&gt; 00:00:30,000<br>This is demo subtitle 2</code></pre>
+
+<h1 id='temp:C:PLY727843d8519240c38cb75a867'><br><span style="color:#0a54c2" textcolor="#0a54c2">A brand new day and Approach</span></h1>
+
+<h2 id='temp:C:PLY880084d456294791814015162'>Q &amp; A</h2>
+
+<pre id='temp:C:PLY739a60e9f16a444d993e9c2e9'>Q:<br><span style="color:#232629" textcolor="#232629">Is it possible for FFMPEG to also combine the srt files into a single one <br>(and recalculate the timestamps), and then merge this into the final, <br>combined video? If so, what would the command be?</span></pre>
+
+<pre id='temp:C:PLY74a0d4552a194cb1b47324727'><span style="color:#232629" textcolor="#232629">For example, I have video1.mp4 and video2.mp4. They have corresponding <br>sub1.srt and sub2.srt. <br><br>When video1.mp4 and video2.mp4 are merged, the timestamps for sub2.srt <br>will, of course, be out of sync now and need to be corrected by adding <br>the duration of video1.mp4 to the individual timestamps <br>(i.e., if video1 is 30 seconds long, and the first subtitle <br>in sub2.srt appears at the 2-second mark, then after the combination, <br>it should now appear at the (30+2)=32-second mark, and so on.</span></pre>
+
+<h2 id='temp:C:PLY9420c3d523b444caa34d990e7'>1. Copy everything from video1.mp4 and add subtitles from sub1.srt</h2>
+
+<b><span style="color:#cc0300" textcolor="#cc0300">DOES NOT WORK !</span></b><br/>
+
+<pre id='temp:C:PLY17ed87110c294ba6abbf1f812'><code># Assuming English for subtitle language<br>ffmpeg -i video1.mp4 -i sub1.srt -c copy -c:s mov_text <br>    -metadata:s:s:0 language=en <br>    -metadata:s:s:0 title=English 1.mp4</code></pre>
+
+<h2 id='temp:C:PLY223c4b4151c34980aef4cff20'><span style="color:#232629" textcolor="#232629">2. Repeat the same command for all the other video-subtitles pairs.</span></h2>
+
+<h2 id='temp:C:PLYc4c0825fffe8458f8cfd155f5'><span style="color:#232629" textcolor="#232629">3. Create a text file (f.e. chapters.txt) with the resulting file names</span></h2>
+
+<pre id='temp:C:PLY56fd89cf8c02429680afc7818'><code>file 1.mp4<br>file 2.mp4<br>file 3.mp4<br>…<br></code></pre>
+
+<h2 id='temp:C:PLY515dc7f1bd3f47d7be5d428cc'>4. Concatenate the resulting container files listed in the text file</h2>
+
+<pre id='temp:C:PLY171a769f888f417ea57c354c5'><code>ffmpeg -f concat -safe 0 -i chapters.txt -c copy everything.mp4</code></pre>
+
+<h2 id='temp:C:PLY9769a520ca024a30a53107f8f'>TRY 1 - location - C:\Users\dance\Desktop\To-Split\Something New</h2>
+
+<h3 id='temp:C:PLY7f6802f98788467fbd6d255e5'>CMD :<span style="color:#0a54c2" textcolor="#0a54c2"> Replaces STEP 1 Above</span></h3>
+
+<pre id='temp:C:PLY655a5393c92d40299ac27d11f'>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 00:00:00 -t 00:06:44 -y "1.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 00:08:18 -t 00:19:12 -y "3.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 00:28:32 -t 00:20:57 -y "5.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 00:51:02 -t 00:12:16 -y "7.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 01:05:06 -t 00:11:47 -y "9.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 01:18:24 -t 00:20:44 -y "11.srt"<br>ffmpeg -i "Clash of the Titans.mp4.eng.srt" -ss 01:40:35 -t 00:14:19 -y "13.srt"</pre>
+
+<h3 id='temp:C:PLYeb4f26ce6b0944edb2f1fb9dc'>Clash of the Titans + INFO.txt pasted into </h3>
+
+<b>Show-Chapter-Calculator - Fifth Example.xlsx</b> in C:\Users\dance\Desktop\Power Shell Research\May 2022<br/>
+
+<pre id='temp:C:PLY6fd69f379fc9420ca1b3cfe6c'>From Report for Clash of the Titans<br><br>Chapter    Chapter<br>Duration   START<br><span bgcolor="#f2ef90" style="background-color:#f2ef90">00:06:44</span>   <span bgcolor="#f2ef90" style="background-color:#f2ef90">00:00:00</span><br>00:01:34   <span bgcolor="#9ec3fa" style="background-color:#9ec3fa">00:08:18</span><br><span bgcolor="#9ec3fa" style="background-color:#9ec3fa">00:19:12</span>   00:27:30<br>00:01:02   <span bgcolor="#afefa9" style="background-color:#afefa9">00:28:32</span><br><span bgcolor="#afefa9" style="background-color:#afefa9">00:20:57</span>   00:49:29<br>00:01:33   <span bgcolor="#f89efa" style="background-color:#f89efa">00:51:02</span><br><span bgcolor="#f89efa" style="background-color:#f89efa">00:12:16</span>   01:03:18<br>00:01:48   <span bgcolor="#ffdf99" style="background-color:#ffdf99">01:05:06</span><br><span bgcolor="#ffdf99" style="background-color:#ffdf99">00:11:47</span>   01:16:53<br>00:01:31   <span bgcolor="#ffcdcc" style="background-color:#ffcdcc">01:18:24</span><br><span bgcolor="#ffcdcc" style="background-color:#ffcdcc">00:20:44</span>   01:39:08<br>00:01:27   <span bgcolor="#9ee9fa" style="background-color:#9ee9fa">01:40:35</span><br><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">00:14:19</span>   01:54:54</pre>
+
+<h3 id='temp:C:PLY2050a4117b3c41f391b4b675b'>I adjusted each Chapter - Subtitles Matched in Potplayer.exe</h3>
+
+<h2 id='temp:C:PLYb19b71cc17d24e3cb3b84a3a9'>Add Subs to each VID <span style="color:#ff3633" textcolor="#ff3633">(FAILED HERE: Produces a 1 Byte File)</span></h2>
+
+<h2 id='temp:C:PLYab918b9f438a4621bec79ea7d'>NOTE: <span style="color:#430891" textcolor="#430891"><b> Bad Meta-Data!!!  Bad!!!</b></span></h2>
+
+<pre id='temp:C:PLYdca7f3fed7dd4e709d5e22c85'>ffmpeg -i "Chapter 01 - Clash of the Titans.mp4" <br>    -i "Chapter 01 - Clash of the Titans.srt" <br>    -c copy -c:s mov_text <br>    -metadata:s:s:0 language=en <br>    -metadata:s:s:0 title=English 1.mp4</pre>
+
+<pre id='temp:C:PLY0d8f521f1bd849e684a70234e'>ffmpeg -i "Chapter 01 - Clash of the Titans.mp4" <br>       -i "Chapter 01 - Clash of the Titans.srt" <br>       -c copy -c:s mov_text <br>       -metadata:s:s:0 language=en <br>       -metadata:s:s:0 title=English 1.mp4</pre>
+
+<h2 id='temp:C:PLY04bc5b50d4e64208aeeec1b86'>Create a Concat_List and Merge the MP4s</h2>
+
+<pre id='temp:C:PLY46404fe55de5429ead11d2a59'>for %a in (Chapter*.mp4) do echo file '%a' &gt;&gt; mp4files.txt<br><br><span bgcolor="#ffcdcc" style="background-color:#ffcdcc">NOT HERE, ' Thats why This Next Line FAILs '</span><br>ffmpeg -f concat -safe 0 -i mp4files.txt -c copy "Clash of the Titans.mp4"</pre>
+
+<h2 id='temp:C:PLY36f8889b7d284e099d4c7e995'>Next 2 Try:  (<a href="https://wimsworld.wordpress.com/2020/05/31/using-ffmpeg-to-concatenate-and-embed-subtitles/">https://wimsworld.wordpress.com/2020/05/31/using-ffmpeg-to-concatenate-and-embed-subtitles/</a>)</h2>
+
+<h2 id='temp:C:PLYb98406e583994032b51362395'>srtfiles.txt <span bgcolor="#fefccb" style="background-color:#fefccb"><span style="color:#087891" textcolor="#087891">(Doesn’t Seem to Work So Far, but Promising!)</span></span></h2>
+
+<pre id='temp:C:PLY2ccd5c688627456aae4c01973'>for %a in (Chapter*.srt) do echo file '%a' &gt;&gt; srtfiles.txt</pre>
+
+<pre id='temp:C:PLY27042ddf6d5841d59f3168d31'>file DJI00001.SRT<br>file DJI00002.SRT</pre>
+
+<pre id='temp:C:PLYe15ab31746ac40f4b0241834b'>ffmpeg -f concat -safe 0 <br>    -i mp4files.txt -f concat -safe 0 <br>    -i srtfiles.txt -map 0:v -map 1 -c:v copy -c:s mov_text <br>    ConcatenatedVideo.MP4</pre>
+
+<pre id='temp:C:PLY72da8975c1044a2ca0fe8b4ae'>ffmpeg -f concat -safe 0 -i mp4files.txt -f concat -safe 0 -i srtfiles.txt -map 0:v -map 1 -c:v copy -c:s mov_text ConcatenatedVideo.MP4</pre>
+
+<h2 id='temp:C:PLY67c9f1d675564044bc814a032'><span bgcolor="#9ee9fa" style="background-color:#9ee9fa"><span style="color:#ff3633" textcolor="#ff3633">New Thing Again - </span><span style="color:#5a0ac2" textcolor="#5a0ac2">But Sadly</span><span style="color:#ff3633" textcolor="#ff3633"> it’s the same as Hard Coding the Subtitles, which then </span><span style="color:#0a54c2" textcolor="#0a54c2">you can’t turn off using this method</span><span style="color:#ff3633" textcolor="#ff3633">.  Although in the end Successful I can already do this by an alternate method:  Hard Code Subs then Cut.</span></span></h2>
+
+<h2 id='temp:C:PLY207935c6d25844198e28ab1bb'><span style="color:#cc0300" textcolor="#cc0300">Merge Chapters with Subtitles (FAIL)</span></h2>
+
+<pre id='temp:C:PLYe5fe8ba6643c4aa39154f9642'><code>ffmpeg </code><code>-</code><code>i </code><code>'Chapter 01 - Clash of the Titans'</code><code> </code><br><code>        </code><code>-</code><code>i </code><code>'Chapter 01 - Clash of the Titans'</code><code> <br>        </code><code>-</code><code>c copy </code><code>-</code><code>c</code><code>:</code><code>s mov_text </code><br><code>        </code><code>-</code><code>metadata</code><code>:</code><code>s</code><code>:</code><code>s</code><code>:</code><code>0</code><code> language</code><code>=</code><code>en </code><br><code>        </code><code>-</code><code>metadata</code><code>:</code><code>s</code><code>:</code><code>s</code><code>:</code><code>0</code><code> title</code><code>=</code><code>'Clash of the Titans'</code><code> </code><code>1.mp4</code></pre>
+
+<b><span style="color:#ff3633" textcolor="#ff3633">SECOND FAIL: On One Line, tried with Single and Double Quotes</span></b><br/>
+
+<pre id='temp:C:PLYd7f426e64b0b44dfabefc3264'>ffmpeg -i 'Chapter 01 - Clash of the Titans' -i 'Chapter 01 - Clash of the Titans' -c copy -c:s mov_text -metadata:s:s:0 language=en -metadata:s:s:0 title='Clash of the Titans' 1.mp4</pre>
+
+<h1 id='temp:C:PLYf721ec1a61f642b498b5ef42e'><b><span bgcolor="#fefccb" style="background-color:#fefccb"><span style="color:#0a54c2" textcolor="#0a54c2">OK, FINALLY, WORKED</span>:</span></b></h1>
+
+<pre id='temp:C:PLY62dab54de9264d0aaa36c3250'>ffmpeg -i "Chapter 01 - Clash of the Titans.mp4" <br>    -filter_complex "subtitles=Chapter 01 - Clash of the Titans.srt" <br>    -c:a copy "Chapter 01 - Embedded Subs - Clash of the Titans.mp4"</pre>
+
+<h2 id='temp:C:PLY3fd16c4f51ab41cfaadd42f09'>One Line</h2>
+
+<pre id='temp:C:PLY1913a3699eff45ebbf90b2c59'>ffmpeg -i "Chapter 01 - Clash of the Titans.mp4" -filter_complex "subtitles=Chapter 01 - Clash of the Titans.srt" -c:a copy "Chapter 01 - Embedded Subs - Clash of the Titans.mp4"</pre>
+
+<h2 id='temp:C:PLYdbc4c8a74afd45c385da2da5d'>All lines (It works.  OH, BUT, <span style="color:#430891" textcolor="#430891">Hard Codes the Subtitles, Boo Hoo!  Dang It.</span>)</h2>
+
+<h3 id='temp:C:PLY004e9db296114170a1c688a9e'><span style="color:#cc0300" textcolor="#cc0300">These aren’t the Droids you’re looking for!  </span><span style="color:#0a54c2" textcolor="#0a54c2">These aren’t the Droids we’re looking for.</span></h3>
+
+<pre id='temp:C:PLYd425080eab8d45ec8806cfc55'>ffmpeg -i "Chapter 01 - Clash of the Titans.mp4" -filter_complex "subtitles=Chapter 01 - Clash of the Titans.srt" -c:a copy "Chapter 01 - Embedded Subs - Clash of the Titans.mp4"<br>ffmpeg -i "Chapter 03 - Clash of the Titans.mp4" -filter_complex "subtitles=Chapter 03 - Clash of the Titans.srt" -c:a copy "Chapter 03 - Embedded Subs - Clash of the Titans.mp4"<br>ffmpeg -i "Chapter 05 - Clash of the Titans.mp4" -filter_complex "subtitles=Chapter 05 - Clash of the Titans.srt" -c:a copy "Chapter 05 - Embedded Subs - Clash of the Titans.mp4"<br>ffmpeg -i "Chapter 07 - Clash of the Titans.mp4" -filter_complex "subtitles=Chapter 07 - Clash of the Titans.srt" -c:a copy "Chapter 07 - Embedded Subs - Clash of the Titans.mp4"<br>ffmpeg -i "Chapter 09 - Clash of the Titans.mp4" -filter_complex "subtitles=Chapter 09 - Clash of the Titans.srt" -c:a copy "Chapter 09 - Embedded Subs - Clash of the Titans.mp4"<br>ffmpeg -i "Chapter 11 - Clash of the Titans.mp4" -filter_complex "subtitles=Chapter 11 - Clash of the Titans.srt" -c:a copy "Chapter 11 - Embedded Subs - Clash of the Titans.mp4"<br>ffmpeg -i "Chapter 13 - Clash of the Titans.mp4" -filter_complex "subtitles=Chapter 13 - Clash of the Titans.srt" -c:a copy "Chapter 13 - Embedded Subs - Clash of the Titans.mp4"</pre>
+
+<h2 id='temp:C:PLY1e0ef0bc4cba44348a275f4de'>After Parts merged with Subtitles  (<span style="color:#0a54c2" textcolor="#0a54c2">Works, for what it’s for</span>)</h2>
+
+<pre id='temp:C:PLYf3c387340e8240e2958eec2ad'>for %a in (*Embedded*.mp4) do echo file '%a' &gt;&gt; mp4files.txt</pre>
+
+<pre id='temp:C:PLY9aa125400b294b378a689c52e'>ffmpeg -f concat -safe 0 -i mp4files.txt -c:v copy -c:a copy -c:s copy "Clash of the Titans - Processed.mp4"</pre>
+
+<h2 id='temp:C:PLYda1b575dfa904d85b7d6070c6'><span bgcolor="#ccf6ff" style="background-color:#ccf6ff"><span style="color:#cc0300" textcolor="#cc0300">This is the Hard Coded Solution!</span></span></h2>
+
+<h2 id='temp:C:PLYade85640029c4ef7b0704b668'><span style="color:#5a0ac2" textcolor="#5a0ac2">NEXT:  The Soft Coded Solution that we can turn on and off.</span></h2>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

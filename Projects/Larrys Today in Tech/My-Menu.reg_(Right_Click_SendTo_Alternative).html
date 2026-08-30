@@ -1,0 +1,560 @@
+<!doctype html>
+<html><head><title>My-Menu.reg (Right Click SendTo Alternative)</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:TOPdeb547304ec444248dc1fa6b5'>My-Menu.reg (Right Click SendTo Alternative) </h1>
+
+<h2 id='temp:C:TOP3c96c97bd7d748ea9df1ecdfe'>MY-MENU.reg (Mouse-Right-Click)</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/TOPAAA17q3u/kXKHLnKqDdn3dK9qbn0XSw?a=syhv90CSu4GUegLP4DVHHsnHYUjqaWCZj80BxIWLn6ca' id='temp:C:TOP7728a77bbfb14b3b990acc1a0' alt="000417 - .jpg"></img></div><br/>
+
+<h2 id='temp:C:TOP4fc9ad5a8c414990b771cab96'>Windows Registry - Result</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/TOPAAA17q3u/782qGBym92UzRUHkszIjDA?a=yOuCe5GnJ3UpgUX2wf2PsFb0kkD9AfOalqlNJ97i2noa' id='temp:C:TOP8a10bc16303145b9b3f841bf4' width='800' height='558' alt="000418 - Registry Editor.jpg"></img></div><h3 id='temp:C:TOPb8be90a997d14c0dae7558c87'>The Menu</h3>
+
+<pre id='temp:C:TOP5521f0e3361649ef8fd083d43'># Right Click on file<br># My Menu<br>#     \--TRIM<br>#          <a href="https://quip.com/8MCAANrp3IaE/Generate-a-Chapter-TIME-duration-report">GEN-REPORT-ONLY.bat</a><br>#          <a href="https://quip.com/OgpUAmYNGOfb/AAA-CROP-START-HMS-END-SecsBAT">AAA-CROP-Start-HMS-END-S.bat</a><br>#          <a href="https://quip.com/IXUCAgBbqBtY/AAACROP-START-ENDbat">AAA-CROP-Start-End.bat</a><br>#     \--CONVERT<br>#          <a href="https://quip.com/AqIxAvGCLBUa/Generate-Show-with-Subtitles-no-Commercials-Working-10102022">ExtractSubtitles-ODD.bat</a><br>#          <a href="https://quip.com/AqIxAvGCLBUa/Generate-Show-with-Subtitles-no-Commercials-Working-10102022">ExtractSubtitles-EVEN.bat</a><br>#          <a href="https://quip.com/05UmAMnJEjUs/ExtractVidAllbat">ExtractVidAll.bat</a><br>#     \--SEND-KEYS-VBS<br>#          <a href="https://quip.com/tc6UA7V0eCyB/FixCommonErrorsvbs-Subtitle-Edit">FixCommonErrors.VBS</a><br>#          <a href="https://quip.com/7MDuAaV89nn9/UCase2LCasevbs">UCase2LCase.VBS</a><br>#     \--FILE-RENAME<br>#          <a href="https://quip.com/1CCzA2sGSjM0/SEARCHREPLACEbat">Search-Replace.bat</a><br>#          <a href="https://quip.com/IIS5ARnG8A47/Eliminate-Apostrophesbat">Eliminate-Apostrophes.bat</a><br>#          Eliminate-Underscore<br>#          Eliminate-Space</pre>
+
+<h2 id='temp:C:TOP43dacdb7cad640a5ba16b2208'>My-Menu.REG (Hard-Coded and Working)</h2>
+
+<pre id='temp:C:TOPce74dc74c97c447f90b4dc392'>Windows Registry Editor Version 5.00<br><br>; C:\MY-MENU<br>; Right Click SendTo Alternative<br>; Create ROOT My-Menu<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu]<br>"Icon"="shell32.dll,137"<br>"Subcommands"=""<br><br>; SUB TRIM<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1]<br>"Icon"="shell32.dll,176"<br>"MUIVerb"="TRIM-MP4"<br>"SubCommands"=""<br><br>; My-Menu TRIM-MP4 Population<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1\shell\item1]<br>"Icon"="shell32.dll,208"<br>"MUIVerb"="GEN-REPORT-ONLY"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1\shell\item1\command]<br>@="C:\\\\MY-MENU\\\\GEN-REPORT-ONLY.bat \"%1\""<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1\shell\item2]<br>"MUIVerb"="AAA-CROP-Start-HMS-END-S.bat"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1\shell\item2\command]<br>@="C:\\\\MY-MENU\\\\AAA-CROP-Start-HMS-END-S.bat \"%1\""<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1\shell\item3]<br>"Icon"="shell32.dll,208"<br>"MUIVerb"="AAA-CROP-Start-End.bat"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1\shell\item3\command]<br>@="C:\\\\MY-MENU\\\\AAA-CROP-Start-End.bat \"%1\""<br><br>; SUB SUB 01-20, 21-40, 41-60<br>;[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1\shell\menu5]<br>;"MUIVerb"="01-20"<br>;"SubCommands"=""<br><br>;[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1\shell\menu6]<br>;"MUIVerb"="21-40"<br>;"SubCommands"=""<br><br>;[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu1\shell\menu7]<br>;"MUIVerb"="41-60"<br>;"SubCommands"=""<br><br>; SUB CONVERT<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu2]<br>"Icon"="shell32.dll,176"<br>"MUIVerb"="CONVERT-FILE"<br>"SubCommands"=""<br><br>; PAIR Start<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu2\shell\item1]<br>"MUIVerb"="ExtractSubtitles-ODD"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu2\shell\item1\command]<br>@="C:\\\\MY-MENU\\\\ExtractSubtitles-ODD.bat \"%1\""<br>; PAIR END<br><br>; PAIR Start<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu2\shell\item2]<br>"MUIVerb"="ExtractSubtitles-EVEN"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu2\shell\item2\command]<br>@="C:\\\\MY-MENU\\\\ExtractSubtitles-EVEN.bat \"%1\""<br>; PAIR END<br><br>; PAIR Start<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu2\shell\item3]<br>"MUIVerb"="ExtractVidAll"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu2\shell\item3\command]<br>@="C:\\\\MY-MENU\\\\Extract-Vid-All.bat \"%1\""<br>; PAIR END<br><br>; SUB SEND-KEYS-VBS<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu3]<br>"Icon"="shell32.dll,176"<br>"MUIVerb"="SEND-KEYS-VBS"<br>"SubCommands"=""<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu3\shell\item1]<br>"MUIVerb"="Fix-Common-Errors"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu3\shell\item1\command]<br>@="\"C:\\\\Windows\\\\System32\\\\wscript.exe\" C:\\\\MY-MENU\\\\Fix-Common-Errors.vbs \"%1\""<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu3\shell\item2]<br>"MUIVerb"="UCase2LCase"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu3\shell\item2\command]<br>@="\"C:\\\\Windows\\\\System32\\\\wscript.exe\" C:\\\\MY-MENU\\\\UCase2LCase.vbs \"%1\""<br><br>; SUB FILE-RENAME<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu4]<br>"Icon"="shell32.dll,176"<br>"MUIVerb"="RENAME-FILE"<br>"SubCommands"=""<br><br>; PAIR Start<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu4\shell\item1]<br>"MUIVerb"="Search-Replace"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu4\shell\item1\command]<br>@="C:\\\\MY-MENU\\\\Search-Replace.bat \"%1\""<br>; PAIR END<br><br>; PAIR Start<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu4\shell\item2]<br>"MUIVerb"="Eliminate-Apostrophes"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu4\shell\item2\command]<br>@="C:\\\\MY-MENU\\\\Eliminate-Apostrophes.bat \"%1\""<br>; PAIR END<br><br>; PAIR Start<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu4\shell\item3]<br>"MUIVerb"="Eliminate-Underscore"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu4\shell\item3\command]<br>@="C:\\\\MY-MENU\\\\Eliminate-Underscore.bat \"%1\""<br>; PAIR END<br><br>; PAIR Start<br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu4\shell\item4]<br>"MUIVerb"="Eliminate-Space"<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu\shell\menu4\shell\item4\command]<br>@="C:\\\\MY-MENU\\\\Eliminate-Space.bat \"%1\""<br>; PAIR END</pre>
+
+<h2 id='temp:C:TOP1ae9d58728354632917ec771c'>When Running VBS files (include the wscript.exe Interpreter with PATH)</h2>
+
+<h3 id='temp:C:TOP52690a7ee73a4efd9be9c6488'>Actual (No returns)</h3>
+
+<pre id='temp:C:TOP0ef6da9512724c39b3dc30350'><span style="color:#0c0d0e" textcolor="#0c0d0e">"%windir%\system32\wscript.exe"</span> <span style="color:#0c0d0e" textcolor="#0c0d0e">"C:\Program Files\Cursor Manager\CustomCursor.vbs"</span> <span style="color:#0c0d0e" textcolor="#0c0d0e">"%1"</span> <span style="color:#0c0d0e" textcolor="#0c0d0e">2</span></pre>
+
+<h3 id='temp:C:TOP51bafaf28cfb4fbbb77383e67'>Broken Down</h3>
+
+<div class="" data-section-style='6' style=""><ul id='temp:C:TOPe184e66cabab43b4974d0d10e'><li id='temp:C:TOP240057fadc734b598a1657eed' class='' value='1'><span style="color:#0c0d0e" textcolor="#0c0d0e">"%windir%\system32\wscript.exe"    VBS INTERPRETER</span> 
+
+<br/></li><li id='temp:C:TOP2d3aa7cfaa7c4dda9e2b2977c' class=''><span style="color:#0c0d0e" textcolor="#0c0d0e">"C:\Program Files\Cursor Manager\CustomCursor.vbs"   VBS FILE</span> 
+
+<br/></li><li id='temp:C:TOP49558575c6a746539ff0cba92' class=''><span style="color:#0c0d0e" textcolor="#0c0d0e">"%1"   EXPANDED-FILE-NAME COMMAND LINE ARGUMENT</span> 
+
+<br/></li><li id='temp:C:TOP6bbde4f53af74648b688840d6' class=''>2   NUMBER COMMAND LINE ARGUMENT
+
+<br/></li></ul></div><h3 id='temp:C:TOP48c8877ada6c4b6bb02c5079b'>Running a VBS Command from the Windows Registry Problem</h3>
+
+<pre id='temp:C:TOPe5eb0884051c4342aa124c782'><span style="color:#0c0d0e" textcolor="#0c0d0e">The problem is that invoking directly the script file makes windows search <br>for the program to execute it and call the asociated executable with the <br>script as argument, but in this process the rest of the arguments are <br>discarded. Call yourself the script host with all the needed arguments.</span></pre>
+
+<h3 id='temp:C:TOP8fcb9bf0820d49f8aee9062ad'>NOTE:  Add to the Windows REGISTRY Example Snippet:</h3>
+
+<pre id='temp:C:TOP98d9e7303b90480a9bb45cd1d'>Windows Registry Editor Version 5.00<br><br>; C:\MY-MENU<br>; Right Click SendTo Alternative<br>; Create ROOT My-Menu<br><br>[HKEY_CLASSES_ROOT\*\shell\My-Menu]<br>"Icon"="shell32.dll,43"<br>"Subcommands"=""</pre>
+
+<h3 id='temp:C:TOP187c1b917ded4df586698c2a3'>NOTE: Remove from the Windows REGISTRY Example Snippet:</h3>
+
+<pre id='temp:C:TOP223380bc7e844b68816445a80'>Windows Registry Editor Version 5.00<br><br>; C:\MY-MENU<br>; Right Click SendTo Alternative<br>; Remove ROOT My-Menu<br><br>[-HKEY_CLASSES_ROOT\*\shell\My-Menu]<br>"Icon"="shell32.dll,43"<br>"Subcommands"=""</pre>
+
+<h2 id='temp:C:TOPd2ffb809d0fd45e583a74608a'>My-Menu.XML (One possibility - Storage for Conversion Project)</h2>
+
+NOTE:  Now on a Back-Burner, REG Generator based on DRAG-DROP operation<br/>
+
+<pre id='temp:C:TOP4257497b3cc7407dbe4a70ff5'>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>&lt;scripts&gt;<br>    &lt;!-- ONE RECORD EXAMPLE<br>    &lt;script&gt;<br>       &lt;id&gt;Sequential ID for use by Parent Field&lt;/id&gt;<br>       &lt;Name&gt;NAME of MENU or APP&lt;/Name&gt;<br>       &lt;Type&gt;MENU or APP, APPS have a PATH, MENUS do not&lt;/Type&gt;<br>       &lt;Parent&gt;MENU-PARENT-ID to track SUB-MENU Placement&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\Script-File-Name(.bat, .vbs, .exe, EXECUTABLE COMMAND)&lt;/Path&gt;<br>    &lt;/script&gt;<br>    --&gt;<br>    &lt;!--<br>        MAIN MENU<br>    --&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;1&lt;/id&gt;<br>       &lt;Name&gt;My Menu&lt;/Name&gt;<br>       &lt;Type&gt;MENU&lt;/Type&gt;<br>       &lt;Parent&gt;0&lt;/Parent&gt;<br>       &lt;Path&gt;0&lt;/Path&gt;<br>    &lt;/script&gt;<br>    &lt;!--<br>        TRIM MENU<br>    --&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;2&lt;/id&gt;<br>       &lt;Name&gt;TRIM&lt;/Name&gt;<br>       &lt;Type&gt;MENU&lt;/Type&gt;<br>       &lt;Parent&gt;1&lt;/Parent&gt;<br>       &lt;Path&gt;0&lt;/Path&gt;<br>    &lt;/script&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;3&lt;/id&gt;<br>       &lt;Name&gt;GEN-REPORT-ONLY&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;2&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\GEN-REPORT-ONLY.bat&lt;/Path&gt;<br>    &lt;/script&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;4&lt;/id&gt;<br>       &lt;Name&gt;AAA-CROP-Start-HMS-END-S&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;2&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\AAA-CROP-Start-HMS-END-S.bat&lt;/Path&gt;<br>    &lt;/script&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;5&lt;/id&gt;<br>       &lt;Name&gt;AAA-CROP-Start-End&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;2&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\AAA-CROP-Start-End.bat&lt;/Path&gt;<br>    &lt;/script&gt;<br>    &lt;!--<br>        END TRIM MENU<br>    --&gt;<br>    &lt;!--<br>        CONVERT MENU<br>    --&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;72&lt;/id&gt;<br>       &lt;Name&gt;CONVERT&lt;/Name&gt;<br>       &lt;Type&gt;MENU&lt;/Type&gt;<br>       &lt;Parent&gt;1&lt;/Parent&gt;<br>       &lt;Path&gt;0&lt;/Path&gt;<br>    &lt;/script&gt;<br>    &lt;!--<br>        CONVERT MENU Population<br>    --&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;73&lt;/id&gt;<br>       &lt;Name&gt;ExtractSubtitles-ODD&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;72&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\ExtractSubtitles-ODD.bat&lt;/Path&gt;<br>    &lt;/script&gt;    <br>    &lt;script&gt;<br>       &lt;id&gt;74&lt;/id&gt;<br>       &lt;Name&gt;ExtractSubtitles-EVEN&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;72&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\ExtractSubtitles-EVEN.bat&lt;/Path&gt;<br>    &lt;/script&gt;    <br>    &lt;script&gt;<br>       &lt;id&gt;75&lt;/id&gt;<br>       &lt;Name&gt;ExtractVidAll&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;72&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\ExtractVidAll.bat&lt;/Path&gt;<br>    &lt;/script&gt;        <br>    &lt;!--<br>        END CONVERT MENU<br>    --&gt;<br>    &lt;!--<br>        SEND-KEYS-VBS MENU<br>    --&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;81&lt;/id&gt;<br>       &lt;Name&gt;SEND-KEYS-VBS&lt;/Name&gt;<br>       &lt;Type&gt;MENU&lt;/Type&gt;<br>       &lt;Parent&gt;1&lt;/Parent&gt;<br>       &lt;Path&gt;0&lt;/Path&gt;<br>    &lt;/script&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;82&lt;/id&gt;<br>       &lt;Name&gt;FixCommonErrors&lt;/Name&gt;<br>       &lt;Type&gt;VBS&lt;/Type&gt;<br>       &lt;Parent&gt;81&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\FixCommonErrors.VBS&lt;/Path&gt;<br>    &lt;/script&gt;    <br>    &lt;script&gt;<br>       &lt;id&gt;83&lt;/id&gt;<br>       &lt;Name&gt;UCase2LCase&lt;/Name&gt;<br>       &lt;Type&gt;VBS&lt;/Type&gt;<br>       &lt;Parent&gt;81&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\UCase2LCase.VBS&lt;/Path&gt;<br>    &lt;/script&gt;    <br>    &lt;!--<br>        END SEND-KEYS-VBS MENU<br>    --&gt;<br>    &lt;!--<br>        FILE-RENAME MENU<br>    --&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;84&lt;/id&gt;<br>       &lt;Name&gt;FILE-RENAME&lt;/Name&gt;<br>       &lt;Type&gt;MENU&lt;/Type&gt;<br>       &lt;Parent&gt;1&lt;/Parent&gt;<br>       &lt;Path&gt;0&lt;/Path&gt;<br>    &lt;/script&gt;<br>    &lt;script&gt;<br>       &lt;id&gt;85&lt;/id&gt;<br>       &lt;Name&gt;Search-Replace&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;84&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\Search-Replace.bat&lt;/Path&gt;<br>    &lt;/script&gt;    <br>    &lt;script&gt;<br>       &lt;id&gt;86&lt;/id&gt;<br>       &lt;Name&gt;Eliminate-Apostrophes&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;84&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\Eliminate-Apostrophes.bat&lt;/Path&gt;<br>    &lt;/script&gt;    <br>    &lt;script&gt;<br>       &lt;id&gt;87&lt;/id&gt;<br>       &lt;Name&gt;Eliminate-Underscore&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;84&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\Eliminate-Underscore.bat&lt;/Path&gt;<br>    &lt;/script&gt;    <br>    &lt;script&gt;<br>       &lt;id&gt;88&lt;/id&gt;<br>       &lt;Name&gt;Eliminate-Space&lt;/Name&gt;<br>       &lt;Type&gt;APP&lt;/Type&gt;<br>       &lt;Parent&gt;84&lt;/Parent&gt;<br>       &lt;Path&gt;C:\My-MENU\Eliminate-Space.bat&lt;/Path&gt;<br>    &lt;/script&gt;    <br>    &lt;!--<br>        END FILE-RENAME MENU Population<br>    --&gt;<br>&lt;/scripts&gt;</pre>
+
+<br/>
+
+</body></html>

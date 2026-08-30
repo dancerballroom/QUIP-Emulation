@@ -1,0 +1,606 @@
+<!doctype html>
+<html><head><title>Connecting PDANet to the router</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='JDPACAaCwJt'>Connecting PDANet to the router</h1>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/JDPAAAxzQeY/KaVLwENhUBZkyxBqtcJ8DA?a=I9VMfBhwo8R9hZm0GLrzA3ryk43UXG8gAkT0PLnBdiga' id='JDPACAwVlPS' alt="PDANet+_Shared_Internet_Flow.png"></img></div><br/>
+
+<h1 id='JDPACALNN5e'>My Notes on the Working Process</h1>
+
+<div style="" class="" data-section-style='6'><ul id='JDPACAggTaq'><li id='JDPACAEKM2c' class='' value='1'>Note Router Username and Password before connecting (I reset my test router to defaults)
+
+<br/></li><li id='JDPACAe5VPf' class=''>When you share the internet connection, it’s only one direction: 
+
+<br/></li></ul></div><br/>
+
+DEVICE→ ROUTER → COMPUTER→ TETHERED CELL (PDANet+ ENABLED) (Shared Internet/not Hotspot)<br/>
+
+<br/>
+
+(NOTE: The Router is connected to the computer with the INTERNET slot/not the 4 Ethernet slots)<br/>
+
+This little piece of info prevented me from working this magic 2 years ago.<br/>
+
+<br/>
+
+<div class="list-numbering-restart-at" data-section-style='6' style="--indent0: 3"><ul id='JDPACAdmhPz'><li id='JDPACAQplzd' class='' value='1'>You cannot access the router from the Computer (wrong direction), but you can from the DEVICE
+
+<br/></li></ul></div>Additionally, you have to have PRIMARY ADMINISTRATOR Privilege's to share the PDANet+ Internet Connection<br/>
+
+<h1 id='JDPACA5aaz1'>Connecting PDANet to the router</h1>
+
+<a href="https://everythingwhat.com/how-do-i-connect-pdanet-to-my-router">https://everythingwhat.com/how-do-i-connect-pdanet-to-my-router</a><br/>
+
+<br/>
+
+<br/>
+
+<a href="https://everythingwhat.com/goto/22736">https://everythingwhat.com/goto/22736</a><br/>
+
+<br/>
+
+<h1 id='JDPACAQ3Am5'>How to use T-Mobile/MetroPCS as your Home Internet</h1>
+
+<span style="color:#9d9d9d" textcolor="#9d9d9d"> </span><a href="https://blog.vivekv.com/author/admin"><span style="color:#9d9d9d" textcolor="#9d9d9d">Vivek</span></a><span style="color:#9d9d9d" textcolor="#9d9d9d"> </span><a href="https://blog.vivekv.com/how-to-use-t-mobilemetropcs-as-your-home-internet.html"><span style="color:#9d9d9d" textcolor="#9d9d9d">August 17, 2014</span></a><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">Hi guys,</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">Today I am going to share a small trick that would save you $50-$100 every month you are paying to your current home internet provider. I did not want to do 2 year agreement with Verizon FiOS, as I will be moving to another city within a month, so I found this setup works for me.</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">Basically, what you are trying to do is to tether your T-Mobile/MetroPCS unlimited internet plan and connect it to your router. By connecting any device to the router you can access internet on that device.</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">This method is helpful, when you have a XBox or Roku or any such devices connected to your TV and stream music and videos.</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">Here is what you require.</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c"><b>A laptop or desktop. ( Desktop is preferred )</b><br><b>An Android phone<br></b></span><b><a href="https://play.google.com/store/apps/details?id=com.pdanet&amp;hl=en"><span style="color:#4c4c4c" textcolor="#4c4c4c">PdaNet+</span></a></b><span style="color:#4c4c4c" textcolor="#4c4c4c"><b> application</b><br></span><a href="https://play.google.com/store/apps/details?id=com.foxfi.key&amp;hl=en"><span style="color:#4c4c4c" textcolor="#4c4c4c">PdaNet+ License</span></a><span style="color:#4c4c4c" textcolor="#4c4c4c"> key $7.95 onetime payment<br><b>Any wireless router</b><br>A T-Mobile or MetroPCS connection with unlimited data plan ( At the time of writing this article, T-Mobile unlimited 4G Plan costs $80/month and MetroPCS unlimited 4G Plan costs $50/month ). It doesn’t matter the plan comes with a tether service or not. Note that, after MetroPCS merged with T-Mobile, MetroPCS is using T-Mobiles network for internet and I’d highly suggest you opt for MetroPCS $50/mo plan instead of T-Mobile $80/mo plan.</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">Steps:</span><br/>
+
+<div style="" class="" data-section-style='6'><ul id='JDPACAffujP'><li id='JDPACAu5nfD' class='' value='1'><b>Install PdaNet+ and its license key on your Android Phone. If you do not buy license key then you have to restart PdaNet after you download certain data. Go ahead and buy a license for $7.95 ontime fee</b>
+
+<br/></li><li id='JDPACAvPFB0' class=''><b>Install the PdaNet+ windows application on laptop and connect your phone to the laptop using USB tethering. To do so, open the PdaNet+ app on your phone and click on “Activate USB Tether”. Make sure “Hide Tether Usage” is selected on the windows app</b>
+
+<br/></li><li id='JDPACA4hZM3' class=''><b>Connect an ethernet cable to your laptop ethernet port and connect the other end to your wireless router’s Internet port. This means, the router is ready to accept internet connection from your laptop.</b>
+
+<br/></li><li id='JDPACA38thy' class=''><b>Goto Control Panel -&gt; Network and Sharing Center on your laptop. Then click on PdaNet Broadband Connection. You will be presented with the connection status dialog. Click on Properties -&gt; Sharing and tick on “Allow other network users to connect through this computer’s internet connection”. Also select your Ethernet connection name from the Home Networking Connection dropdown/textbox.</b>
+
+<br/></li><li id='JDPACAkvnlT' class=''><b>You are ready to go. Now connect any device to your router and you will be able to access internet on that.</b>
+
+<br/></li></ul></div><span style="color:#4c4c4c" textcolor="#4c4c4c">The working principle is simple, you connect your phone to the laptop using USB cable and laptop gets internet access. Laptop then shares the internet access with the router and the router transmits it using wifi. Any devices connects to the router will thus get internet access</span><br/>
+
+<b><span style="color:#4c4c4c" textcolor="#4c4c4c">Speed Test</span></b><span style="color:#4c4c4c" textcolor="#4c4c4c"><br>When I checked with speedtest.net I was getting 10-20Mbps download speed. I believe the speed varies with the signal strength.</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">The only issue with this setup is that, you have to connect your phone to your laptop/desktop all the time. And if you get a call or text message or wants to move your phone away from the laptop, then the internet connection will be disconnected and all the other devices connected to the router will be disconnected from the internet. There is a workaround for this.</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">You will require one more android phone. Install PdaNet and key on that phone. You don’t have to purchase another key if you are signing into Playstore on the new phone with the same login that you used for buying the key for first phone</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">Open PdaNet on the first Android phone which has the T-Mobile sim. Then active WiFi Hotspot. Then connect your second android phone to the first android phone and connect the second android phone to your laptop using USB connection and active USB tethering on that phone. The remaining setup is same.</span><br/>
+
+<span style="color:#4c4c4c" textcolor="#4c4c4c">Hope you guys starts saving some bugs if you do not care this little inconvenience</span><br/>
+
+<br/>
+
+TEST Router  SSID<br/>
+
+LARS_PDA_NET_8520x2<br/>
+
+PASS:  85208520<br/>
+
+<br/>
+
+Network SSID<br/>
+
+dlink_media_8520x2<br/>
+
+85208520<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

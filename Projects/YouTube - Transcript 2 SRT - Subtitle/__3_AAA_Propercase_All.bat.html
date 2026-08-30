@@ -1,0 +1,5 @@
+<!DOCTYPE html><html><head><meta charset='utf-8' /><title>Saved Note</title></head><body>
+        <div><b>@echo off</b></div><div><b>setlocal disabledelayedexpansion</b></div><div><br></div><div><font color="#0b36d0" size="5">:: Using powershell -encodedCommand or passing via standard input prevents CMD from ruining the $_. variables</font></div><div><b>powershell </b>-NoProfile -<b>Command </b>"&amp; {<b>Get-ChildItem</b> -File | <b>Rename-Item</b> -NewName { (Get-Culture).TextInfo.ToTitleCase($_.BaseName.ToLower()) + $_.Extension }}"</div><div><br></div><div><b>echo </b>File renaming completed!</div><div><b>pause</b></div>
+        
+    
+    </body></html>

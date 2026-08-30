@@ -1,0 +1,536 @@
+<!doctype html>
+<html><head><title>Transcript2Chapters (CRV Prep)</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:eKP1d4a4f86ce1f4edbbb3ea275b'>Transcript2Chapters (CRV Prep)</h1>
+
+Pre-Requisite:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='temp:C:eKP346742844f924b79b923e5b83'><li id='temp:C:eKP2444e5b84c1040989ebf6c8c3' class='' style='' value='1'>Uses NotePad++ DURING
+
+<br/></li><li id='temp:C:eKP0ae6f2dfba8048669bf28f63d' class='' style=''>Uses CALC_TimeSig2Sec.bat POST
+
+<br/></li><li id='temp:C:eKP2a25bbbd2ffc4b61b12543c66' class='' style=''>Uses 01_START_DROP_MP4_HERE_00.bat POST
+
+<br/></li><li id='temp:C:eKPa51241150de34829a08e2fe56' class='' style=''>Uses Downloaded YouTube Video (Clip Grab)
+
+<br/></li><li id='temp:C:eKP711e721dd5e84c36bdb622c4d' class='' style=''>Uses ShotCut if Video needs Re-Encoding
+
+<br/></li></ul></div>Given:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='temp:C:eKPfde56a50fd414ab6b88f9f7e1'><li id='temp:C:eKP76d3fdd5184947418dcc0cf18' class='' style='' value='1'>TRANSCRIPT Downloaded
+
+<br/></li><li id='temp:C:eKP697c76c240714e63aea500bbf' class='' style=''>VIDEO Downloaded
+
+<br/></li><li id='temp:C:eKP7a98311c52a64ae79f8f14861' class='' style=''>No Chapter List
+
+<br/></li><li id='temp:C:eKP2ee7309f4c91405ca66e0f9e9' class='' style=''>No Time Signatures
+
+<br/></li></ul></div><h2 id='temp:C:eKPd5eaa94b19de4a8ea0c03e840'>Working Procedure: Transcript to CRV (Still needs further Testing)</h2>
+
+<pre id='temp:C:eKP10e402515eba443c9182359d8'>1. Replace:   (1 Line for Every Sentence - READABILITY)<br>([.?!])($|\s+)<br>with <br>$1\r\n<br><br>2. ADD MANUALLY  (Insert before each Chapter Title)<br>Fact X.<br><br>3. Run Plug-In Columns++  (Change Static "Fact X" Label to "Fact #" Counter)<br>Search:<br>Fact X:<br>Replace:<br>Fact (?=match)<br>Result: Fact 1, Fact 2, Fact N...<br><br>4. REPLACE (AFTER Each "Time Signature" ADD a Carriage RETURN)<br>(\d{2}:\d{2}:\d{2})<br>with<br>\r\n\1<br><br>(Make Sure the first line does not have extra spaces after Time Signature)<br>5. Replace: (ZAP Extra Carriage Returns for LINES without TIME Signatures)<br>(^.*[a-zA-Z].*$)(\R)<br>with<br>\1 (SPACE)<br><br>RESULT Example:  <br>00:00:00 Fact 1. Hello there and ...<br>00:00:05 Maybe youve had a long day...<br>You dont need to do 00:00:20 <br>anything now but rest...<br>Allow your breathing to 00:00:26 <br>soften and notice...<br>00:00:38 <br>The vast river of starlight we call home...<br><br>6. EDIT / LINE OPERATIONS / REMOVE EMPTY LINES  (CLEAN UP)<br><br>7. Replace:  (All on ONE LINE)<br>(\d)\R<br>with      <br>\1 (Space)<br>RESULT Example:  <br>00:00:00 Fact 1. Hello there and ...<br>00:00:05 Maybe youve had a long day...<br>You dont need to do 00:00:20 anything now but rest...<br>Allow your breathing to 00:00:26 soften and notice...<br><br>00:00:38 The vast river of starlight we call home... <br>constant glow.Fact 41. Stellar nurseries ...<br>            <br>8. REPLACE (Display Time followed by Fact)<br>^(\d{2}:\d{2}:\d{2})(.*)(Fact(.*)\R)<br>with <br>\1 \3<br>RESULT Example:  <br>00:00:00 Fact 1. Hello there...<br>...<br>00:01:24 Fact 2. The galaxy is still...<br>...<br>00:01:58 Fact 3. The galaxy you live in...<br>...<br>                        <br>9. MARK (COPY/PASTE) (Copy TimeSig to Period - For 1 Line OR 2 Lines) <br>^((\d{2}:\d{2}:\d{2})(.*)(Fact(.*)\R)(.*)[?.!])<span bgcolor="#afefa9" style="background-color:#afefa9">|</span>^((\d{2}:\d{2}:\d{2}\s)(Fact(.*))(.*)[?.!])\R<br>RESULT Example:  <br>00:00:00 Fact 1. Hello there and welcome to the Sleepy Science channel. <br>00:00:05 Maybe youve had a long day or maybe you just like falling asleep while thinking about stars and galaxies rather than 00:00:13 counting sheep. Either way, tonights journey is for you.<br>----<br>00:01:24 Fact 2. The galaxy is still growing. Although the Milky Way is ancient, it isnt<br>00:01:29 finished.<br>----<br>00:01:58 Fact 3. The galaxy you live in today is not the same one the dinosaurs<br>00:02:08 saw. And the one your distant descendants may know could be larger still.<br><br>10. Replace: (ZAP/Delete Extra Carriage Returns)<br>^(\d{2}:\d{2}:\d{2})(.*)(\R)^(\d{2}:\d{2}:\d{2})<br>with<br>\1 \2 \4<br>RESULT Example:  <br>00:00:00  Fact 1. Hello there and welcome to the Sleepy Science channel.  00:00:05 Maybe you've had a long day or maybe you just like falling asleep while thinking about stars and galaxies rather than 00:00:13 counting sheep. Either way, tonight's journey is for you.<br>----<br>00:01:24  Fact 2. The galaxy is still growing. Although the Milky Way is ancient, it isnt 00:01:29 finished.<br>----<br>00:01:58  Fact 3. The galaxy you live in today is not the same one the dinosaurs 00:02:08 saw. And the one your distant descendants may know could be larger still.<br>----<br>00:02:56  Fact 4. The Milky Way may not be a neat pin wheel at all, but a living, layered 00:03:02 swirl of stars shaped by forces we still dont fully understand.<br>----<br><br>11. Replace: (ZAP Extra Time Signatures)<br>(?&lt;!^)(\d{2}:\d{2}:\d{2}\s)<br>with<br>BLANK<br>RESULT Example:  <br>Before:<br>----<br>00:07:39  Fact 8. The sun has completed fewer than 25 00:07:45 galactic orbits. In all of its 4.6 6 billion years of existence, the sun has 00:07:51 only circled the Milky Way around 20 times.<br>----<br>After:<br>----<br>00:07:39  Fact 8. The sun has completed fewer than 25 galactic orbits. In all of its 4.6 6 billion years of existence, the sun has only circled the Milky Way around 20 times.<br>----<br><br>12. Replace: (ZAP DASH Separator)<br>----(\R)<br>with <br>BLANK<br>RESULT Example:  <br>00:10:06  Fact 11. Beneath the stars...<br>00:11:31 Fact 12. Some stars are...<br>Certain stars rotate so quickly...<br>00:12:11  Fact 13. Rapidly rotating...<br>00:12:54 Fact 14. The Milky Way...<br>Our galaxy may feel like a stable...<br><br>13. Replace: (ZAP Extra Spaces)<br>(\d{2}:\d{2}:\d{2})(\s{2})<br>with <br>\1 [SPACE]<br>RESULT Example:  <br>Fact 11. Beneath the stars...<br>Fact 12. Some stars are...<br><span bgcolor="#afefa9" style="background-color:#afefa9">Certain</span><span bgcolor="#afefa9" style="background-color:#afefa9"> stars rotate so quickly</span><span bgcolor="#afefa9" style="background-color:#afefa9">...</span><span bgcolor="#afefa9" style="background-color:#afefa9">  </span><span bgcolor="#afefa9" style="background-color:#afefa9">(</span><span bgcolor="#afefa9" style="background-color:#afefa9">Invalid</span><span bgcolor="#afefa9" style="background-color:#afefa9">)</span><br>Fact 13. Rapidly rotating...<br>Fact 14. The Milky Way...<br><span bgcolor="#afefa9" style="background-color:#afefa9">Our</span><span bgcolor="#afefa9" style="background-color:#afefa9"> galaxy may feel like a stable</span><span bgcolor="#afefa9" style="background-color:#afefa9">...</span><span bgcolor="#afefa9" style="background-color:#afefa9"> </span><span bgcolor="#afefa9" style="background-color:#afefa9">(</span><span bgcolor="#afefa9" style="background-color:#afefa9">Invalid</span><span bgcolor="#afefa9" style="background-color:#afefa9">)</span><br><br>14. Before ZAP 2nd Sentences, Manually ZAP additional INVALID lines<br>RESULT Example:  <br>Fact 11. Beneath the stars...<br>Fact 12. Some stars are...<br>Fact 13. Rapidly rotating...<br>Fact 14. The Milky Way...<br><br>15. MARK: (Copy / Paste ) (Select Everything up to Second Period(.))<br>^([^.]*\.)([^.]*)\.<br>Before:<br>00:16:12 Fact 17. Some worlds are born in chaotic multiple star systems. There are planetary systems in the Milky Way that form within groups of three or more stars.<br>00:17:19 Fact 18. The galactic center contains whirling discs of hot dust. Near the Milky Ways core, swirling discs of dust encircle the central black hole.<br>After:<br>----<br>00:16:12 Fact 17. Some worlds are born in chaotic multiple star systems.<br>----<br>00:17:19 Fact 18. The galactic center contains whirling discs of hot dust.<br>----<br><br>16. Replace: (ZAP DASH Separator)<br>----(\R)<br><br>Result EXAMPLE:<br>00:16:12 Fact 17. Some worlds are born in chaotic multiple star systems.<br>00:17:19 Fact 18. The galactic center contains whirling discs of hot dust.<br><br>17. Clean Up and Spell Check<br><br>Result EXAMPLE:<br>17. 00:16:12 Some worlds are born in chaotic multiple star systems.<br>18. 00:17:19 The galactic center contains whirling discs of hot dust.<br><br>(DONE)<br>18. Correct / Check / Post to YouTube / Create Video<br></pre>
+
+<h2 id='temp:C:eKPcd572644fde94c32806bc4686'>Optional CODE Snippets:</h2>
+
+<pre id='temp:C:eKP90ee812bfcb243e1a5f01be2e'>;OPTIONAL, if NEEDED. Replace:  (All on ONE LINE)<br>;(\d)\R<br>;with      <br>;\1 <br><br>;OPTIONAL.  If Needed. Replace: (ZAP Extra Spaces)<br>;\s(?&lt;!^)(Fact)<br>;with<br>;Fact<br><br>;OPTIONAL. If Needed. N. Replace: (ZAP DASH Separator)<br>;----(\R)<br>;with <br>;BLANK</pre>
+
+</body></html>

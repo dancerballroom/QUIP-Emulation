@@ -1,0 +1,562 @@
+<!doctype html>
+<html><head><title>Playlist_Requeue.ps1 - Jellyfin Helper Program</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:MTR0324bcbb25d44e51990840913'> Playlist_Requeue.ps1 - Jellyfin Helper Program</h1>
+
+<h3 id='temp:C:MTR4be61f381c0c420984ac80725'><span style="color:#083f91" textcolor="#083f91"><b>Purpose</b>:  Cycle the first Playlist Entry to the last and move the 2nd item to the first position.</span></h3>
+
+<h3 id='temp:C:MTRea982e73060b46b4b9202f311'>How to Prep : Change Path Variable</h3>
+
+<pre id='temp:C:MTR3b53d35ad1af4f798eba3bb74'># File listed at the Bottom of this article<br><a href="https://quip.com/5cRjAgGOxawn/PlaylistRequeueps1-Jellyfin-Helper-Program#temp:C:MTRd55d3e73a2644263b356fb90d">Run_Playlist_Requeue.bat</a><br><br># Change to Correct PATH for your machine:<br>SET PSScript="C:\ProgramData\Jellyfin\Server\data\playlists\Fake\Playlist_Requeue.ps1"<br>SET CURDIR="C:\ProgramData\Jellyfin\Server\data\playlists\Fake"</pre>
+
+<h3 id='temp:C:MTR6373c53d0cb349e79d9d1299b'>How to Use:</h3>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:MTR31e0bf9cb3434b92aa7ccaf55'><li id='temp:C:MTR68a510b2af3b49cbb22e9dde0' class='' value='1'><b>Place all the following files into the Jellyfin Playlist Directory</b>
+
+<br/></li><li id='temp:C:MTRc21e9fa794134eb58bb4290a8' class=''><b>Double Click Run_Playlist_Requeue.bat</b>
+
+<br/></li><li id='temp:C:MTRd48b495dc77b4f90a248e5342' class=''><b>DONE !</b>
+
+<br/></li></ul></div><pre id='temp:C:MTRe4fb6bf07fee49acbacf085c8'># Required Files<br>    1.  beginning.txt         : Header<br>    2.  ending.txt            : Footer<br>    3.  Merge_Playlist.bat    : Merge Header, Body, Footer<br>    4.  Playlist_Requeue.ps1  : Creates Body<br>    5.  playlist.xml          : Jellyfin Supplied Playlist<br>    6.  Run_Playlist_Requeue.bat :  (Start Program)</pre>
+
+<h2 id='temp:C:MTR287b297ff34a40b69e322a5a1'>1. beginning.txt  (Beginning of Playlist (Static))</h2>
+
+<pre id='temp:C:MTR61e330417ba9499a863873ac7'>&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;<br>&lt;Item&gt;<br>  &lt;ContentRating&gt;&lt;/ContentRating&gt;<br>  &lt;Added&gt;&lt;/Added&gt;<br>  &lt;LockData&gt;false&lt;/LockData&gt;<br>  &lt;LocalTitle&gt;Best Movie Mix Gen&lt;/LocalTitle&gt;<br>  &lt;RunningTime&gt;&lt;/RunningTime&gt;<br>  &lt;Genres&gt;<br>    &lt;Genre&gt;&lt;/Genre&gt;<br>  &lt;/Genres&gt;<br>  &lt;Studios&gt;<br>    &lt;Studio&gt;&lt;/Studio&gt;<br>  &lt;/Studios&gt;<br>  &lt;PlaylistItems&gt;</pre>
+
+<h2 id='temp:C:MTR33350d8ca3044957b45cf73e9'>2. ending.txt (Ending of Playlist (Static))</h2>
+
+<pre id='temp:C:MTR61468e133b084bc693d8a8a16'>  &lt;/PlaylistItems&gt;<br>  &lt;Shares&gt;<br>    &lt;Share&gt;<br>      &lt;UserId&gt;533876103b9f41f8b1e695a313abb409&lt;/UserId&gt;<br>      &lt;CanEdit&gt;true&lt;/CanEdit&gt;<br>    &lt;/Share&gt;<br>  &lt;/Shares&gt;<br>  &lt;PlaylistMediaType&gt;Video&lt;/PlaylistMediaType&gt;<br>&lt;/Item&gt;</pre>
+
+<h2 id='temp:C:MTR654b0768f27b4c9586e2a9c52'>3. Merge_Playlist.bat</h2>
+
+<pre id='temp:C:MTRbe0e5027bc654c45b7d265d66'>@Echo Off<br><br>REM Build the Jellyfin playlist<br><br>REM Beginning Text is Static XML<br>type beginning.txt &gt; new-playlist_2.xml<br><br>REM the Middle Text is Dynamic XML<br>type new-playlist.xml &gt;&gt; new-playlist_2.xml<br><br>REM End Text is Static XML<br>type ending.txt &gt;&gt; new-playlist_2.xml<br><br>REM Solution to Extra Added Space caused by PowerShell Write-Output<br>REM    adding a space at the end of the Middle Text XML<br>REM Explanation:<br>REM   Find all lines "Not a Blank Line" and Stream them to out.xml<br>findstr /v "^$" new-playlist_2.xml &gt; out.xml<br><br>REM Replace playlist.XML<br>del playlist.xml<br>ren out.xml playlist.xml<br><br>REM Clean Up<br>del new-playlist.XML<br>del new-playlist_2.XML<br>del out.XML</pre>
+
+<h2 id='temp:C:MTR3657c869a42943c3aba1884cb'>4. Playlist_Requeue.ps1 (The Main Program)</h2>
+
+<pre id='temp:C:MTRfa9ec6912a5447c5944bc1978'>Set-Alias rh Read-Host<br>Set-Alias ds Write-Host<br><br># Variables<br>$Output_XML = ".\temp.txt"<br><br># Read playlist.xml<br>[xml]$xmlPlay = Get-Content -Path .\playlist.xml<br><br># Save Path INDEX(2-END) to temp.txt<br>$xmlPlay.Item.PlaylistItems.PlaylistItem | ForEach-Object { <br>    $total2 += 1<br>    if ($total2 -ge 2) {<br>        #From Second Movie in the List on...<br>        #Write each [DRIVE:][SubDir\SubDir\][Movie.mp4] to temp.txt<br>        Write $_.Path | out-file -append $Output_XML -encoding ASCII<br>    }<br>}<br><br># Re-Queue the First Movie in the List at the Bottom of temp.txt<br>$temper = $xmlPlay.Item.PlaylistItems.PlaylistItem[0].Path  #Write to temp.txt<br>Write $temper | out-file -Append $Output_XML -encoding ASCII<br><br># Load the New Re-Queued List<br>$txtMovieList = Get-Content $Output_XML<br><br># Write new-playlist.xml adding XML Tags<br>#     &lt;PlaylistItem&gt;<br>#         &lt;Path&gt;[DRIVE]:\[SUBDIR]\[Movie.mp4]&lt;/Path&gt;<br>#     &lt;/PlaylistItem&gt;<br>for ($i=0; $i -lt $txtMovieList.length; $i+=1) {<br>    if ($i -eq 0) {<br>        $Padding="`n    "<br>    } else {<br>        $Padding="    "<br>    }    <br>    $CMD=$CMD+$Padding<br>    $CMD=$CMD+"&lt;PlaylistItem&gt;`n"<br>    $Chiznit = $txtMovieList[$i]<br><br>    $CMD=$CMD+"      &lt;Path&gt;"<br>    $CMD=$CMD+$Chiznit<br>    $CMD=$CMD+"&lt;/Path&gt;`n"<br>    $CMD=$CMD+"    &lt;/PlaylistItem&gt;"<br>    if ($i -lt $txtMovieList.length - 1) {<br>        $CMD=$CMD+"`n"<br>    }<br>}<br><br>#Write new XML to Temp File "new-playlist.xml" <br>$CMD -replace "`t|`n|`r",""<br>if ($CMD -ne "") {<br>    Write $CMD | out-file ".\new-playlist.xml" -encoding ASCII<br>}<br><br>#Show Output for half a second<br>Start-Sleep 0.5<br><br># Run Merge_Playlist.Bat<br># Purpose:  Insert New Playlist into new-playlist.xml file<br>#           and replace playlist.xml<br>.\Merge_Playlist.bat<br><br># Clean Up:  Delete Temp Files<br>del temp.txt</pre>
+
+<h2 id='temp:C:MTR604fd352e78e4606b989287b3'>5. playlist.xml  [The Jellyfin Playlist]</h2>
+
+<h2 id='temp:C:MTR33ca5a305a2f49a79df40c2b6'>BEFORE</h2>
+
+<pre id='temp:C:MTRab691edf517f49b0b334e41d4'>&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;<br>&lt;Item&gt;<br>  &lt;ContentRating&gt;&lt;/ContentRating&gt;<br>  &lt;Added&gt;&lt;/Added&gt;<br>  &lt;LockData&gt;false&lt;/LockData&gt;<br>  &lt;LocalTitle&gt;Best Movie Mix Gen&lt;/LocalTitle&gt;<br>  &lt;RunningTime&gt;&lt;/RunningTime&gt;<br>  &lt;Genres&gt;<br>    &lt;Genre&gt;&lt;/Genre&gt;<br>  &lt;/Genres&gt;<br>  &lt;Studios&gt;<br>    &lt;Studio&gt;&lt;/Studio&gt;<br>  &lt;/Studios&gt;<br>  &lt;PlaylistItems&gt;<br><span bgcolor="#ffe600" style="background-color:#ffe600">    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies M-Z\Rango.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;</span><br><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies A-L\COCO.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;</span><br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies A-L\Encanto (2021)\Encanto (2021).mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\WESTERN Movies\Silverado.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;J:\SUPER HERO Movies\Captain America_ Civil War.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies A-L\Extinct.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;F:\COMEDY Movies A-M\Barbarella.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies A-L\Coraline_.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;F:\COMEDY Movies A-M\Blazing Saddles_.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\SUPER HERO Movies\Eternals.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies M-Z\Up.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\FOREIGN Movies\Howl's Moving Castle.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;F:\COMEDY Movies A-M\Much Ado About Nothing 1993 Full Movie - Denzel Washington Movies.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies M-Z\Vivo.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies M-Z\Meet_The_Robinsons.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>  &lt;/PlaylistItems&gt;<br>  &lt;Shares&gt;<br>    &lt;Share&gt;<br>      &lt;UserId&gt;533876103b9f41f8b1e695a313abb409&lt;/UserId&gt;<br>      &lt;CanEdit&gt;true&lt;/CanEdit&gt;<br>    &lt;/Share&gt;<br>  &lt;/Shares&gt;<br>  &lt;PlaylistMediaType&gt;Video&lt;/PlaylistMediaType&gt;<br>&lt;/Item&gt;</pre>
+
+<h2 id='temp:C:MTR63fa745deec14a8aa894ea7de'>AFTER:</h2>
+
+<pre id='temp:C:MTR6c35107a3b5a4142b0ad90d8d'>&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;<br>&lt;Item&gt;<br>  &lt;ContentRating&gt;&lt;/ContentRating&gt;<br>  &lt;Added&gt;&lt;/Added&gt;<br>  &lt;LockData&gt;false&lt;/LockData&gt;<br>  &lt;LocalTitle&gt;Best Movie Mix Gen&lt;/LocalTitle&gt;<br>  &lt;RunningTime&gt;&lt;/RunningTime&gt;<br>  &lt;Genres&gt;<br>    &lt;Genre&gt;&lt;/Genre&gt;<br>  &lt;/Genres&gt;<br>  &lt;Studios&gt;<br>    &lt;Studio&gt;&lt;/Studio&gt;<br>  &lt;/Studios&gt;<br>  &lt;PlaylistItems&gt;<br><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies A-L\COCO.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;</span><br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies A-L\Encanto (2021)\Encanto (2021).mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\WESTERN Movies\Silverado.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;J:\SUPER HERO Movies\Captain America_ Civil War.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies A-L\Extinct.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;F:\COMEDY Movies A-M\Barbarella.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies A-L\Coraline_.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;F:\COMEDY Movies A-M\Blazing Saddles_.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\SUPER HERO Movies\Eternals.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies M-Z\Up.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\FOREIGN Movies\Howl's Moving Castle.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;F:\COMEDY Movies A-M\Much Ado About Nothing 1993 Full Movie - Denzel Washington Movies.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies M-Z\Vivo.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br>    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies M-Z\Meet_The_Robinsons.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;<br><span bgcolor="#ffe600" style="background-color:#ffe600">    &lt;PlaylistItem&gt;<br>      &lt;Path&gt;G:\ANIMATED Movies M-Z\Rango.mp4&lt;/Path&gt;<br>    &lt;/PlaylistItem&gt;</span><br>  &lt;/PlaylistItems&gt;<br>  &lt;Shares&gt;<br>    &lt;Share&gt;<br>      &lt;UserId&gt;533876103b9f41f8b1e695a313abb409&lt;/UserId&gt;<br>      &lt;CanEdit&gt;true&lt;/CanEdit&gt;<br>    &lt;/Share&gt;<br>  &lt;/Shares&gt;<br>  &lt;PlaylistMediaType&gt;Video&lt;/PlaylistMediaType&gt;<br>&lt;/Item&gt;</pre>
+
+<h2 id='temp:C:MTRd55d3e73a2644263b356fb90d'>6.  Run_Playlist_Requeue.bat</h2>
+
+<pre id='temp:C:MTRee812142e38149529a3b2ab0d'>@Echo Off<br>setlocal enableDelayedExpansion<br>set /p times2run="Number of mp4 shows/movies to requeue :&gt; "<br><br>SET PSScript="C:\ProgramData\Jellyfin\Server\data\playlists\Fake\Playlist_Requeue.ps1"<br>SET CURDIR="C:\ProgramData\Jellyfin\Server\data\playlists\Fake"<br>SET PowerShellDir=C:\Windows\System32\WindowsPowerShell\v1.0<br><br>pushd "%CURDIR%"<br><br>FOR /L %%i IN (1,1,!times2run!) DO (<br>    echo %%i<br>    <br>    REM # Run Playlist_Requeue.ps1<br>    Powershell.exe -Command "&amp; '%PSScript%'"<br>)<br>popd<br><br>REM # Sleep a Second to View Output<br>powershell.exe -Command "Start-Sleep -Seconds 1"<br></pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

@@ -1,0 +1,691 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>FileBrowser.aspx.cs</title>
+    </head>
+    <body>
+        <h1>FileBrowser.aspx.cs
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">FileBrowser.aspx.cs
+
+
+<span style="color:#D73A49;font-weight:bold;">using</span> System;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Collections;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Collections.Generic;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.IO;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.IO.Compression; // Required <span style="color:#D73A49;font-weight:bold;">for</span> <span style="color:#D73A49;font-weight:bold;">static</span> ZIP bundling operations
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Linq;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Text;
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Text.RegularExpressions; // Required <span style="color:#D73A49;font-weight:bold;">for</span> Preview rendering logic
+<span style="color:#D73A49;font-weight:bold;">using</span> System.Web;
+
+
+<span style="color:#D73A49;font-weight:bold;">public</span> partial <span style="color:#D73A49;font-weight:bold;">class</span> FileBrowser : System.Web.UI.Page
+{
+&nbsp; &nbsp; // ==========================================
+&nbsp; &nbsp; // <span style="color:#D73A49;font-weight:bold;">Class</span>-Level Fields &amp; Properties
+&nbsp; &nbsp; // ==========================================
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">class</span> SearchItem
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> Name { <span style="color:#D73A49;">get</span>; <span style="color:#D73A49;">set</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#005CC5;font-weight:bold;">string</span> RelativePath { <span style="color:#D73A49;">get</span>; <span style="color:#D73A49;">set</span>; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#6F42C1;">List</span>&lt;SearchItem&gt; _searchIndex = <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;SearchItem&gt;();
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> _rootPath = "";
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> RootNotesPath
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">get</span> { <span style="color:#D73A49;font-weight:bold;">return</span> Server.MapPath("~/uploads/notes/"); }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // ==========================================
+&nbsp; &nbsp; // Page Core Lifecycle Handler
+&nbsp; &nbsp; // ==========================================
+
+
+
+
+<span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> Page_Load(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+{
+&nbsp; &nbsp; Response.ContentEncoding = System.Text.Encoding.UTF8;
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> PinsFile = Path.Combine(Server.MapPath("~/uploads/"), "pinned_notes.txt");
+
+
+&nbsp; &nbsp; // Intercept Route Action Hooks
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["action"] == "rename") { HandleRename(); }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["action"] == "renameFolder") { HandleRenameFolder(); }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["action"] == "pin")
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> fileToPin = Request.QueryString["file"];
+&nbsp; &nbsp; &nbsp; &nbsp; File.AppendAllLines(PinsFile, <span style="color:#D73A49;">new</span>[] { fileToPin });
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect("FileBrowser.aspx?path=" + HttpUtility.UrlEncode(AppState.CurrentFolder));
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["action"] == "unpin")
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> fileToUnpin = Request.QueryString["file"];
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(PinsFile))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">var</span> lines = File.ReadAllLines(PinsFile).Where(l =&gt; l != fileToUnpin).ToList();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; File.WriteAllLines(PinsFile, lines);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect("FileBrowser.aspx?path=" + HttpUtility.UrlEncode(AppState.CurrentFolder));
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["action"] == "emptyTrash")
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; // ... (Your native empty trash code remains unmodified here) ...
+&nbsp; &nbsp; }
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // =======================================================
+&nbsp; &nbsp; // 📊 <span style="color:#D73A49;">NEW</span> EXPORT MULTI-STAGE STEP CONTROLLERS
+&nbsp; &nbsp; // =======================================================
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["action"] == "export_start")
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Clear();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> trackingId = HandleExportWebsiteAsync();
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Write(trackingId);
+&nbsp; &nbsp; &nbsp; &nbsp; Response.End();
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["action"] == "export_progress")
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Clear();
+&nbsp; &nbsp; &nbsp; &nbsp; Response.ContentType = "application/json";
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Write(<span style="color:#005CC5;font-weight:bold;">string</span>.Format("{{\"files\":{0}, \"dirs\":{1}, \"pct\":{2}}}",&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Session["ExpFiles"] ?? 0, Session["ExpDirs"] ?? 0, Session["ExpPct"] ?? 0));
+&nbsp; &nbsp; &nbsp; &nbsp; Response.End();
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (Request.QueryString["action"] == "export_download")
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; // Check both potential parameter tracking names to ensure the ID <span style="color:#D73A49;font-weight:bold;">is</span> never <span style="color:#22863A;font-weight:bold;">null</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> id = Request.QueryString["id"] ?? Request.QueryString["shortId"];
+&nbsp; &nbsp; &nbsp; &nbsp; DownloadFinishedExport(id);
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // State Sync
+&nbsp; &nbsp; AppState.CurrentNote = "";
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> rawPath = Request.QueryString["path"];
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (rawPath != <span style="color:#22863A;font-weight:bold;">null</span>) AppState.CurrentFolder = rawPath;
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> resolvedPath = Path.GetFullPath(Path.Combine(RootNotesPath, AppState.CurrentFolder));
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!resolvedPath.StartsWith(RootNotesPath)) AppState.CurrentFolder = "";&nbsp;
+}
+
+
+
+
+<span style="color:#D73A49;">private</span> <span style="color:#005CC5;font-weight:bold;">string</span> HandleExportWebsiteAsync()
+{
+&nbsp; &nbsp; // Initialize standard session tracking storage fields
+&nbsp; &nbsp; Session["ExpFiles"] = 0;
+&nbsp; &nbsp; Session["ExpDirs"] = 0;
+&nbsp; &nbsp; Session["ExpPct"] = 5;
+
+
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> sourcePath = Server.MapPath("~/uploads/notes");
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> shortId = Path.GetRandomFileName().Substring(0, 4);
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> targetWorkPath = Server.MapPath("~/uploads/exp_" + shortId);
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!Directory.Exists(sourcePath)) <span style="color:#D73A49;font-weight:bold;">return</span> "ERROR_SOURCE_MISSING";
+
+
+&nbsp; &nbsp; // 1. Scan totals to establish a baseline <span style="color:#D73A49;font-weight:bold;">for</span> progress bar <span style="color:#6F42C1;">math</span>
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> totalFiles = Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories).Length;
+&nbsp; &nbsp; Session["TotalExpFiles"] = totalFiles == 0 ? 1 : totalFiles;
+
+
+&nbsp; &nbsp; // 2. Perform tracked local disk staging transfer
+&nbsp; &nbsp; _rootPath = targetWorkPath;
+&nbsp; &nbsp; CopyDirectoryWithTracking(sourcePath, targetWorkPath);
+&nbsp; &nbsp; Session["ExpPct"] = 40;
+
+
+&nbsp; &nbsp; // 3. Compile custom HTML <span style="color:#D73A49;font-weight:bold;">static</span> site files
+&nbsp; &nbsp; GenerateIndices(targetWorkPath, <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; Session["ExpPct"] = 70;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; GenerateSearchIndexFile(targetWorkPath);
+&nbsp; &nbsp; GenerateSearchHtmlPage(targetWorkPath);
+&nbsp; &nbsp; Session["ExpPct"] = 85;
+
+
+&nbsp; &nbsp; // 4. Archive staging cluster to ZIP output format
+&nbsp; &nbsp; // FIX: Save Zip cleanly outside the staging directory path <span style="color:#D73A49;">as</span> 'website_xxxx.zip'
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> zipPath = Server.MapPath(<span style="color:#005CC5;font-weight:bold;">string</span>.Format("~/uploads/website_{0}.zip", shortId));
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(zipPath)) File.Delete(zipPath);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; ZipFile.CreateFromDirectory(targetWorkPath, zipPath);
+&nbsp; &nbsp; Session["ExpPct"] = 100;
+
+
+&nbsp; &nbsp; // FIX: Wrap directory deletion <span style="color:#D73A49;">in</span> a <span style="color:#D73A49;font-weight:bold;">try</span>-<span style="color:#D73A49;font-weight:bold;">catch</span> block so file I/O locks won't crash the worker <span style="color:#6F42C1;">thread</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>&nbsp;
+&nbsp; &nbsp; {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Directory.Exists(targetWorkPath))&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Directory.Delete(targetWorkPath, <span style="color:#22863A;font-weight:bold;">true</span>);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }&nbsp;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> { }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> shortId; // Returns ID token to JavaScript matching the website_xxxx.zip layout
+}
+
+
+
+
+<span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">void</span> CopyDirectoryWithTracking(<span style="color:#005CC5;font-weight:bold;">string</span> sourceDir, <span style="color:#005CC5;font-weight:bold;">string</span> destinationDir)
+{
+&nbsp; &nbsp; Directory.CreateDirectory(destinationDir);
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (<span style="color:#005CC5;font-weight:bold;">string</span> file <span style="color:#D73A49;">in</span> Directory.GetFiles(sourceDir))
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> name = Path.GetFileName(file);
+&nbsp; &nbsp; &nbsp; &nbsp; File.Copy(file, Path.Combine(destinationDir, name), <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // Step calculations
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> currentFiles = (<span style="color:#005CC5;font-weight:bold;">int</span>)(Session["ExpFiles"] ?? 0) + 1;
+&nbsp; &nbsp; &nbsp; &nbsp; Session["ExpFiles"] = currentFiles;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> total = (<span style="color:#005CC5;font-weight:bold;">int</span>)(Session["TotalExpFiles"] ?? 1);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> piecePct = (<span style="color:#005CC5;font-weight:bold;">int</span>)(((<span style="color:#005CC5;">double</span>)currentFiles / total) * 35); // Allocates 35% of bar space to copy <span style="color:#6F42C1;">task</span>
+&nbsp; &nbsp; &nbsp; &nbsp; Session["ExpPct"] = 5 + piecePct;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (<span style="color:#005CC5;font-weight:bold;">string</span> subDir <span style="color:#D73A49;">in</span> Directory.GetDirectories(sourceDir))
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; Session["ExpDirs"] = (<span style="color:#005CC5;font-weight:bold;">int</span>)(Session["ExpDirs"] ?? 0) + 1;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> name = Path.GetFileName(subDir);
+&nbsp; &nbsp; &nbsp; &nbsp; CopyDirectoryWithTracking(subDir, Path.Combine(destinationDir, name));
+&nbsp; &nbsp; }
+}
+
+
+
+
+<span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">void</span> DownloadFinishedExport(<span style="color:#005CC5;font-weight:bold;">string</span> shortId)
+{
+&nbsp; &nbsp; // Clean <span style="color:#005CC5;font-weight:bold;">string</span> characters against local folder escaping hijacking vectors
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(shortId) || shortId.Length &gt; 6) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // FIX: Match the 'website_{0}.zip' naming convention used <span style="color:#D73A49;">in</span> HandleExportWebsiteAsync
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> zipPath = Server.MapPath(<span style="color:#005CC5;font-weight:bold;">string</span>.Format("~/uploads/website_{0}.zip", shortId));
+
+
+&nbsp; &nbsp; Response.Clear();
+
+
+&nbsp; &nbsp; // Safety Fallback: <span style="color:#D73A49;font-weight:bold;">If</span> Windows or the browser hits <span style="color:#D73A49;font-weight:bold;">this</span> code too fast and it's not ready
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(zipPath))
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; Response.ContentType = "text/html";
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Write("&lt;h3&gt;Backend Error: The temporary ZIP file could not be found on the server. Path checked: " + zipPath + "&lt;/h3&gt;");
+&nbsp; &nbsp; &nbsp; &nbsp; Response.End();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; // <span style="color:#D73A49;">Get</span> the exact creation time of <span style="color:#D73A49;font-weight:bold;">this</span> specific zip file to build the filename <span style="color:#005CC5;font-weight:bold;">string</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">DateTime</span> creationTime = File.GetCreationTime(zipPath);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> timestampedName = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("Website_Export_{0}.zip", creationTime.ToString("yyyyMMdd_HHmmss"));
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; Response.ContentType = "application/zip";
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // Push the file name header down the live pipeline channel securely
+&nbsp; &nbsp; &nbsp; &nbsp; Response.AddHeader("Content-Disposition", <span style="color:#005CC5;font-weight:bold;">string</span>.Format("attachment; filename={0}", timestampedName));
+&nbsp; &nbsp; &nbsp; &nbsp; Response.TransmitFile(zipPath);
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Flush();
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (<span style="color:#6F42C1;">Exception</span> ex)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; Response.ContentType = "text/html";
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Write("&lt;h3&gt;Stream Transmission Error: " + ex.Message + "&lt;/h3&gt;");
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">finally</span>
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; // Completely strip output archive from disk array ONLY after successful transmission or clean fail
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(zipPath))&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; File.Delete(zipPath);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> { }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; Response.End();
+&nbsp; &nbsp; }
+}
+
+
+
+
+
+
+&nbsp; &nbsp; // ==========================================
+&nbsp; &nbsp; // Native File Management System Framework
+&nbsp; &nbsp; // ==========================================
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> HandleRename()&nbsp;
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldName = Request.QueryString["old"];
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newName = Request.QueryString["<span style="color:#D73A49;">new</span>"];
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> targetFolder = Request.QueryString["folder"] ?? AppState.CurrentFolder;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> dirPath = Path.Combine(RootNotesPath, targetFolder.Replace("/", "\\").TrimStart('\\'));
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldPath = Path.Combine(dirPath, oldName);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newPath = Path.Combine(dirPath, newName.EndsWith(".html", StringComparison.OrdinalIgnoreCase) ? newName : newName + ".html");
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(oldPath) &amp;&amp; !<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(newName)) File.Move(oldPath, newPath);
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect("FileBrowser.aspx?path=" + HttpUtility.UrlEncode(AppState.CurrentFolder));
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> HandleRenameFolder()&nbsp;
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldName = Request.QueryString["old"];
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newName = Request.QueryString["<span style="color:#D73A49;">new</span>"];
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> dirPath = Path.Combine(RootNotesPath, AppState.CurrentFolder.Replace("/", "\\").TrimStart('\\'));
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldPath = Path.Combine(dirPath, oldName);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newPath = Path.Combine(dirPath, newName);
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Directory.Exists(oldPath) &amp;&amp; !<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(newName))&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> currentParent = AppState.CurrentFolder ?? "";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldRelPath = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(currentParent) ? oldName : currentParent + "/" + oldName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newRelPath = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(currentParent) ? newName : currentParent + "/" + newName;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldMatchTarget = oldRelPath.Replace("\\", "/").Trim('/');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> newPrefix = newRelPath.Replace("\\", "/").Trim('/');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt; pinnedPaths = GetPinnedPaths();&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">bool</span> pinsWereUpdated = <span style="color:#22863A;font-weight:bold;">false</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> i = 0; i &lt; pinnedPaths.Count; i++)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">bool</span> hasLeadingSlash = pinnedPaths[i].StartsWith("/") || pinnedPaths[i].StartsWith("\\");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> cleanPin = pinnedPaths[i].Replace("\\", "/").Trim('/');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (cleanPin.StartsWith(oldMatchTarget + "/", StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> remainingPath = cleanPin.Substring(oldMatchTarget.Length);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinnedPaths[i] = (hasLeadingSlash ? "/" : "") + newPrefix + remainingPath;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinsWereUpdated = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (cleanPin.Equals(oldMatchTarget, StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinnedPaths[i] = (hasLeadingSlash ? "/" : "") + newPrefix;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pinsWereUpdated = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (pinsWereUpdated)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SavePinnedPaths(pinnedPaths);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span>&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Protection <span style="color:#D73A49;">lock</span> fallback
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Directory.Move(oldPath, newPath);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; Response.Redirect("FileBrowser.aspx?path=" + HttpUtility.UrlEncode(AppState.CurrentFolder));
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> GetOriginalLocation(<span style="color:#005CC5;font-weight:bold;">string</span> fileName)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> uploadsDir = Server.MapPath("~/uploads/");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> manifestPath = Path.Combine(uploadsDir, "trash_manifest.txt");
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(manifestPath)) <span style="color:#D73A49;font-weight:bold;">return</span> "";
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> match = File.ReadLines(manifestPath)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.FirstOrDefault(line =&gt; line.StartsWith(fileName + "=", StringComparison.OrdinalIgnoreCase));
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(match))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> eqIndex = match.IndexOf('=');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (eqIndex &gt; 0) <span style="color:#D73A49;font-weight:bold;">return</span> match.Substring(eqIndex + 1).Trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (<span style="color:#6F42C1;">Exception</span> ex)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; System.Diagnostics.Debug.WriteLine("Error reading trash manifest: " + ex.Message);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> "";
+&nbsp; &nbsp; }&nbsp; &nbsp;&nbsp;
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt; GetPinnedPaths()
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> pinFilePath = Server.MapPath("~/uploads/pinned_notes.txt");
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(pinFilePath)) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt;(File.ReadAllLines(pinFilePath));
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt;();
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> SavePinnedPaths(<span style="color:#6F42C1;">List</span>&lt;<span style="color:#005CC5;font-weight:bold;">string</span>&gt; paths)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> pinFilePath = Server.MapPath("~/uploads/pinned_notes.txt");
+&nbsp; &nbsp; &nbsp; &nbsp; File.WriteAllLines(pinFilePath, paths);
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#6F42C1;">List</span>&lt;FileInfo&gt; GetRecentFilesList()&nbsp;
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(RootNotesPath) || !Directory.Exists(RootNotesPath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;FileInfo&gt;();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DirectoryInfo directoryInfo = <span style="color:#D73A49;">new</span> DirectoryInfo(RootNotesPath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> directoryInfo.GetFiles("*.html", SearchOption.AllDirectories)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .OrderByDescending(f =&gt; f.LastWriteTime)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .Take(25)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .ToList();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#6F42C1;">List</span>&lt;FileInfo&gt;();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> GetParentPath()
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(AppState.CurrentFolder)) <span style="color:#D73A49;font-weight:bold;">return</span> "";
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">int</span> lastSlash = AppState.CurrentFolder.LastIndexOf('/');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> (lastSlash &gt; 0) ? AppState.CurrentFolder.Substring(0, lastSlash) : "";
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> GetRelativePath(<span style="color:#005CC5;font-weight:bold;">string</span> fullPath)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> relative = fullPath.Replace(RootNotesPath, "").Replace("\\", "/");
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> "/" + Path.GetDirectoryName(relative).Replace("\\", "/").TrimStart('/');
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> GetHtmlPreview(<span style="color:#005CC5;font-weight:bold;">string</span> filePath)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(filePath)) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> content = File.ReadAllText(filePath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content = Regex.Replace(content, @"&lt;(script|style)[^&gt;]*?&gt;.*?&lt;/\1&gt;", <span style="color:#005CC5;font-weight:bold;">string</span>.Empty, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> textOnly = Regex.Replace(content, @"&lt;[^&gt;]*&gt;", <span style="color:#005CC5;font-weight:bold;">string</span>.Empty);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textOnly = HttpUtility.HtmlDecode(textOnly);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">using</span> (StringReader reader = <span style="color:#D73A49;">new</span> StringReader(textOnly))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> line;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">while</span> ((line = reader.ReadLine()) != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; line = line.Trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(line))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> line.Length &gt; 60 ? line.Substring(0, 57) + "..." : line;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> { /* Fail gracefully */ }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> "Empty note.";
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // ==========================================
+&nbsp; &nbsp; // <span style="color:#D73A49;font-weight:bold;">Static</span> Platform Web Packaging Exporter
+&nbsp; &nbsp; // ==========================================
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> HandleExportWebsite()
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> sourcePath = Server.MapPath("~/uploads/notes");
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // FIX: <span style="color:#D73A49;font-weight:bold;">Using</span> a super <span style="color:#005CC5;">short</span>, randomized 4-character folder name inside /uploads/ instead of AppData+<span style="color:#6F42C1;">GUID</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> shortId = Path.GetRandomFileName().Substring(0, 4);
+&nbsp; &nbsp; &nbsp; &nbsp; _rootPath = Server.MapPath("~/uploads/exp_" + shortId);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> zipPath = _rootPath + ".zip";
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!Directory.Exists(sourcePath))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.Write("Error: Source directory does not exist.");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.End();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CopyDirectory(sourcePath, _rootPath);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GenerateIndices(_rootPath, <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GenerateSearchIndexFile(_rootPath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GenerateSearchHtmlPage(_rootPath);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ZipFile.CreateFromDirectory(_rootPath, zipPath);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.Clear();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.ContentType = "application/zip";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.AddHeader("Content-Disposition", <span style="color:#005CC5;font-weight:bold;">string</span>.Format("attachment; filename=Website_Export_{0}.zip", <span style="color:#6F42C1;">DateTime</span>.Now.ToString("yyyyMMdd")));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.TransmitFile(zipPath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.Flush();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.End();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (<span style="color:#6F42C1;">Exception</span> ex)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Response.Write("An error occurred during export: " + ex.Message);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">finally</span>
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Directory.Exists(_rootPath)) { Directory.Delete(_rootPath, <span style="color:#22863A;font-weight:bold;">true</span>); }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(zipPath)) { File.Delete(zipPath); }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+<span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> GenerateIndices(<span style="color:#005CC5;font-weight:bold;">string</span> currentDir, <span style="color:#005CC5;">bool</span> isRoot)
+{
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span>[] subDirs = Directory.GetDirectories(currentDir);
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span>[] files = Directory.GetFiles(currentDir);
+
+
+&nbsp; &nbsp; StringBuilder html = <span style="color:#D73A49;">new</span> StringBuilder();
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; html.AppendLine("&lt;!DOCTYPE html&gt;");
+&nbsp; &nbsp; html.AppendLine("&lt;html lang='en'&gt;"); // Good practice to include lang
+&nbsp; &nbsp; html.AppendLine("&lt;head&gt;");
+&nbsp; &nbsp; html.AppendLine("&nbsp; &nbsp; &lt;meta charset='utf-8'&gt;"); // Ensure <span style="color:#D73A49;font-weight:bold;">this</span> <span style="color:#D73A49;font-weight:bold;">is</span> right at the top of the head!
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // FIX: Replaced $"..." with <span style="color:#005CC5;font-weight:bold;">string</span>.Format()
+&nbsp; &nbsp; html.AppendLine(<span style="color:#005CC5;font-weight:bold;">string</span>.Format("&lt;title&gt;Index of {0}&lt;/title&gt;", GetExportRelativeUrl(currentDir)));
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; html.AppendLine("&lt;style&gt;body{font-family:sans-serif;padding:20px;line-height:1.6;} ul{<span style="color:#6F42C1;">list</span>-style-type:none;padding-left:0;} li{margin:8px 0;} a{text-decoration:none;color:#0066cc;} a:hover{text-decoration:underline;}&lt;/style&gt;");
+&nbsp; &nbsp; html.AppendLine("&lt;/head&gt;&lt;body&gt;");
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // FIX: Replaced $"..." with <span style="color:#005CC5;font-weight:bold;">string</span>.Format()
+&nbsp; &nbsp; html.AppendLine(<span style="color:#005CC5;font-weight:bold;">string</span>.Format("&lt;h2&gt;Directory Listing <span style="color:#D73A49;font-weight:bold;">for</span>: {0}&lt;/h2&gt;&lt;hr&gt;&lt;ul&gt;", GetExportRelativeUrl(currentDir)));
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!isRoot)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; html.AppendLine("&lt;li&gt;📁 &lt;a href='../'&gt;&lt;strong&gt;[..] Up to Parent Directory&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;");
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span>
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; html.AppendLine("&lt;li&gt;🔍 &lt;a href='./search.html' style='color:#d9534f;'&gt;&lt;strong&gt;Search Entire Directory&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;&lt;br&gt;");
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (<span style="color:#005CC5;font-weight:bold;">string</span> dir <span style="color:#D73A49;">in</span> subDirs)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; DirectoryInfo di = <span style="color:#D73A49;">new</span> DirectoryInfo(dir);
+&nbsp; &nbsp; &nbsp; &nbsp; // FIX: Replaced $"..." with <span style="color:#005CC5;font-weight:bold;">string</span>.Format()
+&nbsp; &nbsp; &nbsp; &nbsp; html.AppendLine(<span style="color:#005CC5;font-weight:bold;">string</span>.Format("&lt;li&gt;📁 &lt;a href='{0}/'&gt;{0}/&lt;/a&gt;&lt;/li&gt;", di.Name));
+&nbsp; &nbsp; &nbsp; &nbsp; GenerateIndices(dir, <span style="color:#22863A;font-weight:bold;">false</span>);&nbsp;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (<span style="color:#005CC5;font-weight:bold;">string</span> file <span style="color:#D73A49;">in</span> files)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; FileInfo fi = <span style="color:#D73A49;">new</span> FileInfo(file);
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (fi.Name.Equals("index.html", StringComparison.OrdinalIgnoreCase) ||&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fi.Name.Equals("search.html", StringComparison.OrdinalIgnoreCase) ||&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fi.Name.Equals("search-index.js", StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">continue</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // FIX: Replaced $"..." with <span style="color:#005CC5;font-weight:bold;">string</span>.Format()
+&nbsp; &nbsp; &nbsp; &nbsp; html.AppendLine(<span style="color:#005CC5;font-weight:bold;">string</span>.Format("&lt;li&gt;📄 &lt;a href='{0}' target='_blank'&gt;{0}&lt;/a&gt;&lt;/li&gt;", fi.Name));
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; _searchIndex.Add(<span style="color:#D73A49;">new</span> SearchItem
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Name = fi.Name,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RelativePath = GetExportRelativeUrl(file)
+&nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // Scroll to the very bottom of the GenerateIndices method and ensure it looks like <span style="color:#D73A49;font-weight:bold;">this</span>:
+&nbsp; &nbsp; html.AppendLine("&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;");
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // FIX: Explicitly enforce standard UTF-8 stream writer formatting rules
+&nbsp; &nbsp; File.WriteAllText(Path.Combine(currentDir, "index.html"), html.ToString(), <span style="color:#D73A49;">new</span> System.Text.UTF8Encoding(<span style="color:#22863A;font-weight:bold;">true</span>));
+
+
+}
+
+
+<span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> GenerateSearchIndexFile(<span style="color:#005CC5;font-weight:bold;">string</span> rootPath)
+{
+&nbsp; &nbsp; StringBuilder js = <span style="color:#D73A49;">new</span> StringBuilder();
+&nbsp; &nbsp; js.AppendLine("// Auto-generated search database\nconst searchIndex = [");
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (<span style="color:#005CC5;font-weight:bold;">var</span> item <span style="color:#D73A49;">in</span> _searchIndex)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; // FIX: Replaced $"..." with <span style="color:#005CC5;font-weight:bold;">string</span>.Format()
+&nbsp; &nbsp; &nbsp; &nbsp; js.AppendLine(<span style="color:#005CC5;font-weight:bold;">string</span>.Format("&nbsp; &nbsp; {{ name: '{0}', path: '.{1}' }},", item.Name.Replace("'", "\\'"), item.RelativePath.Replace("'", "\\'")));
+&nbsp; &nbsp; }
+&nbsp; &nbsp; js.AppendLine("];");
+&nbsp; &nbsp; File.WriteAllText(Path.Combine(rootPath, "search-index.js"), js.ToString(), Encoding.UTF8);
+}
+
+
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#005CC5;font-weight:bold;">string</span> GetExportRelativeUrl(<span style="color:#005CC5;font-weight:bold;">string</span> fullPath)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (fullPath.Equals(_rootPath, StringComparison.OrdinalIgnoreCase)) <span style="color:#D73A49;font-weight:bold;">return</span> "/";
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> relative = fullPath.Substring(_rootPath.Length).Replace('\\', '/');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> relative.StartsWith("/") ? relative : "/" + relative;
+&nbsp; &nbsp; }
+
+
+
+
+<span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> GenerateSearchHtmlPage(<span style="color:#005CC5;font-weight:bold;">string</span> rootPath)
+{
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> searchHtmlPath = Path.Combine(rootPath, "search.html");
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // We create the StringBuilder directly inside the method so it's self-contained
+&nbsp; &nbsp; StringBuilder sb = <span style="color:#D73A49;">new</span> StringBuilder();
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // 🎨 <span style="color:#D73A49;font-weight:bold;">This</span> builds the clean, responsive search page template structure
+&nbsp; &nbsp; sb.AppendLine("&lt;!DOCTYPE html&gt;");
+&nbsp; &nbsp; sb.AppendLine("&lt;html lang='en'&gt;");
+&nbsp; &nbsp; sb.AppendLine("&lt;head&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;meta charset='UTF-8'&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;title&gt;Search Site Index&lt;/title&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;style&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; body { font-family: Arial, sans-serif; padding: 20px; background: #fafafa; color: #333; }");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; .search-box { width: 100%; max-width: 500px; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px; }");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; .result-item { padding: 10px; background: #fff; border: 1px solid #eee; margin-bottom: 8px; border-radius: 4px; }");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; .result-item a { color: #0066cc; text-decoration: none; font-weight: bold; }");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; .result-item a:hover { text-decoration: underline; }");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; .back-btn { display: inline-block; margin-bottom: 15px; color: #666; text-decoration: none; font-size: 14px; }");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;/style&gt;");
+&nbsp; &nbsp; sb.AppendLine("&lt;/head&gt;");
+&nbsp; &nbsp; sb.AppendLine("&lt;body&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:bold;">class</span>='back-btn' href='index.html'&gt;⬅️ Back to Index&lt;/a&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;h2&gt;🔍 Search Notes&lt;/h2&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;input type='text' id='searchBox' <span style="color:#D73A49;font-weight:bold;">class</span>='search-box' placeholder='Type to search names or paths...' oninput='doSearch()'&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;div id='searchResults'&gt;&lt;/div&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;script src='search-index.js'&gt;&lt;/script&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;script&gt;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; function doSearch() {");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">const</span> q = document.getElementById('searchBox').value.toLowerCase();");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">const</span> res = document.getElementById('searchResults');");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; res.innerHTML = '';");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span>(!q) <span style="color:#D73A49;font-weight:bold;">return</span>;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">const</span> filtered = searchIndex.filter(item =&gt; item.name.toLowerCase().includes(q) || item.path.toLowerCase().includes(q));");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; filtered.<span style="color:#D73A49;font-weight:bold;">forEach</span>(item =&gt; {");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">const</span> div = document.createElement('div');");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; div.className = 'result-item';");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; div.innerHTML = `&lt;a href='${item.path}'&gt;${item.name}&lt;/a&gt;&lt;br&gt;&lt;small style='color:#888'&gt;${item.path}&lt;/small&gt;`;");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; res.appendChild(div);");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span>(filtered.length === 0) { res.innerHTML = '&lt;p style=\"color:#888\"&gt;No matches found&lt;/p&gt;'; }");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &nbsp; &nbsp; }");
+&nbsp; &nbsp; sb.AppendLine("&nbsp; &nbsp; &lt;/script&gt;");
+&nbsp; &nbsp; sb.AppendLine("&lt;/body&gt;");
+&nbsp; &nbsp; sb.AppendLine("&lt;/html&gt;");
+
+
+&nbsp; &nbsp; // Force UTF-8 encoding on the output stream writer
+
+
+&nbsp; &nbsp; File.WriteAllText(searchHtmlPath, sb.ToString(), <span style="color:#D73A49;">new</span> System.Text.UTF8Encoding(<span style="color:#22863A;font-weight:bold;">true</span>));
+
+
+}
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">static</span> <span style="color:#D73A49;font-weight:bold;">void</span> CopyDirectory(<span style="color:#005CC5;font-weight:bold;">string</span> sourceDir, <span style="color:#005CC5;font-weight:bold;">string</span> destinationDir)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; DirectoryInfo dir = <span style="color:#D73A49;">new</span> DirectoryInfo(sourceDir);
+&nbsp; &nbsp; &nbsp; &nbsp; Directory.CreateDirectory(destinationDir);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (FileInfo file <span style="color:#D73A49;">in</span> dir.GetFiles())
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; file.CopyTo(Path.Combine(destinationDir, file.Name), <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">foreach</span> (DirectoryInfo subDir <span style="color:#D73A49;">in</span> dir.GetDirectories())
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CopyDirectory(subDir.FullName, Path.Combine(destinationDir, subDir.Name));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+        }</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

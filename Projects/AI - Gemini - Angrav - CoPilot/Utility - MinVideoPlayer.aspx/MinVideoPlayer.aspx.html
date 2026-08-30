@@ -1,0 +1,1090 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>MinVideoPlayer.aspx</title>
+    </head>
+    <body>
+        <h1>MinVideoPlayer.aspx
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">MinVideoPlayer.aspx
+
+
+&lt;%@ Page Language="C#" AutoEventWireup="<span style="color:#22863A;font-weight:bold;">true</span>" %&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22&gt;&lt;rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23007acc%22/&gt;&lt;/svg&gt;"&gt;
+
+
+&nbsp; &nbsp; &lt;meta charset="utf-8" /&gt;
+&nbsp; &nbsp; &lt;title&gt;MinVideoPlayer&lt;/title&gt;
+&nbsp;<span style="white-space: pre-wrap; display: inline-block; width: 100%;"> &nbsp; &lt;style&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; * {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; html, body {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">overflow</span>: hidden;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #000;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: Arial, sans-serif;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; user-select: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #player-container {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">absolute</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">left</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; video {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">block</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">height</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; object-fit: contain;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: default;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; video.stretched {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; object-fit: fill;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #drop-overlay {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">fixed</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">left</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: rgba(0, 120, 215, 0.3);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 4px dashed #0078d7;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 24px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 9999;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">pointer</span>-events: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #welcome-prompt {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">absolute</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: 50%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">left</span>: 50%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform: translate(-50%, -50%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #888;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">pointer</span>-events: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 10;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1.8;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #welcome-prompt .shortcuts-list {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #666;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; list-style: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;">normal</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #welcome-prompt .shortcuts-list <span style="color:#D73A49;">li</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Toaster Notification Overlay */
+&nbsp; &nbsp; &nbsp; &nbsp; #toaster {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">fixed</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">bottom</span>: 60px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">left</span>: 50%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform: translateX(-50%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: rgba(0, 0, 0, 0.85);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #00ffcc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #444;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: monospace;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; letter-spacing: 1px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; opacity: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: opacity 0.2s ease-in-out;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">pointer</span>-events: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 10001;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Modals Overlay Base */
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-overlay {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">fixed</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">left</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: rgba(0, 0, 0, 0.7);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 10000;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-content {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #222;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #eee;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 25px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #444;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 480px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-content.help-modal {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 600px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Small Jump To Modal Window */
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-content.jump-modal {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 320px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-header-row {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: space-between;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">bottom</span>: 1px solid #333;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">padding</span>-<span style="color:#005CC5;">bottom</span></span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-header-row h3 {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 18px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #0078d7;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .header-btn-group {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .header-btn {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 5px 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: opacity 0.1s ease;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .header-btn:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; opacity: 0.9;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #btnSaveSession {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #28a745, #218838);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #btnLoadSession {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #17a2b8, #138496);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-content p {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; word-break: break-all;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1.4;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-content p span {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #aaa;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-content textarea {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 90px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #111;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #00ffcc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #444;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: monospace;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; resize: vertical;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 5px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-content textarea::placeholder {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #444;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .spinner-group {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: space-between;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .spinner-group span {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #aaa;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .spinner-group <span style="color:#D73A49;">input</span>[type="number"] {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 60px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #111;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #00ffcc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #444;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 5px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: monospace;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-footer {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: space-between;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Jump To Modal Inner Elements */
+&nbsp; &nbsp; &nbsp; &nbsp; .jump-row {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #txtJumpTime {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #111;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #00ffcc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #444;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: monospace;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #btnExecuteJump {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #ff8c00, #ff4500);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 9px 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: opacity 0.1s ease;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #btnExecuteJump:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; opacity: 0.9;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Drag-Drop Text Box in Modal */
+&nbsp; &nbsp; &nbsp; &nbsp; #dropTextArea {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 240px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 38px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #181818;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 2px dashed #0078d7;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #aaa;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 11px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: default;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #dropTextArea.dragover {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: rgba(0, 120, 215, 0.2);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #00ffcc;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-content <span style="color:#D73A49;">button</span>.ok-btn {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #0078d7;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .modal-content <span style="color:#D73A49;">button</span>.ok-btn:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #005a9e;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #helpTextContainer {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 300px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #111;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #00ffcc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #444;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: monospace;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-y</span>: auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">white-space</span>: <span style="color:#D73A49;">pre</span>-wrap;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &lt;/style&gt;</span>
+&lt;/head&gt;
+&lt;body&gt;
+
+
+&nbsp; &nbsp; &lt;div id="drop-overlay"&gt;Drop Video Here&lt;/div&gt;
+&nbsp; &nbsp; &lt;div id="toaster"&gt;00:00:00 / 00:00:00&lt;/div&gt;
+
+
+&nbsp; &nbsp; &lt;div id="welcome-prompt"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; Drag &amp;amp; Drop a Video File Here
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;ul <span style="color:#D73A49;font-weight:bold;">class</span>="shortcuts-<span style="color:#6F42C1;">list</span>"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Arrow Keys: +/- 1 Minute&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Ctrl + Arrow Keys: +/- 10 Seconds&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Ctrl + Shift + Arrow Keys: +/- 1 Second&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Ctrl + Alt + Arrow Keys: Jump Timestamp&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Ctrl + Alt + G: Jump Modal Window&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Ctrl + 0: Jump to Start &amp;amp; Pause&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Ctrl + R: Toggle Stretch&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Ctrl + I: Info&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Ctrl + Shift + H: Help&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;Ctrl + Shift + B: Exit to Filing Cabinet&lt;/li&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/ul&gt;
+&nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &lt;div id="player-container"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;video id="videoPlayer" controls preload="auto"&gt;&lt;/video&gt;
+&nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &lt;!-- Small Editable Jump To Modal Window (Ctrl + Alt + G) --&gt;
+&nbsp; &nbsp; &lt;div id="jump-modal" <span style="color:#D73A49;font-weight:bold;">class</span>="modal-overlay"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="modal-content jump-modal"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="modal-header-row" style="margin-bottom: 8px; padding-bottom: 6px;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Jump To Time&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button id="btnCloseJumpModal" <span style="color:#D73A49;font-weight:bold;">class</span>="header-btn" style="background: #444; padding: 2px 8px;"&gt;✕&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="jump-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type="text" id="txtJumpTime" placeholder="HH:MM:SS" value="00:00:00" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button id="btnExecuteJump" title="Jump to Time"&gt;Jump To&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &lt;!-- Info &amp; Timestamp Modal Window --&gt;
+&nbsp; &nbsp; &lt;div id="info-modal" <span style="color:#D73A49;font-weight:bold;">class</span>="modal-overlay"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="modal-content"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="modal-header-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Video Information&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="header-btn-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button id="btnSaveSession" <span style="color:#D73A49;font-weight:bold;">class</span>="header-btn" title="Save Current Session"&gt;Save&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button id="btnLoadSession" <span style="color:#D73A49;font-weight:bold;">class</span>="header-btn" title="Load Last Saved Session"&gt;Load&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;p&gt;&lt;span&gt;File Name:&lt;/span&gt; &lt;span id="lblFileName"&gt;N/A&lt;/span&gt;&lt;/p&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;p&gt;&lt;span&gt;Time / Length:&lt;/span&gt; &lt;span id="lblTimeLength"&gt;00:00:00 / 00:00:00&lt;/span&gt;&lt;/p&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;p style="margin-top: 10px; margin-bottom: 2px;"&gt;&lt;span&gt;Timestamp Signatures (Jump via Ctrl + Alt + Left/Right):&lt;/span&gt;&lt;/p&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;textarea id="txtTimestamps" placeholder="HH:MM:SS
+HH:MM:SS"&gt;&lt;/textarea&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="spinner-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span&gt;Timestamp Offset Seconds (0–6):&lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type="number" id="numOffset" min="0" max="6" value="0" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="modal-footer"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="dropTextArea"&gt;Drag-Drop Time Signatures Text HERE&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button id="btnCloseModal" <span style="color:#D73A49;font-weight:bold;">class</span>="ok-btn"&gt;OK&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &lt;!-- Help Modal Window (Ctrl + Shift + H) --&gt;
+&lt;div id="helpModal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6);"&gt;
+&nbsp; &nbsp; &lt;div style="background-color:#002B5D; color:#00B939; margin:10% auto; padding:20px; width:50%; max-height:70vh; overflow-y:auto; border-radius:8px; box-shadow:0 4px 15px rgba(0,0,0,0.3); font-family:sans-serif; position:relative;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;span onclick="closeHelpModal()" style="color:#26C800; <span style="color:#005CC5;">float</span>:right; font-size:28px; font-weight:bold; cursor:pointer;"&gt;&amp;times;&lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;h2&gt;MinVideoPlayer Help&lt;/h2&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;hr style="margin-bottom:15px;" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;pre id="helpTextContent" style="color:#00B939; white-space: pre-wrap; font-family: inherit; font-size:14px; line-height:1.5;"&gt;Loading help text...&lt;/pre&gt;
+&nbsp; &nbsp; &lt;/div&gt;
+&lt;/div&gt;
+
+
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;script&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> video = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoPlayer');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> dropOverlay = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('drop-overlay');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> welcomePrompt = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('welcome-prompt');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> toaster = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('toaster');
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> infoModal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('info-modal');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> helpModal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('help-modal');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> jumpModal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('jump-modal');
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> lblFileName = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblFileName');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> lblTimeLength = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblTimeLength');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> txtTimestamps = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtTimestamps');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> numOffset = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('numOffset');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> btnCloseModal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnCloseModal');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> btnCloseHelp = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnCloseHelp');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> btnSaveSession = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnSaveSession');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> btnLoadSession = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnLoadSession');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> dropTextArea = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('dropTextArea');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> helpTextContainer = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('helpTextContainer');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> txtJumpTime = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtJumpTime');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> btnExecuteJump = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnExecuteJump');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> btnCloseJumpModal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnCloseJumpModal');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> currentFileName = "N/A";
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> currentFileHandle = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> toasterTimeout = <span style="color:#22863A;font-weight:bold;">null</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- IndexedDB Setup <span style="color:#D73A49;font-weight:bold;">for</span> Session Persistence ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> openDB() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#005CC5;font-weight:bold;">Promise</span>((resolve, reject) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> request = indexedDB.open('MinVideoPlayerDB', 1);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; request.onupgradeneeded = (e) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> db = e.target.result;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!db.objectStoreNames.contains('sessions')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; db.createObjectStore('sessions');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; request.onsuccess = (e) =&gt; resolve(e.target.result);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; request.onerror = (e) =&gt; reject(e.target.<span style="color:#005CC5;">error</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> saveSessionToDB() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> db = <span style="color:#D73A49;font-weight:bold;">await</span> openDB();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> transaction = db.transaction('sessions', 'readwrite');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> store = transaction.objectStore('sessions');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> sessionData = {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fileHandle: currentFileHandle,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fileName: currentFileName,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timestamps: txtTimestamps.value,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; offset: numOffset.value,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentTime: video.currentTime
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; store.put(sessionData, 'lastSession');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#005CC5;font-weight:bold;">Promise</span>((resolve, reject) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transaction.oncomplete = () =&gt; resolve(<span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transaction.onerror = () =&gt; reject(transaction.<span style="color:#005CC5;">error</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.<span style="color:#005CC5;">error</span>("Save <span style="color:#005CC5;">error</span>:", err);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> loadSessionFromDB() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> db = <span style="color:#D73A49;font-weight:bold;">await</span> openDB();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> transaction = db.transaction('sessions', 'readonly');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> store = transaction.objectStore('sessions');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> request = store.get('lastSession');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#D73A49;">new</span> <span style="color:#005CC5;font-weight:bold;">Promise</span>((resolve, reject) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; request.onsuccess = () =&gt; resolve(request.result);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; request.onerror = () =&gt; reject(request.<span style="color:#005CC5;">error</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.<span style="color:#005CC5;">error</span>("Load <span style="color:#005CC5;">error</span>:", err);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Session Button Event Handlers ---
+&nbsp; &nbsp; &nbsp; &nbsp; btnSaveSession.addEventListener('click', <span style="color:#D73A49;font-weight:bold;">async</span> () =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> success = <span style="color:#D73A49;font-weight:bold;">await</span> saveSessionToDB();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster(success ? "Session Saved" : "Save Failed");
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; btnLoadSession.addEventListener('click', <span style="color:#D73A49;font-weight:bold;">async</span> () =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> session = <span style="color:#D73A49;font-weight:bold;">await</span> loadSessionFromDB();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!session) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("No Saved Session");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentFileName = session.fileName || "N/A";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentFileHandle = session.fileHandle || <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtTimestamps.value = session.timestamps || "";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; numOffset.value = session.offset || 0;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (currentFileHandle) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> opts = { mode: 'read' };
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> ((<span style="color:#D73A49;font-weight:bold;">await</span> currentFileHandle.queryPermission(opts)) !== 'granted') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> ((<span style="color:#D73A49;font-weight:bold;">await</span> currentFileHandle.requestPermission(opts)) !== 'granted') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Permission Denied");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> file = <span style="color:#D73A49;font-weight:bold;">await</span> currentFileHandle.getFile();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> fileURL = URL.createObjectURL(file);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.src = fileURL;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = session.currentTime || 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.play().<span style="color:#D73A49;font-weight:bold;">catch</span>(() =&gt; {});
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; welcomePrompt.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Session Loaded");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; closeModal();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.<span style="color:#005CC5;">error</span>(err);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("<span style="color:#005CC5;">Error</span> Loading File Handle");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("No File Handle Found");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Toaster Notification Helper ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> showToaster(message) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toaster.textContent = message;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toaster.style.opacity = '1';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; clearTimeout(toasterTimeout);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toasterTimeout = setTimeout(() =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toaster.style.opacity = '0';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, 1200);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> showTimeToast() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> currentStr = formatTime(video.currentTime);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> durationStr = formatTime(video.duration || 0);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster(`${currentStr} / ${durationStr}`);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Format Time to HH:MM:SS ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> formatTime(seconds) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (isNaN(seconds)) <span style="color:#D73A49;font-weight:bold;">return</span> "00:00:00";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> h = <span style="color:#005CC5;">Math</span>.floor(seconds / 3600);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> m = <span style="color:#005CC5;">Math</span>.floor((seconds % 3600) / 60);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> s = <span style="color:#005CC5;">Math</span>.floor(seconds % 60);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> `${<span style="color:#005CC5;font-weight:bold;">String</span>(h).padStart(2, '0')}:${<span style="color:#005CC5;font-weight:bold;">String</span>(m).padStart(2, '0')}:${<span style="color:#005CC5;font-weight:bold;">String</span>(s).padStart(2, '0')}`;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Drag and Drop File Loading ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.addEventListener('dragover', (e) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropOverlay.style.display = 'flex';
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.addEventListener('dragleave', (e) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.relatedTarget === <span style="color:#22863A;font-weight:bold;">null</span>) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropOverlay.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.addEventListener('drop', <span style="color:#D73A49;font-weight:bold;">async</span> (e) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropOverlay.style.display = 'none';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.dataTransfer.items &amp;&amp; e.dataTransfer.items.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> item = e.dataTransfer.items[0];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (item.kind === 'file') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> file = item.getAsFile();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentFileName = file.name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (item.getAsFileSystemHandle) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentFileHandle = <span style="color:#D73A49;font-weight:bold;">await</span> item.getAsFileSystemHandle();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentFileHandle = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> fileURL = URL.createObjectURL(file);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.src = fileURL;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.play().<span style="color:#D73A49;font-weight:bold;">catch</span>(() =&gt; {});
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; welcomePrompt.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.dataTransfer.files &amp;&amp; e.dataTransfer.files.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> file = e.dataTransfer.files[0];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentFileName = file.name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentFileHandle = <span style="color:#22863A;font-weight:bold;">null</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> fileURL = URL.createObjectURL(file);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.src = fileURL;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.play().<span style="color:#D73A49;font-weight:bold;">catch</span>(() =&gt; {});
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; welcomePrompt.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Drag-Drop Text Area inside Modal ---
+&nbsp; &nbsp; &nbsp; &nbsp; dropTextArea.addEventListener('dragover', (e) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropTextArea.classList.add('dragover');
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; dropTextArea.addEventListener('dragleave', () =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropTextArea.classList.remove('dragover');
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; dropTextArea.addEventListener('drop', <span style="color:#D73A49;font-weight:bold;">async</span> (e) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dropTextArea.classList.remove('dragover');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.dataTransfer.files &amp;&amp; e.dataTransfer.files.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> file = e.dataTransfer.files[0];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> text = <span style="color:#D73A49;font-weight:bold;">await</span> file.text();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtTimestamps.value = text;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Timestamps Loaded");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.<span style="color:#005CC5;">error</span>(err);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> droppedText = e.dataTransfer.getData('text');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (droppedText) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtTimestamps.value = droppedText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Timestamps Loaded");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Listen <span style="color:#D73A49;font-weight:bold;">for</span> Ctrl + Shift + H shortcut globally within the page
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('keydown', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(event) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (event.ctrlKey &amp;&amp; event.shiftKey &amp;&amp; (event.key === 'H' || event.key === 'h')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; event.preventDefault(); // Stop <span style="color:#D73A49;">default</span> browser behaviors
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; openHelpModal();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Helper: Parse Timestamps <span style="color:#D73A49;">with</span> Offset Applied ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> getParsedTimestamps() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> lines = txtTimestamps.value.split('\n');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> offset = parseInt(numOffset.value, 10);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (isNaN(offset) || offset &lt; 0) offset = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (offset &gt; 6) offset = 6;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> secondsArray = [];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lines.forEach(line =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> trimmed = line.trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> parts = trimmed.split(':').map(<span style="color:#005CC5;">Number</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> baseSeconds = NaN;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (parts.length === 3 &amp;&amp; !parts.some(isNaN)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; baseSeconds = parts[0] * 3600 + parts[1] * 60 + parts[2];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (parts.length === 2 &amp;&amp; !parts.some(isNaN)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; baseSeconds = parts[0] * 60 + parts[1];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!isNaN(baseSeconds)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; secondsArray.push(baseSeconds + offset);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Ensure unique, sorted timestamps to prevent duplicate hopping
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> [...<span style="color:#D73A49;">new</span> Set(secondsArray)].sort((a, b) =&gt; a - b);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Execute Jump Logic ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> executeJump() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!video.src) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("No Video Loaded");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> timeStr = txtJumpTime.value.trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> parts = timeStr.split(':').map(<span style="color:#005CC5;">Number</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> targetSeconds = NaN;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (parts.length === 3 &amp;&amp; !parts.some(isNaN)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; targetSeconds = parts[0] * 3600 + parts[1] * 60 + parts[2];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (parts.length === 2 &amp;&amp; !parts.some(isNaN)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; targetSeconds = parts[0] * 60 + parts[1];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (parts.length === 1 &amp;&amp; !isNaN(parts[0])) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; targetSeconds = parts[0];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (isNaN(targetSeconds)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Invalid Time Format");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> duration = video.duration || 0;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (targetSeconds &lt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Beginning of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (duration &gt; 0 &amp;&amp; targetSeconds &gt; duration) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = duration;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("End of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = targetSeconds;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showTimeToast();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; jumpModal.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; btnExecuteJump.addEventListener('click', executeJump);
+&nbsp; &nbsp; &nbsp; &nbsp; btnCloseJumpModal.addEventListener('click', () =&gt; { jumpModal.style.display = 'none'; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; txtJumpTime.addEventListener('keydown', (e) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'Enter') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeJump();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'Escape') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; jumpModal.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Keyboard Controls ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.addEventListener('keydown', <span style="color:#D73A49;font-weight:bold;">async</span> (e) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (infoModal.style.display === 'flex') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'Escape' || (e.key === 'Enter' &amp;&amp; <span style="color:#6F42C1;font-weight:bold;">document</span>.activeElement !== txtTimestamps &amp;&amp; <span style="color:#6F42C1;font-weight:bold;">document</span>.activeElement !== numOffset)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; closeModal();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> modal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('helpModal');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (modal.style.display === 'block') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'Escape' || e.key === 'Enter') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; closeHelpModal();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (jumpModal.style.display === 'flex') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'Escape') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; jumpModal.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Ctrl + 0: Jump to Start (00:00:00) and Pause Video
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; !e.shiftKey &amp;&amp; !e.altKey &amp;&amp; (e.key === '0' || e.code === 'Digit0' || e.code === 'Numpad0')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopImmediatePropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (video.src) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.pause();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showTimeToast();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("No Video Loaded");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Ctrl + Shift + B: Exit Video Editor and <span style="color:#D73A49;font-weight:bold;">Return</span> to Filing Cabinet
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; e.shiftKey &amp;&amp; !e.altKey &amp;&amp; (e.key === 'b' || e.key === 'B')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopImmediatePropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (confirm("Exit Video Editor and <span style="color:#D73A49;font-weight:bold;">Return</span> to Filing Cabinet?")) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = 'FilingCabinet.aspx';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Phew, That was close!");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Ctrl + Alt + G: Toggle Show/Hide Jump To Modal <span style="color:#6F42C1;font-weight:bold;">Window</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; e.altKey &amp;&amp; (e.key === 'g' || e.key === 'G')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (jumpModal.style.display === 'flex') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; jumpModal.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtJumpTime.value = formatTime(video.currentTime);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; jumpModal.style.display = 'flex';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtJumpTime.focus();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtJumpTime.select();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Ctrl + Shift + H: Open Help Modal
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; e.shiftKey &amp;&amp; (e.key === 'h' || e.key === 'H')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; openHelpModal();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Ctrl + I: Open Info Modal
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; !e.shiftKey &amp;&amp; !e.altKey &amp;&amp; (e.key === 'i' || e.key === 'I')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; openModal();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Ctrl + R: Toggle Stretch to <span style="color:#6F42C1;font-weight:bold;">Window</span> / Preserve Aspect Ratio
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; !e.altKey &amp;&amp; (e.key === 'r' || e.key === 'R')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.classList.toggle('stretched');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> isStretched = video.classList.contains('stretched');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster(isStretched ? "Stretch: On" : "Stretch: Aspect Ratio");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Skipping via Arrow Keys (when inputs aren't focused)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (video.src &amp;&amp; <span style="color:#6F42C1;font-weight:bold;">document</span>.activeElement.tagName !== 'INPUT') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> duration = video.duration || 0;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 1. Control + Alt + Left / Right Arrow -&gt; Jump through Timestamp List
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; e.altKey &amp;&amp; (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopImmediatePropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> times = getParsedTimestamps();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (times.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> currentTime = video.currentTime;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> targetTime = <span style="color:#22863A;font-weight:bold;">null</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'ArrowRight') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> nextTime = times.find(t =&gt; t &gt; currentTime + 0.05);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (nextTime !== <span style="color:#22863A;font-style:italic;">undefined</span>) targetTime = nextTime;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> prevTimes = times.filter(t =&gt; t &lt; currentTime - 0.05);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (prevTimes.length &gt; 0) targetTime = prevTimes[prevTimes.length - 1];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (targetTime !== <span style="color:#22863A;font-weight:bold;">null</span>) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (targetTime &lt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Beginning of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (duration &gt; 0 &amp;&amp; targetTime &gt; duration) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("End of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = targetTime;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showTimeToast();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster(e.key === 'ArrowRight' ? "End of Video" : "Beginning of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 2. Control + Shift + Left / Right Arrow -&gt; 1 Second
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; e.shiftKey &amp;&amp; (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopImmediatePropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> target = video.currentTime + (e.key === 'ArrowRight' ? 1 : -1);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (target &lt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Beginning of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (duration &gt; 0 &amp;&amp; target &gt; duration) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = duration;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("End of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = target;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showTimeToast();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 3. Control + Left / Right Arrow -&gt; 10 Seconds
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; !e.shiftKey &amp;&amp; !e.altKey &amp;&amp; (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopImmediatePropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> target = video.currentTime + (e.key === 'ArrowRight' ? 10 : -10);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (target &lt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Beginning of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (duration &gt; 0 &amp;&amp; target &gt; duration) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = duration;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("End of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = target;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showTimeToast();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 4. Plain Left / Right Arrow -&gt; 1 Minute (60 Seconds)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!e.ctrlKey &amp;&amp; !e.shiftKey &amp;&amp; !e.altKey &amp;&amp; (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopImmediatePropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> target = video.currentTime + (e.key === 'ArrowRight' ? 60 : -60);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (target &lt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("Beginning of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (duration &gt; 0 &amp;&amp; target &gt; duration) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = duration;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showToaster("End of Video");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = target;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showTimeToast();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }, <span style="color:#22863A;font-weight:bold;">true</span>); // Use capture phase so we intercept before native video controls process it
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // --- Modal Functions ---
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> openModal() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lblFileName.textContent = currentFileName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lblTimeLength.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration || 0)}`;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; infoModal.style.display = 'flex';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> closeModal() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; infoModal.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> openHelpModal() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> modal = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('helpModal');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> contentBox = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('helpTextContent');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; modal.style.display = 'block';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // <span style="color:#6F42C1;font-weight:bold;">Fetch</span> the help text file asynchronously
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">fetch</span>('MinVideoPlayer.help.txt')
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .then(response =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!response.ok) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">throw</span> <span style="color:#D73A49;">new</span> <span style="color:#005CC5;">Error</span>("Could not load MinVideoPlayer.help.txt");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> response.text();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; })
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .then(text =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contentBox.textContent = text;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; })
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#D73A49;font-weight:bold;">catch</span>(<span style="color:#005CC5;">error</span> =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contentBox.textContent = "<span style="color:#005CC5;">Error</span>: Could not find or read MinVideoPlayer.help.txt <span style="color:#D73A49;">in</span> the application directory.";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> closeHelpModal() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('helpModal').style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; btnCloseModal.addEventListener('click', closeModal);
+&nbsp; &nbsp; &lt;/script&gt;
+</span>&lt;/body&gt;
+        &lt;/html&gt;</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

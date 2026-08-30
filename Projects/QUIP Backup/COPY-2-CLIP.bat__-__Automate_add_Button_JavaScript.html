@@ -1,0 +1,592 @@
+<!doctype html>
+<html><head><title>COPY-2-CLIP.bat  -  Automate add Button JavaScript</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:UHVc71e2c8d9d0b401d89ba947c8'>COPY-2-CLIP.bat  -  Automate add Button JavaScript</h1>
+
+NOTE: Only works with QUIP Downloaded HTML So Far<br/>
+
+<h3 id='temp:C:UHVc2c6d2b55e144b53a6112774d'>(to Insert into QUIP Downloaded HTML Code Blocks)  as part of the QUIP Backup Project</h3>
+
+<h2 id='temp:C:UHVb338d31cdb17496385bf2d55e'>Index:</h2>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:UHV02d6dd0e77e24f7bacd39dbb6'><li id='temp:C:UHV9b083ee2f15e48f5a5282389b' class='' value='1'><a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHVa632f55e8c354891a4ab9b339">Pictures of Before and After WITH BUTTONS on IT</a>
+
+<br/></li><li id='temp:C:UHV34c20fbde40944019bf1172c0' class=''><a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHVa61c1b4761fd47b683fefee25">A Basic HTML Example of the Code behind “Copy to Clipboard”</a>
+
+<br/></li><li id='temp:C:UHV1a42fe6d2e8f4635b9dc63c8d' class=''><a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHV0ce40d84449d48bfb18b9b008">COPY-2-CLIP.bat</a>
+
+<br/></li></ul></div><a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHVb338d31cdb17496385bf2d55e">Back to Index...</a><br/>
+
+<h2 id='temp:C:UHVa632f55e8c354891a4ab9b339'>INPUT  Before  and  OUTPUT After</h2>
+
+Note:  This just happens to be CODE that I have on QUIP, but it could pertain to any text in a CODE BLOCK from QUIP<br/>
+
+<h2 id='temp:C:UHV4ba1431ad9654b3681ac9edd1'>Before</h2>
+
+<h2 id='temp:C:UHV5af00373d2bb4b63b1d03d483'>After</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/UHVAAAd9LrQ/fzOXOObW_0qnANelFz1UTw?a=6nJksGzIrkeYknCP7U0EpA7kHroWULXXPv3zDqRf6NAa' id='temp:C:UHV24129c4a933c419f807c87096' alt="Quip HTML B4.jpg"></img></div><br/>
+
+<br/>
+
+<div data-section-style='11' style='max-width:100%' class='tall'><img src='https://quip.com/blob/UHVAAAd9LrQ/mtZ-vcnWNhXDiM5HmdN2IA?a=VLNOHIvHa7aYSTUwhje3dHZwB4CGzIFgawU2aNLJnSUa' id='temp:C:UHV1c7065f8e2da47f8acee71489' alt="Quip HTML After.jpg"></img></div><a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHVb338d31cdb17496385bf2d55e">Back to Index...</a><br/>
+
+<h2 id='temp:C:UHVa61c1b4761fd47b683fefee25'>Copy2Clipboard - Atoms of Code (The Most Basic Example)</h2>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:UHVc3986797c41e42d9959273ff4'><li id='temp:C:UHV072b19a75cc04ad796b82b677' class='' value='1'><a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHV50cf6a02a372431a8cfde1ea6">The DIV ID</a>
+
+<br/></li><li id='temp:C:UHV041ee8111658420398a830cc4' class=''><a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHV267aafd98497484da17cf89da">The Button</a>
+
+<br/></li><li id='temp:C:UHV82cffa9058364802ae8317f6b' class=''><a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHV48eecfbb22e84a348f3eb1155">The JavaScript</a>
+
+<br/></li></ul></div><h2 id='temp:C:UHV50cf6a02a372431a8cfde1ea6'>1.  The DIV ID</h2>
+
+<pre id='temp:C:UHVad22637734af48f2a41fc5bcb'>&lt;div id="div1"&gt;Text To Copy &lt;/div&gt;</pre>
+
+<h2 id='temp:C:UHV267aafd98497484da17cf89da'>2.  The Button</h2>
+
+<pre id='temp:C:UHVca3de8d940294a24a9dca80c1'>&lt;button id="button1" onclick="CopyToClipboard('div1')"&gt;<br>   Click to copy<br>&lt;/button&gt;</pre>
+
+<h2 id='temp:C:UHV48eecfbb22e84a348f3eb1155'>3.  The JavaScript</h2>
+
+<q id='temp:C:UHV635988b90c3d432486e9a9e0b'>atom-copy-2-clipboard-function.txt</q>
+
+<pre id='temp:C:UHVda35a68ea4fb4f85a1c930398'>&lt;SCRIPT&gt;<br>function CopyToClipboard(containerid) {<br>  if (document.selection) {<br>    var range = document.body.createTextRange();<br>    range.moveToElementText(document.getElementById(containerid));<br>    range.select().createTextRange();<br>    document.execCommand("copy");<br>  } else if (window.getSelection) {<br>    var range = document.createRange();<br>    range.selectNode(document.getElementById(containerid));<br>    window.getSelection().removeAllRanges();<br>    window.getSelection().addRange(range);<br>    document.execCommand("copy");<br>  }<br>}<br>&lt;/SCRIPT&gt;</pre>
+
+<a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHVb338d31cdb17496385bf2d55e">Back to Index...</a><br/>
+
+<h2 id='temp:C:UHV0ce40d84449d48bfb18b9b008'>COPY-2-CLIP.bat</h2>
+
+<h3 id='temp:C:UHVe8d3d1291db64990901d5b2f1'>(to Insert into QUIP Downloaded HTML Code Blocks) </h3>
+
+<pre id='temp:C:UHV9ee23813d86943bf919adbe3e'>@echo off<br>SETLOCAL enabledelayedexpansion<br><br>:: Define Filenames<br>Set CurFile=%~n1%~x1<br>Set OutFile=Temp.html<br>Set OutFile2=Temp2.html<br>Set OutFile3=DONE\%~n1%~x1<br><br>:: Output Directory, Create if does not exist<br>if exist .\DONE (<br>  echo Subdirectory DONE Exists<br>) else (<br>  mkdir .\DONE<br>)<br><br>:: Get JavaScript from external file<br>for /f "Tokens=* Delims=" %%x in (atom-copy-2-clipboard-function.txt) do (set Build=!Build!%%x)<br><br>:: Replace Tabs resulting from QUIPs Unicode Encoding in HTML<br>SET CMD1="(gc !CurFile!) -replace '\xc2\xa0','&amp;nbsp;'"<br>:: Write Results to Temp1.html<br>Powershell -Command %CMD1% &gt; !OutFile!<br><br>:: Insert JavaScript <br>:: SS=Search String<br>SET SS=^&lt;/HEAD^&gt;<br><br>:: Three Quotes for each Quote to Pass args to Powershells replace function<br>SET Build=!Build:^"=^"^"^"!<br><br>:: DS=Destination String<br>SET DS=!Build!^&lt;/HEAD^&gt;<br><br>:: Note: gc is an alias in PowerShell for Get-Content<br>:: Write Results to Temp2.html <br>SET CMD2="(gc !OutFile!) -replace '%SS%','%DS%'"<br>Powershell -Command %CMD2% &gt; !OutFile2!<br><br>:: Loop through HTML File<br>SET /a count=1<br><br>:: Write Results to Subdirectory .\DONE\%1<br>copy /y NUL !OutFile3! &gt;NUL<br>for /f "tokens=*" %%s in (!OutFile2!) do (<br>        SET /a count+=1<br>        echo."%%s" | findstr /C:"&lt;pre" 1&gt;nul<br>        if errorlevel 1 (<br>            :: Match not found<br>            :: Write Line<br>            echo %%s &gt;&gt; !OutFile3!<br>        ) ELSE (<br>            :: Match found<br>            :: Write Line<br>            echo %%s &gt;&gt; !OutFile3!<br>            <br>            :: Copy the String in order to Isolate the DIV ID<br>            set INPUT-STRING=%%s<br>            <br>            :: Isolate the DIV ID for the current Code Block - QUIP ID ONLY<br>            Set DIV=!INPUT-STRING:~9,11!<br>            <br>            :: Prepare your Button<br>            set HTML-Button=^&lt;button id="button!count!" onClick="CopyToClipboard('!DIV!')"^&gt;Click to copy^&lt;^/button^&gt;<br><br>            :: Write the Button on the Next / New Line of HTML<br>            echo !HTML-Button! &gt;&gt; !OutFile3!<br>        )<br>)<br>:ENDER<br><br>:: Clean Up<br>del Temp.html<br>del Temp2.html</pre>
+
+<a href="https://quip.com/8YQYAREWAhAs/COPY-2-CLIPbat-Automate-add-Button-JavaScript#temp:C:UHVb338d31cdb17496385bf2d55e">Back to Index...</a><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

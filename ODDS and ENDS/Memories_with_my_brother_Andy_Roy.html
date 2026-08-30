@@ -1,0 +1,698 @@
+<!doctype html>
+<html><head><title>Memories with my brother Andy Roy</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='aQDACAGUy3W'>Memories with my brother Andy Roy</h1>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/aQDAAAU71gR/KWXdcAmhuYyA1-Lwwoq6oA?a=3LcbNnE84dbXOq7JKW4JpDa8xVvJDQ3p9PFC8bUgYwQa' id='temp:C:aQDfdf3dc9f9e8a47998b23b0ea1' width='800' height='259' alt="Collage.jpg"></img></div><br/>
+
+This is my random musing about my dear brother Andrew Lee Roy, who passed away June 20, 2020.  The thoughts aren’t entirely complete or super organized.  Please forgive me ahead of time if I don’t mention any names or significant events that I really should mention.<br/>
+
+<br/>
+
+<b>Andy, In the beginning:</b><br/>
+
+<br/>
+
+I remember when Andy was a baby and my mom Charlotte, my step dad Joe, Lindy, and I lived in Pennsylvania on May 9, 1973.  I was 9 years old.  A company that sprayed for roaches had mixed the wrong chemicals and we all went to the hospital after finding out that our eye pupils were shrinking.  I remember the nurse taking blood 3 times a day for several months while they were treating us to get rid of the poisons.  The settlement was 1000’s of dollars, especially for Andy, who was less than a year old, and he was in the hospital for the longest time.<br/>
+
+<br/>
+
+<b>Andy, His favorite things, pt 1:</b><br/>
+
+<br/>
+
+Andy loved putting up Christmas lights.  Each year during his teens and into his early 20’s he would get more and more lights which he would string along the trailer and fence, where he and my mom lived at the Pacific Heights Mobile home park for many years.  He tried to maintain the practice when he moved into the Chateau Senior Mobile Home with my mom.<br/>
+
+<br/>
+
+<b>Andy, The good son:</b><br/>
+
+<br/>
+
+Andy had taken care of my mom during her cancer period for an entire year from January 2006 to January 31, 2007.  The doctors had given her 3 months max.  Andy was the one who made sure that she was taken to Davis in order to get treated.  The system is designed to prevent people from looking for help in other geographic areas, but through his efforts he made sure my mom was accepted in Davis.   Andy had been there the entire time through all the rough parts.  I had been able to visit for maybe 3 to 4 nights a week but it was exhausting and I had to run away for a couple days a week to being able to handle it.  I was so grateful that he was able to keep on going, especially after he had been accused by my mom one time of taking her money but after the cops had grilled him and searched, found that my mom had simply misplaced her safe in the closet in her mind fog.  <br/>
+
+<br/>
+
+<b>Andy, Keeping it going:</b><br/>
+
+<br/>
+
+After our mom’s passing, on account of his disability he was able to maintain a residence there even after mom had passed away due to the good will of the mobile home park.  He managed to keep the trailer and newspaper job for almost 10 years after the passing of my mom.  <br/>
+
+<br/>
+
+Andy had worked for the newspaper delivering first on his motorcycle and then later in his car for many years.  He got his original job in his teens and had worked along side my mom from 1990 - 2017, with a hiatus of a couple of years traveling, so he had put in at least 25 years of work late at night, 7 days a week waking up around midnight and working til 6 or 7 am.  Between Andy and our mom they were like a well working machine doing their job, fielding complaints during the day, and finding new addresses during the day.  For the couple of years after I worked for the newspaper I got to go sometimes with my family on their quiet nightly excursions.  During the morning to afternoon they would rest and the day would start around noon until they would take naps from about 8 pm-11 pm and then the whole process would start again.<br/>
+
+<br/>
+
+Andy experienced the change in The Sacramento Bee wind down and discontinue the newspaper delivery part of the business, first being switched from employee to independent contractor, then having to reapply for his same job at a lesser wage when the newspaper distribution was sold to The Enterprise Record.  He loved his job and he could have easily stayed with it, even with no benefits, except that eventually the wear on his vehicle caused high priced repairs and eventually his inability to maintain his car and then losing his job.<br/>
+
+<br/>
+
+<b>Andy’s favorite things, pt. 2:</b><br/>
+
+<br/>
+
+Andy loved playing video games.  He had years of medals that he had proudly accumulated on the club Pogo website and he had easily played more different types of games than most everyone I knew.  There was a period of time from 1994 to 2001 when he and my dad Tom Davies would be in competition to see who could get the most points and win various SuperNES and XBOX games, especially those from the Super Mario and the Pikman Game series.<br/>
+
+<br/>
+
+<b>Andy, Living with gusto, Loving all out:</b><br/>
+
+<br/>
+
+Andy liked to ride motorcycle for many years.  I have a video of him riding through the mountains with my dad many years ago.  He loved to joke around and press people’s buttons.  It was like a game for him and he loved playing games.<br/>
+
+<br/>
+
+Andy had several times had love interests in his life.  I didn’t keep track of the names but I do know that he was extremely passionate and he would often devote his whole being into his relationships.  Although he passed away being single I am very grateful that he had an opportunity to love and I send out my prayers to those that have loved him.  Regardless of the current status of your relationship with Andy, you are appreciated and loved and I hope that God blesses you.<br/>
+
+<br/>
+
+Andy loved his two dogs Sassy and Tiny-Tot.  They were his children and his cherished loved ones.    <br/>
+
+<br/>
+
+Andy had some very few friends that were always there for him whose names I won’t mention here, partially because I wouldn’t want to leave anyone out and I forget names all the time.  His friends were always there for him in his time of need.  They gave him what he needed, whether advice or companionship or just being there.  My eternal gratefulness to these people.  You know who you are.  May you be blessed.  Thank you.<br/>
+
+<br/>
+
+<b>Andy, his favorite things, pt. 3:</b><br/>
+
+<br/>
+
+Another fun activity that both my mom and Andy had engaged in, also with his family and friends, for many years was going to the casino on days that the casino would offer free game play and he would enjoy winning a few dollars here and there.  In the end I can say that he either broke even or may have paid the casino a certain percentage of his wage, but it was an activity and for several years during football season we would go to Gold Country Casino and try for the $50 lucky draws and one or two times he was able to swish the football through the hoop for extra cash.<br/>
+
+<br/>
+
+<b>Andy, the person I never knew in life:</b><br/>
+
+<br/>
+
+Andy had an active spiritual life, especially in the last year or two.  I have just recently realized this more as I read his various compositions on his Facebook page which I have only now just started to read and realize that he had a depth of thought that I had never credited him, because he was my little brother, who I visualized as being a 13 year old in my mind, even to this day.  What a surprise!<br/>
+
+<br/>
+
+<b>Andy’s Facebook composition “Being Thankful” excerpt from Nov. 29, 2016 available on his Facebook page:</b><br/>
+
+<br/>
+
+“There are times in Life, where things really are good and other times not so good, but those are times you learn who you can really be thankful for, and I for one an Thankful for those who are supportive during the good and bad times, it just really makes you think.  Thank you to the people who are supportive, in good and bad times, it means the world to me.”<br/>
+
+<br/>
+
+<b>Andy, the good Samaritan and all around good guy:</b><br/>
+
+<br/>
+
+Andy was very generous with his resources when he had them, which wasn’t often, but he gave of himself as often as he could.  He was very trusting, and he had what I consider a wheeler-dealer personality.  He was a mix of wry humor, stating what he saw in a not-so-politically-correct matter of fact way, and he knew how to spin a story quite well.<br/>
+
+<br/>
+
+Andy passed away on a Father’s day, significant in that he never had a dad when he grew up because he was out of the picture before Andy was two years old.  Growing up I found myself often in the place of brother and male role model.  Andy did a great deal to live up to the expectations put upon him, and he was very desirous of being a pillar of reliability to both myself and our mother.  This was often difficult because of his yet to be discovered calcification of parts in his brain and therefore his eventual qualification for disability support.<br/>
+
+<br/>
+
+It was through Andy’s influence that my sister finally applied for disability.  He made the practical suggestion that she move in with our mother for a year in order to give her the opportunity to apply.  No one else had thought that she would qualify.  Unfortunately this experience had both positive and negative aspects to it in influencing the sibling relationship in a negative way, but the fact is that in the end my sister, who also needed the aid, owed the initial idea and implementation, due to the efforts of her brother and her mom.  <br/>
+
+<br/>
+
+<b>Andy’s and also my wish to his friends and those who read this:</b><br/>
+
+<br/>
+
+This brings me to an important prayer for the people here who are seeing my message.  If you have any family relationships that need to be repaired, please do so as soon as you can.  My brother died at 47 years old and no one would have thought this would happen.  There is no knowing how long we have and therefore I suggest that you can honor the passing of my brother by healing a relationship in your family.  I’m sure that he would agree with my prayer now that he is on the other side of the veil.<br/>
+
+<br/>
+
+<b>Andy’s Facebook composition “10 years ago, part 3” excerpt from March 4, 2017 available on his Facebook page:</b><br/>
+
+<br/>
+
+“To this very day I still love and cherish Larry Davies and I am glad we are still a strong knit family unit to this very day, and I strongly urge anyone out there, who might have issues with another family member, just put it aside, its not worth loosing the time and the Love that you all have for each other, its just not.”<br/>
+
+<br/>
+
+“Take Care everyone, I just wanted to share our story with you all.”<br/>
+
+<br/>
+
+And finally I will end this with a post from Andy from 20 days ago that says it all.<br/>
+
+<br/>
+
+<b>Andy’s Facebook composition “My thoughts again” excerpt from June 3, 2020 available on his Facebook page:</b><br/>
+
+<br/>
+
+“I think it is important that we all know the love God has for us all.<br/>
+
+<br/>
+
+I feel in my heart it is important everyday to try to share that love with other people and try to do my part to make things better.<br/>
+
+<br/>
+
+I understand things do not always go the way we want them to go but it’s okay because everything happens for a reason whether we realize it or not and the time that it happens it does and sometimes that can be a very bitter pill to swallow.<br/>
+
+<br/>
+
+The virtue of loving your fellow man and being willing to look past the small things the person may do that irritates you is oftentimes one of the key factors of developing a solid relationship.<br/>
+
+<br/>
+
+I want to say thank you to the people personally in my life to make such a massive difference be it just a moment to say hello or whatever it’s always appreciated and those people know who they are.<br/>
+
+<br/>
+
+So in closing, if you’re ever in a situation where you’re stressed and you’re trying to figure out what to do just remember God loves you and God loves us all.<br/>
+
+<br/>
+
+God bless us all.<br/>
+
+<br/>
+
+P.S.  Smile, Somebody loves you  :).“<br/>
+
+<br/>
+
+<b>Andy, until next time:</b><br/>
+
+<br/>
+
+Goodbye, Brother.  I look forward to seeing you again someday in heaven.  Forever is a long time and life is but the blink of an eye.<br/>
+
+<br/>
+
+I am so grateful that God allowed us so much quality time together and I am very happy I was able to talk to you the day before your passing.  You will be missed.<br/>
+
+<br/>
+
+And everyone says...<br/>
+
+<br/>
+
+Amen!<br/>
+
+</body></html>

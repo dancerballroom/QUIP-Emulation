@@ -1,0 +1,632 @@
+<!doctype html>
+<html><head><title>Batch to EXE - IExpress</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:fcT4152c3b384f04c628f226d378'>Batch to EXE - IExpress</h1>
+
+<h2 id='temp:C:fcT49739a31eacc400d8f14e9f93'>RESULTS: <span bgcolor="#f2ef90" style="background-color:#f2ef90">NOT RELIABLE</span></h2>
+
+GOOD: Starts<br/>
+
+BAD:  Starts in System32 DIR, or TEMP DIR not in CURDIR<br/>
+
+<h2 id='temp:C:fcT77857d7779ab476c89004b974'>Convert Your Batch Files to EXE with IExpress</h2>
+
+<h2 id='temp:C:fcTf6769073b5c941759be32b5e3'><a href="https://en.wikipedia.org/wiki/IExpress">IExpress</a> is a free Windows program, in use since Windows 2000, specifically designed to create self-extracted packages. This is what makes it super handy for converting your Batch (BAT) files into EXE ones as well.</h2>
+
+<h2 id='temp:C:fcT156bdf455fb44672993058db9'>To launch the IExpress app, follow the steps below:</h2>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:fcTa8f6ec6844f248c985202d85e'><li id='temp:C:fcT437e2accb1b44cb38d47cf5bd' class='' value='1'>Head to the <b>Start menu</b> search bar, and type in ‘iexpress’. From the best match, right-click on iexpress.exe and run it as administrator.
+
+<br/></li><li id='temp:C:fcT243e2a988b924704ac91e9459' class=''>As soon as you do this, the IExpress Wizard will be launched. Choose the <b>Create new Self Extraction Directive (SED)</b> radio box from there, and click on <b>Next</b>.
+
+<br/></li><li id='temp:C:fcT14c398684bdd479c97a2a5edc' class=''>Pick the <b>Extract files</b><b>and run an installation command</b> radio box from the <b>Package purpose</b> window, and click on <b>Next</b>.
+
+<br/></li><li id='temp:C:fcTa7ee1577342e4295855aa5a4c' class=''>Enter a name for the <b>Package</b><b>title</b> and hit <b>Next</b> again.
+
+<br/></li><li id='temp:C:fcTcbb181f4dd0b4aff8911c75b5' class=''>Select <b>No prompt</b> and hit <b>Next</b>.
+
+<br/></li><li id='temp:C:fcT217a6dec271e47cba94f1ded7' class=''>Select <b>Do not display</b><b>a license</b> and click on <b>Next</b>.
+
+<br/></li><li id='temp:C:fcT5fa68a2b95db4729a44215210' class=''>Click on <b>Add</b> to select the batch script you want to convert, and click on the <b>Next<b> </b></b>button.
+
+<br/></li><li id='temp:C:fcT7d9f0476c298433a83c9afc38' class=''>From the <b>Install Program</b> field, type in the following command and hit <b>Next</b>:
+
+<br/></li></ul></div><pre id='temp:C:fcTf13553814b824087aae093a82'>cmd /c Calculator.bat</pre>
+
+<pre id='temp:C:fcT42f48434beea4234915c48d12'>In our example, we're converting a Batch file that contains a simple calculator. <br>Therefore, in the command <i>cmd /c Calculator.bat</i>, the name of our batch <br>file is '<i>Calculator.bat</i>'. Since your Batch file will be likely different, <br>make sure you change the command accordingly.<br><br>Stick with the default option in the <b>Show window</b> and <b>Finished message</b> menu, <br>and click <b>Next</b>. Now, in the <b>Package Name and Options</b> menu, select <b>Browse</b> <br>to pick a target path, name the file anything you’d like, and click on <b>Next</b>. <br>In the following few pages, click on <b>Next</b> without changing anything.</pre>
+
+<pre id='temp:C:fcTcd624a0dcd5a4b67a6ff20feb'>Finally, on the <b>Create package</b> page, click on <b>Next</b> again. That's it, folks. Your EXE <br>package will be created in a few minutes. All you’ve to do from there is to head to <br>the destination folder and launch the file for verifying.<br><br>How to Convert Batch Files to EXE With a Converter<br>While IExpress is more than enough to get the job done, not everyone wants to <br>bother with the technical complexity it brings. Don't worry; <br>you’re not alone in feeling that way. This is exactly why some clever people <br>have developed tools to help you <a href="https://www.makeuseof.com/easily-automate-tasks-useful-tools/">easily automate your tasks</a> on Windows.</pre>
+
+<h2 id='temp:C:fcTc613b895ccd24d4db4af71e2b'>Example:  Search-Replace.bat in C:\BAT2EXE</h2>
+
+<pre id='temp:C:fcT122faf000c2f4181835327f33'>@echo off<br>Setlocal enabledelayedexpansion<br><br>set /p SR_File="File or File type: -&gt; "<br>set /p Pattern="String to Replace: -&gt; "<br>set /p Replace="New String:        -&gt; "<br><br>For %%a in (!SR_File!) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>    echo "%%a" "!File:%Pattern%=%Replace%!"<br>)<br>pause<br>Exit 0</pre>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:fcTe8fa57eeda2e4d78997997ee3'><li id='temp:C:fcT22a637d8db594b3b9ab50021f' class='' value='1'>WIN + R
+
+<br/></li><li id='temp:C:fcT99eac9306fcf4917985723042' class=''>iexpress.exe
+
+<br/></li><li id='temp:C:fcT4d436d6350de4886be7cdfddf' class=''>Screen 1: <b> Create new Self Extraction Directive file</b>
+
+<br/></li><li id='temp:C:fcTcb0938c85c654afe8b70ad6e2' class=''>Next
+
+<br/></li><li id='temp:C:fcT17a0a5c361d74d9b88f99db04' class=''>Screen 2:  <b>Extract files and run an installation command.</b>
+
+<br/></li><li id='temp:C:fcTc39dd93e25a448309272a7263' class=''>Next
+
+<br/></li><li id='temp:C:fcTd8cee1afc09f4064b07bd0159' class=''>Screen 3:  <b>Package Title</b>:  NewFile
+
+<br/></li><li id='temp:C:fcT0748d2a653de44ca8d14d89c4' class=''>Next
+
+<br/></li><li id='temp:C:fcT91e8ff26dc254fd19e09adac8' class=''><b>No Prompt</b>
+
+<br/></li><li id='temp:C:fcT71d64df26b084d2d97ec87acf' class=''>Next
+
+<br/></li><li id='temp:C:fcTc617731f420a4b298e09cb46c' class=''><b>Do Not Display a License</b>
+
+<br/></li><li id='temp:C:fcT12cf94b1be3a4059a97d7d57b' class=''>Next
+
+<br/></li><li id='temp:C:fcT83a20543c4ef428ba5b073da9' class=''><b>Packaged Files:</b>
+
+<br/></li><li id='temp:C:fcTb9341d440af3489e8d96bd88d' class='parent'>Add
+
+<br/></li><ul><li id='temp:C:fcT5735386d09304d3ba9a499988' class=''>Filename:  Search-Replace.bat        
+
+<br/></li><li id='temp:C:fcT046527de172742849e5499479' class=''>Path C:\BAT2EXE\
+
+<br/></li></ul><li id='temp:C:fcT7e02197a1dd642a7bc546a972' class=''>Next
+
+<br/></li><li id='temp:C:fcT2cfa365183424c4b86bc52f68' class=''><b>Install Program: </b> cmd /c Search-Replace.bat
+
+<br/></li><li id='temp:C:fcT002a9b7cee3948dfa9652e8dc' class=''>Post Install Command:
+
+<br/></li><li id='temp:C:fcTec3d6ee44e1b46658c872474c' class=''>Next
+
+<br/></li><li id='temp:C:fcTee8287ae89144848ad91a377d' class=''><b>Show Window:</b>  Default
+
+<br/></li><li id='temp:C:fcTb191db0801b649bca5bc6cfa4' class=''>Next
+
+<br/></li><li id='temp:C:fcT3ed7b0815de04cb1b28785517' class=''>Finished message:
+
+<br/></li><li id='temp:C:fcT1321d5786e5949f58d1fedeb3' class=''>No message
+
+<br/></li><li id='temp:C:fcT99409aecae4f4e3f919dc0736' class=''>Next
+
+<br/></li><li id='temp:C:fcT524791ef3aca4b64a489bfbc4' class=''><b>Package Name and Options:</b>  Search-Replace.bat
+
+<br/></li><li id='temp:C:fcT4a78535db6434cccbd2700704' class=''><i><b>Show files using Long File Name inside Package  (Doesn’t work without this)</b></i>
+
+<br/></li><li id='temp:C:fcTbc9bd85686544205b365be177' class=''>Next
+
+<br/></li><li id='temp:C:fcT8a3b4d64813743749a8e61b79' class=''>Configure restart:  No Restart
+
+<br/></li><li id='temp:C:fcT820c42a35467465ca1d1815ab' class=''>Next
+
+<br/></li><li id='temp:C:fcT6f238ee679db48aca960354b9' class=''>Save Self Extraction Directive (SED):  C:\BAT2EXE\Search-Replace.SED
+
+<br/></li><li id='temp:C:fcTe7988384a9f24a4db71b6be53' class=''>Next
+
+<br/></li><li id='temp:C:fcT71b915743b6d4910bb76fedf9' class=''>Create Package
+
+<br/></li><li id='temp:C:fcT5da2ca8235ae43cf8943a1d6c' class=''>Next
+
+<br/></li><li id='temp:C:fcTe4c29aea5ac94e2580b1a2499' class=''>(EXE Created)
+
+<br/></li><li id='temp:C:fcT26f4896905d64e8fb6f36331c' class=''>Copy EXE to other location before Antivirus puts exe into Quaranteen.
+
+<br/></li><li id='temp:C:fcT693cc0da09054937a58b32836' class=''>OR Open AntiVirus and Restore.
+
+<br/></li></ul></div><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

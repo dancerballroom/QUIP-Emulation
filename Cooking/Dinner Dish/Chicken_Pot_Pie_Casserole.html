@@ -1,0 +1,566 @@
+<!doctype html>
+<html><head><title>Chicken Pot Pie Casserole</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:EaHfc3d413e9b404184899c67b91'>Chicken Pot Pie Casserole</h1>
+
+<h2 id='temp:C:EaHed3f637dc7ec44f494bc4bae5'><b>INGREDIENTS</b></h2>
+
+<div class="" style="" data-section-style='5'><ul id='temp:C:EaH571ca204b07f45f3a2ae3fa09'><li id='temp:C:EaHcf67a0f3fde4477e8fc2f4001' class='' value='1'><span style="color:#414141" textcolor="#414141">1 lb. Chicken Breast</span>
+
+<br/></li><li id='temp:C:EaH013d8def1884493cbc9ecec50' class=''><span style="color:#414141" textcolor="#414141">12 oz. Frozen Peas and Carrots, thawed</span>
+
+<br/></li><li id='temp:C:EaHaa88d2a061c343a789d410114' class=''><span style="color:#414141" textcolor="#414141">2 cup Frozen Diced Potatoes OR Hash Browns</span>
+
+<br/></li><li id='temp:C:EaHc569e9bf27874f1fb9e2ca2bb' class=''><span style="color:#414141" textcolor="#414141">1 Onion diced</span>
+
+<br/></li><li id='temp:C:EaHf914851a18e54f139f0c53db8' class=''><span style="color:#414141" textcolor="#414141">2 can Cream of Chicken Condensed Soup</span>
+
+<br/></li></ul></div><div class="" style="" data-section-style='5'><ul id='temp:C:EaH5328679ecd6e41149cb938aec'><li id='temp:C:EaH7d8565bd05ab4f64955d1f303' class='' value='1'><span style="color:#414141" textcolor="#414141">1 cup Water</span>
+
+<br/></li><li id='temp:C:EaH6fa1b8aeb03e43cf9d5c2840d' class=''><span style="color:#414141" textcolor="#414141">2 cans Refrigerated Crescent Rolls.</span>
+
+<br/></li><li id='temp:C:EaHa21f43e17b1e4ea080dfa3728' class=''><span style="color:#414141" textcolor="#414141">1/2 tsp Poultry Seasoning</span>
+
+<br/></li><li id='temp:C:EaH25e5921310554254a562c7f7d' class=''><span style="color:#414141" textcolor="#414141">Salt and Pepper to taste.</span>
+
+<br/></li></ul></div><h2 id='temp:C:EaH61643bd41b3e4f72ad37b66ee'><b>DIRECTIONS</b></h2>
+
+<div class="" style="" data-section-style='6'><ul id='temp:C:EaHba3aaf32d8aa450e92121c8ad'><li id='temp:C:EaH2ffc02482a034ca6be5065999' class='' value='1'><span style="color:#414141" textcolor="#414141">Grill chicken breasts until cooked through. Allow to cool.</span>
+
+<br/></li><li id='temp:C:EaH98df60d1ce74456396aeda9d6' class=''><span style="color:#414141" textcolor="#414141">Grill diced onions until transparent. Set aside.</span>
+
+<br/></li><li id='temp:C:EaH1d6a92ffe802474b858084c2c' class=''><span style="color:#414141" textcolor="#414141">Dice chicken into 1/2″ cubes.</span>
+
+<br/></li><li id='temp:C:EaHf70e46af552849a183226648e' class=''><span style="color:#414141" textcolor="#414141">Preheat oven to 350.</span>
+
+<br/></li><li id='temp:C:EaH231bf668ab054bea978868c98' class=''><span style="color:#414141" textcolor="#414141">Grease a 11×13″ baking dish.</span>
+
+<br/></li><li id='temp:C:EaHfde6d44e52ac4bd9b4789c91f' class=''><span style="color:#414141" textcolor="#414141">Unroll 1 can of crescent rolls and pinch perforations to seal into a sheet. </span>
+
+<br/></li><li id='temp:C:EaH48b2d12529ec454290ea30ab6' class=''><span style="color:#414141" textcolor="#414141">Press into bottom and up sides of prepared disk. </span>
+
+<br/></li><li id='temp:C:EaHf8ec372dc85743e6b52b9b4a1' class=''><span style="color:#414141" textcolor="#414141">Bake for 20 minutes or until crust is light brown.</span>
+
+<br/></li><li id='temp:C:EaH5dd29a7a10a44c86aadc3dd81' class=''><span style="color:#414141" textcolor="#414141">Allow to cool.</span>
+
+<br/></li><li id='temp:C:EaHe84d0a766dfb4f0388d81c51d' class=''><span style="color:#414141" textcolor="#414141">In a large skillet, combine chicken cubes, diced onion, water, potatoes and peas and carrots.</span>
+
+<br/></li><li id='temp:C:EaHc71714f281d8417eb814af4f2' class=''><span style="color:#414141" textcolor="#414141">Stir and cook over medium heat until ingredients are warm (5-10 minutes).</span>
+
+<br/></li><li id='temp:C:EaHecf0878e39ac440db52ac88b0' class='parent'><span style="color:#414141" textcolor="#414141">Add soup and poultry seasoning and continue heating for another 5 minutes. </span>
+
+<br/></li><ul><li id='temp:C:EaH9482ee1695bf420b8045447c1' class=''><span style="color:#414141" textcolor="#414141">If sauce looks too thick, slowly add a little more water.</span>
+
+<br/></li></ul><li id='temp:C:EaH6ee3137820a04eea9dc722400' class=''><span style="color:#414141" textcolor="#414141">Pour chicken mixture over baked crust and spread evenly.</span>
+
+<br/></li><li id='temp:C:EaHd756a9fd5b98495494c248392' class=''><span style="color:#414141" textcolor="#414141">Unroll other can of crescent rolls and pinch perforations to seal into a sheet. </span>
+
+<br/></li><li id='temp:C:EaH44fcbd2796f3487eaf7fe796f' class=''><span style="color:#414141" textcolor="#414141">Place over top of chicken mixture and press into sides of dish.</span>
+
+<br/></li><li id='temp:C:EaH6356a40e66bd4a57a9da7d460' class=''><span style="color:#414141" textcolor="#414141">Bake for 25 minutes or until top is golden brown.</span>
+
+<br/></li></ul></div></body></html>

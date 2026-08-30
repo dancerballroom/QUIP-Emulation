@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>Reader.aspx</title>
+    </head>
+    <body>
+        <h1>Reader.aspx
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">Reader.aspx
+
+
+&lt;%@ Page Language="C#" AutoEventWireup="<span style="color:#22863A;font-weight:bold;">true</span>" CodeFile="Reader.aspx.cs" Inherits="Reader" %&gt;
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+&nbsp; &nbsp; &lt;title&gt;Text Reader&lt;/title&gt;
+&nbsp; &nbsp; &lt;%-- [CSS] --%&gt;
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;style&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; * {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: Arial, sans-serif;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; body {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #f4f4f9;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .container {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">left</span>-panel {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 0 0 300px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">right</span>-panel {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; textarea {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 350px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; resize: vertical;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;">input</span>[type="text"] {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #007bff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #007bff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: white;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: <span style="color:#005CC5;">left</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: <span style="color:#005CC5;">background</span> 0.2s;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #0056b3;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-stop {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #dc3545;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #dc3545;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-stop:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #bd2130;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-save {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #28a745;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #28a745;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-save:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #218838;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-delete {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #ffc107;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #212529;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #ffc107;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-delete:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #e0a800;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .voice-list {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">height</span>: 260px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-y</span>: auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #fff;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .saved-section {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">top</span>: 2px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">padding</span>-<span style="color:#005CC5;">top</span></span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .saved-<span style="color:#22863A;">grid</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-wrap</span>: wrap;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp;&nbsp;
+
+
+&lt;/style&gt;</span>
+&nbsp; &nbsp; &lt;%-- [/CSS] --%&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&nbsp; &nbsp; &lt;%-- [HTML] --%&gt;
+&nbsp; &nbsp; &lt;form id="form1" runat="server"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="container"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Left Panel: Voice Selection &amp; Actions --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="left-panel"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Controls&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label&gt;&lt;strong&gt;Text Name:&lt;/strong&gt;&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtTextName" runat="server" Placeholder="Enter title..."&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label&gt;&lt;strong&gt;Selected Voice:&lt;/strong&gt;&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:HiddenField ID="hfSelectedVoice" runat="server" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Label ID="lblSelectedVoice" runat="server" Text="<span style="color:#D73A49;">Default</span> / First Available" Font-Bold="<span style="color:#22863A;font-weight:bold;">true</span>" ForeColor="#007bff"&gt;&lt;/asp:Label&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label&gt;&lt;strong&gt;Available Voices:&lt;/strong&gt;&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="voiceButtonsContainer" <span style="color:#D73A49;font-weight:bold;">class</span>="voice-<span style="color:#6F42C1;">list</span>"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Dynamic client-side voice buttons populate here --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-stop" onclick="stopSpeech()"&gt;Stop Reading&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Button ID="btnSave" runat="server" Text="Save Entry" CssClass="btn btn-save" OnClick="btnSave_Click" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Right Panel: Text Box --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="right-panel"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Text Content&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:TextBox ID="txtContent" runat="server" TextMode="MultiLine"&gt;&lt;/asp:TextBox&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Saved Entries Section --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="saved-section"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Saved Readers&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:HiddenField ID="hfDeleteIndex" runat="server" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Button ID="btnDeleteTrigger" runat="server" OnClick="btnDelete_Click" Style="display:none;" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="saved-grid"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Repeater ID="rptSavedEntries" runat="server" OnItemDataBound="rptSavedEntries_ItemDataBound"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ItemTemplate&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style="display:inline-flex; gap: 4px;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Button ID="btnReadEntry" runat="server" CssClass="btn" Text="" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Button ID="btnDeleteEntry" runat="server" CssClass="btn btn-delete" Text="X" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/ItemTemplate&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/asp:Repeater&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &lt;%-- [/HTML] --%&gt;
+&nbsp; &nbsp;&nbsp;
+&lt;/form&gt;
+&nbsp; &nbsp; &lt;%-- [JAVASCRIPT] --%&gt;
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;script&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> synth = <span style="color:#6F42C1;font-weight:bold;">window</span>.speechSynthesis;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> voices = [];
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> populateVoices() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; voices = synth.getVoices();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> container = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('voiceButtonsContainer');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; container.innerHTML = '';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (voices.length === 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; container.innerHTML = '&lt;em&gt;No browser voices found.&lt;/em&gt;';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; voices.forEach((voice, index) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> btn = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement('button');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.type = 'button';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.className = 'btn';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.style.backgroundColor = '#6c757d';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.style.borderColor = '#6c757d';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.innerText = voice.name + ' (' + voice.lang + ')';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.onclick = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= hfSelectedVoice.ClientID %&gt;').value = voice.name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= lblSelectedVoice.ClientID %&gt;').innerText = voice.name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; speakText(<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtContent.ClientID %&gt;').value, voice.name);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; container.appendChild(btn);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Set initial voice selection <span style="color:#D73A49;font-weight:bold;">if</span> empty
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= hfSelectedVoice.ClientID %&gt;').value &amp;&amp; voices.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= hfSelectedVoice.ClientID %&gt;').value = voices[0].name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= lblSelectedVoice.ClientID %&gt;').innerText = voices[0].name;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (speechSynthesis.onvoiceschanged !== <span style="color:#22863A;font-style:italic;">undefined</span>) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; speechSynthesis.onvoiceschanged = populateVoices;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.onload = populateVoices;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> speakText(text, voiceName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!text) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; synth.cancel(); // Stop any active speech
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> utterance = <span style="color:#D73A49;">new</span> SpeechSynthesisUtterance(text);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (voiceName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> foundVoice = voices.find(v =&gt; v.name === voiceName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (foundVoice) utterance.voice = foundVoice;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; synth.speak(utterance);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> stopSpeech() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; synth.cancel();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> readSavedText(text, voiceName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= txtContent.ClientID %&gt;').value = text;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= hfSelectedVoice.ClientID %&gt;').value = voiceName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= lblSelectedVoice.ClientID %&gt;').innerText = voiceName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; speakText(text, voiceName);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> deleteEntry(index) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (confirm('<span style="color:#D73A49;">Delete</span> <span style="color:#D73A49;font-weight:bold;">this</span> saved entry?')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= hfDeleteIndex.ClientID %&gt;').value = index;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('&lt;%= btnDeleteTrigger.ClientID %&gt;').click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp;&nbsp;
+
+
+&lt;/script&gt;</span>
+&nbsp; &nbsp; &lt;%-- [/JAVASCRIPT] --%&gt;
+&lt;/body&gt;
+        &lt;/html&gt;</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

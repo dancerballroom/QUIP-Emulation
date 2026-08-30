@@ -1,0 +1,7 @@
+<!DOCTYPE html><html><head><meta charset='utf-8' /><title>Saved Note</title></head><body>
+        
+        <div><div>@echo off</div><div>setlocal disabledelayedexpansion</div><div><br></div><div>:: Strips out all exclamation marks and converts the remaining text to Title Case</div><div><font color="#142ef0">powershell </font>-NoProfile -<font color="#1630f3">Command </font>"&amp; {<font color="#1832f7">Get-ChildItem</font> -File | <font color="#1933f5">Rename-Item</font> -NewName { (Get-Culture).TextInfo.ToTitleCase($_.BaseName.Replace('!', '').ToLower()) + $_.Extension }}"</div><div><br></div><div>echo File renaming completed!</div></div><div><br></div>
+        
+    
+    
+    </body></html>

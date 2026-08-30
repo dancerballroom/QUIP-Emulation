@@ -1,0 +1,542 @@
+<!doctype html>
+<html><head><title>Judith’s CD (The spoken part between songs)</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:SXZb93ec8d421494e52b3385b65a'>Judith’s CD (The spoken part between songs)</h1>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:SXZ5d47d6d74ce24011911a8ae34'><li id='temp:C:SXZ7170a16a1e0a444ead40c7a82' class='' value='1'>This musical CD is dedicated to a truly sophisticated and elegant Lady.  She was soft spoken, and very humble about her many skills in Music, Languages, Acting, Reading, Journaling, and caring about all people.  Judith Davies had at an early age reached a concert pianist level when she was a young girl.  Outside in the 70’s listening to her play one could hear her practicing: “Rhapsody in Blue for Piano Solo” As a beginning Piano player I would play pieces that were at most 2 pages.  Her music was 30+ pages.  She made it seem easy.  It was so inspiring..  Here is an excerpt...
+
+<br/></li><li id='temp:C:SXZbde753db56c9455cbe0396c35' class=''>In the 1980’s Grieg’s Concerto in A minor for two pianos was the most advanced piano piece I remember hearing Judith playing with “Aunt Alma.”, also an accomplished pianist, accompanist, and piano instructor.
+
+<br/></li><li id='temp:C:SXZ55fa7d3abf394d40ba9fdf01b' class=''>Judith used Spanish at her place of employment to help people.  She had studied Spanish for a couple years in Mexico City.  One of the songs she asked me to turn into Karaoke for the VFW was Piel Canela.  The lyrics are a poem of demotion to a woman with Cinnamon colored skin.
+
+<br/></li><li id='temp:C:SXZec138471345c41589c0ab8936' class=''>I remember Judith telling me a story about passing out programs at her University for a young Elvis, who was just becoming popular.  Here is a touch of Elvis...
+
+<br/></li><li id='temp:C:SXZd07f81881c0b4bd385c29e172' class=''>Judith had a Classical Radio Program for more than 10 years from the 2000’s to 2019.  She created her own programs and liked to combine the show with program notes about the music, the composers, and the artists.  One of the first CDs I remember she played was “The Planets” by Gustav Holst.  Here is the Bringer of Jollity.
+
+<br/></li><li id='temp:C:SXZ882fd2ec393744809bb7dbb63' class=''>In 1981, Judith invited me to join her in a Community Chorus class at Oroville High School. Here are two songs I remember from that period.  Sentimental Journey and Moon River.
+
+<br/></li><li id='temp:C:SXZ4142fbd969bf430db4d2ad5c5' class=''>In the 70’s one could often hear Judith play piano and sing songs out of her 60’s Song book <span bgcolor="#cfe1fc" style="background-color:#cfe1fc">“Both Sides Now” </span>was one of her favorites.  Also “Come Together by The Beatles”, “For Me and My Gal“ by Judy Garland, and Judy Garland’s Daughter ”Liza Minnelli’s Ring them Bells“ and ”Yes“  
+
+<br/></li><li id='temp:C:SXZbd82cda113ca4666824bd9ffd' class=''>Around the house we often heard an eclectic selection of Pop and Classic Music.  Judith had seen the musical HAIR when it first came out.    Here are a couple of selections...  Air, Aquarius, and Hair from the musical HAIR.
+
+<br/></li><li id='temp:C:SXZ85dfa61fabb3490cb5ea2cfc4' class=''>Judith was very passionate about supporting the arts and she was often in Community plays at the Oroville Birdcage theater.  One of her favorite musicals in the last couple of years was Hamilton.  Here is an excerpt from King George III “You’ll be back.” from the Musical Hamilton written by Lin-Manuel Miranda.
+
+<br/></li><li id='temp:C:SXZd93577b0fd154a29b81c1dab9' class=''>Judith loved to go to Karaoke at the VFW.  She enjoyed singing and visiting with family and friends and have a glass of white wine.  She sang many songs. I helped create the CD’s for various songs.  Here is Blackbird by the Beatles.
+
+<br/></li><li id='temp:C:SXZ606361e9d4fa4ea5ac8a098bf' class=''>Judith also liked to sing as a duo or as part of a group.  Hear is “Red Solo Cup”
+
+<br/></li><li id='temp:C:SXZ1565c55ace69453495da07311' class=''>Opera was a really big event for Judith.  We would watch the Metropolitan Opera at Cinemark 10 theaters in Chico.  Some of the performances were 4, 5, and 6 hours, with intermissions.  One of the many pieces performed included the Barber of Seville and Carmen.  Here are short songs from these two selections.
+
+<br/></li><li id='temp:C:SXZ7962b462e95d4cd5bc29a79cc' class=''>Back to Judith’s KRBS Radio show. She volunteered and had Classical programs that included “Fanfare for the Common Man” by Copland, Falla’s “El Amor Brujo” (The Lovely Witch: The Ritual Fire Dance) Rachmaninov’s “Rhapsody on a theme of Paganini”.
+
+<br/></li><li id='temp:C:SXZ6595f28ef08d4daba07db3d05' class=''>I think that Judith would appreciate the final selections here. The Entertainer by Scott Joplin and Spike Jone’s and his City Slickers “Cocktail’s for Two“
+
+<br/></li><li id='temp:C:SXZ80059037b7a14da985df0f67a' class=''>Judith went to a Catholic School in her youth.  So in Closing:  Judith, May the joy that you shared with everyone you touched in your life find you blessed.  We Love you Judith.  Here’s “You’re never fully dressed without a smile.”  from the musical Annie.
+
+<br/></li><li id='temp:C:SXZ0b7e8076af4447f798aa84276' class=''>To Polish off the selection here I would like to include another excerpt from “Rhapsody in Blue“ 
+
+<br/></li><li id='temp:C:SXZa32afbc966d745c8abbb28dfd' class=''>A  couple words of wisdom to finish from Regina and Judith.
+
+<br/></li></ul></div><br/>
+
+</body></html>

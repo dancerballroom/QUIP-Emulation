@@ -1,0 +1,544 @@
+<!doctype html>
+<html><head><title>Robocopy - Mirroring Options</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:YVVa096f2e5602749c5ab4675cec'>Robocopy - Mirroring Options</h1>
+
+<h3 id='temp:C:YVVe7b6d511619a421c8b2876bc8'>Backup... Backup... Backup...</h3>
+
+Before Starting Clear out ALL unwanted FILES, copy all files on DEST to SOURCE you want to keep and CLEAR OUT the Recycle Bin including HIDDEN Recycle Bin Remnants so as NOT to waste time copying the drives $Recycle Bin<br/>
+
+<br/>
+
+<h3 id='temp:C:YVV52b3a769ea044df9b5ec6fa83'>Example:</h3>
+
+<code>rd /s /q &lt;drive_letter&gt;:\$RECYCLE.BIN</code><br/>
+
+<h2 id='temp:C:YVV409c3978dd6b4f49bd1996cab'>The Command I need to Mirror My External Hard Drives:</h2>
+
+<pre id='temp:C:YVVd89bb7c685bd41bf94bda3f4d'>Mirror L:\ Drive onto E:\Drive<br><span bgcolor="#f2ef90" style="background-color:#f2ef90">robocopy C</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">:\Source D:\Destination /E /PURGE /XO /XN /Z </span><br>BREAKDOWN:<br>1. /XO and /XN       Excluding Overwrite Newer or Older<br>2. /PURGE            Deletes Files\Dirs in the DEST that are not in SOURCE<br>3. /Z                Resume Transfer if Interrupted<br>4. /mt:8 (also /mt)  8 Simultaneos Threads is the default<br>5. /LOG:Logname.txt  Log/History of Transfers and Deletions<br><br>is preferred over<br>                                               NOTE:<br>robocopy C:\Source D:\Destination /MIR         -&gt; Overwrite DEST NEWER and OLDER<br>robocopy &lt;SOURCE&gt; &lt;DEST&gt; /E /MIR /Z /mt:8      -&gt; Better, Resumable, still Overwrite     <br>robocopy &lt;SOURCE&gt; &lt;DEST&gt; /E /MIR /Z /mt:8 /XO  -&gt; Exclude Older Overwrite Newer</pre>
+
+<h2 id='temp:C:YVVa59eab430deb427caac357558'>It’s all in the Switches!</h2>
+
+<pre id='temp:C:YVV147d062562e84007888c6a242'>/E = Copy all DIRS/FILES including Empty Ones<br>/PURGE = Delete DIRS/FILES in Destination not found on the Source<br>/XN = Exclude copying Newer Files to Destination found on the Source <br>/XO = Exclude copying Older Files to Destination found on the Source<br>/Z = Mode: Resume Transfer if Interrupted<br><br>NOT USED<br><br>/mt8 = Multi-threaded copying, with 8 threads simultaneously<br>/r:5 = 5 retries on FAILED copies<br>/w:5 = 5 second WAIT before RETRY<br>/L = LIST Only Results of the command<br>/LOG:Your_LOG_08_24_2025_11_45_P.txt = Write Log to Text File</pre>
+
+<h3 id='temp:C:YVV8e64a1318faa463eb833ab45a'>NOTE:</h3>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:YVV1df482e41a5849828cb0a9689'><li id='temp:C:YVVca3f48d20e284b2faf6a643ad' class='' value='1'>A FULL 5 TB drive takes about 14hrs to 24hrs to mirror for initial Backup.
+
+<br/></li></ul></div><h2 id='temp:C:YVV1b4506afb0934df2a1afb001f'>DISCOVERY: (Better on my Windows system: No LOG, No Multi-Threading)</h2>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:YVV3cd0a21b559340bbb89cf7ba2'><li id='temp:C:YVV4ebe61acc96042738ae8fce8a' class='' value='1'>A Log File Prevents to see progress in Windows
+
+<br/></li><li id='temp:C:YVV0f480a55cd4f4340a947eaa10' class=''>The /mt (Multiple Thread) Option almost crashes the program on my computer
+
+<br/></li></ul></div><h2 id='temp:C:YVVf79647122fba423c85fc8b115'>Robocopy Report as it was beginning</h2>
+
+<pre id='temp:C:YVV9dfb1209ed8e4834aced0ad1f'> Options : *.* /S /E /DCOPY:DA /COPY:DAT /PURGE /Z /XO /XN /R:1000000 /W:30 </pre>
+
+<h2 id='temp:C:YVVf999561795d24187b5aa4b5ff'>DISCOVERY: (Hard Drive Redundancy Check Errors)</h2>
+
+<pre id='temp:C:YVVcc42c216813a40ba96e2c6c47'>2025/08/26 21:14:52 ERROR 23 (0x00000017) Copying File J:\COMEDY and DRAMATIC Series\Arrested Development\Season 2\Arrested Development - s02e04 - Good Grief.mp4<br>Data error (cyclic redundancy check).<br>Waiting 30 seconds...^C<br><br>Recommended by Google A.I.<br>1.  Restart<br>2.  Check Connections<br>3.  chkdsk J:<br><br>Result:  Same Error<br><br>Solution:  <br><br>1.  Delete Offending Series Containing File<br>2.  Continue Robocopy command until Everything copied or further Errors Encountered<br>3.  On separate computer, preferrable not in use:<br><code>    * chkdsk X: /f /r /x<br>    <br></code><code><span style="color:#001d35" textcolor="#001d35">chkdsk</span></code><span style="color:#001d35" textcolor="#001d35">: The command to check disk errors. </span><br><br><code><span style="color:#001d35" textcolor="#001d35">X:</span></code><span style="color:#001d35" textcolor="#001d35">: Replaced with the actual drive letter of your external HDD. </span><br><code><span style="color:#001d35" textcolor="#001d35">/f</span></code><span style="color:#001d35" textcolor="#001d35">: Fixes errors found on the disk. </span><br><code><span style="color:#001d35" textcolor="#001d35">/r</span></code><span style="color:#001d35" textcolor="#001d35">: Locates bad sectors and attempts to recover readable information from them; this also includes the functionality of </span><code><span style="color:#001d35" textcolor="#001d35">/f</span></code><span style="color:#001d35" textcolor="#001d35">. </span><br><code><span style="color:#001d35" textcolor="#001d35">/x</span></code><span style="color:#001d35" textcolor="#001d35">: Forces the volume to dismount if it is in use, which is useful if the scan is blocked. </span><br>           <br>4.  Eventually Replace the Offending HDD (Hard Drive)</pre>
+
+<br/>
+
+</body></html>

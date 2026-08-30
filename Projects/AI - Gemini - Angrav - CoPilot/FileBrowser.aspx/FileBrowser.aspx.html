@@ -1,0 +1,1384 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>FileBrowser.aspx</title>
+    </head>
+    <body>
+        <h1>FileBrowser.aspx</h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">FileBrowser.aspx
+
+
+&lt;%@ Page Language="C#" AutoEventWireup="<span style="color:#22863A;font-weight:bold;">true</span>" CodeFile="FileBrowser.aspx.cs" Inherits="FileBrowser" EnableViewState="<span style="color:#22863A;font-weight:bold;">false</span>" %&gt;
+&lt;%@ Assembly Name="System.IO.Compression.FileSystem, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.IO" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Web" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Linq" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Collections.Generic" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Text.RegularExpressions" %&gt;
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&nbsp; &nbsp; &lt;meta charset="utf-8" /&gt;
+&nbsp; &nbsp; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+&nbsp; &nbsp; &lt;title&gt;File Browser&lt;/title&gt;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &lt;link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSI4MCIgZm9udC1zaXplPSI4MCI+4pyP77iPPC90ZXh0Pjwvc3ZnPg==" /&gt;
+
+
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;style&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; /* ========================================================
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;🎨 THEME VARIABLE DEFINITIONS (Daytime Mode Defaults)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;======================================================== */
+&nbsp; &nbsp; &nbsp; &nbsp; :root {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-body: #fafafa;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-card: #ffffff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-row-<span style="color:#6F42C1;font-style:italic;">hover</span>: #f1f5f9;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-header-box: #eaeaea;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-btn-up: #cbd5e1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --<span style="color:#005CC5;">border</span>-core: #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --<span style="color:#005CC5;">border</span>-light: #cbd5e1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --<span style="color:#005CC5;">border</span>-divider: #e2e8f0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --<span style="color:#005CC5;">border</span>-hr: #eee;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-main: #333333;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-heading: #1e293b;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-muted: #64748b;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-link: #0d47a1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-sidebar: #475569;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* ========================================================
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;🌙 NIGHTTIME MODE PALETTE OVERRIDES
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;======================================================== */
+&nbsp; &nbsp; &nbsp; &nbsp; body.night-mode {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-body: #121214;&nbsp; &nbsp; &nbsp; &nbsp; /* Deep midnight canvas backdrop */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-card: #ffffff;&nbsp; &nbsp; &nbsp; &nbsp; /* Dark panel card surfaces */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-row-<span style="color:#6F42C1;font-style:italic;">hover</span>: #2a2a32;&nbsp; &nbsp; /* Row highlight <span style="color:#6F42C1;font-style:italic;">focus</span> lines */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-header-box: #2d2d35;&nbsp; &nbsp;/* Dark heading segments */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg-btn-up: #3f3f46;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --<span style="color:#005CC5;">border</span>-core: #44444f;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --<span style="color:#005CC5;">border</span>-light: #3f3f46;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --<span style="color:#005CC5;">border</span>-divider: #2d2d35;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --<span style="color:#005CC5;">border</span>-hr: #27272a;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-main: #f4f4f6;&nbsp; &nbsp; &nbsp; &nbsp;/* Bright readable text options */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-heading: #ffffff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-muted: #a1a1aa;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-link: #60a5fa;&nbsp; &nbsp; &nbsp; &nbsp;/* Vibrant neon-blue links */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-sidebar: #cbd5e1;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Global Mobile Setup */
+&nbsp; &nbsp; &nbsp; &nbsp; * {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; body {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1.4;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* Linked to theme variables dynamically */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-main);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-body);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -webkit-touch-callout: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -webkit-user-select: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -webkit-user-select: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; user-select: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; h3 {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 1.2rem;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 15px 0 8px 0;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; scroll-<span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 15px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-heading);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Layout Split System wrapper */
+&nbsp; &nbsp; &nbsp; &nbsp; .app-layout {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">width</span>: 580px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: <span style="color:#22863A;">flex</span>-start;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Sidebar Navigation Core Frame Column */
+&nbsp; &nbsp; &nbsp; &nbsp; .sidebar-menu {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 65px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-card);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid var(--<span style="color:#005CC5;">border</span>-light);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: sticky;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .sidebar-item {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-decoration</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: inherit;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #475569; /* 🎯 Forced to stay classic slate gray in both themes */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span> 0.15s ease;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .sidebar-item:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-row-<span style="color:#6F42C1;font-style:italic;">hover</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .sidebar-icon {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 1.3rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 3px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .sidebar-label {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.68rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 600;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; letter-spacing: 0.02em;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Sidebar Separation Line */
+&nbsp; &nbsp; &nbsp; &nbsp; .sidebar-divider {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">top</span>: 3px solid var(--<span style="color:#005CC5;">border</span>-light);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 8px 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Main layout container target constraints adjusted */
+&nbsp; &nbsp; &nbsp; &nbsp; .main-content {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Search Form Adjustments */
+&nbsp; &nbsp; &nbsp; &nbsp; .search-container {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">top</span>: 1px solid var(--<span style="color:#005CC5;">border</span>-core);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 12px 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .search-form {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; .search-form <span style="color:#D73A49;">input</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid var(--<span style="color:#005CC5;">border</span>-core);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-card);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #333333; /* 🎯 Forced to stay dark gray/black in both modes */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 16px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -webkit-user-select: text;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; user-select: text;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; .search-form <span style="color:#D73A49;">button</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 12px 18px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #0d47a1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #ffffff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; body.night-mode .search-form <span style="color:#D73A49;">button</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #1e6091; /* Slightly lighter sapphire for better dark mode visibility */
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Section Item Lists Box */
+&nbsp; &nbsp; &nbsp; &nbsp; .list-container-80 {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-card);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: auto;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">height</span>: 550px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-y</span>: auto;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-x</span>: hidden;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; scroll-behavior: smooth;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid var(--<span style="color:#005CC5;">border</span>-core);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 2px 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Responsive Row Styling */
+&nbsp; &nbsp; &nbsp; &nbsp; .item-row {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: space-between;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: sans-serif;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-card);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid var(--<span style="color:#005CC5;">border</span>-core);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .item-row:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-row-<span style="color:#6F42C1;font-style:italic;">hover</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .item-<span style="color:#005CC5;">left</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .item-<span style="color:#005CC5;">left</span>.align-start {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: <span style="color:#22863A;">flex</span>-start;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+/* 🎯 Update the Counter numbers (e.g. 1, 2, 3...) */
+&nbsp; &nbsp; &nbsp; &nbsp; .item-counter {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.85rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #64748b; /* Forced to stay a clean slate gray in both modes */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 24px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">inline-<span style="color:#22863A;">block</span></span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>-shrink: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; .item-<span style="color:#005CC5;">left</span>.align-start .item-counter {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 2px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .item-text-container {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Row Title Links */
+&nbsp; &nbsp; &nbsp; &nbsp; .item-title {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-decoration</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #0d47a1; /* 🎯 Forced to stay sapphire blue in both modes */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.95rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">white-space</span>: nowrap;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">overflow</span>: hidden;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; text-<span style="color:#005CC5;">overflow</span>: ellipsis;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .item-title-2 {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-decoration</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-link);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.95rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">white-space</span>: nowrap;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">overflow</span>: hidden;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; text-<span style="color:#005CC5;">overflow</span>: ellipsis;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .item-subtext {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-muted);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.8rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 2px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">white-space</span>: nowrap;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">overflow</span>: hidden;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; text-<span style="color:#005CC5;">overflow</span>: ellipsis;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Mobile Tap Buttons Group */
+&nbsp; &nbsp; &nbsp; &nbsp; .item-actions {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>-shrink: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .action-link {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.82rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-decoration</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: rgba(125, 125, 125, 0.1);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .action-link.unpin { <span style="color:#005CC5;font-weight:bold;">color</span>: #e53935; }
+&nbsp; &nbsp; &nbsp; &nbsp; .action-link.pin { <span style="color:#005CC5;font-weight:bold;">color</span>: #2e7d32; }
+&nbsp; &nbsp; &nbsp; &nbsp; body.night-mode .action-link.pin { <span style="color:#005CC5;font-weight:bold;">color</span>: #81c784; }
+&nbsp; &nbsp; &nbsp; &nbsp; .action-link.rename { <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-muted); }
+
+
+&nbsp; &nbsp; /* CSS Folder Icon */
+&nbsp; &nbsp; &nbsp; &nbsp; .folder-icon {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">inline-<span style="color:#22863A;">block</span></span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #ffa726; /* Always Warm Gold */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 2px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">relative</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">right</span></span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">vertical-align</span>: middle;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>-shrink: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .folder-icon::<span style="color:#6F42C1;">before</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content: '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #ffa726; /* Always Warm Gold */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 1px 1px 0 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">absolute</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: -3px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">left</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+/* File Document Icon (Forced White with Slate outline) */
+&nbsp; &nbsp; &nbsp; &nbsp; .file-icon {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">inline-<span style="color:#22863A;">block</span></span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 17px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1.5px solid #455a64; /* Sharp slate <span style="color:#005CC5;">border</span> outline */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #ffffff;&nbsp; &nbsp;/* Pure white inner card canvas */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 1px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">relative</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">right</span></span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">vertical-align</span>: middle;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>-shrink: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .file-icon::<span style="color:#6F42C1;">before</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content: '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">absolute</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: 3px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">left</span>: 2px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">right</span>: 2px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 1px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #455a64; /* Dark structural internal document content lines */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 3px 0 #455a64, 0 6px 0 #455a64;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Red Heart Icon Adjustments */
+&nbsp; &nbsp; &nbsp; &nbsp; .heart-icon {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">inline-<span style="color:#22863A;">block</span></span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">right</span></span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">vertical-align</span>: middle;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 1.1em;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #6A2AFF;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>-shrink: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Collapsible Header Styling */
+&nbsp; &nbsp; &nbsp; &nbsp; .collapsible-header {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; user-select: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">block</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: var(--bg-header-box);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-main);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .collapsible-header:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; opacity: 0.9;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .toggle-arrow {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.75em;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-muted);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">float</span>: <span style="color:#005CC5;">right</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: transform 0.2s ease;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .collapsed .toggle-arrow {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform: rotate(-90deg);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; .up-level-btn {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">inline-<span style="color:#22863A;">block</span></span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-decoration</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: var(--bg-btn-up);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-heading);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.9rem;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Custom Context Menu Core Styles */
+&nbsp; &nbsp; &nbsp; &nbsp; .custom-context-menu {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">fixed</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-card);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid var(--<span style="color:#005CC5;">border</span>-light);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 99999;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 190px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 4px 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; .context-menu-item {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: <span style="color:#005CC5;">left</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-decoration</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-main);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.9rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 500;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: inherit;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .context-menu-item:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-row-<span style="color:#6F42C1;font-style:italic;">hover</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: var(--text-link);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; .context-menu-icon {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 1.15rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">inline-<span style="color:#22863A;">block</span></span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; .context-divider {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 4px 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">top</span>: 1px solid var(--<span style="color:#005CC5;">border</span>-divider);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; .scroll-container {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 400px;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-y</span>: auto;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-x</span>: hidden;&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; scroll-behavior: smooth;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid var(--<span style="color:#005CC5;">border</span>-core);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: var(--bg-body);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &lt;/style&gt;
+</span>
+
+
+
+&lt;/head&gt;
+
+
+
+
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;"><span style="color:#005CC5;font-weight:bold;">&lt;body&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="app-layout"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&lt;%-- Left Navigation Icon Menu Column Sidebox --%&gt;
+<span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-menu"&gt;</span>
+&nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-item" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="focusSearchInput()" title="Library Notes Search"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-icon"&gt;</span>&amp;#128269;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-label"&gt;</span>Search<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-item" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="scrollToFolders()" title="Jump down to Library Folders"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-icon"&gt;</span>&amp;#128193;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-label"&gt;</span>Folders<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-item" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="scrollToFiles()" title="Jump down to Library Notes"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-icon"&gt;</span>&amp;#128221;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-label"&gt;</span>Notes<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-item" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="scrollToFavorites()" title="Jump to Pinned Library Notes"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-icon" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #e53935;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ellipse cx="12" cy="21" rx="4" ry="1.5" fill="#000000" opacity="0.2" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;line x1="12" y1="10" x2="12" y2="20" stroke="#9E9E9E" stroke-width="1.5" stroke-linecap="round" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="12" cy="9" r="6" fill="url(#pinGradient)" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="10.5" cy="7.5" r="2" fill="#FFFFFF" opacity="0.4" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;defs&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;radialGradient <span style="color:#6F42C1;font-weight:normal;">id</span>="pinGradient" cx="35%" cy="35%" r="70%"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="0%" stop-color="#FF5252" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="60%" stop-color="#D32F2F" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="100%" stop-color="#B71C1C" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/radialGradient&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/defs&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-label"&gt;</span>Pinned<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-item" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="scrollToRecentFiles()" title="Jump Down to Recent Library Notes"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-icon" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #0d47a1;"&gt;</span>&amp;#128336;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-label"&gt;</span>Recent<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-divider"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+&nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-item" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="createNewNote();" title="New Library Note"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-icon"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path fill="#2196F3" d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path fill="#BBDEFB" d="M14 2v6h6L14 2z"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path fill="#FFC107" d="M14.5 7.5l2 2-7 7H7.5v-2l7-7z"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path fill="#FFA000" d="M16 6l2 2-1 1-2-2 1-1z"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path fill="#FFF" d="M15 8.5l.5.5-1 1-.5-.5 1-1z"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-label" <span style="color:#6F42C1;font-weight:normal;">style</span>="font-size: 0.6rem;"&gt;</span>+Note<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+
+
+&nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-item" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="createNewFolder();" title="New Library Folder"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-icon"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#6F42C1;font-weight:normal;">style</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .folder-fill { fill: #3b82f6; }&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .pencil-fill { fill: #eab308; }&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .pencil-stroke { stroke: #1e293b; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/<span style="color:#6F42C1;font-weight:normal;">style</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path <span style="color:#6F42C1;font-weight:normal;">class</span>="folder-fill" d="M2 5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l1.414 1.414A1 1 0 0 0 11.414 5H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5z" opacity="0.9"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path d="M2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H11.414l-1.414-1.414H4a2 2 0 0 0-2 2z" opacity="0.2"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path <span style="color:#6F42C1;font-weight:normal;">class</span>="pencil-fill" d="m17.5 4.5 2 2-7 7H10.5v-2l7-7Z"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path <span style="color:#6F42C1;font-weight:normal;">class</span>="pencil-stroke" d="m17.5 4.5 2 2-7 7H10.5v-2l7-7Z"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path <span style="color:#6F42C1;font-weight:normal;">class</span>="pencil-stroke" d="m15.5 2.5 2 2"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-label" <span style="color:#6F42C1;font-weight:normal;">style</span>="font-size: 0.6rem;"&gt;</span>+Folder<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-divider"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+&nbsp; &nbsp; &lt;%-- Project Management <span style="color:#E36209;font-weight:bold;">Button</span> --%&gt;
+&nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-item" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="window.location.<span style="color:#D73A49;font-weight:normal;">href</span>='ProjectManagement.aspx';" title="Switch to Project Management"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-icon"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Column 1 (To Do - Indigo) --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;rect x="3" y="3" width="5" height="18" rx="2" fill="#6366F1" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;rect x="4.25" y="5.5" width="2.5" height="3" rx="0.5" fill="#FFFFFF" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;rect x="4.25" y="10" width="2.5" height="6" rx="0.5" fill="#C7D2FE" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Column 2 (In Progress - Purple) --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;rect x="9.5" y="3" width="5" height="18" rx="2" fill="#8B5CF6" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;rect x="10.75" y="5.5" width="2.5" height="7" rx="0.5" fill="#FFFFFF" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;rect x="10.75" y="14" width="2.5" height="4" rx="0.5" fill="#DDD6FE" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Column 3 (Done - Emerald Green) --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;rect x="16" y="3" width="5" height="18" rx="2" fill="#10B981" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;rect x="17.25" y="5.5" width="2.5" height="4" rx="0.5" fill="#FFFFFF" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;rect x="17.25" y="11" width="2.5" height="5" rx="0.5" fill="#A7F3D0" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="sidebar-label" <span style="color:#6F42C1;font-weight:normal;">style</span>="font-size: 0.55rem;"&gt;</span>Projects<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+
+
+<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+
+
+&lt;%-- Right Click Context Menu --%&gt;
+<span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="customContextMenu" <span style="color:#6F42C1;font-weight:normal;">style</span>="display: none; position: absolute; background-color: #ffffff; border: 1px solid #b5b5b5; box-shadow: 2px 2px 8px rgba(0,0,0,0.2); border-radius: 4px; padding: 4px 0; z-index: 99999; font-family: Arial, sans-serif; min-width: 190px; user-<span style="color:#E36209;font-weight:normal;">select</span>: none;"&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-item" onmousedown="triggerWebsiteExport()" title="Compile current files into a static ZIP archive" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #0066cc; font-weight: bold; padding: 6px 12px; cursor: pointer;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; 🌐 Export Website
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-divider" <span style="color:#6F42C1;font-weight:normal;">style</span>="height: 1px; background-color: #e5e5e5; margin: 4px 0;"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-cascade-container"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&lt;%-- Right Main Terminal Body Workspace Box --%&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="main-<span style="color:#D73A49;font-weight:normal;">content</span>"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="PG" <span style="color:#6F42C1;font-weight:normal;">style</span>="text-align: center; font-weight: bold; font-size: 1.25rem; justify-<span style="color:#D73A49;font-weight:normal;">content</span>: space-between;"&gt;</span>Note Library<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="search-container"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#22863A;font-weight:bold;">form</span> <span style="color:#6F42C1;font-weight:normal;">class</span>="search-<span style="color:#22863A;font-weight:bold;">form</span>" <span style="color:#D73A49;font-weight:normal;">action</span>="Search.aspx" <span style="color:#D73A49;font-weight:normal;">method</span>="get" <span style="color:#6F42C1;font-weight:normal;">style</span>="display: flex; align-items: center; gap: 6px;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:normal;">input</span> <span style="color:#D73A49;font-weight:normal;">type</span>="text" <span style="color:#6F42C1;font-weight:normal;">id</span>="searchInputField" <span style="color:#D73A49;font-weight:normal;">name</span>="q" <span style="color:#6A737D;font-style:italic;">placeholder</span>="Search Library Folders and Notes..." /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="submit"&gt;Search&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">id</span>="btnThemeToggle" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="toggleDisplayTheme(event);" title="Toggle Day/Night Mode" <span style="color:#6F42C1;font-weight:normal;">style</span>="padding: 12px 14px; display: inline-flex; align-items: center; justify-<span style="color:#D73A49;font-weight:normal;">content</span>: center; font-size: 15px; cursor: pointer; border: 1px solid var(--border-core); border-radius: 6px; background: var(--bg-card); color: var(--text-main); line-height: 1.2;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 🌙
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/<span style="color:#22863A;font-weight:bold;">form</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;hr <span style="color:#6F42C1;font-weight:normal;">style</span>="margin: 10px 0; border: 0; border-top: 2px solid #eee;" /&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%-- Path Information --%&gt;
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="currentRootPath" <span style="color:#6F42C1;font-weight:normal;">style</span>="word-break: break-all;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;Current Root Path: /&lt;%= AppState.CurrentFolder %&gt;&lt;/strong&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">style</span>="font-family: monospace; font-size: 0.85em; color: #5252FF; background: #f1f5f9; margin-bottom: 15px; margin-top: 4px;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;strong&gt;Full Path:&lt;/strong&gt; &lt;%= Path.Combine(RootNotesPath, AppState.CurrentFolder).Replace("/", "\\") %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&lt;%
+&nbsp; &nbsp; bool isTrash = string.Equals(AppState.CurrentFolder, "TRASH", StringComparison.OrdinalIgnoreCase) ||&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;string.Equals(AppState.CurrentFolder, "/TRASH", StringComparison.OrdinalIgnoreCase);
+%&gt;
+
+
+&lt;%-- Folders Section --%&gt;
+&lt;<span style="color:#005CC5;font-weight:bold;">h3</span> <span style="color:#6F42C1;font-weight:normal;">id</span>="foldersSectionTitle" <span style="color:#6F42C1;font-weight:normal;">class</span>="collapsible-header" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="toggleSection('foldersContent', this)"&gt;
+&nbsp; &nbsp; Library Folders <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="toggle-arrow"&gt;</span>&amp;#9660;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&lt;/<span style="color:#005CC5;font-weight:bold;">h3</span>&gt;
+
+
+<span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="foldersContent"&gt;</span>
+&lt;% if (!string.IsNullOrEmpty(AppState.CurrentFolder)) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FileBrowser.aspx?path=" <span style="color:#6F42C1;font-weight:normal;">class</span>="up-level-btn" title="Root" <span style="color:#6F42C1;font-weight:normal;">style</span>="margin-bottom: 0;"&gt;</span>🪵<span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FileBrowser.aspx?path=&lt;%= HttpUtility.UrlEncode(GetParentPath()) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="up-level-btn" title="Parent" <span style="color:#6F42C1;font-weight:normal;">style</span>="margin-bottom: 0;"&gt;&amp;#8592; &amp;#128193;<span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="list-container-80"&gt;</span>
+&nbsp; &nbsp; &lt;%&nbsp;
+&nbsp; &nbsp; string physicalDir = Path.Combine(RootNotesPath, AppState.CurrentFolder);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; if (!Directory.Exists(physicalDir))
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; AppState.CurrentFolder = "";
+&nbsp; &nbsp; &nbsp; &nbsp; physicalDir = RootNotesPath;
+&nbsp; &nbsp; }
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; int folderCount = 1;&nbsp;
+&nbsp; &nbsp; foreach (string dir in Directory.GetDirectories(physicalDir)) {&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; string dirName = Path.GetFileName(dir);
+&nbsp; &nbsp; &nbsp; &nbsp; string newPath = string.IsNullOrEmpty(AppState.CurrentFolder) ? dirName : AppState.CurrentFolder + "/" + dirName;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // Check if this current directory is the Trash folder
+&nbsp; &nbsp; &nbsp; &nbsp; bool isTrashFolder = dirName.Equals("Trash", StringComparison.OrdinalIgnoreCase);
+&nbsp; &nbsp; %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-row" <span style="color:#6F42C1;font-weight:normal;">style</span>="background-color: #fff3e0; border: 1px solid #ffe0b2;" title="&lt;%= dirName %&gt;"&gt;&nbsp;
+&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-left"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="item-counter"&gt;</span>&lt;%= folderCount++ %&gt;.<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% if (isTrashFolder) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">style</span>="font-size: 1.2rem; margin-right: 10px; display: inline-block; vertical-align: middle; line-height: 1;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!--TRASH ICON 🗑️--&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24" fill="#28a745"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path d="M16,2H8A1,1,0,0,0,7,3V5H3A1,1,0,0,0,3,7H5V20a2,2,0,0,0,2,2H17a2,2,0,0,0,2-2V7h2a1,1,0,0,0,0-2H17V3A1,1,0,0,0,16,2ZM9,4H15V5H9ZM17,7H7V20H17ZM9,9h2v8H9Zm4,0h2v8H13Z"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } else { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="folder-icon" title="Subdirectory Folder"&gt;</span><span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-text-container"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FileBrowser.aspx?path=&lt;%= HttpUtility.UrlEncode(newPath) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="item-title"&gt;&lt;%= dirName %&gt;<span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-actions"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% if (!isTrashFolder) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="#" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="renameFolder('&lt;%= dirName %&gt;'); return false;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link rename" title="Rename Folder"&gt;✏️<span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="MoveFilesFolders.aspx?moveFolder=&lt;%= HttpUtility.UrlEncode(newPath) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link move" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #0284c7;" title="Move to Folder"&gt;📁➔📁<span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } else { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #94a3b8; font-size: 0.85rem; font-<span style="color:#6F42C1;font-weight:normal;">style</span>: italic; padding-right: 4px;"&gt;</span>System Folder<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &lt;% } %&gt;
+
+
+&nbsp; &nbsp; &lt;% if (folderCount == 1) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">style</span>="padding: 12px; color: #64748b; font-<span style="color:#6F42C1;font-weight:normal;">style</span>: italic; font-size: 0.9rem;"&gt;</span>No Folders<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;hr <span style="color:#6F42C1;font-weight:normal;">style</span>="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;" /&gt;
+
+
+
+
+&lt;%-- Files Section --%&gt;
+&lt;<span style="color:#005CC5;font-weight:bold;">h3</span> <span style="color:#6F42C1;font-weight:normal;">id</span>="filesSectionTitle" <span style="color:#6F42C1;font-weight:normal;">class</span>="collapsible-header" <span style="color:#6F42C1;font-weight:normal;">style</span>="display: flex; align-items: center; justify-<span style="color:#D73A49;font-weight:normal;">content</span>: space-between;" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="toggleSection('filesContent', this)"&gt;
+&nbsp; &nbsp; Library Notes<span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="toggle-arrow"&gt;</span>&amp;#9660;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &lt;% if (isTrash) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FileBrowser.aspx?<span style="color:#D73A49;font-weight:normal;">action</span>=emptyTrash" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link empty-trash" title="Permanently Empty All Items from TRASH" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="return confirm('Are you sure you want to permanently delete all items in the TRASH? This cannot be undone.');" <span style="color:#6F42C1;font-weight:normal;">style</span>="margin-right: 15px; font-size: 1.15rem; text-decoration: none;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 🗑️💥
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &lt;% } %&gt;
+&lt;/<span style="color:#005CC5;font-weight:bold;">h3</span>&gt;
+
+
+<span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="filesContent" <span style="color:#6F42C1;font-weight:normal;">class</span>="list-container-80"&gt;</span>
+&lt;%&nbsp;
+&nbsp; &nbsp; var pinnedPaths = GetPinnedPaths();
+&nbsp; &nbsp; int fileCount = 1;&nbsp;
+&nbsp; &nbsp; foreach (string file in Directory.GetFiles(physicalDir, "*.html")) {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;string fileName = Path.GetFileName(file);
+&nbsp; &nbsp; &nbsp; &nbsp;string relPath = (AppState.CurrentFolder == "" ? "" : AppState.CurrentFolder + "/") + fileName;
+%&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-row" <span style="color:#6F42C1;font-weight:normal;">style</span>="background-color: #baf0f7; border: 1px solid #a4e3eb;" title="&lt;%= fileName %&gt;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-left align-start"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="item-counter"&gt;</span>&lt;%= fileCount++ %&gt;.<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="file-icon" <span style="color:#6F42C1;font-weight:normal;">style</span>="margin-top: 3px;" title="HTML Document Note Source"&gt;</span><span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-text-container"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FilingCabinet.aspx?<span style="color:#6F42C1;font-weight:normal;">id</span>=&lt;%= HttpUtility.UrlEncode(Path.GetFileNameWithoutExtension(file)) %&gt;&amp;folder=&lt;%= HttpUtility.UrlEncode(AppState.CurrentFolder) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="item-title"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%= fileName %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="item-subtext" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #546e7a; font-<span style="color:#6F42C1;font-weight:normal;">style</span>: italic;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%= GetHtmlPreview(file) %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-actions"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% if (isTrash) {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; string targetRestoreFolder = GetOriginalLocation(fileName);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="MoveFilesFolders.aspx?<span style="color:#6F42C1;font-weight:normal;">id</span>=&lt;%= HttpUtility.UrlEncode(Path.GetFileNameWithoutExtension(file)) %&gt;&amp;folder=TRASH&amp;destFolder=&lt;%= HttpUtility.UrlEncode(targetRestoreFolder) %&gt;&amp;<span style="color:#D73A49;font-weight:normal;">action</span>=restore" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link restore" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #16a34a; font-size: 1.1rem; font-weight: bold;" title="Restore file back to original path: /&lt;%= string.IsNullOrEmpty(targetRestoreFolder) ? "Root" : targetRestoreFolder %&gt;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 📄➔↩️
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } else { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% if (pinnedPaths.Contains(relPath)) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FileBrowser.aspx?<span style="color:#D73A49;font-weight:normal;">action</span>=unpin&amp;file=&lt;%= HttpUtility.UrlEncode(relPath) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link unpin"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ellipse cx="12" cy="21" rx="4" ry="1.5" fill="#000000" opacity="0.2" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;line x1="12" y1="10" x2="12" y2="20" stroke="#9E9E9E" stroke-width="1.5" stroke-linecap="round" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="12" cy="9" r="6" fill="url(#pinGradient)" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="10.5" cy="7.5" r="2" fill="#FFFFFF" opacity="0.4" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;defs&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;radialGradient <span style="color:#6F42C1;font-weight:normal;">id</span>="pinGradient" cx="35%" cy="35%" r="70%"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="0%" stop-color="#FF5252" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="60%" stop-color="#D32F2F" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="100%" stop-color="#B71C1C" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/radialGradient&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/defs&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } else { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FileBrowser.aspx?<span style="color:#D73A49;font-weight:normal;">action</span>=pin&amp;file=&lt;%= HttpUtility.UrlEncode(relPath) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link pin"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;g transform="rotate(45 12 12)"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="13" cy="14" r="3" fill="#000000" opacity="0.15" filter="blur(1px)"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path d="M12 14 L12 21" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="12" cy="12" r="6" fill="#1e40af"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="12" cy="11" r="6" fill="#2563eb"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="10.5" cy="9.5" r="1.5" fill="#60a5fa" opacity="0.8"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/g&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="#" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="renameFile('&lt;%= fileName %&gt;'); return false;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link rename" title="Rename Note"&gt;✏️<span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="MoveFilesFolders.aspx?<span style="color:#6F42C1;font-weight:normal;">id</span>=&lt;%= HttpUtility.UrlEncode(Path.GetFileNameWithoutExtension(file)) %&gt;&amp;folder=&lt;%= HttpUtility.UrlEncode(AppState.CurrentFolder) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link move" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #0284c7;" title="Move File"&gt;📄➔📁<span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&lt;% } %&gt;
+
+
+&lt;% if (fileCount == 1) { %&gt;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">style</span>="padding: 12px; color: #64748b; font-<span style="color:#6F42C1;font-weight:normal;">style</span>: italic; font-size: 0.9rem;"&gt;</span>No Files<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&lt;% } %&gt;
+<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;hr <span style="color:#6F42C1;font-weight:normal;">style</span>="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;" /&gt;
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%-- Pinned Files Section --%&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#005CC5;font-weight:bold;">h3</span> <span style="color:#6F42C1;font-weight:normal;">id</span>="pinnedSectionTitle" <span style="color:#6F42C1;font-weight:normal;">class</span>="collapsible-header &lt;%= isTrash ? "collapsed" : "" %&gt;" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="toggleSection('pinnedContent', this)"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Pinned Library Notes <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="toggle-arrow"&gt;</span>&amp;#9660;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/<span style="color:#005CC5;font-weight:bold;">h3</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="pinnedContent" <span style="color:#6F42C1;font-weight:normal;">class</span>="list-container-80" &lt;% if (isTrash) { %&gt;<span style="color:#6F42C1;font-weight:normal;">style</span>="display: none;"&lt;% } %&gt;&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; var pinned = GetPinnedPaths();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int pinCount = 1;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; foreach (var p in pinned) {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; string fileName = Path.GetFileName(p);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; string dirPath = Path.GetDirectoryName(p).Replace("\\", "/");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-row" <span style="color:#6F42C1;font-weight:normal;">style</span>="background-color: #baf0f7; border: 1px solid #a4e3eb;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-left"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="item-counter"&gt;</span>&lt;%= pinCount++ %&gt;.<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="file-icon" <span style="color:#6F42C1;font-weight:normal;">style</span>="margin-top: 3px;" title="HTML Document Note Source"&gt;</span><span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-text-container"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FilingCabinet.aspx?<span style="color:#6F42C1;font-weight:normal;">id</span>=&lt;%= HttpUtility.UrlEncode(Path.GetFileNameWithoutExtension(fileName)) %&gt;&amp;folder=&lt;%= HttpUtility.UrlEncode(dirPath) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="item-title"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%= fileName %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="item-subtext" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #455a64;"&gt;</span>in /&lt;%= dirPath %&gt;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-actions"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FileBrowser.aspx?<span style="color:#D73A49;font-weight:normal;">action</span>=unpin&amp;file=&lt;%= HttpUtility.UrlEncode(p) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link unpin"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ellipse cx="12" cy="21" rx="4" ry="1.5" fill="#000000" opacity="0.2" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;line x1="12" y1="10" x2="12" y2="20" stroke="#9E9E9E" stroke-width="1.5" stroke-linecap="round" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="12" cy="9" r="6" fill="url(#pinGradient)" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="10.5" cy="7.5" r="2" fill="#FFFFFF" opacity="0.4" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;defs&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;radialGradient <span style="color:#6F42C1;font-weight:normal;">id</span>="pinGradient" cx="35%" cy="35%" r="70%"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="0%" stop-color="#FF5252" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="60%" stop-color="#D32F2F" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="100%" stop-color="#B71C1C" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/radialGradient&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/defs&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;hr <span style="color:#6F42C1;font-weight:normal;">style</span>="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;" /&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%-- Recent History Feed Section --%&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#005CC5;font-weight:bold;">h3</span> <span style="color:#6F42C1;font-weight:normal;">id</span>="recentFilesSectionTitle" <span style="color:#6F42C1;font-weight:normal;">class</span>="collapsible-header &lt;%= isTrash ? "collapsed" : "" %&gt;" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="toggleSection('recentFilesContent', this)"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Recent Library Notes <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="toggle-arrow"&gt;</span>&amp;#9660;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/<span style="color:#005CC5;font-weight:bold;">h3</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="recentFilesContent" <span style="color:#6F42C1;font-weight:normal;">class</span>="list-container-80" &lt;% if (isTrash) { %&gt;<span style="color:#6F42C1;font-weight:normal;">style</span>="display: none;"&lt;% } %&gt;&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; var recentFiles = GetRecentFilesList();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int recentCount = 1;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; foreach (FileInfo fileInfo in recentFiles) {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;string recFileName = fileInfo.<span style="color:#D73A49;font-weight:normal;">Name</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;string recFullPath = fileInfo.FullName;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;string recRelPath = recFullPath.Substring(RootNotesPath.Length).Replace("\\", "/").TrimStart('/');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;int lastSlashIdx = recRelPath.LastIndexOf('/');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;string recFileFolder = lastSlashIdx &gt; 0 ? recRelPath.Substring(0, lastSlashIdx) : "";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-row" <span style="color:#6F42C1;font-weight:normal;">style</span>="background-color: #baf0f7; border: 1px solid #a4e3eb;" title="&lt;%= recFileName %&gt;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-left align-start"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="item-counter"&gt;</span>&lt;%= recentCount++ %&gt;.<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="file-icon" <span style="color:#6F42C1;font-weight:normal;">style</span>="margin-top: 3px;" title="Recently Modified HTML Note"&gt;</span><span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-text-container"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FilingCabinet.aspx?<span style="color:#6F42C1;font-weight:normal;">id</span>=&lt;%= HttpUtility.UrlEncode(Path.GetFileNameWithoutExtension(recFileName)) %&gt;&amp;folder=&lt;%= HttpUtility.UrlEncode(recFileFolder) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="item-title"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%= recFileName %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">class</span>="item-subtext" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #546e7a; font-<span style="color:#6F42C1;font-weight:normal;">style</span>: italic;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% if (!string.IsNullOrEmpty(recFileFolder)) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #475569; font-weight: bold; font-<span style="color:#6F42C1;font-weight:normal;">style</span>: normal;"&gt;</span>in /&lt;%= recFileFolder %&gt;<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span> &amp;bull;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;%= GetHtmlPreview(recFullPath) %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="item-actions"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% if (pinnedPaths.Contains(recRelPath)) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FileBrowser.aspx?<span style="color:#D73A49;font-weight:normal;">action</span>=unpin&amp;file=&lt;%= HttpUtility.UrlEncode(recRelPath) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link unpin"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ellipse cx="12" cy="21" rx="4" ry="1.5" fill="#000000" opacity="0.2" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;line x1="12" y1="10" x2="12" y2="20" stroke="#9E9E9E" stroke-width="1.5" stroke-linecap="round" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="12" cy="9" r="6" fill="url(#pinGradient)" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="10.5" cy="7.5" r="2" fill="#FFFFFF" opacity="0.4" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;defs&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;radialGradient <span style="color:#6F42C1;font-weight:normal;">id</span>="pinGradient" cx="35%" cy="35%" r="70%"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="0%" stop-color="#FF5252" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="60%" stop-color="#D32F2F" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;stop offset="100%" stop-color="#B71C1C" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/radialGradient&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/defs&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } else { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="FileBrowser.aspx?<span style="color:#D73A49;font-weight:normal;">action</span>=pin&amp;file=&lt;%= HttpUtility.UrlEncode(recRelPath) %&gt;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link pin"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;g transform="rotate(45 12 12)"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="13" cy="14" r="3" fill="#000000" opacity="0.15" filter="blur(1px)"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;path d="M12 14 L12 21" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="12" cy="12" r="6" fill="#1e40af"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="12" cy="11" r="6" fill="#2563eb"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;circle cx="10.5" cy="9.5" r="1.5" fill="#60a5fa" opacity="0.8"/&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/g&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/svg&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;a <span style="color:#D73A49;font-weight:normal;">href</span>="#" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="renameFileFromRecent('&lt;%= recFileName %&gt;', '&lt;%= recFileFolder %&gt;'); return false;" <span style="color:#6F42C1;font-weight:normal;">class</span>="<span style="color:#D73A49;font-weight:normal;">action</span>-link rename" title="Rename Note"&gt;✏️<span style="color:#22863A;font-weight:normal;">&lt;/a&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% if (recentFiles.Count == 0) { %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">style</span>="padding: 12px; color: #64748b; font-<span style="color:#6F42C1;font-weight:normal;">style</span>: italic; font-size: 0.9rem;"&gt;</span>No recently edited files found.<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;% } %&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+&nbsp; &nbsp; &lt;%-- Context Menu Markup Structure --%&gt;
+<span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="contextMenu" <span style="color:#6F42C1;font-weight:normal;">style</span>="display: none; position: absolute; background-color: #ffffff; border: 1px solid #b5b5b5; box-shadow: 2px 2px 8px rgba(0,0,0,0.2); border-radius: 4px; padding: 4px 0; z-index: 99999; font-family: Arial, sans-serif; min-width: 190px; user-<span style="color:#E36209;font-weight:normal;">select</span>: none;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-item" onmousedown="triggerWebsiteExport()" title="Compile current files into a static ZIP archive" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #0066cc; font-weight: bold; padding: 6px 12px; cursor: pointer;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; 🌐 Export Website
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-divider" <span style="color:#6F42C1;font-weight:normal;">style</span>="height: 1px; background-color: #e5e5e5; margin: 4px 0;"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-item" onmousedown="createNewNote()" <span style="color:#6F42C1;font-weight:normal;">style</span>="padding: 6px 12px; cursor: pointer;"&gt;</span>📝 Create New Note<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-item" onmousedown="createNewFolder()" <span style="color:#6F42C1;font-weight:normal;">style</span>="padding: 6px 12px; cursor: pointer;"&gt;</span>📁 Create New Folder<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-divider" <span style="color:#6F42C1;font-weight:normal;">style</span>="height: 1px; background-color: #e5e5e5; margin: 4px 0;"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-item" onmousedown="scrollToTop()" <span style="color:#6F42C1;font-weight:normal;">style</span>="padding: 6px 12px; cursor: pointer;"&gt;</span>⬆️ Go to Top<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="ctx-item" onmousedown="scrollToBottom()" <span style="color:#6F42C1;font-weight:normal;">style</span>="padding: 6px 12px; cursor: pointer;"&gt;</span>⬇️ Go to Bottom<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+
+
+<span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="exportModal" <span style="color:#6F42C1;font-weight:normal;">style</span>="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100000; font-family: Arial, sans-serif;"&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">style</span>="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); width: 360px;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">style</span>="display: flex; justify-<span style="color:#D73A49;font-weight:normal;">content</span>: space-between; align-items: center; margin-top: 0; margin-bottom: 10px;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#005CC5;font-weight:bold;">h3</span> <span style="color:#6F42C1;font-weight:normal;">style</span>="margin: 0; color: #333;"&gt;📦 Compiling Website Export&lt;/<span style="color:#005CC5;font-weight:bold;">h3</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#6F42C1;font-weight:normal;">onclick</span>="document.getElementById('exportModal').<span style="color:#6F42C1;font-weight:normal;">style</span>.display='none';" <span style="color:#6F42C1;font-weight:normal;">style</span>="background: none; border: none; font-size: 20px; cursor: pointer; color: #999; line-height: 1;"&gt;&amp;times;&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;hr <span style="color:#6F42C1;font-weight:normal;">style</span>="border: 0; border-top: 1px solid #eee; margin-bottom: 15px;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">style</span>="font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 15px;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;Zip File <span style="color:#D73A49;font-weight:normal;">Name</span>:&lt;/strong&gt; &lt;br&gt;<span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">id</span>="lblZipName" <span style="color:#6F42C1;font-weight:normal;">style</span>="color: #0066cc; word-break: break-all; font-size: 13px;"&gt;</span>Calculating...<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>&lt;br&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;Directories Found:&lt;/strong&gt; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">id</span>="lblDirCount"&gt;</span>0<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>&lt;br&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;Files Tracked:&lt;/strong&gt; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">id</span>="lblFileCount"&gt;</span>0<span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="lblWaitWarning" <span style="color:#6F42C1;font-weight:normal;">style</span>="font-size: 13px; color: #b45309; background: #fffbeb; border: 1px solid #fef3c7; padding: 8px; border-radius: 4px; margin-bottom: 15px; text-align: center; font-weight: bold;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ⏳ Please Wait. This may take a while.
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">style</span>="background: #e5e5e5; border-radius: 4px; height: 20px; width: 100%; overflow: hidden; margin-bottom: 5px;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="exportProgressBar" <span style="color:#6F42C1;font-weight:normal;">style</span>="background: #22c55e; width: 0%; height: 100%; transition: width 0.2s ease;"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="lblProgressPct" <span style="color:#6F42C1;font-weight:normal;">style</span>="text-align: right; font-size: 12px; font-weight: bold; color: #666; margin-bottom: 15px;"&gt;</span>0%<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="lblDownloadMessage" <span style="color:#6F42C1;font-weight:normal;">style</span>="display: none; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 12px; border-radius: 4px; font-size: 13px; text-align: left; line-height: 1.5;"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:normal;">&lt;span <span style="color:#6F42C1;font-weight:normal;">id</span>="lblFileCreatedConfirmation" <span style="color:#6F42C1;font-weight:normal;">style</span>="display: block; font-weight: bold; margin-bottom: 5px; color: #14532d;"&gt;</span><span style="color:#005CC5;font-weight:normal;">&lt;/span&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 🎉 Please check your Downloads Folder.
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+<span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+</span>
+
+
+
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&lt;script&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; // Target your single, correct menu container element id
+<span style="color:#D73A49;font-weight:bold;">const</span> contextMenu = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('customContextMenu');&nbsp;
+
+
+// Maintains Night Mode/Day Mode through-out Navigation
+(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> savedTheme = <span style="color:#6F42C1;">localStorage</span>.getItem('theme');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (savedTheme === 'night') {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.documentElement.classList.add('night-mode');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener("DOMContentLoaded", <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.classList.add('night-mode');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> toggleBtn = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnThemeToggle');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (toggleBtn) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.innerHTML = "☀️";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.style.background = "#e0f2fe";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.style.borderColor = "#7dd3fc";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.title = "<span style="color:#D73A49;font-weight:bold;">Switch</span> to Daytime Mode";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; }
+})();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> touchTimer;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> touchStartX = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> touchStartY = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> isLongPress = <span style="color:#22863A;font-weight:bold;">false</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> focusSearchInput() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> inputField = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('searchInputField');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (inputField) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; inputField.focus();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; inputField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> scrollToFavorites() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> target = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('pinnedSectionTitle');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (target) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> content = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('pinnedContent');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (content &amp;&amp; content.style.display === "none") {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleSection('pinnedContent', target);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Intercept click on the actual section header icon <span style="color:#D73A49;font-weight:bold;">if</span> needed, to prevent collapse toggle bubbling
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> emptyTrashBtn = <span style="color:#6F42C1;font-weight:bold;">document</span>.querySelector('.action-link.empty-trash');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (emptyTrashBtn) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; emptyTrashBtn.addEventListener('click', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopPropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> scrollToRecentFiles() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> target = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('recentFilesSectionTitle');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (target) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> content = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('recentFilesContent');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (content &amp;&amp; content.style.display === "none") {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleSection('recentFilesContent', target);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> scrollToFolders() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> target = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('currentRootPath');&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (target) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; target.scrollIntoView({ behavior: 'smooth' });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> scrollToFiles() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> target = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('filesSectionTitle');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (target) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> content = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('filesContent');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (content &amp;&amp; content.style.display === "none") {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleSection('filesContent', target);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // UNIFIED POSITION ENGINE: Handles mouse clicks and touch presses natively
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> showMenu(x, y) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (contextMenu) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contextMenu.style.display = 'block';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contextMenu.style.left = x + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contextMenu.style.top = y + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // 1. Desktop Context Menu Capture
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('contextmenu', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showMenu(e.pageX, e.pageY); // Uses page coordinates to account <span style="color:#D73A49;font-weight:bold;">for</span> scrolling down
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // 2. Mobile Long Press Captures
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('touchstart', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.touches.length &gt; 1) <span style="color:#D73A49;font-weight:bold;">return</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> touch = e.touches[0];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // FIX 2: Use pageX/pageY <span style="color:#D73A49;font-weight:bold;">for</span> mobile long press so it accounts <span style="color:#D73A49;font-weight:bold;">for</span> scrolling coordinates
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; touchStartX = touch.pageX;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; touchStartY = touch.pageY;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; isLongPress = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; touchTimer = setTimeout(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; isLongPress = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showMenu(touchStartX, touchStartY);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, 600);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('touchmove', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!touchTimer) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> touch = e.touches[0];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;">Math</span>.abs(touch.pageX - touchStartX) &gt; 10 || <span style="color:#005CC5;">Math</span>.abs(touch.pageY - touchStartY) &gt; 10) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; clearTimeout(touchTimer);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; touchTimer = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('touchend', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (touchTimer) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; clearTimeout(touchTimer);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; touchTimer = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (isLongPress) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // 3. Clear menu display on any standard page click interaction
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('click', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (contextMenu) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contextMenu.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> scrollToTop() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.scrollTo({ top: 0, behavior: 'smooth' });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> scrollToBottom() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.scrollTo({ top: <span style="color:#6F42C1;font-weight:bold;">document</span>.body.scrollHeight, behavior: 'smooth' });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> toggleSection(contentId, headerEl) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> content = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById(contentId);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (content.style.display === "none") {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content.style.display = "";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; headerEl.classList.remove("collapsed");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content.style.display = "none";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; headerEl.classList.add("collapsed");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; UX.RegisterFileRenameAction = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(oldName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> newName = prompt("Enter <span style="color:#D73A49;">new</span> name <span style="color:#D73A49;font-weight:bold;">for</span> " + oldName + ":", oldName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (newName &amp;&amp; newName !== oldName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = "FileBrowser.aspx?action=rename&amp;old=" + encodeURIComponent(oldName) + "&amp;<span style="color:#D73A49;">new</span>=" + encodeURIComponent(newName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> renameFile(oldName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> newName = prompt("Enter <span style="color:#D73A49;">new</span> name <span style="color:#D73A49;font-weight:bold;">for</span> " + oldName + ":", oldName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (newName &amp;&amp; newName !== oldName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = "FileBrowser.aspx?action=rename&amp;old=" + encodeURIComponent(oldName) + "&amp;<span style="color:#D73A49;">new</span>=" + encodeURIComponent(newName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> renameFileFromRecent(oldName, folderPath) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> newName = prompt("Enter <span style="color:#D73A49;">new</span> name <span style="color:#D73A49;font-weight:bold;">for</span> " + oldName + ":", oldName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (newName &amp;&amp; newName !== oldName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = "FileBrowser.aspx?action=rename&amp;old=" + encodeURIComponent(oldName) + "&amp;<span style="color:#D73A49;">new</span>=" + encodeURIComponent(newName) + "&amp;folder=" + encodeURIComponent(folderPath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> renameFolder(oldName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> newName = prompt("Enter <span style="color:#D73A49;">new</span> name <span style="color:#D73A49;font-weight:bold;">for</span> folder " + oldName + ":", oldName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (newName &amp;&amp; newName !== oldName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = "FileBrowser.aspx?action=renameFolder&amp;old=" + encodeURIComponent(oldName) + "&amp;<span style="color:#D73A49;">new</span>=" + encodeURIComponent(newName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> createNewNote() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = "CreateNote.aspx";
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> createNewFolder() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = "CreateFolder.aspx";
+&nbsp; &nbsp; &nbsp; &nbsp; }&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> toggleDisplayTheme(event) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (event) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; event.stopPropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; event.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> bodyEl = <span style="color:#6F42C1;font-weight:bold;">document</span>.body;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> toggleBtn = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnThemeToggle');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bodyEl.classList.toggle('night-mode');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (bodyEl.classList.contains('night-mode')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.innerHTML = "☀️";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.style.background = "#e0f2fe";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.style.borderColor = "#7dd3fc";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.title = "<span style="color:#D73A49;font-weight:bold;">Switch</span> to Daytime Mode";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem('theme', 'night');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.innerHTML = "🌙";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.style.background = "#ffffff";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.style.borderColor = "#ffe0b2";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleBtn.title = "<span style="color:#D73A49;font-weight:bold;">Switch</span> to Nighttime Mode";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;">localStorage</span>.setItem('theme', 'day');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Trigger the backend website compilation script
+
+
+// 📦 Global scope variable tracking <span style="color:#005CC5;font-weight:bold;">array</span> state cleanly
+<span style="color:#D73A49;font-weight:bold;">var</span> progressInterval = <span style="color:#22863A;font-weight:bold;">null</span>;
+
+
+<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> triggerWebsiteExport() {
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (contextMenu) { contextMenu.style.display = 'none'; }
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> now = <span style="color:#D73A49;">new</span> <span style="color:#005CC5;">Date</span>();
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> year = now.getFullYear();
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> month = <span style="color:#005CC5;font-weight:bold;">String</span>(now.getMonth() + 1).padStart(2, '0');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> day = <span style="color:#005CC5;font-weight:bold;">String</span>(now.getDate()).padStart(2, '0');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> hours = <span style="color:#005CC5;font-weight:bold;">String</span>(now.getHours()).padStart(2, '0');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> minutes = <span style="color:#005CC5;font-weight:bold;">String</span>(now.getMinutes()).padStart(2, '0');
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> seconds = <span style="color:#005CC5;font-weight:bold;">String</span>(now.getSeconds()).padStart(2, '0');
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> timestampedFileName = "Website_Export_" + year + month + day + "_" + hours + minutes + seconds + ".zip";
+
+
+&nbsp; &nbsp; // 1. Initial State: Set title to "Compiling..." when the modal opens
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblZipName').innerText = timestampedFileName;
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblDirCount').innerText = "0";
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblFileCount').innerText = "0";
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('exportProgressBar').style.width = "0%";
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblProgressPct').innerText = "0%";
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblWaitWarning').style.display = "block";&nbsp;
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblDownloadMessage').style.display = "none";
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; // Set the initial title here
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.querySelector('#exportModal h3').innerText = "📦 Compiling Website <span style="color:#D73A49;font-weight:bold;">Export</span>";
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('exportModal').style.display = 'block';
+
+
+&nbsp; &nbsp; // 2. Fire asynchronous core compilation run
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> xhrStart = <span style="color:#D73A49;">new</span> XMLHttpRequest();
+&nbsp; &nbsp; xhrStart.open('GET', 'FileBrowser.aspx?action=export_start', <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; xhrStart.onload = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (xhrStart.status === 200) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; clearInterval(progressInterval);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Force progress visuals to complete state
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('exportProgressBar').style.width = "100%";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblProgressPct').innerText = "100%";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblWaitWarning').style.display = "none";&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 3. Completion State: Change title safely
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> modalHeader = <span style="color:#6F42C1;font-weight:bold;">document</span>.querySelector('#exportModal h3') || <span style="color:#6F42C1;font-weight:bold;">document</span>.querySelector('#exportModal h2');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (modalHeader) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; modalHeader.innerText = "🎉 <span style="color:#D73A49;font-weight:bold;">Export</span> Ready!";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> downloadUrl = 'FileBrowser.aspx?action=export_download&amp;id=' + xhrStart.responseText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Generate the physical green button container markup
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblFileCreatedConfirmation').innerHTML =&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; '&lt;button id="btnForceDownload" style="display: block; width: 100%; text-align: center; background: #22c55e; color: #ffffff; border: 1px solid #16a34a; padding: 12px; border-radius: 6px; font-weight: bold; font-size: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer;"&gt;💾 Download ZIP File Now&lt;/button&gt;';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblDownloadMessage').style.display = "block";
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Wire up the green button to trigger the hidden anchor download system
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnForceDownload').onclick = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Self-contained fallback filename generation to guarantee stability
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> d = <span style="color:#D73A49;">new</span> <span style="color:#005CC5;">Date</span>();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> localName = "Website_Export_" + d.getFullYear() +&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">String</span>(d.getMonth() + 1).padStart(2, '0') +&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">String</span>(d.getDate()).padStart(2, '0') + "_" +&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">String</span>(d.getHours()).padStart(2, '0') +&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">String</span>(d.getMinutes()).padStart(2, '0') + ".zip";
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> hiddenAnchor = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement('a');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hiddenAnchor.href = downloadUrl;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hiddenAnchor.download = localName; // Safe, self-contained filename variable
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.appendChild(hiddenAnchor);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hiddenAnchor.click();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.body.removeChild(hiddenAnchor);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Close modal right after download starts
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('exportModal').style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; };
+
+
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; xhrStart.send();
+
+
+&nbsp; &nbsp; // 4. Poll progress updates
+&nbsp; &nbsp; progressInterval = setInterval(updateExportProgress, 400);
+}
+
+
+
+
+
+
+
+
+
+
+<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> updateExportProgress() {
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> xhrPoll = <span style="color:#D73A49;">new</span> XMLHttpRequest();
+&nbsp; &nbsp; xhrPoll.open('GET', 'FileBrowser.aspx?action=export_progress', <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; xhrPoll.onload = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (xhrPoll.status === 200) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> data = <span style="color:#005CC5;font-weight:bold;">JSON</span>.parse(xhrPoll.responseText);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblDirCount').innerText = data.dirs;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblFileCount').innerText = data.files;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('exportProgressBar').style.width = data.pct + "%";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('lblProgressPct').innerText = data.pct + "%";
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; };
+&nbsp; &nbsp; xhrPoll.send();
+}&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &lt;/script&gt;
+</span>
+
+
+
+&lt;/body&gt;
+
+
+
+
+        &lt;/html&gt;</span></pre></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

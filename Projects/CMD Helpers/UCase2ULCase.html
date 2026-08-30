@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>UCase2ULCase</title>
+    </head>
+    <body>
+&#39; UCase2ULCase.vbs<br />
+&#39; which in short means <br />
+&#39; Upper Case to Upper Case and Lower Case Subtitle Conversion ScriptEngine<br />
+&#39; Visual Basic Script for Windows<br />
+<br />
+&#39; To Use:<br />
+&#39; 1. Open a .srt Subtitle File to check if all upper case<br />
+&#39;    if yes, then close.<br />
+&#39; 2. Double click this file and it takes care of the rest. <br />
+<br />
+&#39; Create a Shell Object<br />
+&#39; Open Subtitle Edit<br />
+Set WshShell = WScript.CreateObject(&quot;WScript.Shell&quot;)<br />
+WshShell.Run &quot;&quot;&quot;C:\Program Files\Subtitle Edit\SubtitleEdit.exe&quot;&quot;&quot;, 9<br />
+<br />
+&#39; Give Subtitle Edit time to load<br />
+WScript.Sleep 500 <br />
+<br />
+&#39; Type in Control + Shift + C   <br />
+&#39; SubtitleEdit Shortcut =&gt; Change Casing Screen<br />
+WshShell.SendKeys(&quot;^+C&quot;)    <br />
+WScript.Sleep 500    &#39; Command Load Time<br />
+WshShell.SendKeys &quot;{TAB}&quot;<br />
+WshShell.SendKeys &quot;{TAB}&quot;<br />
+WshShell.SendKeys &quot;{TAB}&quot;<br />
+WshShell.SendKeys &quot;{ENTER}&quot;<br />
+WScript.Sleep 1000    &#39; Command Load Time<br />
+&#39; Verification Screen<br />
+WshShell.SendKeys &quot;{TAB}&quot;<br />
+WshShell.SendKeys &quot;{TAB}&quot;<br />
+WshShell.SendKeys &quot;{TAB}&quot;<br />
+WshShell.SendKeys &quot;{TAB}&quot;<br />
+WshShell.SendKeys &quot;{TAB}&quot;<br />
+WshShell.SendKeys &quot;{TAB}&quot;<br />
+WshShell.SendKeys &quot;{ENTER}&quot;<br />
+WScript.Sleep 1000  &#39; Command Load Time<br />
+&#39; Exit Subtitle Edit<br />
+WshShell.SendKeys &quot;%{F4}&quot;<br />
+WScript.Sleep 500  <br />
+&#39; Yes, Save<br />
+WshShell.SendKeys &quot;{ENTER}&quot;<br />
+
+    </body>
+</html>

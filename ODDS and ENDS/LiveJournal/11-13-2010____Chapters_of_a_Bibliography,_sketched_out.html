@@ -1,0 +1,516 @@
+<!doctype html>
+<html><head><title>11-13-2010    Chapters of a Bibliography, sketched out</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:TUFfbe1f5bf71e9423ab3eaa02fa'>11-13-2010    Chapters of a Bibliography, sketched out</h1>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:TUFd212aabbeefb40faa200927f6'><li id='temp:C:TUF2a4c11770bfb488f9056ecb6c' class='' value='1'><span style="color:#999999" textcolor="#999999">Nov. 13th, 2010 at 6:15 AM</span>
+
+<br/></li></ul></div>I've been told I have a story to tell.<br>When I look at lessons I've learned.<br>and the priceless experiences.<br>It would be a shame to let it all disappear.<br>I sketch a little some of my stories here.<br>One day to fully flesh out.<br><br><b>1. My visit to the Reichstag (German Congress, Hitler Museum) in West Germany in 1986<br></b><br>As I closed my eyes and I looked with my minds eye listening to the tone<br>and the message being spoken, pretending that I didn't know that it was<br>in fact, Hitler who was delivering a speech, ignoring the knowledge of<br>atrocities in order to understand what motivated people of an earlier era<br>to choose war over peace, but rather listening to the message and the tone,<br>I could hear, <u>"Ask not what your country could do for you, ask what you<br>can do for your country"</u>, and did I shudder as I realized that any proud nation<br>full of prejudice could also be lead down a similar path with smooth words<br>behind a hidden agenda.<br><br><b>2. The fall of the Berlin Wall, Before and After<br></b><br>I crossed into East Germany as an American kid in 1986 knowing that East German<br>people died daily crossing, barbed wire where some might choose to swim,<br>automatic machine guns where some might choose to run, double walls separated<br>by a football field of mines, traps, watchtowers with the East German police<br>called the Stazi (the <b>Sta</b>te's Poli<b>zei</b>.) ready to gun down any man, woman, or child<br>forbidden to cross that border that I as an American could cross for 25 Deutschmark.<br><br>The first week of the fall of the wall West Germans were afraid<br>that their country was going to turn into a 3rd world nation. Lines of<br>Fluchtlinge(Politically Fleeing Refugees) from East Germany were collecting<br>their 100 Deutsch Mark (about $60 in 1989). The number one items to be missing<br>in every super market after the fall of the wall in Berlin were Bananas. <br>There simply were no countries in the Soviet block that produced bananas and<br>the first thing they did was go bananas. <br><br><b>3. Hobbies become pursuits in Education: National Choir Award<br></b><br>The best counselor I ever had in high school was my Sophomore counselor. She<br>was the only one who kept really good records of who I was, what I was doing,<br>and where I was heading academically. My family had just moved to Gridley, a<br>small farming town in Butte County, and I had a choice. There were two classes<br>to choose from. Choir or Agriculture. This was a major turning point in my<br>choice to pursue music. (Always it seemed to be a choice of Math or Music.)<br><br><b>4. Trombone, Most Improved Section Award up to Music Major<br></b><br>Oh, how I loved to sing. I so believed that this passion would carry over to<br>an ease of learning an instrument, an ease that never came, but the passion<br>was so pure. My best friends in high school were all a part of the band,<br>and the band was like a family. I returned to each day in anticipation.<br>I think that I was in the band for the sense of family as much as for the<br>thrill of the music.<br><br><b>5. Latin, a resolution of Never, and the aftermath reality.<br></b><br>Looking back now, I speak fluently German, Spanish, some French. I've Aced<br>University classes in Japanese, French, German, Spanish, and Latin. I've<br>personally studied dialects in Swiss German, Platt Deutsch, American Dialects,<br>and taken bits of Italian, Russian, Dutch, Swedish, and I'm probably not done.<br><br>"I will never study a foreign language again for the rest of my life", I said<br>as I was convinced that I was no good at it, since I had failed my first Latin<br>class in Freshman High School. The first semester with a "D", and the second<br>semester with an "F". It didn't help any that I had no idea what studying<br>was at the time, and that I thought I could simply remember enough without<br>studying. This method had worked with most everything before, so why not<br>with Latin? Oh! The things we learn!<br><br><b>6. Walking across campus one day I found a way to visit my Oma in Berlin.<br></b><br>I saw my friend Tom walking across campus with a group of people. I was<br>in a mood to visit, so I tagged along. Tom was going to a meeting that would<br>change my life. A visiting professor had started an overseas "International<br>Education Program". Dr. Seefeld brought students from Europe to California and<br>from California to Europe. The students would work at department stores, on<br>farms, in Kiosks, and do reports, earn units, and have an integrated learning<br>experience. <br><br>When I learned of the possibilities I thought of the wonderful door opening<br>that would allow me to get to know my grandmother. On the few occasions<br>when she had visited us in the past I had not been able to communicate with<br>her, as she only spoke German and French. <br><br>Dr. Seefeldt said I didn't have enough German to go to Germany, so I decided to<br>go to the Canary Islands the first year with Germany as my second target, and<br>oh my goodness, I did it, but boy, I learned a lot in the process.<br><br><b>7. Youth Conservation Corp, A Pick-Axe and an electrical mood adjustment<br></b><br>As I excitedly swung my pick axe with enthusiasm, having built a cabin, a<br>fire-pit, an out-house, a trail, and now digging the horse-shoe troth, I heard<br>the now familiar, "clink, pzzt, tchhhhhhhhhhhhhh". I had once again, now for<br>the third time, broken another water line with my trusty pick-axe. Fortunately<br>for me, no one thought that I did it on purpose, but there was a lot of<br>ribbing that evening by the crew and I think they remembered me long<br>afterwords as well for my uncanny ability to find the water lines under the<br>earth.<br><br>Another evening as I was checking on the state of the electric generator<br>after having been extremely agitated and angry about something ( I have no<br>memory of the reason now ), the light from the sun was disappearing, and the<br>trail to the distant generator was practically dark from the towering trees of<br>the forest. I reached down to the generator to adjust the knobs and<br>ZZZAAAAPPPP! I found myself sitting a bit away from the generator with a totally<br>mellow sense of centered-ness and happiness of being alive. I just gave myself<br>an electric shock treatment, and I wasn't dead. Cool!<br><br><b>8. Porter in a Hotel. Merry Christmas.<br></b><br>Meredith Daub was from New York. Merry was studying German with a group<br>of Americans when I was teaching the TOEFL course for students wanting to<br>take the Test Of English as a Foreign Language in order to study at English<br>speaking universities. I told Merry that I wasn't sure what I'd do for a job<br>once I got back to Chico, CA. She suggested that I turn in an application for<br>a position of Porter at a Holiday Inn. This was about 1 1/2 years before I<br>got that position. The hotel management were surprised that I had applied,<br>since they never advertised for this position. I eventually did every job<br>there was to be done in a Hotel over a period of four years.<br><br><b>9. Advent in the Canary Islands<br></b><br>"What have I done?" I said, as I looked into the mirror. Knowing well that<br>I could not understand a word being said this entire first day having arrived<br>in the Canary Islands on a Sunday, no one knowing of my arrival, borrowing<br>money from a Hare Krishna in order to phone my coordinator.<br><br>This turned out to be one of the most wonderful experiences I've had in my<br>whole life. It was in the canary islands I learned what it is really like<br>to fall in love with learning languages. Priceless experience.<br><br><b>10. 12 Units of "A" or else. Trip fantastique du Master's Degree<br></b><br>Have you ever felt like you were constantly fighting an uphill battle where<br>every obstacle that appeared seemed to have multiple parts? This was my<br>experience in obtaining a master's degree in computer science.<br><br>I had a plethora of sordid grades, both excelling in classes, and occasionally being<br>mediocre if I didn't like the instructor or if I was forced to take a subject<br>that was exceedingly difficult. Several times I took classes over again in<br>order to succeed. Calculus and Advanced Computer Math Theory kicked my ass.<br><br>In any event, every door has it's watcher. My door guard was in the Graduate<br>Office. She encouraged me to excel by letting me know that I needed at least<br>12 Units of "A" in order to graduate with the necessary GPA for the masters.<br><br>Being scared can be an incredible motivator if you have enough time to prepare.<br>I aced 14 units. I graduated with my Master's degree. I told my friends I<br>would graduate after I was 40. Well, it only took 11 years after all.<br><br><b>11. A scary trip to Mexico<br></b><br>As I looked down the car husk ridden mountain side of a one lane blind<br>road without guard rails as we climbed and climbed, no turn-outs and no<br>safety curbs in sight, with fast moving trucks flying up and down the road,<br>I remembered having been very lucky this trip to Mexico. My friend Todd<br>and I chose to cross from Ensenada to San Felipe across a desert road not<br>maintained like regular toll highway. On top of only entering Mexico with<br>a meager $200.00 each, we both decided on this adventure to practice our<br>Spanish. The policeman who pulled us over for speeding let us go because<br>he felt so bad for us. <br><br>Then there was the Fireworks Fiasco. Our big purile plan was to buy and<br>blow up illegal fireworks in Mexico. We waited til dark on a wide coastline<br>with no one close by and lots and lots of sand. After blowing up our fireworks<br>it was really dark. "I can't find the key's'" said Todd, as we were just about<br>to leave. It was still only about 9pm, and we had dropped the keys somewhere<br>along a strip of 1/4 mile of sand. The only other key was in Los Angeles with<br>Todd's mom. We searched and searched and searched. About 2 hours later we saw<br>a glimmer in the sand. The bare end of a key stuck out of the sand where we had<br>walked to the beach.<br><br>So much more to write.<br>Sleepiness wins this battle.<br>Another day, another story.<br/>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:TUFd2b7ad5d695e4bf6be54b49f7'><li id='temp:C:TUF915af7fd08f14dca9d0cf65d0' class='' value='1'><b>Current Location:</b>United States, California, Oroville
+
+<br/></li><li id='temp:C:TUFb2a94c8164f8495ba53547547' class=''><b>Current Mood:</b> tired
+
+<br/></li><li id='temp:C:TUFe4c004d32d1b40738dd78c869' class=''><b>Current Music:</b>Star Wars Theme
+
+<br/></li></ul></div></body></html>

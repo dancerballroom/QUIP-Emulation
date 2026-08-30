@@ -1,0 +1,1976 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>OCR-Reader.aspx</title>
+    </head>
+    <body>
+        <h1>OCR-Reader.aspx
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">OCR-Reader.aspx
+
+
+&lt;%@ Page Language="C#" AutoEventWireup="<span style="color:#22863A;font-weight:bold;">true</span>" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.IO" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Diagnostics" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Web" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Web.Services" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Text.RegularExpressions" %&gt;
+
+
+&lt;script runat="server"&gt;
+<span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">static</span> <span style="color:#005CC5;font-weight:bold;">string</span> JsonEscape(<span style="color:#005CC5;font-weight:bold;">string</span> value)
+{
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (value == <span style="color:#22863A;font-weight:bold;">null</span>) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> value
+&nbsp; &nbsp; &nbsp; &nbsp; .Replace("\\", "\\\\")
+&nbsp; &nbsp; &nbsp; &nbsp; .Replace("\"", "\\\"")
+&nbsp; &nbsp; &nbsp; &nbsp; .Replace("\r", "\\r")
+&nbsp; &nbsp; &nbsp; &nbsp; .Replace("\n", "\\n");
+}
+
+
+<span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">static</span> <span style="color:#005CC5;">bool</span> ResolveTesseractPaths(<span style="color:#D73A49;">out</span> <span style="color:#005CC5;font-weight:bold;">string</span> tesseractExePath, <span style="color:#D73A49;">out</span> <span style="color:#005CC5;font-weight:bold;">string</span> tessdataDir)
+{
+&nbsp; &nbsp; tesseractExePath = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; tessdataDir = <span style="color:#22863A;font-weight:bold;">null</span>;
+
+
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span>[] exeCandidates = <span style="color:#D73A49;">new</span> <span style="color:#005CC5;font-weight:bold;">string</span>[]
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; @"C:\Program Files\Tesseract-OCR\tesseract.exe",
+&nbsp; &nbsp; &nbsp; &nbsp; @"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
+&nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> i = 0; i &lt; exeCandidates.Length; i++)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> exe = exeCandidates[i];
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(exe)) <span style="color:#D73A49;font-weight:bold;">continue</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> exeDir = Path.GetDirectoryName(exe) ?? <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span>[] tessdataCandidates = <span style="color:#D73A49;">new</span> <span style="color:#005CC5;font-weight:bold;">string</span>[]
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Path.Combine(exeDir, "tessdata"),
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @"C:\Program Files\Tesseract-OCR\tessdata",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @"C:\Program Files (x86)\Tesseract-OCR\tessdata"
+&nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> j = 0; j &lt; tessdataCandidates.Length; j++)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> td = tessdataCandidates[j];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> engPath = Path.Combine(td, "eng.traineddata");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (Directory.Exists(td) &amp;&amp; File.Exists(engPath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tesseractExePath = exe;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tessdataDir = td;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+}
+
+
+<span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">static</span> <span style="color:#005CC5;font-weight:bold;">string</span> BuildOcrResultJson(<span style="color:#005CC5;font-weight:bold;">string</span> text, <span style="color:#005CC5;font-weight:bold;">string</span> enhUrl, <span style="color:#005CC5;font-weight:bold;">string</span> rawUrl, <span style="color:#005CC5;font-weight:bold;">string</span> bwUrl, <span style="color:#005CC5;font-weight:bold;">string</span> invUrl)
+{
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> "{"
+&nbsp; &nbsp; &nbsp; &nbsp; + "\"text\":\"" + JsonEscape(text ?? <span style="color:#005CC5;font-weight:bold;">string</span>.Empty) + "\","&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; + "\"debug\":{"
+&nbsp; &nbsp; &nbsp; &nbsp; + "\"enh\":\"" + JsonEscape(enhUrl ?? <span style="color:#005CC5;font-weight:bold;">string</span>.Empty) + "\","&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; + "\"raw\":\"" + JsonEscape(rawUrl ?? <span style="color:#005CC5;font-weight:bold;">string</span>.Empty) + "\","&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; + "\"bw\":\"" + JsonEscape(bwUrl ?? <span style="color:#005CC5;font-weight:bold;">string</span>.Empty) + "\","&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; + "\"inv\":\"" + JsonEscape(invUrl ?? <span style="color:#005CC5;font-weight:bold;">string</span>.Empty) + "\""
+&nbsp; &nbsp; &nbsp; &nbsp; + "}"
+&nbsp; &nbsp; &nbsp; &nbsp; + "}";
+}
+
+
+<span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">static</span> <span style="color:#005CC5;font-weight:bold;">string</span> SaveDebugImage(<span style="color:#005CC5;font-weight:bold;">string</span> tempDir, <span style="color:#005CC5;font-weight:bold;">string</span> sourcePath, <span style="color:#005CC5;font-weight:bold;">string</span> label, <span style="color:#005CC5;font-weight:bold;">string</span> debugToken)
+{
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(sourcePath) || !File.Exists(sourcePath))
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> fileName = "ocrdbg_" + label + "_" + debugToken + ".png";
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> outputPath = Path.Combine(tempDir, fileName);
+&nbsp; &nbsp; File.Copy(sourcePath, outputPath, <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> fileName;
+}
+
+
+<span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">static</span> <span style="color:#D73A49;font-weight:bold;">void</span> CleanupPreviousDebugFiles(<span style="color:#005CC5;font-weight:bold;">string</span> tempDir)
+{
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> latestManifest = Path.Combine(tempDir, "ocrdbg_latest.txt");
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(latestManifest)) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span>[] oldFiles = File.ReadAllLines(latestManifest);
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#005CC5;font-weight:bold;">int</span> i = 0; i &lt; oldFiles.Length; i++)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> oldName = oldFiles[i] == <span style="color:#22863A;font-weight:bold;">null</span> ? <span style="color:#005CC5;font-weight:bold;">string</span>.Empty : oldFiles[i].Trim();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (oldName.StartsWith("ocrdbg_", StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> full = Path.Combine(tempDir, oldName);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(full)) File.Delete(full);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+}
+
+
+<span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">static</span> <span style="color:#005CC5;font-weight:bold;">string</span> RunTesseractAndReadText(<span style="color:#005CC5;font-weight:bold;">string</span> tesseractPath, <span style="color:#005CC5;font-weight:bold;">string</span> tessdataDir, <span style="color:#005CC5;font-weight:bold;">string</span> imagePath, <span style="color:#005CC5;font-weight:bold;">string</span> outputBasePath, <span style="color:#005CC5;font-weight:bold;">string</span> extraArgs)
+{
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> outputTxt = outputBasePath + ".txt";
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> args = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("\"{0}\" \"{1}\" --tessdata-dir \"{2}\" {3}", imagePath, outputBasePath, tessdataDir, extraArgs);
+
+
+&nbsp; &nbsp; ProcessStartInfo psi = <span style="color:#D73A49;">new</span> ProcessStartInfo
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; FileName = tesseractPath,
+&nbsp; &nbsp; &nbsp; &nbsp; Arguments = args,
+&nbsp; &nbsp; &nbsp; &nbsp; UseShellExecute = <span style="color:#22863A;font-weight:bold;">false</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; CreateNoWindow = <span style="color:#22863A;font-weight:bold;">true</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; RedirectStandardError = <span style="color:#22863A;font-weight:bold;">true</span>
+&nbsp; &nbsp; };
+&nbsp; &nbsp; psi.EnvironmentVariables["TESSDATA_PREFIX"] = tessdataDir;
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">using</span> (Process proc = Process.Start(psi))
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; proc.StandardError.ReadToEnd();
+&nbsp; &nbsp; &nbsp; &nbsp; proc.WaitForExit();
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(outputTxt))
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> text = File.ReadAllText(outputTxt);
+&nbsp; &nbsp; File.Delete(outputTxt);
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(text) ? <span style="color:#005CC5;font-weight:bold;">string</span>.Empty : text.Trim();
+}
+
+
+<span style="color:#D73A49;">private</span> <span style="color:#D73A49;font-weight:bold;">static</span> <span style="color:#005CC5;">bool</span> IsMeaningfulText(<span style="color:#005CC5;font-weight:bold;">string</span> text)
+{
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(text)) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> trimmed = text.Trim();
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (trimmed.Length &lt; 3) <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> Regex.IsMatch(trimmed, "[A-Za-z0-9]");
+}
+
+
+[WebMethod]
+<span style="color:#D73A49;font-weight:bold;">public</span> <span style="color:#D73A49;font-weight:bold;">static</span> <span style="color:#005CC5;font-weight:bold;">string</span> ProcessVideoFrame(<span style="color:#005CC5;font-weight:bold;">string</span> videoPath, <span style="color:#005CC5;">double</span> timeInSeconds, <span style="color:#005CC5;font-weight:bold;">int</span> cropX, <span style="color:#005CC5;font-weight:bold;">int</span> cropY, <span style="color:#005CC5;font-weight:bold;">int</span> cropW, <span style="color:#005CC5;font-weight:bold;">int</span> cropH)
+{
+&nbsp; &nbsp; // Integrated paths to your local binaries
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> ffmpegPath = @"C:\ffmpeg\bin\ffmpeg.exe"; // Adjust to your actual path or use "ffmpeg.exe" <span style="color:#D73A49;font-weight:bold;">if</span> <span style="color:#D73A49;">in</span> System PATH
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> tesseractPath;
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> tessdataDir;
+
+
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> tempDir = HttpContext.Current.Server.MapPath("~/App_Data/Temp/");
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!Directory.Exists(tempDir)) Directory.CreateDirectory(tempDir);
+
+
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> tempImg = Path.Combine(tempDir, "frame_" + <span style="color:#6F42C1;">Guid</span>.NewGuid().ToString("N") + ".jpg");
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> tempImgRaw = Path.Combine(tempDir, "frame_raw_" + <span style="color:#6F42C1;">Guid</span>.NewGuid().ToString("N") + ".png");
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> tempImgInv = Path.Combine(tempDir, "frame_inv_" + <span style="color:#6F42C1;">Guid</span>.NewGuid().ToString("N") + ".png");
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> tempImgBw = Path.Combine(tempDir, "frame_bw_" + <span style="color:#6F42C1;">Guid</span>.NewGuid().ToString("N") + ".png");
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> tempTxtBase = Path.Combine(tempDir, "ocr_" + <span style="color:#6F42C1;">Guid</span>.NewGuid().ToString("N"));
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> tempTxtFile = tempTxtBase + ".txt";
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> safeVideoPath = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> debugEnh = <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> debugRaw = <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> debugBw = <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> debugInv = <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> debugToken = <span style="color:#6F42C1;">Guid</span>.NewGuid().ToString("N");
+
+
+&nbsp; &nbsp; // Verify paths exist before executing processes
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(ffmpegPath) &amp;&amp; ffmpegPath != "ffmpeg.exe")
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> "Server Error: FFmpeg executable not found at " + ffmpegPath;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!ResolveTesseractPaths(<span style="color:#D73A49;">out</span> tesseractPath, <span style="color:#D73A49;">out</span> tessdataDir))
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> BuildOcrResultJson("Server Error: Could not locate Tesseract with eng.traineddata. Please install English language data.", "", "", "", "");
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; CleanupPreviousDebugFiles(tempDir);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(videoPath))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> BuildOcrResultJson("Error: Missing uploaded video path token.", "", "", "", "");
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> videoToken = Path.GetFileName(videoPath);
+&nbsp; &nbsp; &nbsp; &nbsp; safeVideoPath = Path.Combine(tempDir, videoToken);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(safeVideoPath))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> BuildOcrResultJson("Error: Uploaded video not found on server. Please reload the video.", "", "", "", "");
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (cropW &lt; 2 || cropH &lt; 2)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> BuildOcrResultJson("Error: OCR selection <span style="color:#D73A49;font-weight:bold;">is</span> too small. Please drag a larger area.", "", "", "", "");
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; cropX = <span style="color:#6F42C1;">Math</span>.Max(0, cropX);
+&nbsp; &nbsp; &nbsp; &nbsp; cropY = <span style="color:#6F42C1;">Math</span>.Max(0, cropY);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // 1. FFmpeg Frame Extraction with OCR-friendly pre-processing
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> cropFilter = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("crop={0}:{1}:{2}:{3},scale=iw*3:ih*3:flags=lanczos,format=gray,eq=contrast=1.9:brightness=0.06,unsharp=5:5:1.5", cropW, cropH, cropX, cropY);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> ffmpegArgs = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("-loglevel error -i \"{1}\" -ss {0} -vframes 1 -vf \"{2}\" -y \"{3}\"",&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timeInSeconds.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture), safeVideoPath, cropFilter, tempImg);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> ffmpegErrorLogs = "";
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; ProcessStartInfo ffInfo = <span style="color:#D73A49;">new</span> ProcessStartInfo(ffmpegPath, ffmpegArgs)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; UseShellExecute = <span style="color:#22863A;font-weight:bold;">false</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CreateNoWindow = <span style="color:#22863A;font-weight:bold;">true</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RedirectStandardError = <span style="color:#22863A;font-weight:bold;">true</span>
+&nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">using</span> (Process ffProc = Process.Start(ffInfo))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ffmpegErrorLogs = ffProc.StandardError.ReadToEnd();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ffProc.WaitForExit();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (ffProc.ExitCode != 0)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> firstErrorLine = "Unknown FFmpeg error.";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(ffmpegErrorLogs))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">using</span> (StringReader sr = <span style="color:#D73A49;">new</span> StringReader(ffmpegErrorLogs.Trim()))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> line;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">while</span> ((line = sr.ReadLine()) != <span style="color:#22863A;font-weight:bold;">null</span>)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> trimmed = line.Trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(trimmed))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; firstErrorLine = trimmed;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">break</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> BuildOcrResultJson("Error: FFmpeg failed to process video frame. " + firstErrorLine, "", "", "", "");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!File.Exists(tempImg))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> BuildOcrResultJson("Error: FFmpeg failed to process video frame. Output image was not created.", "", "", "", "");
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; debugEnh = SaveDebugImage(tempDir, tempImg, "enh", debugToken);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // 2. Multi-pass Tesseract OCR on enhanced frame
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> bestText = <span style="color:#005CC5;font-weight:bold;">string</span>.Empty;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> extractedText = RunTesseractAndReadText(tesseractPath, tessdataDir, tempImg, tempTxtBase + "_enh6", "--oem 3 --psm 6 -l eng");
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (IsMeaningfulText(extractedText)) bestText = extractedText;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsMeaningfulText(bestText))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; extractedText = RunTesseractAndReadText(tesseractPath, tessdataDir, tempImg, tempTxtBase + "_enh7", "--oem 3 --psm 7 -l eng");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (IsMeaningfulText(extractedText)) bestText = extractedText;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsMeaningfulText(bestText))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; extractedText = RunTesseractAndReadText(tesseractPath, tessdataDir, tempImg, tempTxtBase + "_enh11", "--oem 3 --psm 11 -l eng");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (IsMeaningfulText(extractedText)) bestText = extractedText;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsMeaningfulText(bestText))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; extractedText = RunTesseractAndReadText(tesseractPath, tessdataDir, tempImg, tempTxtBase + "_enh13", "--oem 3 --psm 13 -l eng");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (IsMeaningfulText(extractedText)) bestText = extractedText;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // 3. Fallback on raw crop and inverted crop <span style="color:#D73A49;font-weight:bold;">for</span> difficult contrast/subtitle cases
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsMeaningfulText(bestText))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> rawFilter = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("crop={0}:{1}:{2}:{3}", cropW, cropH, cropX, cropY);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> ffmpegRawArgs = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("-loglevel error -i \"{1}\" -ss {0} -vframes 1 -vf \"{2}\" -y \"{3}\"",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timeInSeconds.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture), safeVideoPath, rawFilter, tempImgRaw);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ProcessStartInfo ffRawInfo = <span style="color:#D73A49;">new</span> ProcessStartInfo(ffmpegPath, ffmpegRawArgs)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; UseShellExecute = <span style="color:#22863A;font-weight:bold;">false</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CreateNoWindow = <span style="color:#22863A;font-weight:bold;">true</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RedirectStandardError = <span style="color:#22863A;font-weight:bold;">true</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">using</span> (Process ffRawProc = Process.Start(ffRawInfo))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ffRawProc.StandardError.ReadToEnd();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ffRawProc.WaitForExit();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(tempImgRaw))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; debugRaw = SaveDebugImage(tempDir, tempImgRaw, "raw", debugToken);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; extractedText = RunTesseractAndReadText(tesseractPath, tessdataDir, tempImgRaw, tempTxtBase + "_raw6", "--oem 3 --psm 6 -l eng");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (IsMeaningfulText(extractedText)) bestText = extractedText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsMeaningfulText(bestText) &amp;&amp; File.Exists(tempImgRaw))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> bwFilter = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("crop={0}:{1}:{2}:{3},scale=iw*3:ih*3:flags=lanczos,format=gray,eq=contrast=2.4:brightness=0.08,lut=y='<span style="color:#D73A49;font-weight:bold;">if</span>(gte(val,150),255,0)'", cropW, cropH, cropX, cropY);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> ffmpegBwArgs = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("-loglevel error -i \"{1}\" -ss {0} -vframes 1 -vf \"{2}\" -y \"{3}\"",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timeInSeconds.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture), safeVideoPath, bwFilter, tempImgBw);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ProcessStartInfo ffBwInfo = <span style="color:#D73A49;">new</span> ProcessStartInfo(ffmpegPath, ffmpegBwArgs)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; UseShellExecute = <span style="color:#22863A;font-weight:bold;">false</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CreateNoWindow = <span style="color:#22863A;font-weight:bold;">true</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RedirectStandardError = <span style="color:#22863A;font-weight:bold;">true</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">using</span> (Process ffBwProc = Process.Start(ffBwInfo))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ffBwProc.StandardError.ReadToEnd();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ffBwProc.WaitForExit();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(tempImgBw))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; debugBw = SaveDebugImage(tempDir, tempImgBw, "bw", debugToken);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; extractedText = RunTesseractAndReadText(tesseractPath, tessdataDir, tempImgBw, tempTxtBase + "_bw7", "--oem 3 --psm 7 -l eng");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (IsMeaningfulText(extractedText)) bestText = extractedText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsMeaningfulText(bestText) &amp;&amp; File.Exists(tempImgRaw))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> invFilter = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("crop={0}:{1}:{2}:{3},negate", cropW, cropH, cropX, cropY);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> ffmpegInvArgs = <span style="color:#005CC5;font-weight:bold;">string</span>.Format("-loglevel error -i \"{1}\" -ss {0} -vframes 1 -vf \"{2}\" -y \"{3}\"",
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timeInSeconds.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture), safeVideoPath, invFilter, tempImgInv);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ProcessStartInfo ffInvInfo = <span style="color:#D73A49;">new</span> ProcessStartInfo(ffmpegPath, ffmpegInvArgs)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; UseShellExecute = <span style="color:#22863A;font-weight:bold;">false</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CreateNoWindow = <span style="color:#22863A;font-weight:bold;">true</span>,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RedirectStandardError = <span style="color:#22863A;font-weight:bold;">true</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">using</span> (Process ffInvProc = Process.Start(ffInvInfo))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ffInvProc.StandardError.ReadToEnd();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ffInvProc.WaitForExit();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(tempImgInv))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; debugInv = SaveDebugImage(tempDir, tempImgInv, "inv", debugToken);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; extractedText = RunTesseractAndReadText(tesseractPath, tessdataDir, tempImgInv, tempTxtBase + "_inv7", "--oem 3 --psm 7 -l eng");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (IsMeaningfulText(extractedText)) bestText = extractedText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(debugRaw) &amp;&amp; File.Exists(tempImgRaw)) debugRaw = SaveDebugImage(tempDir, tempImgRaw, "raw", debugToken);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(debugBw) &amp;&amp; File.Exists(tempImgBw)) debugBw = SaveDebugImage(tempDir, tempImgBw, "bw", debugToken);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(debugInv) &amp;&amp; File.Exists(tempImgInv)) debugInv = SaveDebugImage(tempDir, tempImgInv, "inv", debugToken);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span>[] latestFiles = <span style="color:#D73A49;">new</span> <span style="color:#005CC5;font-weight:bold;">string</span>[] { debugEnh, debugRaw, debugBw, debugInv };
+&nbsp; &nbsp; &nbsp; &nbsp; File.WriteAllLines(Path.Combine(tempDir, "ocrdbg_latest.txt"), latestFiles);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> enhUrl = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(debugEnh) ? "" : "OCRDebugImage.ashx?f=" + HttpUtility.UrlEncode(debugEnh) + "&amp;t=" + debugToken;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> rawUrl = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(debugRaw) ? "" : "OCRDebugImage.ashx?f=" + HttpUtility.UrlEncode(debugRaw) + "&amp;t=" + debugToken;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> bwUrl = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(debugBw) ? "" : "OCRDebugImage.ashx?f=" + HttpUtility.UrlEncode(debugBw) + "&amp;t=" + debugToken;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> invUrl = <span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrWhiteSpace(debugInv) ? "" : "OCRDebugImage.ashx?f=" + HttpUtility.UrlEncode(debugInv) + "&amp;t=" + debugToken;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsMeaningfulText(bestText))
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> BuildOcrResultJson("No text detected <span style="color:#D73A49;">in</span> selected region.", enhUrl, rawUrl, bwUrl, invUrl);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> BuildOcrResultJson(bestText, enhUrl, rawUrl, bwUrl, invUrl);
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (<span style="color:#6F42C1;">Exception</span> ex)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> BuildOcrResultJson("Server Error: " + ex.Message, "", "", "", "");
+&nbsp; &nbsp; }
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">finally</span>
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(tempImg)) File.Delete(tempImg);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(tempImgRaw)) File.Delete(tempImgRaw);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(tempImgInv)) File.Delete(tempImgInv);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(tempImgBw)) File.Delete(tempImgBw);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(tempTxtFile)) File.Delete(tempTxtFile);
+&nbsp; &nbsp; }
+}&nbsp; &nbsp;&nbsp;
+&lt;/script&gt;
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+&nbsp; &nbsp; &lt;title&gt;Video OCR Reader Studio&lt;/title&gt;
+&nbsp; &nbsp; &lt;link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" /&gt;
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;style&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; * { <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box; <span style="color:#005CC5;">margin</span>: 0; <span style="color:#005CC5;">padding</span>: 0; }
+&nbsp; &nbsp; &nbsp; &nbsp; body { <span style="color:#005CC5;">font-family</span>: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; <span style="color:#005CC5;">background</span>: #18181b; <span style="color:#005CC5;font-weight:bold;">color</span>: #e4e4e7; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;">height</span>: 100vh; <span style="color:#005CC5;">overflow</span>: hidden; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; /* App Layout Structure */
+&nbsp; &nbsp; &nbsp; &nbsp; .sidebar { <span style="color:#005CC5;">width</span>: 320px; <span style="color:#005CC5;">background</span>: #202024; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">right</span>: 1px solid #2d2d32; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; <span style="color:#005CC5;">padding</span>: 20px; <span style="color:#005CC5;">gap</span>: 18px; }
+&nbsp; &nbsp; &nbsp; &nbsp; .main-workspace { <span style="color:#22863A;">flex</span>: 1; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; <span style="color:#005CC5;">padding</span>: 20px; <span style="color:#005CC5;">gap</span>: 15px; <span style="color:#005CC5;"><span style="color:#005CC5;">overflow</span>-y</span>: auto; <span style="color:#005CC5;">background</span>: #121214; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; h2 { <span style="color:#005CC5;">font-size</span>: 1.1rem; <span style="color:#005CC5;">text-transform</span>: uppercase; letter-spacing: 1px; <span style="color:#005CC5;font-weight:bold;">color</span>: #3b82f6; <span style="color:#005CC5;">font-weight</span>: 700; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">bottom</span>: 1px solid #2d2d32; <span style="color:#005CC5;"><span style="color:#005CC5;">padding</span>-<span style="color:#005CC5;">bottom</span></span>: 8px; }
+&nbsp; &nbsp; &nbsp; &nbsp; h3 { <span style="color:#005CC5;">font-size</span>: 0.9rem; <span style="color:#005CC5;font-weight:bold;">color</span>: #a1a1aa; <span style="color:#005CC5;">font-weight</span>: 600; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 6px; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .sidebar-title-row {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">bottom</span>: 1px solid #2d2d32;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">padding</span>-<span style="color:#005CC5;">bottom</span></span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .sidebar-title-row h2 {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">bottom</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">padding</span>-<span style="color:#005CC5;">bottom</span></span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-back-editor {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 30px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 30px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 50%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #7c3aed;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #22d3ee 0%, #3b82f6 45%, #a855f7 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #ffffff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: inline-<span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-back-editor:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; filter: brightness(1.08);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* <span style="color:#005CC5;">Left</span> Controls &amp; Tooltip Formatting */
+&nbsp; &nbsp; &nbsp; &nbsp; .control-group { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; <span style="color:#005CC5;">gap</span>: 8px; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .icon-row {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-wrap</span>: wrap;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .ocr-tool-layout {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: <span style="color:#22863A;">flex</span>-start;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .btn {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">relative</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px 14px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #27272a;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #f4f4f5;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #3f3f46;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.85rem;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 600;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: <span style="color:#005CC5;">left</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: all 0.2s ease;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: space-between;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn:<span style="color:#6F42C1;font-style:italic;">hover</span> { <span style="color:#005CC5;">background</span>: #3f3f46; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #52525b; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-primary { <span style="color:#005CC5;">background</span>: #2563eb; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #3b82f6; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-primary:<span style="color:#6F42C1;font-style:italic;">hover</span> { <span style="color:#005CC5;">background</span>: #1d4ed8; }
+&nbsp; &nbsp; &nbsp; &nbsp; .btn:disabled { opacity: 0.5; <span style="color:#005CC5;">cursor</span>: not-allowed; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-icon-only {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 52px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 52px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 22px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .video-tool-badge {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: inline-<span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 34px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 24px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 0 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 999px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #0f172a;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.7rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 800;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; letter-spacing: 0.04em;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 3px 10px rgba(15, 23, 42, 0.22);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .video-tool-badge.play {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #86efac 0%, #22c55e 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .video-tool-badge.stop {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #fda4af 0%, #ef4444 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #fff1f2;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .video-tool-badge.jump60 {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #fde68a 0%, #f59e0b 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .video-tool-badge.jump10 {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #eff6ff;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .video-tool-badge.jump2 {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #f9a8d4 0%, #ec4899 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #fff1f2;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .ocr-icon-badge {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: inline-<span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 34px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 24px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 0 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 999px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #fde68a 0%, #fb7185 45%, #60a5fa 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #111827;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.72rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 800;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; letter-spacing: 0.08em;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 3px 10px rgba(96, 165, 250, 0.28);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .copy-icon-badge {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: inline-<span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 44px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 24px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 0 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 999px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #86efac 0%, #22d3ee 50%, #60a5fa 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #082f49;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.68rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 800;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; letter-spacing: 0.05em;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 3px 10px rgba(34, 211, 238, 0.28);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#005CC5;">clear</span>-icon-badge {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: inline-<span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 48px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 24px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 0 9px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 999px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #fda4af 0%, #fb7185 45%, #f59e0b 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #3f0d12;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.68rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 800;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; letter-spacing: 0.05em;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 3px 10px rgba(251, 113, 133, 0.28);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-help-icon {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #334155 0%, #1e293b 55%, #0f172a 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #475569;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #ffffff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.35);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-help-icon:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #475569 0%, #334155 55%, #1e293b 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #64748b;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Custom <span style="color:#6F42C1;font-style:italic;">Hover</span> Tooltips */
+&nbsp; &nbsp; &nbsp; &nbsp; .has-tooltip { <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">relative</span>; }
+&nbsp; &nbsp; &nbsp; &nbsp; .has-tooltip::<span style="color:#6F42C1;">after</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content: attr(data-tooltip);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">absolute</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">left</span>: 105%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: 50%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform: translateY(-50%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #09090b;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #f4f4f5;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 6px 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.75rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">white-space</span>: nowrap;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">pointer</span>-events: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; opacity: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: opacity 0.2s ease;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #2d2d32;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 100;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .has-tooltip:<span style="color:#6F42C1;font-style:italic;">hover</span>::<span style="color:#6F42C1;">after</span> { opacity: 1; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Video Area &amp; Drag-Drop Surface */
+&nbsp; &nbsp; &nbsp; &nbsp; .video-stage {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">relative</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #000;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 2px dashed #3f3f46;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 8px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">height</span>: 420px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">overflow</span>: hidden;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span> 0.2s ease, <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span> 0.2s ease;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; .video-stage.drag-over { <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;font-weight:bold;">color</span>: #3b82f6; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: rgba(59, 130, 246, 0.05); }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; video { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">block</span>; max-<span style="color:#005CC5;">width</span>: 100%; max-<span style="color:#005CC5;">height</span>: 65vh; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #dropPrompt {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">absolute</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">pointer</span>-events: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">text-align</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #71717a;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.95rem;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Interactive ROI Overlay */
+&nbsp; &nbsp; &nbsp; &nbsp; #roiBox {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">absolute</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 2px solid #3b82f6;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: rgba(59, 130, 246, 0.2);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: move;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 10;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Output Console */
+&nbsp; &nbsp; &nbsp; &nbsp; .output-panel { <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column; <span style="color:#22863A;">flex</span>: 1; min-<span style="color:#005CC5;">height</span>: 180px; }
+&nbsp; &nbsp; &nbsp; &nbsp; textarea {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 1;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #18181b;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #38bdf8;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #2d2d32;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: 'Consolas', 'Courier New', monospace;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 12px;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.9rem;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; resize: <span style="color:#22863A;font-style:italic;">none</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; outline: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .ocr-header-row {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: space-between;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-wrap</span>: wrap;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .ocr-actions {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .ocr-header-info {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-wrap</span>: wrap;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .shortcut-hint {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #94a3b8;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.75rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1.4;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-inline {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 5px 9px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.78rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 5px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #27272a;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #f4f4f5;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #3f3f46;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .btn-inline:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #3f3f46;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .debug-panel {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #2d2d32;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #18181b;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .debug-panel-header {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: space-between;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .debug-<span style="color:#22863A;">grid</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">grid</span>-template-columns</span>: repeat(2, minmax(0, 1fr));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .debug-card {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #2d2d32;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #121214;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .debug-card-title {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #a1a1aa;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.8rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">bottom</span></span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .debug-card img {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">height</span>: 180px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; object-fit: contain;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #000;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #2d2d32;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .debug-url {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">margin</span>-<span style="color:#005CC5;">top</span></span>: 6px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #7dd3fc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.72rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; word-break: break-all;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">height</span>: 18px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .debug-url.error {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #fca5a5;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .toast-notification {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">fixed</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">right</span>: 18px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">bottom</span>: 18px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">width</span>: 180px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">width</span>: 320px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: rgba(15, 23, 42, 0.94);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #f8fafc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #334155;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; opacity: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">pointer</span>-events: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform: translateY(10px);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transition: opacity 0.18s ease, transform 0.18s ease;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 9999;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .toast-notification.show {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; opacity: 1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform: translateY(0);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .toast-icon {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 28px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 28px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 50%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: inline-<span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#22863A;">flex</span>: 0 0 auto;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .toast-text {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.84rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 600;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; letter-spacing: 0.2px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .debug-empty {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #71717a;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.8rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px 2px 2px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Status Badge */
+&nbsp; &nbsp; &nbsp; &nbsp; #statusBadge {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.8rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #a1a1aa;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #18181b;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #2d2d32;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; word-break: break-all;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .ocr-timing-panel {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.78rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #cbd5e1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #18181b;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 8px 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #2d2d32;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .ocr-timing-line strong {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #7dd3fc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 700;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .help-modal-overlay {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: <span style="color:#22863A;">fixed</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; inset: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: rgba(2, 6, 23, 0.72);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;font-style:italic;">none</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 10000;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .help-modal {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: min(860px, 92vw);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">height</span>: 82vh;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #111827;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #334155;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 14px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#22863A;">flex</span>-direction</span>: column;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">overflow</span>: hidden;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .help-modal-header {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">justify-content</span>: space-between;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 14px 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>-<span style="color:#005CC5;">bottom</span>: 1px solid #334155;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .help-modal-title {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.95rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: 700;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #e2e8f0;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .help-modal-close {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 34px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 34px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 50%;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #475569;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #1f2937;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #f8fafc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 15px;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .help-modal-body {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 16px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">overflow</span>: auto;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; .help-modal-text {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">white-space</span>: <span style="color:#D73A49;">pre</span>-wrap;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: Consolas, 'Courier New', monospace;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 0.84rem;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #cbd5e1;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">line-<span style="color:#005CC5;">height</span></span>: 1.5;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &lt;/style&gt;
+</span>&lt;/head&gt;
+&lt;body&gt;
+&nbsp; &nbsp; &lt;form id="form1" runat="server" style="display:flex; width:100%; height:100%;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Left Control Panel --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="sidebar"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="sidebar-title-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn-back-editor" title="Back to Editor" onclick="goBackToEditor()"&gt;←&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h2&gt;Controls&lt;/h2&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="control-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Video Input&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type="file" id="videoFileInput" accept="video/*" style="display:none;" onchange="handleFileSelect(<span style="color:#D73A49;">event</span>)" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="icon-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="Browse and open a video file" onclick="document.getElementById('videoFileInput').click()"&gt;📁&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only btn-help-icon has-tooltip" data-tooltip="Help" onclick="openHelpModal()"&gt;?&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="control-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;OCR Region Tools&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="ocr-tool-layout"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-primary btn-icon-only has-tooltip" data-tooltip="Capture Text (Up Arrow)" onclick="executeOCR()"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="ocr-icon-badge"&gt;OCR&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="Clear OCR <span style="color:#6F42C1;">List</span> Box" onclick="clearROI()"&gt;❌&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="control-group"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Video Tools&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="icon-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="Play / Pause (Space)" onclick="toggleVideoPlayback()"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="video-tool-badge play"&gt;▶&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="Stop" onclick="stopVideoPlayback()"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="video-tool-badge stop"&gt;■&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="icon-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="- 60sec (Left Arrow)" onclick="seekVideoBySeconds(-60)"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="video-tool-badge jump60"&gt;-60&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="+ 60sec (Right Arrow)" onclick="seekVideoBySeconds(60)"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="video-tool-badge jump60"&gt;+60&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="icon-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="-10sec (Ctrl + Left Arrow)" onclick="seekVideoBySeconds(-10)"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="video-tool-badge jump10"&gt;-10&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="+10sec (Ctrl + Right Arrow)" onclick="seekVideoBySeconds(10)"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="video-tool-badge jump10"&gt;+10&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="icon-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="-2sec (Ctrl + Shift + Left Arrow)" onclick="seekVideoBySeconds(-2)"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="video-tool-badge jump2"&gt;-2&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn btn-icon-only has-tooltip" data-tooltip="+2sec (Ctrl + Shift + Right Arrow)" onclick="seekVideoBySeconds(2)"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="video-tool-badge jump2"&gt;+2&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="control-group" style="margin-top: auto;"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;System Status&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="statusBadge"&gt;Ready. Load or drop a video to begin.&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="ocrTimingPanel" <span style="color:#D73A49;font-weight:bold;">class</span>="ocr-timing-panel"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="ocrCurrentTiming" <span style="color:#D73A49;font-weight:bold;">class</span>="ocr-timing-line"&gt;&lt;strong&gt;Current OCR:&lt;/strong&gt; Idle&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="ocrLastTiming" <span style="color:#D73A49;font-weight:bold;">class</span>="ocr-timing-line"&gt;&lt;strong&gt;Last OCR:&lt;/strong&gt; n/a&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="ocrAverageTiming" <span style="color:#D73A49;font-weight:bold;">class</span>="ocr-timing-line"&gt;&lt;strong&gt;Average OCR:&lt;/strong&gt; n/a&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Main Workspace (Video + Output Area) --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="main-workspace"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="video-stage" id="videoStage" ondragover="handleDragOver(<span style="color:#D73A49;">event</span>)" ondragleave="handleDragLeave(<span style="color:#D73A49;">event</span>)" ondrop="handleDrop(<span style="color:#D73A49;">event</span>)"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="dropPrompt"&gt;Drag &amp; Drop Video Here&lt;br/&gt;&lt;span style="font-size:0.8rem; color:#52525b;"&gt;or click 'Open Video File' on the left&lt;/span&gt;&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="videoWrapper" style="position:relative; display:none;" onmousedown="startDrawROI(<span style="color:#D73A49;">event</span>)"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;video id="videoPlayer" controls&gt;&lt;/video&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="roiBox"&gt;&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="output-panel"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="ocr-header-row"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="ocr-header-info"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 style="margin:0;"&gt;Extracted OCR Text&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="shortcut-hint"&gt;Shortcuts: Up OCR, Space Play/Pause, Left/Right ±60s, Ctrl+Left/Right ±10s, Ctrl+Shift+Left/Right ±2s, +/- resize box&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="ocr-actions"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn-inline" title="Copy to Clipboard" onclick="copyOcrText()"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="copy-icon-badge"&gt;COPY&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="btn-inline" title="Clear the OCR Text" onclick="clearOcrText()"&gt;&lt;span <span style="color:#D73A49;font-weight:bold;">class</span>="clear-icon-badge"&gt;CLEAR&lt;/span&gt;&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;textarea id="txtResult" placeholder="Extracted text will appear here..."&gt;&lt;/textarea&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-panel"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-panel-header"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3 style="margin:0;"&gt;OCR Debug Crops&lt;/h3&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" id="btnToggleDebug" <span style="color:#D73A49;font-weight:bold;">class</span>="btn" style="padding:6px 10px; font-size:0.78rem;" onclick="toggleDebugPanel()"&gt;Show OCR debug crops&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="debugEmpty" <span style="color:#D73A49;font-weight:bold;">class</span>="debug-empty"&gt;Run Process OCR to populate debug crop previews.&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="debugGrid" <span style="color:#D73A49;font-weight:bold;">class</span>="debug-grid"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-card"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-card-title"&gt;Enhanced Crop&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;img id="dbgEnh" alt="Enhanced debug crop" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="dbgEnhMeta" <span style="color:#D73A49;font-weight:bold;">class</span>="debug-url"&gt;No image generated <span style="color:#D73A49;font-weight:bold;">for</span> <span style="color:#D73A49;font-weight:bold;">this</span> pass.&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-card"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-card-title"&gt;Raw Crop&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;img id="dbgRaw" alt="Raw debug crop" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="dbgRawMeta" <span style="color:#D73A49;font-weight:bold;">class</span>="debug-url"&gt;No image generated <span style="color:#D73A49;font-weight:bold;">for</span> <span style="color:#D73A49;font-weight:bold;">this</span> pass.&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-card"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-card-title"&gt;Binary Threshold Crop&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;img id="dbgBw" alt="Binary threshold debug crop" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="dbgBwMeta" <span style="color:#D73A49;font-weight:bold;">class</span>="debug-url"&gt;No image generated <span style="color:#D73A49;font-weight:bold;">for</span> <span style="color:#D73A49;font-weight:bold;">this</span> pass.&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-card"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="debug-card-title"&gt;Inverted Crop&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;img id="dbgInv" alt="Inverted debug crop" /&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="dbgInvMeta" <span style="color:#D73A49;font-weight:bold;">class</span>="debug-url"&gt;No image generated <span style="color:#D73A49;font-weight:bold;">for</span> <span style="color:#D73A49;font-weight:bold;">this</span> pass.&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &lt;/form&gt;
+
+
+&nbsp; &nbsp; &lt;div id="helpModalOverlay" <span style="color:#D73A49;font-weight:bold;">class</span>="help-modal-overlay" onclick="closeHelpModal(<span style="color:#D73A49;">event</span>)"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="help-modal" onclick="<span style="color:#D73A49;">event</span>.stopPropagation()"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="help-modal-header"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="help-modal-title"&gt;OCR Reader Help&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button type="button" <span style="color:#D73A49;font-weight:bold;">class</span>="help-modal-close" title="Close Help" onclick="closeHelpModal()"&gt;X&lt;/button&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div <span style="color:#D73A49;font-weight:bold;">class</span>="help-modal-body"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="helpModalText" <span style="color:#D73A49;font-weight:bold;">class</span>="help-modal-text"&gt;Loading help...&lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;
+&nbsp; &nbsp; &lt;/div&gt;
+
+
+&nbsp; &nbsp; &lt;div id="playbackToast" <span style="color:#D73A49;font-weight:bold;">class</span>="toast-notification" aria-live="polite"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;span id="playbackToastIcon" <span style="color:#D73A49;font-weight:bold;">class</span>="toast-icon"&gt;▶&lt;/span&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;span id="playbackToastText" <span style="color:#D73A49;font-weight:bold;">class</span>="toast-text"&gt;Playing&lt;/span&gt;
+&nbsp; &nbsp; &lt;/div&gt;
+
+
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;script type="text/javascript"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> isDrawing = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> startX, startY;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> roi = { x: 0, y: 0, w: 0, h: 0 };
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> currentVideoPath = "";
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> isVideoUploaded = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> debugPanelVisible = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> lastDebugPayload = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> wasVideoPausedBeforeROI = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> suppressVideoClickUntil = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> toastTimerId = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> ocrRunStartedAt = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> ocrTimingIntervalId = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> ocrDurationsMs = [];
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> helpFallbackText = 'OCR-Reader.help.txt not available.\n\nHelp is under construction.';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> handleVideoClickSuppression(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;">Date</span>.now() &lt; suppressVideoClickUntil) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopPropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // File Loading Handlers
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> loadVideoFile(file) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!file || !file.type.startsWith('video/')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert('Please select a valid video file.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> video = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoPlayer');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> wrapper = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoWrapper');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> prompt = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('dropPrompt');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus("Uploading video to server <span style="color:#D73A49;font-weight:bold;">for</span> OCR...");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; isVideoUploaded = <span style="color:#22863A;font-weight:bold;">false</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentVideoPath = <span style="color:#D73A49;font-weight:bold;">await</span> uploadVideoForOCR(file);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; isVideoUploaded = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentVideoPath = "";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert(err.message || 'Upload failed.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus("Video upload failed.");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.src = URL.createObjectURL(file);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Guard against <span style="color:#D73A49;">default</span> click-to-toggle behavior <span style="color:#D73A49;font-weight:bold;">while</span> drawing OCR regions.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!video.dataset.ocrGuardAttached) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.addEventListener('click', handleVideoClickSuppression, <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.dataset.ocrGuardAttached = '1';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!video.dataset.toastHandlersAttached) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.addEventListener('play', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showPlaybackToast('▶', 'Playing');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.addEventListener('pause', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showPlaybackToast('⏸', 'Paused');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.dataset.toastHandlersAttached = '1';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; prompt.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; wrapper.style.display = 'inline-block';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus("Loaded video: " + file.name + ". Click and drag over the video to mark an OCR region.");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; clearROI();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> handleFileSelect(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.target.files.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; loadVideoFile(e.target.files[0]);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Drag &amp; Drop Handlers
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> handleDragOver(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopPropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoStage').classList.add('drag-over');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> handleDragLeave(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopPropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoStage').classList.remove('drag-over');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> handleDrop(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopPropagation();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoStage').classList.remove('drag-over');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> files = e.dataTransfer.files;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (files.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; loadVideoFile(files[0]);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> uploadVideoForOCR(file) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> formData = <span style="color:#D73A49;">new</span> FormData();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; formData.append('videoFile', file, file.name);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#6F42C1;font-weight:bold;">fetch</span>('OCRUpload.ashx', {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; method: 'POST',
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; body: formData
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; })
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .then(<span style="color:#D73A49;font-weight:bold;">async</span> (res) =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> data = <span style="color:#D73A49;font-weight:bold;">await</span> res.<span style="color:#005CC5;font-weight:bold;">json</span>().<span style="color:#D73A49;font-weight:bold;">catch</span>(() =&gt; <span style="color:#22863A;font-weight:bold;">null</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!res.ok || !data || !data.ok || !data.token) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> serverMessage = data &amp;&amp; data.<span style="color:#005CC5;">error</span> ? data.<span style="color:#005CC5;">error</span> : 'Server did not <span style="color:#D73A49;font-weight:bold;">return</span> an upload token.';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">throw</span> <span style="color:#D73A49;">new</span> <span style="color:#005CC5;">Error</span>(serverMessage);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> data.token;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // ROI Drag Selection
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> startDrawROI(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.target.tagName === 'VIDEO' || e.target.id === 'roiBox') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.stopPropagation();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> video = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoPlayer');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; wasVideoPausedBeforeROI = video.paused;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suppressVideoClickUntil = <span style="color:#005CC5;">Date</span>.now() + 600;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> wrapper = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoWrapper').getBoundingClientRect();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; isDrawing = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; startX = e.clientX - wrapper.left;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; startY = e.clientY - wrapper.top;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> box = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('roiBox');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.left = startX + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.top = startY + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.width = '0px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.height = '0px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.display = 'block';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('mousemove', drawROI);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('mouseup', endDrawROI);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> drawROI(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!isDrawing) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> wrapper = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoWrapper').getBoundingClientRect();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> currentX = e.clientX - wrapper.left;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> currentY = e.clientY - wrapper.top;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> width = currentX - startX;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> height = currentY - startY;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> box = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('roiBox');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.width = <span style="color:#005CC5;">Math</span>.abs(width) + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.height = <span style="color:#005CC5;">Math</span>.abs(height) + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.left = (width &lt; 0 ? currentX : startX) + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.top = (height &lt; 0 ? currentY : startY) + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> endDrawROI(e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; isDrawing = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.removeEventListener('mousemove', drawROI);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.removeEventListener('mouseup', endDrawROI);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suppressVideoClickUntil = <span style="color:#005CC5;">Date</span>.now() + 600;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> box = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('roiBox');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; roi.x = parseInt(box.style.left, 10);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; roi.y = parseInt(box.style.top, 10);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; roi.w = parseInt(box.style.width, 10);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; roi.h = parseInt(box.style.height, 10);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Keep playback state unchanged by ROI selection interaction.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> video = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoPlayer');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (wasVideoPausedBeforeROI === <span style="color:#22863A;font-weight:bold;">true</span> &amp;&amp; !video.paused) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.pause();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (wasVideoPausedBeforeROI === <span style="color:#22863A;font-weight:bold;">false</span> &amp;&amp; video.paused) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> playPromise = video.play();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (playPromise &amp;&amp; <span style="color:#D73A49;">typeof</span> playPromise.<span style="color:#D73A49;font-weight:bold;">catch</span> === '<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; playPromise.<span style="color:#D73A49;font-weight:bold;">catch</span>(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () { });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> clearROI() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('roiBox').style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; roi = { x: 0, y: 0, w: 0, h: 0 };
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> updateStatus(text) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('statusBadge').innerText = text;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> showPlaybackToast(icon, text) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> toast = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('playbackToast');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> toastIcon = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('playbackToastIcon');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> toastText = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('playbackToastText');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!toast || !toastIcon || !toastText) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toastIcon.innerText = icon;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toastText.innerText = text;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toast.classList.add('show');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (toastTimerId) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; clearTimeout(toastTimerId);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toastTimerId = <span style="color:#6F42C1;font-weight:bold;">window</span>.setTimeout(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toast.classList.remove('show');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, 1200);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> formatDurationMs(ms) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!isFinite(ms) || ms &lt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> 'n/a';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (ms &lt; 1000) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#005CC5;">Math</span>.round(ms) + ' ms';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> (ms / 1000).toFixed(1) + ' s';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> updateOcrTimingDisplay(currentText, lastText, avgText) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> currentNode = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('ocrCurrentTiming');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> lastNode = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('ocrLastTiming');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> avgNode = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('ocrAverageTiming');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (currentNode) currentNode.innerHTML = '&lt;strong&gt;Current OCR:&lt;/strong&gt; ' + currentText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (lastNode) lastNode.innerHTML = '&lt;strong&gt;Last OCR:&lt;/strong&gt; ' + lastText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (avgNode) avgNode.innerHTML = '&lt;strong&gt;Average OCR:&lt;/strong&gt; ' + avgText;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> refreshOcrAverageDisplay() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!ocrDurationsMs.length) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateOcrTimingDisplay('Idle', 'n/a', 'n/a');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> total = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">for</span> (<span style="color:#D73A49;font-weight:bold;">let</span> i = 0; i &lt; ocrDurationsMs.length; i++) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; total += ocrDurationsMs[i];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> averageMs = total / ocrDurationsMs.length;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> lastMs = ocrDurationsMs[ocrDurationsMs.length - 1];
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateOcrTimingDisplay('Idle', formatDurationMs(lastMs), formatDurationMs(averageMs));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> beginOcrTiming() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ocrRunStartedAt = <span style="color:#005CC5;">Date</span>.now();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (ocrTimingIntervalId) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; clearInterval(ocrTimingIntervalId);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateOcrTimingDisplay('Running... 0.0 s', ocrDurationsMs.length ? formatDurationMs(ocrDurationsMs[ocrDurationsMs.length - 1]) : 'n/a', ocrDurationsMs.length ? formatDurationMs(ocrDurationsMs.reduce(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (sum, value) { <span style="color:#D73A49;font-weight:bold;">return</span> sum + value; }, 0) / ocrDurationsMs.length) : 'n/a');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ocrTimingIntervalId = <span style="color:#6F42C1;font-weight:bold;">window</span>.setInterval(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> elapsedMs = <span style="color:#005CC5;">Date</span>.now() - ocrRunStartedAt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> currentNode = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('ocrCurrentTiming');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (currentNode) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; currentNode.innerHTML = '&lt;strong&gt;Current OCR:&lt;/strong&gt; Running... ' + formatDurationMs(elapsedMs);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }, 100);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> finishOcrTiming() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!ocrRunStartedAt) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; refreshOcrAverageDisplay();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> elapsedMs = <span style="color:#005CC5;">Date</span>.now() - ocrRunStartedAt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ocrRunStartedAt = 0;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (ocrTimingIntervalId) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; clearInterval(ocrTimingIntervalId);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ocrTimingIntervalId = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ocrDurationsMs.push(elapsedMs);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (ocrDurationsMs.length &gt; 10) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ocrDurationsMs.shift();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; refreshOcrAverageDisplay();
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> formatTimeHMS(totalSeconds) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> sec = <span style="color:#005CC5;">Math</span>.max(0, <span style="color:#005CC5;">Math</span>.floor(totalSeconds || 0));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> h = <span style="color:#005CC5;">Math</span>.floor(sec / 3600);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> m = <span style="color:#005CC5;">Math</span>.floor((sec % 3600) / 60);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> s = sec % 60;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> hh = <span style="color:#005CC5;font-weight:bold;">String</span>(h).padStart(2, '0');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> mm = <span style="color:#005CC5;font-weight:bold;">String</span>(m).padStart(2, '0');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> ss = <span style="color:#005CC5;font-weight:bold;">String</span>(s).padStart(2, '0');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> hh + ':' + mm + ':' + ss;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> appendOcrLine(videoSeconds, text) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> box = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtResult');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> normalizedText = (text || '').replace(/\r\n/g, '\n');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Remove OCR-leading separators like "||" so lines stay "HH:MM:SS text".
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; normalizedText = normalizedText.replace(/^\s*\|+\s*/, '');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> line = formatTimeHMS(videoSeconds) + ' ' + normalizedText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (box.value &amp;&amp; box.value.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.value += '\n' + line;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.value = line;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.scrollTop = box.scrollHeight;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> copyOcrText() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> box = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtResult');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> text = box.value || '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!text.trim()) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus('OCR text is empty.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> onCopied = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus('OCR text copied to clipboard.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (navigator.clipboard &amp;&amp; navigator.clipboard.writeText) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; navigator.clipboard.writeText(text).then(onCopied).<span style="color:#D73A49;font-weight:bold;">catch</span>(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.focus();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.select();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.execCommand('copy');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; onCopied();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.focus();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.select();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.execCommand('copy');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; onCopied();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> clearOcrText() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('txtResult').value = '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus('OCR text cleared.');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> openHelpModal() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> overlay = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('helpModalOverlay');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> textNode = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('helpModalText');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!overlay || !textNode) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlay.style.display = 'flex';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textNode.textContent = 'Loading help...';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">fetch</span>('OCR-Reader.help.txt', { cache: 'no-store' })
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .then(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (res) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!res.ok) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">throw</span> <span style="color:#D73A49;">new</span> <span style="color:#005CC5;">Error</span>('Missing help file');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> res.text();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; })
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .then(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (text) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> trimmed = (text || '').trim();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textNode.textContent = trimmed ? text : helpFallbackText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; })
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#D73A49;font-weight:bold;">catch</span>(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; textNode.textContent = helpFallbackText;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> closeHelpModal(evt) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (evt &amp;&amp; evt.target &amp;&amp; evt.target.id &amp;&amp; evt.target.id !== 'helpModalOverlay') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> overlay = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('helpModalOverlay');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (overlay) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; overlay.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> goBackToEditor() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = 'FilingCabinet.aspx';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> seekVideoBySeconds(deltaSeconds) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> video = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoPlayer');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!video || !video.src || !isFinite(video.duration)) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> nextTime = <span style="color:#005CC5;">Math</span>.max(0, <span style="color:#005CC5;">Math</span>.min(video.duration, video.currentTime + deltaSeconds));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = nextTime;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus('Video seek: ' + formatTimeHMS(nextTime));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> resizeRoiHorizontally(deltaPerSide) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> box = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('roiBox');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> video = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoPlayer');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> wrapper = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoWrapper');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!box || !video || !wrapper || box.style.display === 'none' || roi.w &lt;= 0 || roi.h &lt;= 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> wrapperRect = wrapper.getBoundingClientRect();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> videoRect = video.getBoundingClientRect();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> minLeft = <span style="color:#005CC5;">Math</span>.round(videoRect.left - wrapperRect.left);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> maxRight = <span style="color:#005CC5;">Math</span>.round(videoRect.right - wrapperRect.left);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> minWidth = 12;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* <span style="color:#D73A49;font-weight:bold;">let</span> newLeft = roi.x - deltaPerSide; */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> newLeft = roi.x;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> newRight = roi.x + roi.w + deltaPerSide;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; newLeft = <span style="color:#005CC5;">Math</span>.max(minLeft, newLeft);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; newRight = <span style="color:#005CC5;">Math</span>.min(maxRight, newRight);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (newRight - newLeft &lt; minWidth) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> center = roi.x + (roi.w / 2);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; newLeft = <span style="color:#005CC5;">Math</span>.max(minLeft, <span style="color:#005CC5;">Math</span>.round(center - (minWidth / 2)));
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; newRight = <span style="color:#005CC5;">Math</span>.min(maxRight, newLeft + minWidth);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; newLeft = <span style="color:#005CC5;">Math</span>.max(minLeft, newRight - minWidth);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; roi.x = newLeft;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; roi.w = <span style="color:#005CC5;">Math</span>.max(minWidth, newRight - newLeft);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.left = roi.x + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.width = roi.w + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box.style.display = 'block';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus('OCR box width: ' + roi.w + 'px');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> toggleVideoPlayback() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> video = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoPlayer');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!video || !video.src) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (video.paused) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> playPromise = video.play();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (playPromise &amp;&amp; <span style="color:#D73A49;">typeof</span> playPromise.<span style="color:#D73A49;font-weight:bold;">catch</span> === '<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; playPromise.<span style="color:#D73A49;font-weight:bold;">catch</span>(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> () { });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.pause();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> stopVideoPlayback() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> video = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoPlayer');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!video || !video.src) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.pause();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; video.currentTime = 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus('Video stopped: 00:00:00');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; showPlaybackToast('■', 'Stopped');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.addEventListener('keydown', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> (e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> active = <span style="color:#6F42C1;font-weight:bold;">document</span>.activeElement;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> isTypingTarget = active &amp;&amp; (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT' || active.isContentEditable);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'Escape') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; closeHelpModal();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (isTypingTarget) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'ArrowUp') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; executeOCR();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === '+' || e.key === '=' || e.code === 'NumpadAdd') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; resizeRoiHorizontally(4);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === '-' || e.code === 'NumpadSubtract') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; resizeRoiHorizontally(-4);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === ' ' || e.code === 'Space') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; toggleVideoPlayback();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; e.shiftKey &amp;&amp; e.key === 'ArrowRight') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; seekVideoBySeconds(1);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; e.shiftKey &amp;&amp; e.key === 'ArrowLeft') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; seekVideoBySeconds(-1);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; e.key === 'ArrowRight') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; seekVideoBySeconds(10);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.ctrlKey &amp;&amp; e.key === 'ArrowLeft') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; seekVideoBySeconds(-10);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'ArrowRight') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; seekVideoBySeconds(60);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (e.key === 'ArrowLeft') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; e.preventDefault();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; seekVideoBySeconds(-60);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> openDebugPanel() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (debugPanelVisible) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; debugPanelVisible = !debugPanelVisible;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> debugGrid = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('debugGrid');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> btn = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnToggleDebug');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; debugGrid.style.display = debugPanelVisible ? 'grid' : 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.innerText = debugPanelVisible ? 'Hide OCR debug crops' : 'Show OCR debug crops';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (debugPanelVisible) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (lastDebugPayload &amp;&amp; (lastDebugPayload.enh || lastDebugPayload.raw || lastDebugPayload.bw || lastDebugPayload.inv)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderDebugCrops(lastDebugPayload);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; loadLatestDebugCrops();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> toggleDebugPanel() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!debugPanelVisible) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; openDebugPanel();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; debugPanelVisible = <span style="color:#22863A;font-weight:bold;">false</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> debugGrid = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('debugGrid');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> btn = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('btnToggleDebug');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; debugGrid.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.innerText = 'Show OCR debug crops';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> setDebugMeta(metaId, text, isError) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> meta = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById(metaId);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!meta) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; meta.className = isError ? 'debug-url <span style="color:#005CC5;">error</span>' : 'debug-url';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; meta.innerText = text || '';
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> setDebugImage(imgId, metaId, src) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> img = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById(imgId);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!img) <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (src &amp;&amp; src.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; img.onload = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setDebugMeta(metaId, src, <span style="color:#22863A;font-weight:bold;">false</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; img.onerror = <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setDebugMeta(metaId, 'Preview failed to load: ' + src, <span style="color:#22863A;font-weight:bold;">true</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; };
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; img.src = src;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; img.style.display = 'block';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; img.removeAttribute('src');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; img.onload = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; img.onerror = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; img.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setDebugMeta(metaId, 'No image generated <span style="color:#D73A49;font-weight:bold;">for</span> <span style="color:#D73A49;font-weight:bold;">this</span> pass.', <span style="color:#22863A;font-weight:bold;">false</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> renderDebugCrops(debug) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> empty = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('debugEmpty');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> hasAny = debug &amp;&amp; (debug.enh || debug.raw || debug.bw || debug.inv);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setDebugImage('dbgEnh', 'dbgEnhMeta', hasAny ? debug.enh : '');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setDebugImage('dbgRaw', 'dbgRawMeta', hasAny ? debug.raw : '');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setDebugImage('dbgBw', 'dbgBwMeta', hasAny ? debug.bw : '');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setDebugImage('dbgInv', 'dbgInvMeta', hasAny ? debug.inv : '');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (hasAny) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; empty.style.display = 'none';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; empty.style.display = 'block';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> loadLatestDebugCrops() {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> <span style="color:#6F42C1;font-weight:bold;">fetch</span>('OCRDebugList.ashx', { method: 'GET' })
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .then(res =&gt; res.<span style="color:#005CC5;font-weight:bold;">json</span>())
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .then(data =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (data &amp;&amp; data.ok &amp;&amp; data.debug) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> hasAny = data.debug.enh || data.debug.raw || data.debug.bw || data.debug.inv;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (hasAny) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lastDebugPayload = data.debug;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderDebugCrops(data.debug);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; })
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#D73A49;font-weight:bold;">catch</span>(() =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Keep silent; panel fallback should not interrupt OCR flow.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // WebMethod Ajax Invocation
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> executeOCR() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> video = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoPlayer');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!video.src) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert('Please load a video first.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!isVideoUploaded || !currentVideoPath) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert('Video is not uploaded to the server yet. Please reload the video.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!video.videoWidth || !video.videoHeight || !video.clientWidth || !video.clientHeight) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert('Video metadata is not ready yet. Please wait a moment and <span style="color:#D73A49;font-weight:bold;">try</span> again.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> wrapperRect = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('videoWrapper').getBoundingClientRect();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> videoRect = video.getBoundingClientRect();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> videoOffsetX = videoRect.left - wrapperRect.left;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> videoOffsetY = videoRect.top - wrapperRect.top;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> scaleX = video.videoWidth / videoRect.width;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> scaleY = video.videoHeight / videoRect.height;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> roiXInVideo = roi.w &gt; 0 ? (roi.x - videoOffsetX) : 0;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> roiYInVideo = roi.h &gt; 0 ? (roi.y - videoOffsetY) : 0;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> roiWInVideo = roi.w &gt; 0 ? roi.w : videoRect.width;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> roiHInVideo = roi.h &gt; 0 ? roi.h : videoRect.height;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; roiXInVideo = <span style="color:#005CC5;">Math</span>.max(0, <span style="color:#005CC5;">Math</span>.min(roiXInVideo, videoRect.width - 2));
+&nbsp; &nbsp; &nbsp; &nbsp; roiYInVideo = <span style="color:#005CC5;">Math</span>.max(0, <span style="color:#005CC5;">Math</span>.min(roiYInVideo, videoRect.height - 2));
+&nbsp; &nbsp; &nbsp; &nbsp; roiWInVideo = <span style="color:#005CC5;">Math</span>.max(2, <span style="color:#005CC5;">Math</span>.min(roiWInVideo, videoRect.width - roiXInVideo));
+&nbsp; &nbsp; &nbsp; &nbsp; roiHInVideo = <span style="color:#005CC5;">Math</span>.max(2, <span style="color:#005CC5;">Math</span>.min(roiHInVideo, videoRect.height - roiYInVideo));
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> cropW = <span style="color:#005CC5;">Math</span>.round(roiWInVideo * scaleX);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> cropH = <span style="color:#005CC5;">Math</span>.round(roiHInVideo * scaleY);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> cropX = <span style="color:#005CC5;">Math</span>.round(roiXInVideo * scaleX);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> cropY = <span style="color:#005CC5;">Math</span>.round(roiYInVideo * scaleY);
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // Clamp crop rectangle to frame bounds
+&nbsp; &nbsp; &nbsp; &nbsp; cropX = <span style="color:#005CC5;">Math</span>.max(0, <span style="color:#005CC5;">Math</span>.min(cropX, video.videoWidth - 2));
+&nbsp; &nbsp; &nbsp; &nbsp; cropY = <span style="color:#005CC5;">Math</span>.max(0, <span style="color:#005CC5;">Math</span>.min(cropY, video.videoHeight - 2));
+&nbsp; &nbsp; &nbsp; &nbsp; cropW = <span style="color:#005CC5;">Math</span>.max(2, <span style="color:#005CC5;">Math</span>.min(cropW, video.videoWidth - cropX));
+&nbsp; &nbsp; &nbsp; &nbsp; cropH = <span style="color:#005CC5;">Math</span>.max(2, <span style="color:#005CC5;">Math</span>.min(cropH, video.videoHeight - cropY));
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // FFmpeg crop works more reliably <span style="color:#D73A49;">with</span> even dimensions
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (cropW % 2 !== 0) cropW--;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (cropH % 2 !== 0) cropH--;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (cropW &lt; 2) cropW = 2;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (cropH &lt; 2) cropH = 2;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; updateStatus("FFmpeg extracting frame &amp; running Tesseract...");
+&nbsp; &nbsp; &nbsp; &nbsp; beginOcrTiming();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> ocrRequestedAtSeconds = video.currentTime;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> payload = {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; videoPath: currentVideoPath,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timeInSeconds: video.currentTime,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cropX: cropX,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cropY: cropY,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cropW: cropW,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cropH: cropH
+&nbsp; &nbsp; &nbsp; &nbsp; };
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">fetch</span>('OCR-Reader.aspx/ProcessVideoFrame', {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; method: 'POST',
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; headers: { 'Content-Type': 'application/<span style="color:#005CC5;font-weight:bold;">json</span>; charset=utf-8' },
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; body: <span style="color:#005CC5;font-weight:bold;">JSON</span>.stringify(payload)
+&nbsp; &nbsp; &nbsp; &nbsp; })
+&nbsp; &nbsp; &nbsp; &nbsp; .then(res =&gt; res.<span style="color:#005CC5;font-weight:bold;">json</span>())
+&nbsp; &nbsp; &nbsp; &nbsp; .then(data =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> responseText = data &amp;&amp; data.d ? data.d : '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">let</span> parsed = <span style="color:#22863A;font-weight:bold;">null</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#D73A49;">typeof</span> responseText === '<span style="color:#005CC5;font-weight:bold;">string</span>' &amp;&amp; responseText.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; parsed = <span style="color:#005CC5;font-weight:bold;">JSON</span>.parse(responseText);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (e) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; parsed = <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (parsed &amp;&amp; <span style="color:#D73A49;">typeof</span> parsed.text === '<span style="color:#005CC5;font-weight:bold;">string</span>') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; appendOcrLine(ocrRequestedAtSeconds, parsed.text);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lastDebugPayload = parsed.debug || <span style="color:#22863A;font-weight:bold;">null</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderDebugCrops(lastDebugPayload);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!debugPanelVisible) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; openDebugPanel();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (parsed.text.indexOf('<span style="color:#005CC5;">Error</span>:') === 0 || parsed.text.indexOf('Server <span style="color:#005CC5;">Error</span>:') === 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus(parsed.text);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus('OCR processing complete.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; finishOcrTiming();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; appendOcrLine(ocrRequestedAtSeconds, responseText);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderDebugCrops(<span style="color:#22863A;font-weight:bold;">null</span>);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!debugPanelVisible) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; openDebugPanel();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; loadLatestDebugCrops();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#D73A49;">typeof</span> responseText === '<span style="color:#005CC5;font-weight:bold;">string</span>' &amp;&amp; (responseText.indexOf('<span style="color:#005CC5;">Error</span>:') === 0 || responseText.indexOf('Server <span style="color:#005CC5;">Error</span>:') === 0)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus(responseText);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus('OCR processing complete.');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; finishOcrTiming();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; })
+&nbsp; &nbsp; &nbsp; &nbsp; .<span style="color:#D73A49;font-weight:bold;">catch</span>(err =&gt; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; finishOcrTiming();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateStatus("<span style="color:#005CC5;">Error</span> processing OCR frame.");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">console</span>.<span style="color:#005CC5;">error</span>(err);
+&nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; }&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &lt;/script&gt;
+</span>&lt;/body&gt;
+        &lt;/html&gt;</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

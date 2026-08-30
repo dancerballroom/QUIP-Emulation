@@ -1,0 +1,576 @@
+<!doctype html>
+<html><head><title>Connecting PowerShell to MySQL Database</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:aCc50b23de990434bbbb7782628c'>Connecting PowerShell to MySQL Database</h1>
+
+Source:  <a href="https://www.techtrek.io/connecting-powershell-to-mysql-database/">https://www.techtrek.io/connecting-powershell-to-mysql-database/</a><br/>
+
+<h4 id='temp:C:aCc37beb3dd0bec4759becbb937e'>1. Download Connector/Net</h4>
+
+<code>The first step is to download the ADO.Net MySQL driver, which can be found<code> </code></code><a href="http://dev.mysql.com/downloads/connector/net/">here</a><code>. Note the directory where this will be installed.</code><br/>
+
+<br/>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:aCc11b1cc52790f494a91644524f'><li id='temp:C:aCc4798cb56bced486eb2c36cf2b' class='' value='1'>Create / Log-In to Oracle Account (<a href="http://profile.oracle.com">profile.oracle.com</a>)
+
+<br/></li><li id='temp:C:aCce5d75947f84b48d4a4e169c6e' class='parent'><a href="https://dev.mysql.com/downloads/connector/net/">https://dev.mysql.com/downloads/connector/net/</a>  (ADO Connector Net)
+
+<br/></li><ul><li id='temp:C:aCca87229ebde7b47ff8ca314d6b' class=''>AKA Connector/Net
+
+<br/></li><li id='temp:C:aCc99cfc76b93ed4ae3a4600758e' class=''>mysql-connector-net-9.0.0
+
+<br/></li><li id='temp:C:aCcb323c1a1c2ca46a9a210cdad7' class=''>CHDIR:  C:\MySQL\MySQL Connector NET 9.0\
+
+<br/></li><li id='temp:C:aCc32062338b5e340fb8e242f073' class=''><span data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/aCcAAAy6ARn/XMbKnxm31LFpjpCH52HUOA?a=hO98iB3smCnMgjfi0ivCgYVmIdhhRFaO8VhfaihF0Gsa' id='temp:C:aCc32062338b5e340fb8e242f073' width='618' height='479' alt="000731 - MySQL Connector_NET 9.0.0 Setup.jpg"></img></span></li></ul></ul></div><br/>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/aCcAAAy6ARn/Q82HWJEKftwZxPLiqPmmyg?a=ovzfLFnO3KcFJSc33IM4yANWrg6NBaofyqG2fQDDarEa' id='temp:C:aCcf8fd0371984e4729a4934ed52' alt="000732 - Downloads - File Explorer.jpg"></img></div><h2 id='temp:C:aCc4d0cc96abe644300a6d57ae23'>Restart after FAIL above</h2>
+
+<div style="--indent0: 2" class="list-numbering-restart-at" data-section-style='6'><ul id='temp:C:aCceeb226e1bdd44ab9a3e342828'><li id='temp:C:aCc824ba06a36cf43de99322db30' class='' value='1'>Install MySql Community, the larger file from <a href="https://dev.mysql.com/downloads/installer/">https://dev.mysql.com/downloads/installer/</a>
+
+<br/></li></ul></div><div data-section-style='5' style="" class=""><ul id='temp:C:aCc11a896b7d5ff435fa24859b35'><li id='temp:C:aCc84bbe68a077243bdbdae80506' class='' value='1'>C:\MySQL\MySQL Connector NET 9.0
+
+<br/></li></ul></div><h3 id='temp:C:aCc1bf123dbea34431a83b79e4cd'>Setup</h3>
+
+Root User:<br/>
+
+root<br/>
+
+Root Password:<br/>
+
+1qaz!QAZ<br/>
+
+(medium) strength<br/>
+
+<h3 id='temp:C:aCcd52e53ae3c994230b1c056b3c'>User Setup</h3>
+
+User Name:  lwdavies<br/>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:aCc467351a9a84c47a9a7f04635a'><li id='temp:C:aCc8c066695c4174dffaa8588d6e' class='' value='1'>HOST:  &lt;All Hosts (%)&gt;
+
+<br/></li><li id='temp:C:aCc99fbe1dafbab472680f051d6b' class=''>ROLE:  DB Admin
+
+<br/></li></ul></div>MySQL Credentials:<br/>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:aCcca7b4476352641cc906988060'><li id='temp:C:aCc9bcab4b035314a5481b1525d0' class='' value='1'>Password:    85208520
+
+<br/></li><li id='temp:C:aCcfa01bb0f70e44eaebda1e7426' class=''>(weak) strength
+
+<br/></li></ul></div><h3 id='temp:C:aCcef407b69c7b44825b2f437669'>Post Install:</h3>
+
+MySQL WorkBench (SHELL)<br/>
+
+<pre id='temp:C:aCc75bc67b10f52439f868299992'>Type '\help' or '\?' for help; '\quit' to exit.<br> MySQL  JS &gt; \help<br>The Shell Help is organized in categories and topics. To get help for a<br>specific category or topic use: \? &lt;pattern&gt;<br><br>The &lt;pattern&gt; argument should be the name of a category or a topic.<br><br>The pattern is a filter to identify topics for which help is required, it can<br>use the following wildcards:<br><br>- ? matches any single character.<br>- * matches any character sequence.<br><br>The following are the main help categories:<br><br> - AdminAPI       The AdminAPI is an API that enables configuring and managing<br>                  InnoDB Clusters, ReplicaSets, ClusterSets, among other<br>                  things.<br> - Shell Commands Provides details about the available built-in shell commands.<br> - ShellAPI       Contains information about the shell and util global objects<br>                  as well as the mysql module that enables executing SQL on<br>                  MySQL Servers.<br> - SQL Syntax     Entry point to retrieve syntax help on SQL statements.<br> - X DevAPI       Details the mysqlx module as well as the capabilities of the<br>                  X DevAPI which enable working with MySQL as a Document Store<br><br>The available topics include:<br><br>- The dba global object and the classes available at the AdminAPI.<br>- The mysqlx module and the classes available at the X DevAPI.<br>- The mysql module and the global objects and classes available at the<br>  ShellAPI.<br>- The functions and properties of the classes exposed by the APIs.<br>- The available shell commands.<br>- Any word that is part of an SQL statement.<br>- Command Line - invoking built-in shell functions without entering interactive<br>  mode.<br><br>SHELL COMMANDS<br><br>The shell commands allow executing specific operations including updating the<br>shell configuration.<br><br>The following shell commands are available:<br><br> - \                   Start multi-line input when in SQL mode.<br> - \connect    (\c)    Connects the shell to a MySQL server and assigns the<br>                       global session.<br> - \disconnect         Disconnects the global session.<br> - \edit       (\e)    Launch a system editor to edit a command to be executed.<br> - \exit               Exits the MySQL Shell, same as \quit.<br> - \help       (\?,\h) Prints help information about a specific topic.<br> - \history            View and edit command line history.<br> - \js                 Switches to JavaScript processing mode.<br> - \nopager            Disables the current pager.<br> - \nowarnings (\w)    Do not show warnings after every statement.<br> - \option             Allows working with the available shell options.<br> - \pager      (\P)    Sets the current pager.<br> - \py                 Switches to Python processing mode.<br> - \quit       (\q)    Exits the MySQL Shell.<br> - \reconnect          Reconnects the global session.<br> - \rehash             Refresh the autocompletion cache.<br> - \show               Executes the given report with provided options and<br>                       arguments.<br> - \source     (\.)    Loads and executes a script from a file.<br> - \sql                Executes SQL statement or switches to SQL processing<br>                       mode when no statement is given.<br> - \status     (\s)    Print information about the current global session.<br> - \system     (\!)    Execute a system shell command.<br> - \use        (\u)    Sets the active schema.<br> - \warnings   (\W)    Show warnings after every statement.<br> - \watch              Executes the given report with provided options and<br>                       arguments in a loop.<br><br>GLOBAL OBJECTS<br><br>The following modules and objects are ready for use when the shell starts:<br><br> - dba     Used for InnoDB Cluster, ReplicaSet, and ClusterSet administration.<br> - mysql   Support for connecting to MySQL servers using the classic MySQL<br>           protocol.<br> - mysqlx  Used to work with X Protocol sessions using the MySQL X DevAPI.<br> - os      Gives access to functions which allow to interact with the operating<br>           system.<br> - plugins Plugin to manage MySQL Shell plugins<br> - shell   Gives access to general purpose functions and properties.<br> - sys     Gives access to system specific parameters.<br> - util    Global object that groups miscellaneous tools like upgrade checker<br>           and JSON import.<br><br>For additional information on these global objects use: &lt;object&gt;.help()<br><br>EXAMPLES<br>\? AdminAPI<br>      Displays information about the AdminAPI.<br><br>\? \connect<br>      Displays usage details for the \connect command.<br><br>\? checkInstanceConfiguration<br>      Displays usage details for the dba.checkInstanceConfiguration function.<br><br>\? sql syntax<br>      Displays the main SQL help categories.<br> MySQL  JS &gt;</pre>
+
+<h3 id='temp:C:aCc36ab1a373fbc42889b8aa0cd1'>IN DEVO</h3>
+
+C:\Users\Larry\Desktop\MySQL-Powershell<br/>
+
+<h2 id='temp:C:aCc0a6e3dd414d64c0db5ecee4a9'>Screenshots</h2>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

@@ -1,0 +1,606 @@
+<!doctype html>
+<html><head><title>Generate Show with Subtitles no Commercials - Working 10/10/2022</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:MNW9a4d75591bbe44b592e98036b'>Generate Show with Subtitles no Commercials - <span style="color:#5a0ac2" textcolor="#5a0ac2">Working 10/10/2022</span></h1>
+
+<h3 id='temp:C:MNW64fd531585e0487f82c40310c'><span bgcolor="#fefccb" style="background-color:#fefccb">For Videos downloaded from Services that include commercials.</span></h3>
+
+<h2 id='temp:C:MNWcfcd5828dcbb4d3583bb0086b'>Prerequisite Required Files and Locations:</h2>
+
+<pre id='temp:C:MNWd981c27afd114d299088f5b6b'><span bgcolor="#fefccb" style="background-color:#fefccb"># SendTo DIR</span><br><b>[</b><b>username</b><b>]</b><b>\AppData\Roaming\Microsoft\Windows\SendTo</b><br><br><span bgcolor="#fefccb" style="background-color:#fefccb"># Required Files</span><br># 1. SendTo Directory<br>Eliminate-Apostrophes.bat  # Eliminate CODE BREAKER --&gt; ' &lt;-- Run when necessary<br>ExtractSubtitles_EVEN.bat<br>ExtractSubtitles_ODD.bat<br>GEN-REPORT-ONLY.bat<br>CCCC-Chop-Chop-S(Seconds)-E(Seconds)-Batchfile<br># -&gt; where S= Starttime and E=Endtime<br><br># 2. C:\POWER-SHELL-SCRIPTS<br>000_EVEN.bat               # Same as<br>ExtractSubtitles_EVEN.ps1  # For Show Chapters 2, 4, 6, 8<br><br>000_ODD.bat                # Same as <br>ExtractSubtitles_ODD.ps1   # For Show Chapters 1, 3, 5, 7<br> <br>GEN-REPORT-ONLY.ps1        # Report ODD or EVEN Shows vs. Commercials<br>Eliminate-Apostrophes.bat  # Eliminate CODE BREAKER --&gt; ' &lt;-- Run when necessary<br>101_RUN.bat                # Runs 00 which runs 01, 02, 03<br>00_Run-Program.bat         # Runs 01, 02, 03<br>01_JoinMP4.bat             # Merge Chapters<br>02_FixSubs.ps1             # Fix Time Stamps<br>03_Move_To_Parent_Parent_2_Backup.bat  # Shuffle Files</pre>
+
+<b>ABOVE - REF not in this Document</b>:<br/>
+
+<control data-remapped="true" id="temp:C:MNW760e9db1dce54e2caad1acb58"><a href="https://quip.com/LJcfAa6nFX6Y">00_Run-Program.bat</a></control><br/>
+
+<control data-remapped="true" id="temp:C:MNW2dadba52bb2844c8ae0f90baf"><a href="https://quip.com/Yo8SAaql1gaq">03_Move_To_Parent_Parent_2_Backup.bat</a></control><br/>
+
+<control data-remapped="true" id="temp:C:MNW329d9bd02083425e832c7265c"><a href="https://quip.com/iQkWAuDEJByL">101_RUN.bat</a></control><br/>
+
+<control data-remapped="true" id="temp:C:MNW79a4bd73764545caac1cace5b"><a href="https://quip.com/xCpmAoNsg28N">Eliminate Apostrophes</a></control><br/>
+
+<br/>
+
+<h3 id='temp:C:MNWca98f10f3d8047ee805554898'><span style="color:#430891" textcolor="#430891">The following STEPS need updating now.  </span></h3>
+
+<h2 id='temp:C:MNW3ebe418fe36a4970ab6a71ab5'>STEPS:</h2>
+
+<pre id='temp:C:MNW37ab9768d1af44e1b25ccc34a'>* Step 1:  Identify Cut Time at the beginning <br>            Run Corresponding CC.bat in (SEND TO) DIR<br>            EXAMPLE:  "CCCC Chop Chop S20 E8.5.bat"<br>                Chops off 20 seconds at the beginning and 8.5 seconds off END<br>* Step 2:  Send File to <span bgcolor="#fefccb" style="background-color:#fefccb">GEN</span><span bgcolor="#fefccb" style="background-color:#fefccb">-REPORT-ONLY.</span><span bgcolor="#fefccb" style="background-color:#fefccb">bat</span> <br>                to Determine ODD (1,3,5..) or EVEN (2,4,6..) (SHOW-CHAPTERS)<br>* Step 3:  Send File to ExtractSubtitles_EVEN.bat or ExtractSubtitles_ODD.bat<br>                in (SEND TO) DIR<br>* Step 4.  In OUTPUT Directory <br>                Run <span bgcolor="#fefccb" style="background-color:#fefccb">01</span><span bgcolor="#fefccb" style="background-color:#fefccb">_JoinMP4</span><span bgcolor="#fefccb" style="background-color:#fefccb">.</span><span bgcolor="#fefccb" style="background-color:#fefccb">bat</span><br>* Step 5.  In OUTPUT Directory <br>                Run <span bgcolor="#fefccb" style="background-color:#fefccb">02_FixSubs.ps1</span><br>* Step 6.  View to Test for Success<br>* Step 7.  DONE!<br></pre>
+
+<h3 id='temp:C:MNW87c07b0072574a078143177d5'>NOTE:  For More about Chopping off the front and back of a Video.mp4 in Step 1</h3>
+
+<b><span bgcolor="#fefccb" style="background-color:#fefccb">NOTE: STEP 1</span></b><br/>
+
+<br/>
+
+REF:  <control data-remapped="true" id="temp:C:MNW4a4979f648cd4fbcbf725c568"><a href="https://quip.com/kp2KAEvY13wj">CCCC Chop Chop S14 E8.5 Batchfile</a></control><br/>
+
+NOTE:  The CCCC~.BAT also extracts the <b>Movie.SRT Subtitle File</b> for the <b>Movie.MP4</b><br/>
+
+<br/>
+
+<b><span bgcolor="#fefccb" style="background-color:#fefccb">NOTE: STEP 2 Bat and PS1</span></b><br/>
+
+<pre id='temp:C:MNWa92d9a431d2a41aa841f6d9ad'><span bgcolor="#fefccb" style="background-color:#fefccb">Purpose: GEN-REPORT-ONLY.bat and GEN-REPORT-ONLY.ps1</span><br>Create a Text file (VIDEOName)-INFO <br>with a comprehensive report on Chapter Times<br>to determine if the Commercials are the ODD or EVEN Videos.</pre>
+
+<h2 id='temp:C:MNW6162c9370bfa409a9b3c15f79'>GEN-REPORT-ONLY.bat</h2>
+
+<pre id='temp:C:MNW877522a33f0e49e0b99602bdc'>@Echo Off<br>setlocal enableDelayedExpansion<br><br>SET PSScript=C:\POWER-SHELL-SCRIPTS\GEN-REPORT-ONLY.PS1<br>SET PowerShellDir=C:\Windows\System32\WindowsPowerShell\v1.0<br><br>REM VARIABLES<br>REM # C:\DIR\DIR\DIR\FIle.mp4<br><br>REM # SETUP STRING VARIABLES<br>Set "ext=mp4"<br>Set "opts=-v quiet"<br>Set "opts=%opts% -print_format "compact=print_section=0:nokey=1:escape=csv""<br>Set "opts=%opts% -show_entries "format=duration""<br>REM If Exist *.%ext% (If Not Exist "Trimmed\" MD Trimmed)<br><br>REM " # THE BIG FOR LOOP<br>REM # FOR-EACH FILE DO SUB<br>For %%a In (*.%ext%) Do Call :Sub "%%~a"<br>Exit /B<br><br>REM # EXTRACT TIME<br>:Sub<br>SET FQ_Filename=%~1            <br>REM # FIle    <br>SET Filename_No_Ext=%~n1<br>REM # FIle.mp4<br>SET Video_FIleName=%~n1%~x1<br>REM # C:\DIR\DIR\DIR\<br>SET MP4_File_Path=%~d1%~p1<br><br>            REM START DEBUG SECTION<br>                REM echo Entered SUB<br>                REM Echo [---------]<br>                REM Echo %PSScript%<br>                REM Echo %~1<br>                REM pause<br>                REM goto :END_OF_LINE<br>            REM END DEBUG SECTION<br><br>REM #     ******* PART 2: Generate Chapter Length Report for SUBS *******<br>SET PSScript=C:\POWER-SHELL-SCRIPTS\GEN-REPORT-ONLY.PS1<br>SET PowerShellDir=C:\Windows\System32\WindowsPowerShell\v1.0<br>pushd "%PowerShellDir%"<br>REM SET "FQ_Filename=%MP4_File_Path%%~1"<br>REM echo "FQ_Filename = %FQ_Filename%"<br>REM echo "BAR = %BAR%"<br>REM pause<br><br>            REM START DEBUG SECTION<br>                REM echo Powershell -Command "&amp; '%PSScript%' '%FQ_Filename%' '%MP4_File_Path%' '%Filename_No_Ext%'"<br>                REM pause<br>            REM END DEBUG SECTION<br>Powershell -Command "&amp; '%PSScript%' '%FQ_Filename%' '%MP4_File_Path%' '%Filename_No_Ext%'"<br><br><br>popd<br>goto :END_OF_LINE<br><br>:END_OF_LINE</pre>
+
+<h2 id='temp:C:MNW5728eac18be448578531d6844'>GEN-REPORT-ONLY.ps1</h2>
+
+<pre id='temp:C:MNWa9fe5fa70f4842e793040d5a4'>Set-Alias rh Read-Host<br>Set-Alias ds Write-Host<br><br>$path=$args[1]<br>$file_with_ext=$path + $args[0]<br>$filename=$args[2]<br>$file=$path + $filename<br>Write-Host "filename: $filename"<br>Write-Host "file: $file"<br>Write-Host "path: $path"<br><br># Start-Sleep 2<br># Make Sure the Path here is to the folder with ffmpeg.exe and ffprobe.exe<br>cd "C:\FFMPEG\bin" #"<br><br># $audioBook = $arg1<br># REM $Book = $arg2<br><br>#Get Chapters from file, Convert from json<br>$json = (.\ffprobe.exe -i "$file_with_ext" -show_chapters -print_format json) | Out-String | ConvertFrom-Json<br><br>#Output only endtimes to varible<br>$Endtimes = $json.chapters.end_time<br><br>#First start time is 0 seconds<br>$Starttime = 0.000000<br><br>#Cumulative<br>$Totaltime = 0.000000<br><br>$INFO = $INFO + "$filename `n" <br>$INFO = $INFO + "Section Length - ALL`n`n" <br><br>$Even_Or_Odd = "EVEN-OR-ODD"<br>$Eventime = 0.000000<br>$Oddtime = 0.000000<br>for ($i=0; $i -lt $Endtimes.length; $i++) {<br>    $ChapterNum = $i + 1<br>        # Report Code HERE<br>          if ($ChapterNum -eq 1) {   <br><br>             $Totaltime = $Endtimes[0]<br>             $ts = [timespan]::fromseconds($Endtimes[0])<br>             $tt = [timespan]::fromseconds($Totaltime)<br>             $INFO = $INFO + $ChapterNum + ":  "<br>             $INFO = $INFO + "00:00:00,000"<br>             $INFO = $INFO + "    "<br>             $INFO = $INFO + $tt.ToString("hh\:mm\:ss\,fff")<br>             $INFO = $INFO + "`n"<br>             Write-Host "First Value = " + $Endtimes[0] <br>             $Starttime = $Endtimes[$i] - $Endtimes[$i - 1]<br>             $Oddtime = $Oddtime + $Endtimes[0]<br>         }<br>         else<br>         {<br>            $Starttime = $Endtimes[$i] - $Endtimes[$i - 1]<br>            $Totaltime = $Endtimes[$i]<br>            $ts = [timespan]::fromseconds($Starttime)<br>            $tt = [timespan]::fromseconds($Totaltime)<br>            $INFO = $INFO + $ChapterNum + ":  "<br>            $INFO = $INFO + $ts.ToString("hh\:mm\:ss\,fff")<br>            $INFO = $INFO + "    "<br>            $INFO = $INFO + $tt.ToString("hh\:mm\:ss\,fff")<br>            $INFO = $INFO + "`n"<br>            Write-Host "$i Value = " + $Endtimes[$i] + "`n" <br>            if (0 -eq $Chapternum % 2 ) {<br>                # EVEN<br>                $Eventime = $Eventime + $Starttime<br>            } else {<br>                # ODD<br>                $Oddtime = $Oddtime + $Starttime<br>            }<br>         }<br> }<br>ds "EVEN: " $Eventime<br>ds "ODD:  " $Oddtime<br>if ($Eventime -gt $Oddtime) {<br>    $Infofile = "$file + EVEN.txt"<br>} else {<br>    $Infofile = "$file + ODD.txt"<br>}<br># rh "Press any key to continue."<br><br># String to show in the System Dialogue box with message of Chapter Length<br>$INFO = $INFO + "`nSection Length - ODD`n`n" <br># Report Info on Number of Chapters and Length<br>for ($i=0; $i -lt $Endtimes.length; $i+=2) {<br>    $ChapterNum = $i + 1<br>        # Report Code HERE<br>          if ($ChapterNum -eq 1) {   <br><br>             $Totaltime = $Endtimes[0]<br>             $ts = [timespan]::fromseconds($Endtimes[0])<br>             $tt = [timespan]::fromseconds($Totaltime)<br>             $INFO = $INFO + $ChapterNum + ":  "<br>             $INFO = $INFO + "00:00:00,000"<br>             $INFO = $INFO + "    "<br>             $INFO = $INFO + $tt.ToString("hh\:mm\:ss\,fff")<br>             $INFO = $INFO + "`n"<br>             Write-Host "First Value = " + $Endtimes[0] <br>             $Starttime = $Endtimes[$i] - $Endtimes[$i - 1]<br>         }<br>         else<br>         {<br>            $Starttime = $Endtimes[$i] - $Endtimes[$i - 1]<br>            $Totaltime = $Endtimes[$i]<br>            $ts = [timespan]::fromseconds($Starttime)<br>            $tt = [timespan]::fromseconds($Totaltime)<br>            $INFO = $INFO + $ChapterNum + ":  "<br>            $INFO = $INFO + $ts.ToString("hh\:mm\:ss\,fff")<br>            $INFO = $INFO + "    "<br>            $INFO = $INFO + $tt.ToString("hh\:mm\:ss\,fff")<br>            $INFO = $INFO + "`n"<br>            Write-Host "$i Value = " + $Endtimes[$i] + "`n" <br>         }<br> }<br><br>$INFO = $INFO + "`nSection Length - Even`n`n"  <br> for ($i=1; $i -lt $Endtimes.length; $i+=2) {<br>    $ChapterNum = $i + 1<br>    $Starttime = $Endtimes[$i] - $Endtimes[$i - 1]<br>    $Totaltime = $Endtimes[$i]<br>    $ts = [timespan]::fromseconds($Starttime)<br>    $tt = [timespan]::fromseconds($Totaltime)<br>    $INFO = $INFO + $ChapterNum + ":  "<br>    $INFO = $INFO + $ts.ToString("hh\:mm\:ss\,fff")<br>    $INFO = $INFO + "    "<br>    $INFO = $INFO + $tt.ToString("hh\:mm\:ss\,fff")<br>    $INFO = $INFO + "`n"<br>    Write-Host "$i Value = " + $Endtimes[$i] + "`n" <br> }<br><br><br>Write-Host "INFO = $INFO"<br><br>Write-Host "Endtime Length: " + $Endtimes.length<br># Start-Sleep 5<br> # Write Info to file<br> if ($Endtimes.length -gt 0)<br> {<br>    $Stream = [System.IO.StreamWriter]::new($Infofile)<br>    $Stream.WriteLine($INFO)<br>    $Stream.Close()<br> }<br>#rh "Press any key to continue."<br></pre>
+
+<span bgcolor="#fefccb" style="background-color:#fefccb"><b>NOTE: STEP 4</b></span><br/>
+
+<h2 id='temp:C:MNW45be1560fa6b466c8b8c1f9f9'>01_JoinMP4.bat</h2>
+
+<pre id='temp:C:MNWe61a2a4a77764655992391c5d'>@Echo Off<br><br>REM Join the Movie_Parts.mp4 into one Movie.mp4<br>for %%a in (Chapter*.mp4) do echo file '%%a' &gt;&gt; Concat_List.txt<br>ffmpeg -f concat -safe 0 -i Concat_List.txt -c copy -scodec copy "OUTPUT.mp4"</pre>
+
+<b><span bgcolor="#fefccb" style="background-color:#fefccb">NOTE: STEP 5</span></b><br/>
+
+<h2 id='temp:C:MNW5f7530d5b94c42af974e460a4'>02_FixSubs.ps1</h2>
+
+<pre id='temp:C:MNW941d7d30f7ff4055bd7a5fd5d'># Adjust the .SRT TimeSignatures<br># Add the Offset Time of the TOTAL of Previous Movie_Parts.MP4 to SRT<br><br>Set-Alias rh Read-Host<br>Set-Alias ds Write-Host<br><br>$FileNames = Get-ChildItem -Path '.\' -Name 'Chapter*.mp4' -File<br>$TotalSeconds = 000000<br><br># ' <br><br># Function to Change Seconds into Time Signature  EXAMPLE: 02:49:33,599<br># Mostly used for DEBUGGING and REPORTING<br>Function Convert_2_TimeSignature ($Secs){<br>     $ts =  [timespan]::fromseconds($Secs)<br>     ("{0:hh\:mm\:ss\,fff}" -f $ts)<br>}<br><br># Loop Through and Correct the VideoPart.MP4 Time Signatures<br>for ($i=0; $i -lt $FileNames.length; $i++ ) {<br>    $duration = (C:\FFMPEG\bin\ffprobe.exe $FileNames[$i] -v quiet -show_entries format=duration -of csv="p=0")<br>    $duration_time = (C:\FFMPEG\bin\ffprobe.exe $FileNames[$i] -sexagesimal -v quiet -show_entries format=duration -of csv="p=0")<br>    $TimeSig = Convert_2_TimeSignature($TotalSeconds)<br>    ds $FileNames[$i] " File (TimeStamp) " $duration_time " (Seconds): " $duration<br>    ds "The OFFSET is " $TotalSeconds " with Time Stamp: " $TimeSig ""<br><br>    $str = $Filenames[$i]<br><br>    #Remove .mp4 Extension from Filename    <br>    # Get the length of the string<br>    $len = $str.Length<br>    $len = $len - 4<br>    $temp = $str.Remove($len,4) + ".srt"<br>    $temp2 = "Corrected " + $temp<br>    # $temp now contains the Filename without the extension<br>    ds $temp<br><br>    # Adjust SUBTITLE Timestamps HERE by $TotalSeconds<br>    ffmpeg -itsoffset $TotalSeconds -i $temp -c copy .\$temp2<br>    <br>    $temp3 = $temp.remove(0, 13)<br>    <br>    # FOR NEXT LOOP<br>    $TotalSeconds += $duration    <br>}<br># Merge the Corrected Time-Stamp Subtitle Files into the original file<br>Get-Content -Path .\Corrected*.srt | Add-Content -Path .\$temp3<br><br>$len = $temp3.Length<br>$len = $len - 4<br>$temp4 = $temp3.Remove($len,4) + ".mp4"<br>    #$temp4 = $temp + ".mp4"<br>ds OUTPUT File Name<br>ds .\$temp4<br><br># rh "Press any key to continue."<br># Rename the OUTPUT.mp4 to the original name<br>Rename-Item -Path ".\OUTPUT.mp4" -NewName .\$temp4<br><br># CLEAN-UP on ISLE 4<br>del Chapter*.mp4<br>del Chapter*.srt<br>del Corrected*.mp4<br>del Corrected*.srt<br>del Concat_List.txt<br><br># rh "Press any key to continue."</pre>
+
+<b><span bgcolor="#fefccb" style="background-color:#fefccb">NOTE: The EVEN STEP 3 BAT</span></b><br/>
+
+<h2 id='temp:C:MNW0fc16baede924e0daba487220'><span bgcolor="#fefccb" style="background-color:#fefccb">ExtractSubtitles_EVEN</span>.bat :  also <span bgcolor="#fefccb" style="background-color:#fefccb">EVEN.bat</span> in C:\POWER-SHELL-SCRIPTS</h2>
+
+<span bgcolor="#fefccb" style="background-color:#fefccb">NOTE:  The Show with Subtitles:  Chapter2.mp4, Chapter4.mp4, Chapter6.mp4</span><br/>
+
+<span bgcolor="#fefccb" style="background-color:#fefccb">   The Commercials: Chapter1.mp4, Chapter3.mp4, Chapter5.mp4</span><br/>
+
+<pre id='temp:C:MNWf7bf0077225d45248f761d109'>REM # NOTE:  The following Batchfiles are basically a way <br>REM # to use the SendTo Feature of Windows so you can Right Click <br>REM # on a File and choose "Send To“ a batch file that <br>REM # calls the accompanying PowerScript file.</pre>
+
+<pre id='temp:C:MNW61a3ffa53b474d0ab9b859f2a'>@ECHO OFF<br><br>REM C:\DIR\DIR\DIR\FIle.mp4<br>SET arg1=%~1             <br><br>REM FIle    <br>SET arg2=%~n1<br><br>REM FIle.mp4<br>SET arg3=%~n1%~x1<br><br>REM C:\DIR\DIR\DIR\<br>SET dirpath=%~d1%~p1<br><br>SET backup=%~d1%~p1\backup<br><br>SET PSScript=C:\POWER-SHELL-SCRIPTS\ExtractSubtitles_EVEN.ps1<br>SET PowerShellDir=C:\Windows\System32\WindowsPowerShell\v1.0<br>CD /D "%PowerShellDir%"<br>Powershell -Command "&amp; '%PSScript%' '%arg1%' '%arg2%' '%dirpath%'"<br><br>copy "C:\POWER-SHELL-SCRIPTS\00_Run-Program.bat" "%dirpath%OUTPUT\"<br>copy "C:\POWER-SHELL-SCRIPTS\01_JoinMP4.bat" "%dirpath%OUTPUT\"<br>copy "C:\POWER-SHELL-SCRIPTS\02_FixSubs.ps1" "%dirpath%OUTPUT\"<br>copy "C:\POWER-SHELL-SCRIPTS\03_Move_To_Parent_Parent_2_Backup.bat" "%dirpath%OUTPUT\"<br>copy "C:\POWER-SHELL-SCRIPTS\101_RUN.bat" "%dirpath%"<br>copy "C:\POWER-SHELL-SCRIPTS\Sleep.bat" "%dirpath%"<br>copy "C:\POWER-SHELL-SCRIPTS\000_EVEN.bat" "%dirpath%"<br>copy "C:\POWER-SHELL-SCRIPTS\000_ODD.bat" "%dirpath%"<br>copy "C:\POWER-SHELL-SCRIPTS\Eliminate-Apostrophes.bat" "%dirpath%"<br><br>Sleep 1<br>pushd "%dirpath%"<br>call 101_RUN.bat<br>popd<br></pre>
+
+<b><span bgcolor="#fefccb" style="background-color:#fefccb">NOTE: The ODD STEP 3 BAT</span></b><br/>
+
+<h2 id='temp:C:MNW58ff791767a949d7a7379d73a'><span bgcolor="#fefccb" style="background-color:#fefccb">ExtractSubtitles_ODD.bat </span>:  also <span bgcolor="#fefccb" style="background-color:#fefccb">ODD.bat</span> in C:\POWER-SHELL-SCRIPTS</h2>
+
+<span bgcolor="#fefccb" style="background-color:#fefccb">NOTE:  The Show with Subtitles:  Chapter1.mp4, Chapter3.mp4, Chapter5.mp4</span><br/>
+
+<span bgcolor="#fefccb" style="background-color:#fefccb">   The Commercials: Chapter2.mp4, Chapter4.mp4, Chapter6.mp4</span><br/>
+
+<pre id='temp:C:MNW90089cd417454e218c76103ad'>@ECHO OFF<br><br>REM C:\DIR\DIR\DIR\FIle.mp4<br>SET arg1=%~1             <br><br>REM FIle    <br>SET arg2=%~n1<br><br>REM FIle.mp4<br>SET arg3=%~n1%~x1<br><br>REM C:\DIR\DIR\DIR\<br>SET dirpath=%~d1%~p1<br><br>SET backup=%~d1%~p1\backup<br><br>SET PSScript=C:\POWER-SHELL-SCRIPTS\ExtractSubtitles_ODD.ps1<br>SET PowerShellDir=C:\Windows\System32\WindowsPowerShell\v1.0<br>CD /D "%PowerShellDir%"<br><br><span bgcolor="#fefccb" style="background-color:#fefccb">REM </span><span bgcolor="#fefccb" style="background-color:#fefccb">The</span><span bgcolor="#fefccb" style="background-color:#fefccb"> </span><span bgcolor="#fefccb" style="background-color:#fefccb">Diamond</span><span bgcolor="#fefccb" style="background-color:#fefccb"> </span><span bgcolor="#fefccb" style="background-color:#fefccb">in</span><span bgcolor="#fefccb" style="background-color:#fefccb"> the </span><span bgcolor="#fefccb" style="background-color:#fefccb">Rough</span><span bgcolor="#fefccb" style="background-color:#fefccb">:</span><span bgcolor="#fefccb" style="background-color:#fefccb"> </span><span bgcolor="#fefccb" style="background-color:#fefccb">Batchfile</span><span bgcolor="#fefccb" style="background-color:#fefccb"> RUNS </span><span bgcolor="#fefccb" style="background-color:#fefccb">PowerShell</span><span bgcolor="#fefccb" style="background-color:#fefccb"> </span><span bgcolor="#fefccb" style="background-color:#fefccb">Script</span><br><span bgcolor="#fefccb" style="background-color:#fefccb">Powershell</span><span bgcolor="#fefccb" style="background-color:#fefccb"> </span><span bgcolor="#fefccb" style="background-color:#fefccb">-</span><span bgcolor="#fefccb" style="background-color:#fefccb">Command</span><span bgcolor="#fefccb" style="background-color:#fefccb"> </span><span bgcolor="#fefccb" style="background-color:#fefccb">"&amp; '%PSScript%' '%arg1%' '%arg2%' '%dirpath%'"</span><br><br>REM Debug<br>echo dirpath %dirpath%<br>echo textpath %dirpath%OUTPUT\Concat_List.txt<br>echo ffmpeg command Path %dirpath%\OUTPUT\Concat_List.txt<br>REM pause<br>REM for %%a in (.\OUTPUT\Chapter*.mp4) do echo file '%%a' &gt;&gt; .\OUTPUT\Concat_List.txt<br>REM ffmpeg -f concat -safe 0 -i .\OUTPUT\Concat_List.txt -c copy -scodec copy ".\OUTPUT\$VideoNameNoExtension.mp4" <br><br>copy "C:\POWER-SHELL-SCRIPTS\00_Run-Program.bat" "%dirpath%OUTPUT\"<br>copy "C:\POWER-SHELL-SCRIPTS\01_JoinMP4.bat" "%dirpath%OUTPUT\"<br>copy "C:\POWER-SHELL-SCRIPTS\02_FixSubs.ps1" "%dirpath%OUTPUT\"<br>copy "C:\POWER-SHELL-SCRIPTS\03_Move_To_Parent_Parent_2_Backup.bat" "%dirpath%OUTPUT\"<br>copy "C:\POWER-SHELL-SCRIPTS\101_RUN.bat" "%dirpath%"<br>copy "C:\POWER-SHELL-SCRIPTS\Sleep.bat" "%dirpath%"<br>copy "C:\POWER-SHELL-SCRIPTS\000_EVEN.bat" "%dirpath%"<br>copy "C:\POWER-SHELL-SCRIPTS\000_ODD.bat" "%dirpath%"<br>copy "C:\POWER-SHELL-SCRIPTS\Eliminate-Apostrophes.bat" "%dirpath%"<br><br>REM # Next 4 lines For 000_EVEN.bat and 000_ODD.bat only.<br>Sleep 1<br>pushd "%dirpath%"<br>call 101_RUN.bat<br>popd<br></pre>
+
+<b><span bgcolor="#fefccb" style="background-color:#fefccb">NOTE: The EVEN STEP 3 PS1</span></b><br/>
+
+<h2 id='temp:C:MNW640f5a4336994f969cd08a8a5'>ExtractSubtitles_EVEN.ps1  # For Show Chapters 2, 4, 6, 8</h2>
+
+<pre id='temp:C:MNWb359d5ef256c4923b7aa38282'>Set-Alias rh Read-Host<br>Set-Alias ds Write-Host<br><br># Function to Change Seconds into Time Signature  EXAMPLE: 02:49:33,599<br># Mostly used for DEBUGGING and REPORTING<br>Function Convert_2_TimeSignature ($Secs){<br>    $ts =  [timespan]::fromseconds($Secs)<br>    ("{0:hh\:mm\:ss\,fff}" -f $ts)<br>}<br><br># The first parameter sent to the file is the fully qualified Path and Filename<br>$videoIncludingPath=$args[0]<br># The second parameter is the Filename with NO extension<br>$VideoNameNoExtension=$args[1]<br># The third parameter is the Path Only<br>$VideoPathOnly=$args[2]<br>#ds $VideoNameNoExtension<br>#rh "TEST"<br>#Create TEMP folders<br>$SubDirPath = $VideoPathOnly + "OUTPUT"<br>if (Test-Path $SubDirPath) {   <br>    Write-Host "Folder Exists"<br>}<br>else<br>{<br>    #PowerShell Create directory if not exists<br>    New-Item -ItemType Directory -Path $SubDirPath<br>    Write-Host "Folder Created successfully"<br>}<br>#rh "Press any key to continue."<br><br># This file must be sent the Video as an argument to parse out the Start and End times<br>cd "C:\FFMPEG\bin"<br># DEBUG:<br>    # ds "$videoIncludingPath"<br>    # ds "$VideoNameNoExtension"<br>    # ds "$VideoPathOnly"<br>$json = (.\ffprobe.exe -i "$videoIncludingPath" -show_chapters -print_format json) | Out-String | ConvertFrom-Json<br><br>$Endtimes = $json.chapters.end_time<br>$Starttime = 0.000000<br><br><span bgcolor="#fefccb" style="background-color:#fefccb"># HEAVY LIFTING DONE HERE</span><br><span bgcolor="#fefccb" style="background-color:#fefccb"># Extract Video Parts</span><br><span bgcolor="#fefccb" style="background-color:#fefccb"># Extract Video Part Subtitles</span><br><span bgcolor="#fefccb" style="background-color:#fefccb"># The ONLY difference between </span><br><span bgcolor="#fefccb" style="background-color:#fefccb"># ExtractSubtitles_EVEN.ps1 and ExtractSubtitles_ODD.ps1 </span><br><span bgcolor="#fefccb" style="background-color:#fefccb"># The beginning of the FOR with EVEN: $i = 1 or ODD: $i = 0</span><br><br>for ($i=1; $i -lt $Endtimes.length; $i+=2) {<br>    $ChapterNum = $i + 1<br>    if ($ChapterNum  -le 9) {<br>        .\ffmpeg -i "$videoIncludingPath" -ss $Starttime -to $Endtimes[$i] -c copy "$SubDirPath\Chapter 0$chapterNum - $VideoNameNoExtension.mp4"<br>        .\ffmpeg -i "$VideoPathOnly$VideoNameNoExtension.mp4.eng.srt" -ss $Starttime -to $Endtimes[$i] "$SubDirPath\Chapter 0$chapterNum - $VideoNameNoExtension.srt"    <br>    } Else {<br>        .\ffmpeg -i "$videoIncludingPath" -ss $Starttime -to $Endtimes[$i] -c copy "$SubDirPath\Chapter $chapterNum - $VideoNameNoExtension.mp4"<br>        .\ffmpeg -i "$VideoPathOnly$VideoNameNoExtension.mp4.eng.srt" -ss $Starttime -to $Endtimes[$i] "$SubDirPath\Chapter $chapterNum - $VideoNameNoExtension.srt"    <br>    }<br>    $Starttime = $Endtimes[$i+1]<br> }<br> </pre>
+
+<b><span bgcolor="#fefccb" style="background-color:#fefccb">NOTE: The ODD STEP 3 PS1</span></b><br/>
+
+<h2 id='temp:C:MNWe5e603704e0848b19eaf222d5'>ExtractSubtitles_ODD.ps1   # For Show Chapters 1, 3, 5, 7</h2>
+
+<pre id='temp:C:MNWcd8246fba799435e996a17ddc'>Set-Alias rh Read-Host<br>Set-Alias ds Write-Host<br><br>Function Convert_2_TimeSignature ($Secs){<br>    $ts =  [timespan]::fromseconds($Secs)<br>    ("{0:hh\:mm\:ss\,fff}" -f $ts)<br>}<br><br># The first parameter sent to the file is the fully qualified Path and Filename<br>$videoIncludingPath=$args[0]<br># The second parameter is the Filename with NO extension<br>$VideoNameNoExtension=$args[1]<br># The third parameter is the Path Only<br>$VideoPathOnly=$args[2]<br>#ds $VideoNameNoExtension<br>#rh "TEST"<br>#Create TEMP folders<br>$SubDirPath = $VideoPathOnly + "OUTPUT"<br>if (Test-Path $SubDirPath) {   <br>    Write-Host "Folder Exists"<br>}<br>else<br>{<br>    #PowerShell Create directory if not exists<br>    New-Item -ItemType Directory -Path $SubDirPath<br>    Write-Host "Folder Created successfully"<br>}<br>#rh "Press any key to continue."<br><br># This file must be sent the Video as an argument to parse out the Start and End times<br>cd "C:\FFMPEG\bin"<br># DEBUG:<br>    # ds "$videoIncludingPath"<br>    # ds "$VideoNameNoExtension"<br>    # ds "$VideoPathOnly"<br>$json = (.\ffprobe.exe -i "$videoIncludingPath" -show_chapters -print_format json) | Out-String | ConvertFrom-Json<br><br>$Endtimes = $json.chapters.end_time<br>$Starttime = 0.000000<br><br><span bgcolor="#fefccb" style="background-color:#fefccb"># HEAVY LIFTING DONE HERE<br># Extract Video Parts<br># Extract Video Part Subtitles</span><br>for ($i=0; $i -lt $Endtimes.length; $i+=2) {<br>    $ChapterNum = $i + 1<br>    if ($ChapterNum  -le 9) {<br>        .\ffmpeg -i "$videoIncludingPath" -ss $Starttime -to $Endtimes[$i] -c copy "$SubDirPath\Chapter 0$chapterNum - $VideoNameNoExtension.mp4"<br>        .\ffmpeg -i "$VideoPathOnly$VideoNameNoExtension.mp4.eng.srt" -ss $Starttime -to $Endtimes[$i] "$SubDirPath\Chapter 0$chapterNum - $VideoNameNoExtension.srt"    <br>    } Else {<br>        .\ffmpeg -i "$videoIncludingPath" -ss $Starttime -to $Endtimes[$i] -c copy "$SubDirPath\Chapter $chapterNum - $VideoNameNoExtension.mp4"<br>        .\ffmpeg -i "$VideoPathOnly$VideoNameNoExtension.mp4.eng.srt" -ss $Starttime -to $Endtimes[$i] "$SubDirPath\Chapter $chapterNum - $VideoNameNoExtension.srt"    <br>    }<br>    $Starttime = $Endtimes[$i+1]<br> }<br> </pre>
+
+<h2 id='temp:C:MNW715cde9ad0414d578de4ee1de'><span style="color:#5a0ac2" textcolor="#5a0ac2">That took more than a year to figure out the whole puzzle, but now it’s working and improvements will be coming!  Yay!  Meanwhile, Lock EDITS on this Working version before it gets lost.</span></h2>
+
+</body></html>

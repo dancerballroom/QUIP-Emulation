@@ -1,0 +1,554 @@
+<!doctype html>
+<html><head><title>Build-TDs-TEST.bat  - Version 1.0</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:XVdce1b96bf90824d81801c3e0c4'>Build-TDs-TEST.bat  - Version 1.0</h1>
+
+<h2 id='temp:C:XVd9d569f6377d143889f6c3f59c'><a href="https://quip.com/citkAp1ijxva/Build-TDs-TESTbat-Version-10#temp:C:XVd092cd8dc9f3e41089079a1e16">Build-TDs</a></h2>
+
+<h2 id='temp:C:XVd639d4d3511774c86aac469e83'><a href="https://quip.com/citkAp1ijxva/Build-TDs-TESTbat-Version-10#temp:C:XVdb50eedae8bbb44b084d3c384b">Root-Build-TDs-COMMAND.txt</a></h2>
+
+<h2 id='temp:C:XVd404211db688540b5a612fc550'><a href="https://quip.com/citkAp1ijxva/Build-TDs-TESTbat-Version-10#temp:C:XVd7d475ba559864f7c8f7662181">main.html</a></h2>
+
+<h2 id='temp:C:XVd12976eb920e34ed3a4e588f80'><a href="https://quip.com/citkAp1ijxva/Build-TDs-TESTbat-Version-10#temp:C:XVd1358b852ec0d409ea27f1bab7">Browser - Main.html</a></h2>
+
+<h2 id='temp:C:XVd5cfc77ca13324d93adba5c511'>The tree</h2>
+
+<pre id='temp:C:XVd01c4b8ba77dd4afc92a06522c'>C:\Users\Larry\Desktop\DIR-TREE-GEN\WORKING\Build-TDs-Test&gt;tree<br>Folder PATH listing<br>Volume serial number is AA96-C106<br>C:.<br>└───resources<br>    ├───DIRS<br>    ├───FILES<br>    └───ROOT<br><br>C:\Users\Larry\Desktop\DIR-TREE-GEN\WORKING\Build-TDs-Test&gt;tree /f<br>Folder PATH listing<br>Volume serial number is AA96-C106<br>C:.<br>│   Build-TDs.bat<br>│   Document.jpg<br>│   Folder.jpg<br>│   main.html<br>│   MenuFolder.jpg<br>│   ROOT_Build-TDs.txt<br>│   styles.css<br>│<br>└───resources<br>    │   BOTTOM-MAIN.txt<br>    │   DIRS-TD.txt<br>    │   Document.jpg<br>    │   FILES-TD.txt<br>    │   Folder.jpg<br>    │   MenuFolder.jpg<br>    │   styles.css<br>    │   TOP-MAIN.txt<br>    │<br>    ├───DIRS<br>    │       Document.jpg<br>    │       Folder.jpg<br>    │       index.html<br>    │       main.html<br>    │       menu.html<br>    │       MenuFolder.jpg<br>    │       styles.css<br>    │<br>    ├───FILES<br>    │       Document.jpg<br>    │       Folder.jpg<br>    │       index.html<br>    │       main.html<br>    │       menu.html<br>    │       MenuFolder.jpg<br>    │       styles.css<br>    │<br>    └───ROOT<br>            DIR-TREE-GEN.bat<br>            Document.jpg<br>            Folder.jpg<br>            index.html<br>            main.html<br>            menu.html<br>            MenuFolder.jpg<br>            styles.css<br>            TREE-GEN-DATA.txt</pre>
+
+<h2 id='temp:C:XVd092cd8dc9f3e41089079a1e16'>Build-TDs.bat</h2>
+
+<pre id='temp:C:XVd77d908704e574ab2807d18ad7'>@echo off<br>Setlocal enabledelayedexpansion<br>set atom_resources=%~d0%~p0resources\<br>set cur_dir=%~d0%~p0<br>set file_resources=%~d0%~p0resources\FILES\*.*<br>set dir_resources=%~d0%~p0resources\DIRS\*.*<br><br>set main_html=!cur_dir!main.html<br>copy !atom_resources!*.jpg !cur_dir!<br>copy !atom_resources!styles.css !cur_dir!<br>type !atom_resources!TOP-MAIN.txt &gt; !main_html!<br><br>set /a count=0<br>set CRLF=^<br><br><br>Echo ^&lt;tr^&gt;  &gt;&gt; !main_html!<br><br>:top<br>::Main Menu<br>set dir_file_prompt="0 = Exit!CRLF!1 = DIR!CRLF!2 = FILE!CRLF!3 = Finish!CRLF!: "<br>set /a count+=1<br>set /p menuitem=!dir_file_prompt!<br>REM :: Menu Choices<br>REM :: 0 = Exit Program<br>IF "!menuitem!"=="0" (<br>    Exit 0<br>) ELSE IF "!menuitem!"=="1" (<br><br>REM :: DIR BEGIN<br>Echo ^&lt;td^&gt;^&amp;nbsp;  &gt;&gt; !main_html!<br>Echo ^&lt;div class=^"image-container^"^&gt;  &gt;&gt; !main_html!<br>Echo ^&lt;a href=^" &gt;&gt; !main_html!<br>REM :: DYNAMIC TOP MIDDLE<br>set /p HTML_Link="Directory Link (.html): " <br>Echo !HTML_Link! &gt;&gt; !main_html!<br><br>REM :: MIDDLE<br>echo ^" target=^"_top^"^&gt;^&lt;img src=^"Folder.jpg^" alt=^"image^"^&gt;  &gt;&gt; !main_html!<br>echo ^&lt;div class=^"overlay-text^"^&gt;  &gt;&gt; !main_html!<br>REM :: DYNAMIC BOTTOM MIDDLE<br><br>set /p HTML_Link_Name="Directory Name: " <br>Echo !HTML_Link_Name! &gt;&gt; !main_html!<br><br>REM :: DIR END<br>Echo ^&lt;/div^&gt; &gt;&gt; !main_html!<br>Echo ^&lt;/a^&gt; &gt;&gt; !main_html!<br>Echo ^&lt;/div^&gt; &gt;&gt; !main_html!    <br>Echo ^&lt;/td^&gt; &gt;&gt; !main_html!<br><br>IF "!count!"=="4" (<br>    Echo ^&lt;/tr^&gt; &gt;&gt; !main_html!<br>    set /a count=0<br>)<br>rem Echo ^&lt;/tr^&gt; &gt;&gt; !main_html!<br><br>goto :top<br>) ELSE IF "!menuitem!"=="2" (<br>REM :: FILES-TOP<br>Echo ^&lt;td^&gt;^&amp;nbsp; &gt;&gt; !main_html!<br>Echo ^&lt;div class=^"image-container^"^&gt; &gt;&gt; !main_html!<br>Echo ^&lt;a href=^"&gt;&gt; !main_html!<br>REM :: DYNAMIC TOP MIDDLE<br>set /p Document_Link="Document Link (HTML): " <br>Echo !Document_Link! &gt;&gt; !main_html!<br><br>REM :: MIDDLE<br>Echo ^" target=^"_self^"^&gt;^&lt;img src=^"Document.jpg^" alt=^"image^"^&gt; &gt;&gt; !main_html!<br>ECHO ^&lt;div class=^"overlay-text^"^&gt; &gt;&gt; !main_html!<br>REM :: DYNAMIC BOTTOM MIDDLE<br><br>set /p Document_Name="Document Name: " <br>Echo !Document_Name! &gt;&gt; !main_html!<br><br>REM :: FILES END<br>ECHO ^&lt;/div^&gt; &gt;&gt; !main_html!<br>ECHO ^&lt;/a^&gt; &gt;&gt; !main_html!<br>ECHO ^&lt;/div^&gt; &gt;&gt; !main_html!<br>ECHO ^&lt;/td^&gt; &gt;&gt; !main_html!<br>IF "!count!"=="4" (<br>    Echo ^&lt;/tr^&gt; &gt;&gt; !main_html!<br>    set /a count=0<br>)<br>goto :top<br>) ELSE IF "!menuitem!"=="3" (<br>REM :: Finish<br>Echo ^&lt;/tr^&gt; &gt;&gt; !main_html!<br>type !atom_resources!BOTTOM-MAIN.txt &gt;&gt; !main_html!<br>exit 0<br>goto :top<br>) ELSE (<br>  echo Try Again<br>  goto :top<br>)</pre>
+
+<h2 id='temp:C:XVdb50eedae8bbb44b084d3c384b'>ROOT_BUILD_TD.txt</h2>
+
+<pre id='temp:C:XVd322c81966f694b18a09e3ea04'>1<br>android-projects\index.html<br>Android Projects<br>1<br>code-snippets\index.html<br>Code Snippets<br>1<br>how-to\index.html<br>How To<br>1<br>larrys-today-in-tech\index.html<br>Larrys Today in Tech<br>1<br>music-projects\index.html<br>Music Projects<br>1<br>odds-and-ends\index.html<br>Odds and Ends<br>1<br>projects-complete\index.html<br>Projects Complete<br>1<br>pseudo-code\index.html<br>Pseudo Code<br>0</pre>
+
+<h2 id='temp:C:XVd7d475ba559864f7c8f7662181'>main.html</h2>
+
+<pre id='temp:C:XVd74a1f9734c7a4f2fac0af86d5'>&lt;!DOCTYPE html&gt;<br>&lt;html lang="en"&gt;<br>&lt;head&gt;<br>  &lt;meta charset="UTF-8"&gt;<br>  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>  &lt;title&gt;Image Overlay with Text&lt;/title&gt;<br>  &lt;link rel="stylesheet" href="styles.css"&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;table&gt;<br>   &lt;center&gt;<br>   &lt;button type="button" onClick="window.location.reload()"&gt;<br>      Reload Page ROOT-MAIN<br>   &lt;/button&gt;<br>   &lt;/center&gt;<br>&lt;tbody&gt;&lt;tr&gt;  <br>&lt;td&gt;&amp;nbsp;  <br>&lt;div class="image-container"&gt;  <br>&lt;a href=" <br>android-projects\index.html <br>" target="_top"&gt;&lt;img src="Folder.jpg" alt="image"&gt;  <br>&lt;div class="overlay-text"&gt;  <br>Android Projects <br>&lt;/div&gt; <br>&lt;/a&gt; <br>&lt;/div&gt;     <br>&lt;/td&gt; <br>&lt;td&gt;&amp;nbsp;  <br>&lt;div class="image-container"&gt;  <br>&lt;a href=" <br>code-snippets\index.html <br>" target="_top"&gt;&lt;img src="Folder.jpg" alt="image"&gt;  <br>&lt;div class="overlay-text"&gt;  <br>Code Snippets <br>&lt;/div&gt; <br>&lt;/a&gt; <br>&lt;/div&gt;     <br>&lt;/td&gt; <br>&lt;td&gt;&amp;nbsp;  <br>&lt;div class="image-container"&gt;  <br>&lt;a href=" <br>how-to\index.html <br>" target="_top"&gt;&lt;img src="Folder.jpg" alt="image"&gt;  <br>&lt;div class="overlay-text"&gt;  <br>How To <br>&lt;/div&gt; <br>&lt;/a&gt; <br>&lt;/div&gt;     <br>&lt;/td&gt; <br>&lt;td&gt;&amp;nbsp;  <br>&lt;div class="image-container"&gt;  <br>&lt;a href=" <br>larrys-today-in-tech\index.html <br>" target="_top"&gt;&lt;img src="Folder.jpg" alt="image"&gt;  <br>&lt;div class="overlay-text"&gt;  <br>Larrys Today in Tech <br>&lt;/div&gt; <br>&lt;/a&gt; <br>&lt;/div&gt;     <br>&lt;/td&gt; <br>&lt;/tr&gt; <br>&lt;td&gt;&amp;nbsp;  <br>&lt;div class="image-container"&gt;  <br>&lt;a href=" <br>music-projects\index.html <br>" target="_top"&gt;&lt;img src="Folder.jpg" alt="image"&gt;  <br>&lt;div class="overlay-text"&gt;  <br>Music Projects <br>&lt;/div&gt; <br>&lt;/a&gt; <br>&lt;/div&gt;     <br>&lt;/td&gt; <br>&lt;td&gt;&amp;nbsp;  <br>&lt;div class="image-container"&gt;  <br>&lt;a href=" <br>odds-and-ends\index.html <br>" target="_top"&gt;&lt;img src="Folder.jpg" alt="image"&gt;  <br>&lt;div class="overlay-text"&gt;  <br>Odds and Ends <br>&lt;/div&gt; <br>&lt;/a&gt; <br>&lt;/div&gt;     <br>&lt;/td&gt; <br>&lt;td&gt;&amp;nbsp;  <br>&lt;div class="image-container"&gt;  <br>&lt;a href=" <br>projects-complete\index.html <br>" target="_top"&gt;&lt;img src="Folder.jpg" alt="image"&gt;  <br>&lt;div class="overlay-text"&gt;  <br>Projects Complete <br>&lt;/div&gt; <br>&lt;/a&gt; <br>&lt;/div&gt;     <br>&lt;/td&gt; <br>&lt;td&gt;&amp;nbsp;  <br>&lt;div class="image-container"&gt;  <br>&lt;a href=" <br>pseudo-code\index.html <br>" target="_top"&gt;&lt;img src="Folder.jpg" alt="image"&gt;  <br>&lt;div class="overlay-text"&gt;  <br>Pseudo Code <br>&lt;/div&gt; <br>&lt;/a&gt; <br>&lt;/div&gt;     <br>&lt;/td&gt; <br>&lt;/tr&gt; </pre>
+
+<h2 id='temp:C:XVd1358b852ec0d409ea27f1bab7'>Browser: main.html</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/XVdAAAGitQk/JjucUrG146YktoarU6Luwg?a=aGZIlhWXK9xh7rKViNjippoZ0nHQ2SxMBp65TYS09AQa' id='temp:C:XVd1aa7615d98f7421e82ce9b1d0' alt="000434 - Image Overlay with Text.jpg"></img></div><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

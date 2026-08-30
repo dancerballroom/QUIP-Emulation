@@ -1,0 +1,609 @@
+<!doctype html>
+<html><head><title>Shopping List - 04/14/2023</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+</style></head><body><h1 id='temp:C:BAe65f631ac90e54a359a5807c5e'>Shopping List - 04/14/2023</h1>
+
+Meals:   <control data-remapped="true" id="temp:C:BAeb5f170789b584f7bbbaff13f3"><a href="https://quip.com/FBQZAsBsXRjx">Judith's Beef and Bourbon</a></control>, <control data-remapped="true" id="temp:C:BAe4f75c633356d421bbfb22e428"><a href="https://quip.com/sR1qAfS0stLC">Chicken Pot Pie Casserole</a></control><br/>
+
+Route:  Grocery Outlet (Bourbon, Red Wine) , FoodMaxx<br/>
+
+<div data-section-style='7' class="" style=""><ul id='temp:C:BAec3374d5610ab41f2bbefc096b'><ul><li id='temp:C:BAef22e18a93c804596bea4572ee' class='parent' value='1'><b>Meat / Deli / Spices / Bread / PB&amp;J </b>
+
+<br/></li><ul><li id='temp:C:BAedb01cf4bfd514ceb82394569f' class=''>2  lb.  lean beef, cubed
+
+<br/></li><li id='temp:C:BAe86c8ee12d6b74000bb64ff432' class=''>2 lbs. Chicken Breast
+
+<br/></li><li id='temp:C:BAe4fb5bfd28b5c4f00b75fde67a' class=''>Eng. Muffins
+
+<br/></li><li id='temp:C:BAe18aa7f4e218c49b29f40e486e' class=''>Bagels
+
+<br/></li></ul><li id='temp:C:BAe8dc91224d9254a5a8fa2d13e6' class='parent'><b>Dairy / Cheese / Milk / Creamer</b>
+
+<br/></li><ul><li id='temp:C:BAe7800ca4b402546c1910f7a06c' class=''>2 Cubed Butter
+
+<br/></li><li id='temp:C:BAeaf364c9b0d9d4ab1adb29f01a' class=''>Milk
+
+<br/></li><li id='temp:C:BAef8f7583964b44a6ebde5aeffd' class=''>Creamers
+
+<br/></li><li id='temp:C:BAe1c70051b335c4d388d9bca7a8' class=''>2 x 18 Eggs
+
+<br/></li><li id='temp:C:BAe953dcc0ca07d449b93e5152d3' class=''>Block Cheese
+
+<br/></li><li id='temp:C:BAec57902d6b7514c8fbed3fa690' class=''>Sour Cream
+
+<br/></li><li id='temp:C:BAedd698f5d9d804cf0b6a936a7e' class=''>
+
+<br/></li></ul><li id='temp:C:BAeadf029d85ab645bc9c3f1fd09' class='parent'><b>Cans / Jars / Boxes / Bars / Bottles / Bags </b>
+
+<br/></li><ul><li id='temp:C:BAe46fa683354e5480393d1d1deb' class=''>Specialty Soups
+
+<br/></li><li id='temp:C:BAe6f3f1735c5bd4674b1c230e50' class=''>4 Cream of Chicken Soups
+
+<br/></li><li id='temp:C:BAebb74442999e34368941625e35' class=''>Beef Broth
+
+<br/></li><li id='temp:C:BAe1a405340393f4922a8930efce' class=''>Tuna
+
+<br/></li></ul><li id='temp:C:BAe85d15a0b4b6e45aa9901bc281' class='parent'><b>Vegetables / Fruits / Frozen</b>
+
+<br/></li><ul><li id='temp:C:BAeab486251c1cd4d1f8ebb0addf' class=''>Bananas
+
+<br/></li><li id='temp:C:BAe1906cc38187340b491dd40b59' class=''>Mushrooms
+
+<br/></li><li id='temp:C:BAe018088e27e634fcdbf1885a2d' class=''>Onion
+
+<br/></li><li id='temp:C:BAeaf4bdcfb1ce14e4cbb36678f9' class=''>Avocados
+
+<br/></li><li id='temp:C:BAe7ca1bca444664f04979313457' class=''>Frozen Peas and Carrots
+
+<br/></li><li id='temp:C:BAe1fa5f50ec0b64297a9a9787f0' class=''><span style="color:#414141" textcolor="#414141">Frozen Diced Potatoes</span>
+
+<br/></li><li id='temp:C:BAeae1429abdbc444dbb8eee5870' class=''>Frozen 4 Mrs. Smith Pie or <span style="color:#414141" textcolor="#414141">Crescent Rolls.</span>
+
+<br/></li></ul></ul></ul></div><br/>
+
+<b>HOME</b>:<br/>
+
+<div data-section-style='7' class="" style=""><ul id='temp:C:BAea5540c3a61c54a8bbe4c162b1'><li id='temp:C:BAed2adb88c744243ccae0337968' class='' value='1'>Coffee Creamer
+
+<br/></li><li id='temp:C:BAeb12947cc9e1e466695aec9fd1' class=''>Dipping Sauce BBQ Sauce
+
+<br/></li><li id='temp:C:BAe7a0455c4433646ebb6d953592' class=''>
+
+<br/></li><li id='temp:C:BAef8fbe6fb1e684c6fb78dbd140' class=''>
+
+<br/></li><li id='temp:C:BAe51f7f6f8f56940759d02309ec' class=''>
+
+<br/></li></ul></div><br/>
+
+<br/>
+
+<br/>
+
+CONTINUED...<br/>
+
+<div data-section-style='7' class="" style=""><ul id='temp:C:BAe73e9d72615694326ba46f5f70'><li id='temp:C:BAe48e1712a5c8749a588e9855a4' class='parent' value='1'><b>Miscellaneous</b>
+
+<br/></li><ul><li id='temp:C:BAe51df79b6b24c45188ff44b706' class=''>Bourbon
+
+<br/></li><li id='temp:C:BAe3c3ee1fd3e65447dbfaab1304' class=''>Red Wine
+
+<br/></li></ul><li id='temp:C:BAee1b6de265fc64109ba4a28f63' class='parent'><b>Cans. etc</b>
+
+<br/></li><ul><li id='temp:C:BAe625eca42e8d5464283fb074b9' class=''>1 lg. can Tomatoes Cubed
+
+<br/></li><li id='temp:C:BAe92ec1a3e5daa454f99512ab68' class=''>Pudding
+
+<br/></li><li id='temp:C:BAe695172dd2f9a44198347eeb50' class=''>Refried Beans
+
+<br/></li><li id='temp:C:BAee063700ef24c47bc8a263cfbf' class=''>Tuna (if on SALE)
+
+<br/></li><li id='temp:C:BAe3f1a29a43aec4763ade3df15b' class=''>Flour Tortillas
+
+<br/></li></ul></ul></div></body></html>

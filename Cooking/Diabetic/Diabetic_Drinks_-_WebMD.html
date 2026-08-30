@@ -1,0 +1,680 @@
+<!doctype html>
+<html><head><title>Diabetic Drinks - WebMD</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+</style></head><body><h1 id='ZMcACAzIrDK'>Diabetic Drinks - WebMD</h1>
+
+<h3 id='ZMcACASeXwc'>1. Chocolate Milk</h3>
+
+This treat may remind you of the school lunchroom, but it’s a good calcium-rich choice for grown-ups as well. Low-fat chocolate milk can be a good post-workout recovery drink. The bad news: Ready-made brands come packed with sugar. Try this at home: <br/>
+
+<br/>
+
+<div data-section-style='6' style="" class=""><ul id='ZMcACAYFFei'><li id='ZMcACAmahvA' class='' value='1'>Mix 1% milk, 
+
+<br/></li><li id='ZMcACAyDFed' class=''>3 teaspoons of cocoa powder, and 
+
+<br/></li><li id='ZMcACAq59ps' class=''>2 tablespoons of the zero-calorie sweetener of your choice. 
+
+<br/></li></ul></div><br/>
+
+It saves you 70 calories, 16 grams of carbs, and 2 grams of fat compared to 1 cup of store-bought, reduced-fat chocolate milk.<br/>
+
+<br/>
+
+<h3 id='ZMcACAUizLs'>2. Sweet Tea</h3>
+
+A 16-ounce fast-food version might have up to 36 grams of carbs. That’s a lot of sugar, especially when there are carb-free choices, like sugar-free iced tea or iced tea crystals, that are just as satisfying. But you can also easily make your own: <br/>
+
+<br/>
+
+<div data-section-style='6' style="" class=""><ul id='ZMcACAegit9'><li id='ZMcACAZt2Oe' class='' value='1'>Steep tea with your favorite crushed fruit (raspberries are a good choice). 
+
+<br/></li><li id='ZMcACAiuGEG' class=''>Strain, 
+
+<br/></li><li id='ZMcACAGvAbz' class=''>chill, and then 
+
+<br/></li><li id='ZMcACAejh07' class=''>sweeten with your choice of no-calorie sugar substitute. 
+
+<br/></li></ul></div><br/>
+
+That’s a tall glass of refreshment.<br/>
+
+<br/>
+
+<h3 id='ZMcACA0Tf4m'>3. Chai Latte</h3>
+
+It’s sweet, spicy, fragrant, and creamy. What’s not to love? The typical coffeehouse version packs a whopping 33 grams of carbs. But you can easily make one that's a lot lighter. <br/>
+
+<br/>
+
+<div data-section-style='6' style="" class=""><ul id='ZMcACAp3qc0'><li id='ZMcACAKshG6' class='' value='1'>Steep one or two chai tea bags 
+
+<br/></li><li id='ZMcACAPu1XA' class=''>in a cup of unsweetened almond milk, and 
+
+<br/></li><li id='ZMcACAneV6M' class=''>spice it up with cinnamon and 
+
+<br/></li><li id='ZMcACAdpgF8' class=''>black pepper 
+
+<br/></li></ul></div><br/>
+
+for an extra flavor kick. <br/>
+
+That’s a warm treat with less than 1 gram of carbs.<br/>
+
+<br/>
+
+<h3 id='ZMcACApMQlY'>4. Lemonade</h3>
+
+Nothing says summer like this drink. But 16 ounces of a popular brand served at restaurants gives you 60 grams of carbs. Your best bet is to make lemonade at home. <br/>
+
+<br/>
+
+<div data-section-style='6' style="" class=""><ul id='ZMcACAnq9j2'><li id='ZMcACAMifpo' class='' value='1'>Mix water, 
+
+<br/></li><li id='ZMcACAC6UAN' class=''>fresh-squeezed lemons, 
+
+<br/></li><li id='ZMcACAIbFvn' class=''>zero-calorie sweetener, 
+
+<br/></li><li id='ZMcACAKCJfO' class=''>and ice 
+
+<br/></li></ul></div><br/>
+
+for a truly refreshing beverage without a single carb or calorie in sight.<br/>
+
+<br/>
+
+<h3 id='ZMcACAl8PIz'>5. Hot Chocolate</h3>
+
+It’s the ultimate in decadent drinks. Coffeehouse-style versions of this classic are packed with carbs. A typical medium hot chocolate made with low-fat milk has 60 grams. Good news: You can make your own satisfying mug for less than half that. <br/>
+
+<br/>
+
+<div data-section-style='6' style="" class=""><ul id='ZMcACA4I7dB'><li id='ZMcACArapZ7' class='' value='1'>Mix 1 cup of low-fat milk with 
+
+<br/></li><li id='ZMcACAzdGGC' class=''>2 squares of 70% dark chocolate, 
+
+<br/></li><li id='ZMcACA2RHkz' class=''>1 teaspoon of vanilla, and a little 
+
+<br/></li><li id='ZMcACAREori' class=''>cinnamon. 
+
+<br/></li><li id='ZMcACACk2xK' class=''>Melt in a saucepan, 
+
+<br/></li></ul></div><br/>
+
+and enjoy it for only 23 grams of carbs.<br/>
+
+<br/>
+
+<h3 id='ZMcACAIXl6d'>6. Fruit Smoothie</h3>
+
+It seems like a healthy choice, but store-bought versions almost always include a lot of carbs and sugar. One 12-ounce mango-flavored smoothie from a popular chain, for example, has 58.5 grams of carbs. That’s equal to an apple and a sandwich combined. Substitute a homemade berry smoothie, with <br/>
+
+<br/>
+
+<div data-section-style='6' style="" class=""><ul id='ZMcACAYwbnw'><li id='ZMcACA9qP4a' class='' value='1'>half a cup each of blueberries, 
+
+<br/></li><li id='ZMcACAaFhXt' class=''>strawberries, and 
+
+<br/></li><li id='ZMcACAZkFNE' class=''>banana. 
+
+<br/></li></ul></div><br/>
+
+Blend with some ice and enjoy for about half the amount of carbs.<br/>
+
+<br/>
+
+<h3 id='ZMcACA4p3GB'>7. Ginger Ale</h3>
+
+A 20-ounce bottle can have 60 grams of carbs. You can have more of the zesty flavor with none of the sugar or carbs by adding a <br/>
+
+<br/>
+
+<div data-section-style='6' style="" class=""><ul id='ZMcACA3BdG0'><li id='ZMcACArg5iY' class='' value='1'>spoonful of finely grated ginger to a 
+
+<br/></li><li id='ZMcACANI6rJ' class=''>glass of seltzer water. Add a bit of your favorite 
+
+<br/></li><li id='ZMcACA6HtTT' class=''>zero-calorie sugar substitute, 
+
+<br/></li></ul></div><br/>
+
+and enjoy.<br/>
+
+<br/>
+
+<h3 id='ZMcACAjmEYZ'>8. Café Mocha</h3>
+
+Chocolate and coffee are a great pairing. The bittersweet flavor combo makes it a popular coffeehouse drink. But some have more than 300 calories and 40 grams of carbs, so it’s not your best choice. Instead, make your mocha by mixing <br/>
+
+<br/>
+
+<div data-section-style='6' style="" class=""><ul id='ZMcACAUCaHV'><li id='ZMcACAGXi41' class='' value='1'>1 cup of brewed coffee with 
+
+<br/></li><li id='ZMcACAT43Tl' class=''>1 tablespoon of cocoa powder, 
+
+<br/></li><li id='ZMcACAAVubI' class=''>2 tablespoons of low-fat milk, and a little of your favorite 
+
+<br/></li><li id='ZMcACADiSRc' class=''>zero-calorie sugar substitute. 
+
+<br/></li></ul></div><br/>
+
+You’ll save more than 300 calories, 40 grams of carbs, and 14 grams of fat.<br/>
+
+<br/>
+
+Source REF:<br/>
+
+<a href="http://www.webmd.com/diabetes/daily-control-15/slideshow-diabetes-friendly-drinks?ecd=socpd_fb_nosp_1667_cm284">http://www.webmd.com/diabetes/daily-control-15/slideshow-diabetes-friendly-drinks?ecd=socpd_fb_nosp_1667_cm284</a><br/>
+
+<br/>
+
+</body></html>

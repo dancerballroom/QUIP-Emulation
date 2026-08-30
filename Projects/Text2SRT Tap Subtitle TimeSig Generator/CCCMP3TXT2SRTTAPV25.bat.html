@@ -1,0 +1,538 @@
+<!doctype html>
+<html><head><title>CCC_MP3_TXT2SRT_TAP_V25.bat</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:XZC0d73d43d0561446089c599d6e'>CCC_MP3_TXT2SRT_TAP_V25.bat</h1>
+
+<b>Program</b>:  Create Subtitle “File.srt”<br/>
+
+<b>Requires</b>:<br/>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:XZC8515cc1cb8e149418851533d2'><li id='temp:C:XZC7984b5ce87474e26ade442841' class='' value='1'>“File.mp3” Audio
+
+<br/></li><li id='temp:C:XZC6de4280428514923864a84a97' class=''>“File.txt”  FLAT FILE Lyrics without Time Signatures
+
+<br/></li><li id='temp:C:XZC16bb62dbf13549c7b0659dc26' class=''>CCC_MP3_TXT2SRT_TAP_V25.bat
+
+<br/></li></ul></div><b>Procedure</b>:<br/>
+
+<div style="" class="" data-section-style='6'><ul id='temp:C:XZCe9cfe544e5b4470a869db814a'><li id='temp:C:XZCb62282b226a4488291434bb62' class='' value='1'>DRAG/DROP “File.mp4” on to CCC_MP3_TXT2SRT_TAP_V25.bat
+
+<br/></li><li id='temp:C:XZC2c4ec82d1b98474da33eacf6c' class=''>After Program starts Playing “File.mp4”, Manually click back to CMD Window to Give Focus
+
+<br/></li><li id='temp:C:XZCfd9ceba9cf4546d889cbbfb7b' class=''>FIRST TIME: Click ONCE at beginning of Singing or Talking
+
+<br/></li><li id='temp:C:XZC0e2a5059094e41e799636354f' class=''>FOR-EACH New Set of 2 LINES: Click ONCE at the end of Singing or Talking.
+
+<br/></li><li id='temp:C:XZC30fbc1c0612148eea8f90cdce' class=''>At End of Song, Click ONCE to establish the LAST Termination Time
+
+<br/></li><li id='temp:C:XZC1854d2225a3743fea16b4c6cd' class=''>Click ONCE to END Program
+
+<br/></li><li id='temp:C:XZCec12be786c76402f8d3f08bcf' class=''>OPEN “File.mp4 with ”Subtitle Edit” and make Synchronization adjustment.
+
+<br/></li><li id='temp:C:XZCa2c33ea9057844b1982a52017' class=''>DONE!
+
+<br/></li></ul></div><h2 id='temp:C:XZC58e366d48a444032b88c016fe'>CCC_MP3_TXT2SRT_TAP_V24.bat (Updated 3/17/2025 @7PM)</h2>
+
+<pre id='temp:C:XZCd6e4b6f4e0ae498fae3c8bc82'>@Echo Off<br>SETLOCAL enabledelayedexpansion<br><br>REM Set Up ANSI for COLOR<br>CALL :setESC<br><br>REM Show HELP if NOT MP3 DRAG/DROPPED or ARG1 missing<br>IF "%~1" == "" (<br>     CALL :Help<br>     EXIT<br>)<br><br>REM             TRUE = SHOW DEBUGGING <br>set /A TRUE=1<br>REM             FALSE = HIDE DEBUGGING<br>set /A FALSE=0<br>REM SHOW/HIDE DEBUGGING<br>set /A DEBUG=!FALSE!<br><br>SET FIRST_TIME=%TIME%<br><br>REM LOAD Subtitle TEXT-ONLY-FILE<br>SET File="%~d1%~p1%~n1.txt"<br>CALL :LOAD_TEXT output line_count !File!<br>SET /A TEST_LIMIT=(!line_count!/2)+2<br><br>REM *** BELOW this line SET CRLF Leave 2 Lines Blank ***<br>SET CRLF=^<br><br><br>REM *** ABOVE this line SET CRLF Leave 2 Lines Blank ***<br>set /A count=!count!+1  <br>REM Loop Counter<br><br>CALL :CALC_FIRST_TIME !FIRST_TIME! firsttime<br>CALL :NUM2STR_FIRST_TIME firsttime FIRST_TIME_STR<br>if !DEBUG! EQU !TRUE! ECHO TIME: !FIRST_TIME!<br>if !DEBUG! EQU !TRUE! Echo firsttime Number: !firsttime!<br>if !DEBUG! EQU !TRUE! Echo firsttime String: !FIRST_TIME_STR!<br><br>Start /b "" "%~d1%~p1%~n1%~x1"<br><br>REM COPY NAME-SESSION.MP3<br>REM OUTPUT-FILE: NAME-SESSION.SRT<br>if !DEBUG! EQU !TRUE! ECHO LINE 45<br>SET SRT_NAME="%~d1%~p1%~n1-!firsttime!.srt"<br>copy "%~d1%~p1%~n1%~x1" "%~d1%~p1%~n1-!firsttime!%~x1"<br>cls<br>if !DEBUG! EQU !TRUE! ECHO LINE 48<br><br>:BEGIN<br>if !DEBUG! EQU !TRUE! Echo BEGIN<br><br>if !count! GEQ 2 (<br>    SET /A MODULUS="!count! %% 2"<br>    REM PROCESS after LINE1 Start and LINE2 End Processed<br>    if !MODULUS! == 0 (    <br>        SET NEXT_TIME=%TIME%<br>        CALL :CALC_NEXT_TIME !NEXT_TIME! nexttime<br>        CALL :NUM2STR_NEXT_TIME nexttime NEXT_TIME_STR<br>        CALL :CALC_SRT_NEXT_TIME nexttime firsttime srtnexttime<br>        CALL :NUM2STR_SRT_DIFFERENCE_TIME srtnexttime SRT_DIFFERENCE_TIME_STR<br>if !DEBUG! EQU !TRUE! ECHO LINE 62<br>        SET /A DUAL_COUNT=!DUAL_COUNT! + 1<br>        SET /A Minus_One=!DUAL_COUNT!<br>        set SUBT[!Minus_One!][0]=!SRT_DIFFERENCE_TIME_STR!<br>        Set /A LINE_0=!SUBTITLE_COUNT! - 1<br>        for %%i in (!LINE_0!) do (<br>            set element=!output[%%i]!<br>            set SUBT[!DUAL_COUNT!][1]=!element!<br>        )<br>        Set /A LINE_1=!SUBTITLE_COUNT! + 0<br>        for %%i in (!LINE_1!) do (<br>            set element=!output[%%i]!<br>            set SUBT[!DUAL_COUNT!][2]=!element!<br>        )<br>        Set /A LINE_2=!SUBTITLE_COUNT! + 1<br>        for %%i in (!LINE_2!) do (<br>            set element=!output[%%i]!<br>            set SUBT[!DUAL_COUNT!][3]=!element!<br>        )<br>        Set /A LINE_3=!SUBTITLE_COUNT! + 2<br>        for %%i in (!LINE_3!) do (<br>            set element=!output[%%i]!<br>            set SUBT[!DUAL_COUNT!][4]=!element!<br>        )<br>        Set /A LINE_4=!SUBTITLE_COUNT! + 3<br>        for %%i in (!LINE_4!) do (<br>            set element=!output[%%i]!<br>            set SUBT[!DUAL_COUNT!][5]=!element!<br>        )<br>        Set /A LINE_5=!SUBTITLE_COUNT! + 4<br>        for %%i in (!LINE_5!) do (<br>            set element=!output[%%i]!<br>            set SUBT[!DUAL_COUNT!][6]=!element!<br>        )<br>if !DEBUG! EQU !TRUE! ECHO LINE 97<br>        <br>REM ANSI COLOR REFERENCE<br>REM !ESC![7mINVERSE!ESC![0m<br>REM !ESC![44mWhite Foreground Blue Background!ESC![0m<br>REM !ESC![91mRed!ESC![0m<br>REM !ESC![94mBlue!ESC![0m<br>REM !ESC![96mCyan!ESC![0m<br>REM !ESC![97mWhite!ESC![0m<br>        REM if !DUAL_COUNT! GEQ 3 ( CLS )<br>        if !DUAL_COUNT! GEQ 3 (CLS)<br>        for /l %%n in (!DUAL_COUNT!,1,!DUAL_COUNT!) do (<br>             REM echo SUBT %%n: !SUBT[%%n][1]!<br>           if !DUAL_COUNT! LSS 2 (<br>             echo ********* %%n of !TEST_LIMIT! **********<br>             If !SUBTITLE_COUNT! LSS 2 (echo ----- Press Enter at Beginning -------)<br>             echo SUBT %%n: !ESC![44m!SUBT[%%n][3]!!ESC![0m<br>             echo SUBT %%n: !ESC![91m!SUBT[%%n][4]!!ESC![0m<br>             echo ----------- SPLIT POINT ------------------<br>             echo SUBT %%n: !ESC![96m!SUBT[%%n][5]!!ESC![0m           <br>             echo SUBT %%n: !ESC![93m!SUBT[%%n][6]!!ESC![0m<br>           )<br>           if !DUAL_COUNT! GTR 2 (<br>             echo ********* %%n of !TEST_LIMIT! **********<br>             echo SUBT %%n: !ESC![93m!SUBT[%%n][1]!!ESC![0m<br>             echo SUBT %%n: !ESC![44m!SUBT[%%n][2]!!ESC![0m<br>             echo ----------- SPLIT POINT ------------------<br>             echo SUBT %%n: !ESC![91m!SUBT[%%n][3]!!ESC![0m<br>             echo SUBT %%n: !ESC![96m!SUBT[%%n][4]!!ESC![0m<br>           )<br>        )<br>        SET /A SUBTITLE_COUNT=!SUBTITLE_COUNT! + 1<br>        SET /a SUBTITLE_NEXT=!SUBTITLE_COUNT! + 1<br>        SET /P wait="........[ READ Next 2 Lines ].........."<br>        echo ********* CURRENT ABOVE **********<br>        SET /A SUBTITLE_COUNT=!SUBTITLE_COUNT! + 1<br>    )<br>)<br>SET /A count=!count! + 1<br>if !DUAL_COUNT! EQU !TEST_LIMIT! (<br>        set /A TEST_LIMIT_M1 = !TEST_LIMIT! - 1<br>        for /l %%m in (1,1,!TEST_LIMIT_M1!) do (<br>             Set /A Next_N = %%m + 1<br>             Set /A M_MINUS_ONE = %%m - 1<br>             if %%m lss !TEST_LIMIT_M1! (Echo %%m)<br>             if %%m lss !TEST_LIMIT_M1! (Echo %%m&gt;&gt;!SRT_NAME!)<br>             for /l %%n in (!Next_N!,1,!Next_N!) do (<br>                if %%n lss !TEST_LIMIT! (<br>                    REM echo SUBT %%n: !SUBT[%%m][1]! --^&gt; !SUBT[%%n][1]!<br>                    echo !SUBT[%%m][0]!5 --^&gt; !SUBT[%%n][0]!5<br>                    echo !SUBT[%%m][0]!5 --^&gt; !SUBT[%%n][0]!5 &gt;&gt; !SRT_NAME!<br>                    if %%m lss !TEST_LIMIT_M1! (echo !SUBT[%%n][1]!)<br>                    if %%m lss !TEST_LIMIT_M1! (echo !SUBT[%%n][1]!&gt;&gt;!SRT_NAME!)<br>                    if %%m lss !TEST_LIMIT_M1! (echo !SUBT[%%n][2]!)<br>                    if %%m lss !TEST_LIMIT_M1! (echo !SUBT[%%n][2]!&gt;&gt;!SRT_NAME!)<br>                )<br>            )<br><br>            echo.<br>            (echo.)&gt;&gt;!SRT_NAME!<br>        )<br>        Echo End of Program...<br>    pause<br>    SET /P wait="........[ EXITING PROGRAM ].........."<br>    Exit<br>)<br><br>REM END-MAIN-LOOP<br>GOTO :BEGIN<br><br>REM FUNCTIONS SECTION<br>:CALC_FIRST_TIME<br>if !DEBUG! EQU !TRUE! ECHO CALC_FIRST_TIME<br>for /F "tokens=1-4 delims=:.," %%a in ("!FIRST_TIME!") do (<br>    set /A "firsttime=(((%%a*60)+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 100"<br>) <br>Exit /b<br><br>:CALC_START_TIME<br>if !DEBUG! EQU !TRUE! ECHO CALC_START_TIME<br>for /F "tokens=1-4 delims=:.," %%a in ("!START_TIME!") do (<br>    set /A "starttime=(((%%a*60)+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 100"<br>    set /A starttime=!starttime! + 232<br>) <br>Exit /b<br><br>:CALC_NEXT_TIME<br>if !DEBUG! EQU !TRUE! ECHO CALC_NEXT_TIME<br>for /F "tokens=1-4 delims=:.," %%a in ("!NEXT_TIME!") do (<br>    set /A "nexttime=(((%%a*60)+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 100"<br>    set nexttime=!nexttime! + 232<br>) <br>Exit /b<br><br>:LOAD_TEXT<br>if !DEBUG! EQU !TRUE! ECHO LOAD_TEXT<br>     echo !File!<br>     set /a line_count=0<br>     set /a lines=0<br>     for /F "tokens=*" %%a in ('Type !File!') do (<br>         Set /a line_count=!line_count!+1<br>         Set output[!line_count!]=%%a<br>     )<br>     Echo Total Lines (line_count):      !line_count!<br>Exit /b<br><br>:SHOW_LINE<br>if !DEBUG! EQU !TRUE! ECHO SHOW_LINE<br>for %%i in (!SUBTITLE_COUNT!) do (<br>    set element=!output[%%i]!<br>    echo !element!<br>    set /a SECOND=!SUBTITLE_COUNT!+1<br>    for %%j in (!SECOND!) do (<br>      set element2=!output[%%j]!<br>    )<br>    echo !element2!<br>)<br>Exit /b<br><br>:NUM2STR_FIRST_TIME <br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_FIRST_TIME<br>set /A hh=firsttime/(60*60*100), rest=firsttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set FIRST_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>:NUM2STR_START_TIME <br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_START_TIME <br>set /A hh=starttime/(60*60*100), rest=starttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set START_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>:NUM2STR_NEXT_TIME<br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_NEXT_TIME<br>set /A hh=nexttime/(60*60*100), rest=nexttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set NEXT_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>:CALC_SRT_START_TIME <br>if !DEBUG! EQU !TRUE! ECHO CALC_SRT_START_TIME <br>    set /A srtstarttime=(!starttime! - !firsttime! - 10) <br>Exit /b<br><br>:CALC_SRT_NEXT_TIME<br>if !DEBUG! EQU !TRUE! ECHO CALC_SRT_NEXT_TIME <br>    set /A srtnexttime=(!nexttime! - !firsttime! - 10) <br>Exit /b<br><br>:NUM2STR_SRT_START_TIME <br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_SRT_START_TIME<br>set /A hh=srtstarttime/(60*60*100), rest=srtstarttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set SRT_START_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>:NUM2STR_SRT_DIFFERENCE_TIME <br>if !DEBUG! EQU !TRUE! ECHO NUM2STR_SRT_DIFFERENCE_TIME <br>set /A hh=srtnexttime/(60*60*100), rest=srtnexttime%%(60*60*100), mm=rest/(60*100), rest%%=60*100, ss=rest/100, cc=rest%%100<br>if !hh! lss 10 set hh=0!hh!<br>if !mm! lss 10 set mm=0!mm!<br>if !ss! lss 10 set ss=0!ss!<br>if !cc! lss 10 set cc=0!cc!<br>set SRT_DIFFERENCE_TIME_STR=!hh!:!mm!:!ss!,!cc!<br>Exit /b<br><br>REM Brining in a little ANSI Color<br>:setESC<br>for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# &amp; echo on &amp; for %%b in (1) do rem"') do (<br>  set ESC=%%b<br>  exit /B 0<br>)<br>exit /B 0<br><br>REM ANSI COLOR REFERENCE<br>REM !ESC![7mINVERSE!ESC![0m<br>REM !ESC![44mWhite Foreground Blue Background!ESC![0m<br>REM !ESC![94mBlue!ESC![0m<br>REM !ESC![96mCyan!ESC![0m<br>REM !ESC![97mWhite!ESC![0m<br><br>:Help<br>Echo !ESC![7mHELP:  TXT2SRT_TAP.bat!ESC![0m<br>Echo !ESC![97mPurpose: Quickly Generate .SRT (Subtitle) file for Video!ESC![0m<br>Echo.<br>Echo !ESC![97mPreparation:!ESC![0m<br>Echo    *  "Audio.mp3" needs a "Audio.txt" with subtitle text.<br>Echo    *  "Audio.txt" each line is a short phrase or sentence <br>Echo !ESC![97mUSAGE:!ESC![0m  <br>Echo    1. Drag/Drop AUDIO_NAME.MP3 that has corresponding VIDEO_NAME.TXT<br>Echo    2. AUDIO_NAME.MP3 Plays<br>Echo    3. !ESC![44mPress ENTER ONCE to Start Generating SRT!ESC![0m <br>Echo       * VIDEO_NAME_TIME-STAMP.SRT<br>Echo       * Copys AUDIO_NAME.MP3 to AUDIO_NAME_TIME-STAMP.mp3<br>Echo    4. !ESC![44mPRESS ENTER at the END of each PAIR of LINES of TEXT!ESC![0m <br>Echo !ESC![97mExample: !ESC![0m<br>Echo    *  TXT2SRT-TAP.bat (NO ARGS) for this HELP listing<br>Echo    *  TXT2SRT-TAP.bat AUDIO_NAME.MP3  <br>Echo          Copies AUDIO_NAME.MP3 to AUDIO_NAME_TIME-STAMP.MP3<br>Echo          Creates AUDIO_NAME_TIME-STAMP.SRT<br>Echo    *  The program terminates when the BLANK line of lyric/TEXT/LINES is Reached.<br>Echo !ESC![97mProduces:!ESC![0m<br>Echo       *  Playable AUDIO_NAME_TIME-SESSION.MP3 and AUDIO_NAME_TIME-SESSION.SRT<br>Echo       *  SRT Subtitles will need adjustment using SUBTITLE EDIT<br>pause<br>Exit /b</pre>
+
+</body></html>

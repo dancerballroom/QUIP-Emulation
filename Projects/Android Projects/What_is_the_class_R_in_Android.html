@@ -1,0 +1,536 @@
+<!doctype html>
+<html><head><title>What is the class R in Android</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:HVKcce1700021be4779b9e0d7cd3'><a href="https://stackoverflow.com/questions/4953077/what-is-the-class-r-in-android">What is the class R in Android</a></h1>
+
+<h2 id='temp:C:HVK22847c8ceb7c4847b2dac15f5'>Short Answer:</h2>
+
+<pre id='temp:C:HVKbba3a68f10684ac9be744ca03'><span style="color:#4d5156" textcolor="#4d5156">R classes are </span>generated classes <br>that map your resource names to IDs in your code<span style="color:#4d5156" textcolor="#4d5156">. </span></pre>
+
+<h2 id='temp:C:HVK3c33e057f6634f72934fac97f'>Given:</h2>
+
+<pre id='temp:C:HVK12ee6f0068434995a6ed87d13'>package my.company.my_proj;<br><br>import android.support.v7.app.AppCompatActivity;<br>import android.os.Bundle;<br><br>public class MainActivity extends AppCompatActivity {<br><br>    @Override<br>    protected void onCreate(Bundle savedInstanceState) {<br>        super.onCreate(savedInstanceState);<br>        setContentView(<span bgcolor="#f2ef90" style="background-color:#f2ef90">R</span>.layout.activity_main);<br>    }<br>}</pre>
+
+<h2 id='temp:C:HVKdeb8175fa1fa465b9baceb254'>Answer:</h2>
+
+<pre id='temp:C:HVKb265a2b3b95c4d26a659f45a2'><code><span style="color:#232629" textcolor="#232629">R</span></code><span style="color:#232629" textcolor="#232629"> is a class containing the </span><b><span style="color:#232629" textcolor="#232629">definitions for all resources of <br>a particular application package</span></b><span style="color:#232629" textcolor="#232629">. It is in the </span><b><span style="color:#232629" textcolor="#232629">namespace of the application package</span></b><span style="color:#232629" textcolor="#232629">.<br><br></span><span style="color:#232629" textcolor="#232629">For example, if you say in your manifest your package name is </span><code><span style="color:#232629" textcolor="#232629">com.foo.bar</span></code><span style="color:#232629" textcolor="#232629">, <br>an </span><code><span style="color:#232629" textcolor="#232629">R</span></code><span style="color:#232629" textcolor="#232629"> class is generated with the symbols of all your resources in </span><code><span style="color:#232629" textcolor="#232629">com.foo.bar.R</span></code><span style="color:#232629" textcolor="#232629">.<br><br></span><span style="color:#232629" textcolor="#232629">There are generally </span><b><span style="color:#232629" textcolor="#232629">two</span></b><span style="color:#232629" textcolor="#232629"> </span><code><span style="color:#232629" textcolor="#232629">R</span></code><span style="color:#232629" textcolor="#232629"> classes you will deal with<br><br></span>   1. The framework resources in<span style="color:#232629" textcolor="#232629"> </span><a href="http://developer.android.com/reference/android/R.html"><code>android.R</code></a><span style="color:#232629" textcolor="#232629"> </span>and<br>   2. Your own, in your namespace<br><br><span style="color:#232629" textcolor="#232629">It is named </span><code><span style="color:#232629" textcolor="#232629">R</span></code><span style="color:#232629" textcolor="#232629"> because that stands for </span><b><span style="color:#232629" textcolor="#232629">R</span></b><span style="color:#232629" textcolor="#232629">esources, and there is no point <br>in making people type something longer, especially since it is common <br>to end up with fairly long symbol names after it, that can cause a fair <br>amount of line wrapper.<br><br></span></pre>
+
+<h2 id='temp:C:HVKebdcc1d4429d4624af140500b'>Comments:</h2>
+
+<pre id='temp:C:HVKa82291dbac2f4ca9bb79b81d4'><span style="color:#232629" textcolor="#232629">This is an auto-generated </span><b>utility class</b><span style="color:#232629" textcolor="#232629"> that provides <br>references to the resources in the project. It is called the "R class" <br>because its name is </span><b>R.java</b><span style="color:#232629" textcolor="#232629">. It is generated by AAPT from the resourced <br>defined within the </span><b>res</b><span style="color:#232629" textcolor="#232629"> folder</span></pre>
+
+<h2 id='temp:C:HVKc76b65e65081469f89e08fbc8'>Additionally:</h2>
+
+<pre id='temp:C:HVK1f1fe9a8da4141aa9b5c482f7'><b><span style="color:#232629" textcolor="#232629">What is R:</span></b><span style="color:#232629" textcolor="#232629"> There is nothing very mysterious about R. It is just a class <br>that has many static subclasses, open it up in eclipse and take a look <br>(its under gen/).<br><br></span><span style="color:#232629" textcolor="#232629">Every member of this class is one of two things: <br>1) static final classes or <br>2) static final integers which are unique <br>with respect to the other members of their class.<br><br></span><b><span style="color:#232629" textcolor="#232629">Why is it so cryptic:</span></b><span style="color:#232629" textcolor="#232629"> Its easy to get confused because <br>R is automatically generated by ant. Its cryptic because you <br>are not supposed to "touch" it manually (of course you can <br>but your changes will be automatically erased upon regeneration). <br>Its additionally cryptic because sometimes eclipse automatically <br>imports androids standard R file (as discussed in the answers above)<br><br></span><b><span style="color:#232629" textcolor="#232629">Why is it always the first one that cannot be resolved:</span></b><span style="color:#232629" textcolor="#232629"> R follows <br>the rules of Java classes and packages exactly, there is </span><b><span style="color:#232629" textcolor="#232629">nothing special</span></b><span style="color:#232629" textcolor="#232629"> <br>about how R acts with respect to importation. R will be automatically <br>placed in the package specified by the package entry in your manifest file</span></pre>
+
+<pre id='temp:C:HVK981c2c7abbfe49169aa341d33'>&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"<br>package="Blah" android:versionName="8.6.2011" android:versionCode="1"&gt;<br>&lt;uses-sdk android:minSdkVersion="13" /&gt;<br><br>where Blah = package which will contain R and <br>probably the main package in the application.</pre>
+
+<pre id='temp:C:HVKd6be2690c4ca478aad53ff7e7'><br><span style="color:#232629" textcolor="#232629">To see what package your R file belongs to just open up the gen/ folder <br>in eclipse (packages view). You will see one package listed there, it will <br>have the name you specified in your manifest. Try to delete it, it will <br>come back if all of your resources follow the correct naming rules and all <br>of your xml files follow the correct xml rules and if </span><i><span style="color:#232629" textcolor="#232629">build automatically</span></i><span style="color:#232629" textcolor="#232629"> <br>is enabled in eclipse.</span><br><br><span style="color:#232629" textcolor="#232629">The key to understanding the R file is to realize that <br>it is in the same package as the other classes <br>even though it is in a different directory then other files <br>belonging to your "main" package. <br><br>After you understand this and understand the syntax and naming <br>of resource files troubleshooting problems with R is easy.</span></pre>
+
+<h2 id='temp:C:HVKc4916edaed2841a9a50c9ac18'>Additionally:</h2>
+
+<pre id='temp:C:HVKe39ac34e5ce344ef966f83e13'><span style="color:#232629" textcolor="#232629">Android R.java is an auto-generated file by AAPT (Android Asset Packaging Tool) <br>that contains resource IDs for all the resources of res/directory. <br>If you create any component in the activity_main.xml file, <br>id for the corresponding component is automatically created in this file.<br> <br>This id can be used in the activity source file to perform any action <br>on the component.<br><br>R is the name for your resources. Any resource you access by </span><code><span style="color:#232629" textcolor="#232629"><span bgcolor="#f2ef90" style="background-color:#f2ef90">R.$FOLDER.$RESOURCE</span></span></code><span style="color:#232629" textcolor="#232629"> <br>or something very similar.</span><span style="color:#232629" textcolor="#232629"><br><br>If it can not be resolved, make sure the path is correct <br>and the referenced resource exists(case-sensitive; include the extension).</span></pre>
+
+<br/>
+
+</body></html>

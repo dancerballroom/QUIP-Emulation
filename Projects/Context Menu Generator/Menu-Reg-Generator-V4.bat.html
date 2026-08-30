@@ -1,0 +1,614 @@
+<!doctype html>
+<html><head><title>Menu-Reg-Generator-V4.bat</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:EML31c4543812314ff78040744e7'>Menu-Reg-Generator-V4.bat</h1>
+
+<b>Purpose:</b>  Creates a Right-Click Context Menu with Subdirectories for personalized SendTo functionality.<br/>
+
+<br/>
+
+<b>Procedure:</b><br/>
+
+<div class="" style="" data-section-style='6'><ul id='temp:C:EML35c7c2d04d4e455aa7aa31fa5'><li id='temp:C:EMLe209a9a7b4a64b89b90764e31' class='parent' value='1'>Open DATA-INPUT-V4-Command FILE
+
+<br/></li><ul><li id='temp:C:EML3b6e6c6e60e64e82ac2a41bdd' class=''>Verify Paths and Commands
+
+<br/></li><li id='temp:C:EMLc342b02d31fc478691a110390' class=''>CNTRL+A (Select All)
+
+<br/></li><li id='temp:C:EMLd1aeae26939b4e40bf2145309' class=''>CNTRL+C (Copy)
+
+<br/></li></ul><li id='temp:C:EMLd602053d53684f7c8ed32d7db' class='parent'>Run Menu-Reg-Generator-V4.bat
+
+<br/></li><ul><li id='temp:C:EML5a1b9d6495cf4184a651f4d34' class=''>CNTRL+V (Paste)
+
+<br/></li></ul><li id='temp:C:EMLebf19d047d1b4616bcbf4a81c' class='parent'>Run New FILE “Menu-Reg-Generator-V4.REG“
+
+<br/></li><ul><li id='temp:C:EMLf212b03d7c9c4776911177b5f' class=''>Verify Commands added to Right Click Mouse Context Menu
+
+<br/></li><li id='temp:C:EMLe965d47b30684eefb8393ec32' class=''>Verify Commands Work
+
+<br/></li></ul><li id='temp:C:EML94e4a625d3dc4ba38583df7f0' class=''>Run “Menu-Reg-Generator-V4-DELETE.REG” to remove new Context Menu
+
+<br/></li></ul></div><h2 id='temp:C:EML538a39b21647414eaa9c3d799'>INDEX:</h2>
+
+<div class="" style="" data-section-style='6'><ul id='temp:C:EMLa627e4e109664f13865959742'><li id='temp:C:EML8d6939a276534837ba739f40b' class='' value='1'><a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML0890a341ef794bd8be30621d9">Here are 3 Example Uses after I RUN this program and Run the produced REG file.</a>
+
+<br/></li><li id='temp:C:EMLe4dffc47514c4dd89e26b769e' class=''><a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EMLe60a5e0746b046daa5935ec77">Example Tree</a>
+
+<br/></li><li id='temp:C:EML2a75ecb3e94d4b709ea254485' class=''><a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML1213d5df64364316b9f28c567">Menu-Reg-Generator-V4.bat</a>
+
+<br/></li><li id='temp:C:EML71c0553c8b6841e4b27f50121' class=''><a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML1abe69dc0e6049ca8af35c123">Creates Archived History of Commands and when they were run</a>
+
+<br/></li><li id='temp:C:EML3a060011d75744c996d20329f' class=''><a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML06858e2addeb4dbe9870b8b9e">Creates Registry Files: TO ADD </a>
+
+<br/></li><li id='temp:C:EML70859ad3b35f4ee6800a707d1' class=''><a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EMLf8d6ffe843ba4fbfab7fcc77d">Creates Registry Files:  TO DELETE  </a>
+
+<br/></li></ul></div><br/>
+
+<a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML538a39b21647414eaa9c3d799">To Index:</a><br/>
+
+<h2 id='temp:C:EML0890a341ef794bd8be30621d9'>Example Uses of my Personalized Context Menu:</h2>
+
+<h3 id='temp:C:EML52f87e68919148e797522b590'>1. Send MP4 Movie File to:  Trim MP4 Batch File</h3>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/EMLAAAMj0oT/3ir8MLd9GIznKlFidFKDrA?a=lyF8lWSeGgaaMHhgjcS3aPDAzKcCQMaBDE1VAFw2cNka' id='temp:C:EML0d2bdfddfd7141b6979105916' width='800' height='168' alt="000448 - Menu-Reg-Generator-V4.bat - Quip.jpg"></img></div><h3 id='temp:C:EMLea9027eea2b1400d9e6a1f66c'>2. Send MP4 Subtitle File To:  Change Upper-Case Subtitles to Lower-Case VBS Script File</h3>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/EMLAAAMj0oT/8SPeAjYgZ4ZbRAi36ze7eA?a=sSVj348EtI8CXQQGUs16ydJxV55aERlHXtQaN69A9xEa' id='temp:C:EMLf891903403994a0dbe616e63c' width='800' height='216' alt="000449 - Menu-Reg-Generator-V4.bat - Quip.jpg"></img></div><h3 id='temp:C:EML9c80e2e7ebf74d919a5d52318'>3. Send MP4 Movie File to: Eliminate/Remove Bookmarked Commercials Batch File </h3>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/EMLAAAMj0oT/Glie1Ccn835CbrdZnq8jGw?a=TF3eRaTfwjts3Z7ykaL4YCbuKlWrshNha6Iem8KlW54a' id='temp:C:EML1385c7f0b2034d99acded12ec' width='800' height='140' alt="000450 - Menu-Reg-Generator-V4.bat - Quip.jpg"></img></div><a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML538a39b21647414eaa9c3d799">To Index:</a><br/>
+
+<h2 id='temp:C:EMLe60a5e0746b046daa5935ec77'>Menu-Reg-Generator-Graphic-V4.txt</h2>
+
+<pre id='temp:C:EMLd29926560f554b5ea55807684'>Menu-Reg-Generator-Graphic-V4.txt <br>Creation Date <br>Fri 12/29/2023 at 12:53:26.68 <br> <br>/-- My-MENU-TREE <br>|  \-- CONVERT <br>|  |  C:\MY-MENU-TREE\CONVERT\ExtractSubtitles-ODD.bat <br>|  |  C:\MY-MENU-TREE\CONVERT\ExtractSubtitles-EVEN.bat <br>|  |  C:\MY-MENU-TREE\CONVERT\ExtractVid_ALL.bat <br>|  \-- FILE-RENAME <br>|  |  C:\MY-MENU-TREE\FILE-RENAME\Underscore-Dash.bat <br>|  |  C:\MY-MENU-TREE\FILE-RENAME\ZAP-Parenz.bat <br>|  |  C:\MY-MENU-TREE\FILE-RENAME\Eliminate-Space.bat <br>|  |  C:\MY-MENU-TREE\FILE-RENAME\Eliminate-Apostrophes.bat <br>|  |  C:\MY-MENU-TREE\FILE-RENAME\Search-Replace.bat <br>|  \-- SEND-KEYS-VBS <br>|  |  C:\Windows\System32\wscript.exe C:\MY-MENU-TREE\SEND-KEYS-VBS\UCase2LCase.vbs <br>|  |  C:\Windows\System32\wscript.exe C:\MY-MENU-TREE\SEND-KEYS-VBS\Fix-Common-Errors.vbs <br>|  \-- TRIM <br>|  |  C:\MY-MENU-TREE\TRIM\AAA-CROP-StartHMS-End-S.bat <br>|  |  C:\MY-MENU-TREE\TRIM\GEN-REPORT-ONLY.bat <br>-----------[ End Of File ]----------- <br></pre>
+
+<a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML538a39b21647414eaa9c3d799">To Index:</a><br/>
+
+<h2 id='temp:C:EML1213d5df64364316b9f28c567'>Menu-Reg-Generator-V4.bat</h2>
+
+<pre id='temp:C:EML3f6d848a2a6d425dbc5484353'>@echo off<br>Setlocal enabledelayedexpansion<br>Set MG=Menu-Reg-Generator-V4.reg<br>Set MGDEL=Menu-Reg-Generator-V4-DELETE.reg<br>Set MGGraphic=Menu-Reg-Generator-Graphic-V4.txt<br><br>:: Check WMIC is available<br>WMIC.EXE Alias /? &gt;NUL 2&gt;&amp;1 || GOTO s_error<br><br>:: Use WMIC to retrieve date and time<br>FOR /F "skip=1 tokens=1-6" %%G IN ('WMIC Path Win32_LocalTime Get Day^,Hour^,Minute^,Month^,Second^,Year /Format:table') DO (<br>   IF "%%~L"=="" goto s_done<br>      Set _yyyy=%%L<br>      Set _mm=00%%J<br>      Set _dd=00%%G<br>      Set _hour=00%%H<br>      Set _minute=00%%I<br>)<br>:s_done<br><br>:: Pad digits with leading zeros<br>      Set _mm=%_mm:~-2%<br>      Set _dd=%_dd:~-2%<br>      Set _hour=%_hour:~-2%<br>      Set _minute=%_minute:~-2%<br><br><br>:: Display the date/time in ISO 8601 format:<br>:: Set MyTime=%_yyyy%-%_mm%-%_dd%.%_hour%-%_minute%<br>:: Set MyDateTime=%_minute%-%_hour%_%_dd%-%_mm%-%_yyyy%<br>Set MyDateTime=%_hour%-%_minute%--%_mm%-%_dd%-%_yyyy%<br><br>Set MGCommand=Menu-Reg-Generator-V4-CMDS-Run-%MyDateTime%.txt<br>REM Echo !MGCommand!<br><br>::Main Menu - Define Carriage Return<br>set CRLF=^<br><br><br>:top<br>::Main Menu<br>set prompt="0 = Exit!CRLF!1 = Sub-menu!CRLF!2 = command!CRLF!3 = Create REG-File!CRLF!: "<br><br>set /p menuitem=!prompt!<br>echo !menuitem! &gt;&gt; !MGCommand!<br>REM :: Menu Choices<br>REM :: 1 = Exit Program<br>IF "%menuitem%"=="0" (<br>    REM :: Exit-Condition<br>    REM :: 2 = Create Submenu<br>) ELSE IF "%menuitem%"=="1" (<br><br>set /p Submenu="Name of Sub-menu: "<br>echo !Submenu! &gt;&gt; !MGCommand!<br>set /p MenuNum="Menu Number: "<br>echo !MenuNum! &gt;&gt; !MGCommand!<br><br>REM Creation File<br>Echo.&gt;&gt; !MG!<br>Echo [HKEY_CLASSES_ROOT\*\shell\%ROOT_DIR%\shell\menu!MenuNum!] &gt;&gt; !MG!<br>Echo "Icon"="shell32.dll,176" &gt;&gt; !MG!<br>Echo "MUIVerb"="!Submenu!" &gt;&gt; !MG!<br>Echo "SubCommands"="" &gt;&gt; !MG!<br>Echo.&gt;&gt; !MG!<br><br>REM Deletion File<br>Echo.&gt;&gt; !MGDEL!<br>Echo [-HKEY_CLASSES_ROOT\*\shell\%ROOT_DIR%\shell\menu!MenuNum!] &gt;&gt; !MGDEL!<br>Echo "Icon"="shell32.dll,176" &gt;&gt; !MGDEL!<br>Echo "MUIVerb"="!Submenu!" &gt;&gt; !MGDEL!<br>Echo "SubCommands"="" &gt;&gt; !MGDEL!<br>Echo.&gt;&gt; !MGDEL!<br><br>REM :: To Show in Command Window ONLY<br>Echo [HKEY_CLASSES_ROOT\*\shell\%ROOT_DIR%\shell\menu!MenuNum!]<br>Echo "Icon"="shell32.dll,176"<br>Echo "MUIVerb"="!Submenu!"<br>Echo "SubCommands"=""<br>Echo.<br><br>REM :: Graphic-V4<br>Echo ^|  ^\-- !Submenu! &gt;&gt; !MGGraphic!<br><br>goto :top<br><br>REM :: 2 = Create Command<br>) ELSE IF "%menuitem%"=="2" (<br>REM set /p NaniO="Give Me A Path: -&gt; "<br>REM echo !NaniO! &gt;&gt; !MGCommand!<br>REM set N=!NaniO:\=\\\\!<br>set /p My-Bat="Name of Batch file: "<br>echo !My-Bat! &gt;&gt; !MGCommand!<br>set My-Bat-4-Graphic=!My-Bat!<br>set My-Bat=!My-Bat:\=\\\\!<br>set /p My-Command="Name of Command: "<br>echo !My-Command! &gt;&gt; !MGCommand!<br>set /p ItemNum="Item Number: "<br>echo !ItemNum! &gt;&gt; !MGCommand!<br><br>REM Creation File<br>Echo.&gt;&gt; !MG!<br>Echo [HKEY_CLASSES_ROOT\*\shell\%ROOT_DIR%\shell\menu!MenuNum!\shell\item!ItemNum!] &gt;&gt; !MG!<br>Echo "Icon"="shell32.dll,208" &gt;&gt; !MG!<br>Echo "MUIVerb"="!My-Command!" &gt;&gt; !MG!<br>Echo.&gt;&gt; !MG!<br>Echo [HKEY_CLASSES_ROOT\*\shell\%ROOT_DIR%\shell\menu!MenuNum!\shell\item!ItemNum!\command] &gt;&gt; !MG!<br>Echo @="!My-Bat! \"%%1\"" &gt;&gt; !MG!<br>Echo.&gt;&gt; !MG!<br><br>REM Deletion File<br>Echo.&gt;&gt; !MGDEL!<br>Echo [-HKEY_CLASSES_ROOT\*\shell\%ROOT_DIR%\shell\menu!MenuNum!\shell\item!ItemNum!] &gt;&gt; !MGDEL!<br>Echo "Icon"="shell32.dll,208" &gt;&gt; !MGDEL!<br>Echo "MUIVerb"="!My-Command!" &gt;&gt; !MGDEL!<br>Echo.&gt;&gt; !MGDEL!<br>Echo [-HKEY_CLASSES_ROOT\*\shell\%ROOT_DIR%\shell\menu!MenuNum!\shell\item!ItemNum!\command] &gt;&gt; !MGDEL!<br>Echo @="!My-Bat! \"%%1\"" &gt;&gt; !MGDEL!<br>Echo.&gt;&gt; !MGDEL!<br><br><br>REM :: To Show in Command Window ONLY<br>Echo.<br>Echo [HKEY_CLASSES_ROOT\*\shell\%ROOT_DIR%\shell\menu!MenuNum!\shell\item!ItemNum!]<br>Echo "Icon"="shell32.dll,208"<br>Echo "MUIVerb"="!My-Bat!" <br>Echo.<br>Echo [HKEY_CLASSES_ROOT\*\shell\%ROOT_DIR%\shell\menu!MenuNum!\shell\item!ItemNum!\command]<br>Echo @="!My-Bat! \"%%1\""<br>Echo.<br><br>REM :: Graphic-V4<br>Echo ^|  ^|  !My-Bat-4-Graphic! &gt;&gt; !MGGraphic!<br><br>goto :top<br><br>REM :: 3 = Create REG File <br>) ELSE IF "%menuitem%"=="3" (<br><br>REM :: ROOT DIR-Name<br><br>set /p ROOT_DIR="Root Directory Name?  : "<br>echo !ROOT_DIR! &gt;&gt; !MGCommand!<br>REM Creation File<br>Echo Windows Registry Editor Version 5.00 &gt; !MG! <br>Echo. &gt;&gt; !MG!<br>Echo [HKEY_CLASSES_ROOT\*\shell\!ROOT_DIR!] &gt;&gt; !MG!<br>Echo "Icon"="shell32.dll,137" &gt;&gt; !MG!<br>Echo "Subcommands"="" &gt;&gt; !MG!<br>Echo.&gt;&gt; !MG!<br><br>REM Deletion File<br>Echo Windows Registry Editor Version 5.00 &gt; !MGDEL! <br>Echo. &gt;&gt; !MGDEL!<br>Echo [-HKEY_CLASSES_ROOT\*\shell\!ROOT_DIR!] &gt;&gt; !MGDEL!<br>Echo "Icon"="shell32.dll,137" &gt;&gt; !MGDEL!<br>Echo "Subcommands"="" &gt;&gt; !MGDEL!<br>Echo.&gt;&gt; !MGDEL!<br><br>REM :: To Show in Command Window ONLY<br>Echo Windows Registry Editor Version 5.00<br>Echo. <br>Echo [HKEY_CLASSES_ROOT\*\shell\!ROOT_DIR!]<br>Echo "Icon"="shell32.dll,137"<br>Echo "Subcommands"=""<br>Echo. <br><br>REM :: Graphic-V4<br>Echo Menu-Reg-Generator-Graphic-V4.txt &gt;&gt; !MGGraphic!<br>Echo Creation Date &gt;&gt; !MGGraphic!<br>echo %DATE% at %TIME% &gt;&gt; !MGGraphic!<br><br>Echo. &gt;&gt; !MGGraphic!<br>Echo ^/-- !ROOT_DIR! &gt;&gt; !MGGraphic!<br><br>goto :top<br><br>REM :: Invalid Entry = Return to Main Menu<br>) ELSE (<br>  echo Try Again<br>  goto :top<br>)<br>REM :: Graphic-V4<br>Echo -----------[ End Of File ]----------- &gt;&gt; !MGGraphic!<br>Echo.<br>type Menu-Reg-Generator-Graphic-V4.txt<br>pause<br>Exit 0</pre>
+
+<a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML538a39b21647414eaa9c3d799">To Index:</a><br/>
+
+<h2 id='temp:C:EML1abe69dc0e6049ca8af35c123'>Menu-Reg-Generator-V4-CMDS-RUN-[Time][Date].txt</h2>
+
+<h3 id='temp:C:EML79d348717b64463a8606e2d8f'>(Same as the Data Input file that I copy and paste into this program, but records also a manual run for automating future runs and/or changes to the menu)</h3>
+
+<pre id='temp:C:EMLb085491237744996a36e62c88'>3 <br>My-MENU-TREE <br>1 <br>CONVERT <br>1 <br>2 <br>C:\MY-MENU-TREE\CONVERT\ExtractSubtitles-ODD.bat <br>ExtractSubtitles-ODD <br>1 <br>2 <br>C:\MY-MENU-TREE\CONVERT\ExtractSubtitles-EVEN.bat <br>ExtractSubtitles-EVEN <br>2 <br>2 <br>C:\MY-MENU-TREE\CONVERT\ExtractVid_ALL.bat <br>ExtractVid-ALL <br>3 <br>1 <br>FILE-RENAME <br>2 <br>2 <br>C:\MY-MENU-TREE\FILE-RENAME\Underscore-Dash.bat <br>Underscore-Dash <br>1 <br>2 <br>C:\MY-MENU-TREE\FILE-RENAME\ZAP-Parenz.bat <br>ZAP-Parenz <br>2 <br>2 <br>C:\MY-MENU-TREE\FILE-RENAME\Eliminate-Space.bat <br>Eliminate-Space <br>3 <br>2 <br>C:\MY-MENU-TREE\FILE-RENAME\Eliminate-Apostrophes.bat <br>Eliminate-Apostrophes <br>4 <br>2 <br>C:\MY-MENU-TREE\FILE-RENAME\Search-Replace.bat <br>Search-Replace <br>5 <br>1 <br>SEND-KEYS-VBS <br>3 <br>2 <br>C:\Windows\System32\wscript.exe C:\MY-MENU-TREE\SEND-KEYS-VBS\UCase2LCase.vbs <br>UCase2LCase <br>1 <br>2 <br>C:\Windows\System32\wscript.exe C:\MY-MENU-TREE\SEND-KEYS-VBS\Fix-Common-Errors.vbs <br>Fix-Common-Errors <br>2 <br>1 <br>TRIM <br>4 <br>2 <br>C:\MY-MENU-TREE\TRIM\AAA-CROP-StartHMS-End-S.bat <br>CROP-StartHMS-End-S <br>1 <br>2 <br>C:\MY-MENU-TREE\TRIM\GEN-REPORT-ONLY.bat <br>GEN-REPORT-ONLY <br>2 <br>0 </pre>
+
+Note:  The above was from File:  Menu-Reg-Generator-V4-CMDS-Run-12-53—12-29-2023.txt.  Created on 12/29/2023 right before 1pm in the afternoon.<br/>
+
+<br/>
+
+<a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML538a39b21647414eaa9c3d799">To Index:</a><br/>
+
+<h2 id='temp:C:EML06858e2addeb4dbe9870b8b9e'>Menu-Reg-Generator-V4.reg </h2>
+
+<h3 id='temp:C:EMLf06ce483da7345b3b959396ef'>(to Create Context Menu in Windows REGISTRY)</h3>
+
+<pre id='temp:C:EMLc6be04461dbd454abdf0b9dc9'>Windows Registry Editor Version 5.00  <br> <br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE] <br>"Icon"="shell32.dll,137" <br>"Subcommands"="" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1] <br>"Icon"="shell32.dll,176" <br>"MUIVerb"="CONVERT" <br>"SubCommands"="" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item1] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="ExtractSubtitles-ODD" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item1\command] <br>@="C:\\\\MY-MENU-TREE\\\\CONVERT\\\\ExtractSubtitles-ODD.bat \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item2] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="ExtractSubtitles-EVEN" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item2\command] <br>@="C:\\\\MY-MENU-TREE\\\\CONVERT\\\\ExtractSubtitles-EVEN.bat \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item3] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="ExtractVid-ALL" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item3\command] <br>@="C:\\\\MY-MENU-TREE\\\\CONVERT\\\\ExtractVid_ALL.bat \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2] <br>"Icon"="shell32.dll,176" <br>"MUIVerb"="FILE-RENAME" <br>"SubCommands"="" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item1] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Underscore-Dash" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item1\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\Underscore-Dash.bat \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item2] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="ZAP-Parenz" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item2\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\ZAP-Parenz.bat \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item3] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Eliminate-Space" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item3\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\Eliminate-Space.bat \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item4] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Eliminate-Apostrophes" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item4\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\Eliminate-Apostrophes.bat \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item5] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Search-Replace" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item5\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\Search-Replace.bat \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3] <br>"Icon"="shell32.dll,176" <br>"MUIVerb"="SEND-KEYS-VBS" <br>"SubCommands"="" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3\shell\item1] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="UCase2LCase" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3\shell\item1\command] <br>@="C:\\\\Windows\\\\System32\\\\wscript.exe C:\\\\MY-MENU-TREE\\\\SEND-KEYS-VBS\\\\UCase2LCase.vbs \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3\shell\item2] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Fix-Common-Errors" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3\shell\item2\command] <br>@="C:\\\\Windows\\\\System32\\\\wscript.exe C:\\\\MY-MENU-TREE\\\\SEND-KEYS-VBS\\\\Fix-Common-Errors.vbs \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4] <br>"Icon"="shell32.dll,176" <br>"MUIVerb"="TRIM" <br>"SubCommands"="" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4\shell\item1] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="CROP-StartHMS-End-S" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4\shell\item1\command] <br>@="C:\\\\MY-MENU-TREE\\\\TRIM\\\\AAA-CROP-StartHMS-End-S.bat \"%1\"" <br><br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4\shell\item2] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="GEN-REPORT-ONLY" <br><br>[HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4\shell\item2\command] <br>@="C:\\\\MY-MENU-TREE\\\\TRIM\\\\GEN-REPORT-ONLY.bat \"%1\"" <br><br></pre>
+
+<a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML538a39b21647414eaa9c3d799">To Index:</a><br/>
+
+<h2 id='temp:C:EMLf8d6ffe843ba4fbfab7fcc77d'>Menu-Reg-Generator-V4-DELETE.reg  </h2>
+
+<h3 id='temp:C:EMLabf8a184c0754c7c902fea107'>(to Remove Context Menu from Windows REGISTRY)</h3>
+
+<pre id='temp:C:EML880d3a62ed9b4c8da93fbffb8'>Windows Registry Editor Version 5.00  <br> <br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE] <br>"Icon"="shell32.dll,137" <br>"Subcommands"="" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1] <br>"Icon"="shell32.dll,176" <br>"MUIVerb"="CONVERT" <br>"SubCommands"="" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item1] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="ExtractSubtitles-ODD" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item1\command] <br>@="C:\\\\MY-MENU-TREE\\\\CONVERT\\\\ExtractSubtitles-ODD.bat \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item2] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="ExtractSubtitles-EVEN" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item2\command] <br>@="C:\\\\MY-MENU-TREE\\\\CONVERT\\\\ExtractSubtitles-EVEN.bat \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item3] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="ExtractVid-ALL" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu1\shell\item3\command] <br>@="C:\\\\MY-MENU-TREE\\\\CONVERT\\\\ExtractVid_ALL.bat \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2] <br>"Icon"="shell32.dll,176" <br>"MUIVerb"="FILE-RENAME" <br>"SubCommands"="" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item1] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Underscore-Dash" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item1\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\Underscore-Dash.bat \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item2] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="ZAP-Parenz" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item2\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\ZAP-Parenz.bat \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item3] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Eliminate-Space" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item3\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\Eliminate-Space.bat \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item4] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Eliminate-Apostrophes" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item4\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\Eliminate-Apostrophes.bat \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item5] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Search-Replace" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu2\shell\item5\command] <br>@="C:\\\\MY-MENU-TREE\\\\FILE-RENAME\\\\Search-Replace.bat \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3] <br>"Icon"="shell32.dll,176" <br>"MUIVerb"="SEND-KEYS-VBS" <br>"SubCommands"="" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3\shell\item1] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="UCase2LCase" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3\shell\item1\command] <br>@="C:\\\\Windows\\\\System32\\\\wscript.exe C:\\\\MY-MENU-TREE\\\\SEND-KEYS-VBS\\\\UCase2LCase.vbs \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3\shell\item2] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="Fix-Common-Errors" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu3\shell\item2\command] <br>@="C:\\\\Windows\\\\System32\\\\wscript.exe C:\\\\MY-MENU-TREE\\\\SEND-KEYS-VBS\\\\Fix-Common-Errors.vbs \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4] <br>"Icon"="shell32.dll,176" <br>"MUIVerb"="TRIM" <br>"SubCommands"="" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4\shell\item1] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="CROP-StartHMS-End-S" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4\shell\item1\command] <br>@="C:\\\\MY-MENU-TREE\\\\TRIM\\\\AAA-CROP-StartHMS-End-S.bat \"%1\"" <br><br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4\shell\item2] <br>"Icon"="shell32.dll,208" <br>"MUIVerb"="GEN-REPORT-ONLY" <br><br>[-HKEY_CLASSES_ROOT\*\shell\My-MENU-TREE\shell\menu4\shell\item2\command] <br>@="C:\\\\MY-MENU-TREE\\\\TRIM\\\\GEN-REPORT-ONLY.bat \"%1\"" <br><br></pre>
+
+<a href="https://quip.com/hwtJAR6ZPSaS/Menu-Reg-Generator-V4bat#temp:C:EML538a39b21647414eaa9c3d799">To Index:</a><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

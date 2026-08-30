@@ -1,0 +1,612 @@
+<!doctype html>
+<html><head><title>Manually Remove Commercials and Glitches v.2 - uses simple JSON - SubtitleEdit - FFMpeg</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:IIDebb6cc31ac1c4e8fb58c53d6a'>Manually Remove Commercials and Glitches v.2 - uses simple JSON - SubtitleEdit - FFMpeg</h1>
+
+<h2 id='temp:C:IIDde3197f4f69e43d7b94c14476'>An Error caused by QUIP’s Color Coding discovered 3/36/2023</h2>
+
+<pre id='temp:C:IID9cedaea51946432dbf4519ea1'>1.  At first I added little #QUIP Comments with commas, back-ticks, or double quotes<br>    to fix the color coding in QUIP.   Specifically "TestJSON.ps1" below.<br>2.  This commenting caused the PowerScripting to fail, so I restored the first <br>    version here.<br>3.  Now the code works again.  Not pretty, but functional.</pre>
+
+<h2 id='temp:C:IID89c0895f94274d79ab2514a05'>Achievements as of 3/22/2023</h2>
+
+<pre id='temp:C:IIDc8b082fc369f4dc4aa8519d89'>1.  Specify Split-Join-MovieName.bat instead of Split-Join.bat<br>2.  Prep at Beginning : renames "Files with Spaces.*" to <br>    "Files_with_Underscores.*"<br>3.  Clean Up at END : renames "Files_with_Underscores.*" to <br>    "Files with Spaces.*" <br>4.  Beta Tested 10 Movies and/or Series<br>5.  Improved Comments and Color Coding in QUIP.<br>    If you notice a pound sign followed by a character and QUIP<br>    #" QUIP<br>    It means that this was included to Correct Color Coding in QUIP<br>    For QUIP Color Coding Purposes ONLY!</pre>
+
+<h2 id='temp:C:IID063889d28cd8425faab3927c8'>NEXT:</h2>
+
+<pre id='temp:C:IIDf054436dddac4f5c812039f00'>1.  Copy / Paste Scripts and Test for Copy Errors<br>2.  Stress Test Program for Errors / Improvements</pre>
+
+<h3 id='temp:C:IID89177755432c4527b0bc225ca'>Before I added in the Renaming Code I was using this Script to manually convert Spaces to Underscores, and Back:</h3>
+
+<h2 id='temp:C:IID37c4009447124611ac548593c'><span bgcolor="#fefccb" style="background-color:#fefccb"><control data-remapped="true" id="temp:C:IIDe32411a2be3c4c568d433bdfd"><a href="https://quip.com/DiV5AISlmybS">Search and Replace in SendTo</a></control></span></h2>
+
+<h2 id='temp:C:IIDb065fd0b994c4e53b06c5197a'>Pre-Requisite to Using these Scripts</h2>
+
+<h2 id='temp:C:IID3226d2a329e1427592486dc29'>System Specific</h2>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:IIDe7b6f69ef1a44c78bb11fac22'><li id='temp:C:IIDda36162a86344da98be415764' class='' value='1'>Install FFMPEG (free) on “C:\FFMPEG”
+
+<br/></li><li id='temp:C:IID57cd89b8f78542d6ae1dce879' class=''>Install PowerScript and Enable the Running of Scripts
+
+<br/></li><li id='temp:C:IID29bed0615ac446f3b1cd8bf18' class=''>Create a Directory “C:\POWER-SHELL-SCRIPTS”
+
+<br/></li><li id='temp:C:IIDf986a2a6f059418b81716c472' class=''>Add Scripts to Windows Send-To and the  “C:\POWER-SHELL-SCRIPTS” Directory
+
+<br/></li></ul></div><h2 id='temp:C:IID2f178a92dd554faca9f1a46ca'>Script Specific</h2>
+
+<pre id='temp:C:IID0e55314a8e8e45d9a29756921'>1. The Movie.json file contains the START and END <br>   of All Glitches/Commercials<br>   (See Robocop.json )<br>2. The Movie.json file must have the same name as the Movie.mp4 <br>3. The Movie.json file is created with "Subtitle Edit" Application <br>   Mark BEGIN and END of Commercials as if they were Subtitles.<br>   At the end “Save As” .json (and not overwrite the original .srt)<br>4. The Movie.mp4 needs a Movie.mp4.eng.srt to work with.<br>6. Place "0000_FixSubs_PS.ps1" into the C:\POWER-SHELL-SCRIPTS <br>   directory.  Create the directory if it doesn't exist. #' QUIP<br>7. Place "DROP_JSON_HERE.bat" into the "SendTo" Directory.</pre>
+
+<h2 id='temp:C:IID09a09d25660e4981afb40619a'>Robocop.json (EXAMPLE) </h2>
+
+<h2 id='temp:C:IID7f76422df81044d0bcc907370'>Data file holding the Glitches/Commercials START and END</h2>
+
+<h3 id='temp:C:IIDeb4961f3ffb3479184222d433'>Original, Produced by “Subtitle Edit” (Saved As:   .json)  (Usable: All on one line) [ Robocop.json]</h3>
+
+<pre id='temp:C:IID557ed2d3de9f41f6938661129'>[{"start":889.730000066667,"end":950.88,"text":"Commercial"},{"start":2293.27222222222,"end":2354.161,"text":"Commercial"},{"start":3075.8299999,"end":3106.279,"text":"Commercial"},{"start":4225.37999996667,"end":4291.113,"text":"Commercial"},{"start":5152.77999993333,"end":5228.846,"text":"Commercial"}]</pre>
+
+<h3 id='temp:C:IID70b699bf303d47759d0d5898d'>Legible Version of above (These are the Start and End of Commercials/Glitches)</h3>
+
+<pre id='temp:C:IIDcf9e173865b840adb9a8f151c'>[<br>{"start":889.730000066667,"end":950.88,"text":"Commercial"},<br>{"start":2293.27222222222,"end":2354.161,"text":"Commercial"},<br>{"start":3075.8299999,"end":3106.279,"text":"Commercial"},<br>{"start":4225.37999996667,"end":4291.113,"text":"Commercial"},<br>{"start":5152.77999993333,"end":5228.846,"text":"Commercial"}<br>]</pre>
+
+<h3 id='temp:C:IIDc2816c302d4f46e8a0b397df9'>OUTPUT:   Chapter_list_PS.txt (Needed for the Joining of movie files)</h3>
+
+Created by TestJSON.ps1 below<br/>
+
+<pre id='temp:C:IID8f6457edd6244b71baacc12a7'>file 'Chapter_1.mp4'<br>file 'Chapter_2.mp4'<br>file 'Chapter_3.mp4'<br>file 'Chapter_4.mp4'<br>file 'Chapter_5.mp4'<br>file 'Chapter_6.mp4'</pre>
+
+<h3 id='temp:C:IIDa2ff008231024f16bb2a0041d'>OUTPUT:  Split-Join-Robocop.bat </h3>
+
+<h3 id='temp:C:IID0a190df4d9004f8ebeabe1096'>(My TestJSON.PS1 Program Creates this Batchfile)</h3>
+
+Where the Batchfile File Name is :  <b>Split-Join-[MOVIE-NAME].bat</b><br/>
+
+<pre id='temp:C:IID9f88f5bfead9426aa8b1e2692'>@Echo Off<br><br>REM # Enable Batchfile Evaluation of Exclamation Variables<br>Setlocal enabledelayedexpansion<br><br>REM # Push/Pop Directory<br>Pushd "C:\Users\dance\Desktop\Tuesday Test\"<br>REM " QUIP<br><br>REM # NOTE:  Batchfile does not work well with Spaces in Filenames<br>REM # Replace Spaces with Underscores<br>Set "Pattern= "<br>Set "Replace=_"<br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br><br>REM # Chop up Movie into Chapter [Number].mp4 and Chapter [Number].srt<br>FFMpeg -i Robocop.mp4 -ss 00:00:00.000 -to 00:14:49.730 -c:v copy -c:a copy Chapter_1.mp4<br>FFMpeg -i Robocop.mp4.eng.srt -ss 00:00:00.000 -to 00:14:49.730 Chapter_1.srt<br>FFMpeg -i Robocop.mp4 -ss 00:15:20.205 -to 00:38:13.272 -c:v copy -c:a copy Chapter_2.mp4<br>FFMpeg -i Robocop.mp4.eng.srt -ss 00:15:20.205 -to 00:38:13.272 Chapter_2.srt<br>FFMpeg -i Robocop.mp4 -ss 00:39:14.161 -to 00:51:15.830 -c:v copy -c:a copy Chapter_3.mp4<br>FFMpeg -i Robocop.mp4.eng.srt -ss 00:39:14.161 -to 00:51:15.830 Chapter_3.srt<br>FFMpeg -i Robocop.mp4 -ss 00:51:46.279 -to 01:10:25.380 -c:v copy -c:a copy Chapter_4.mp4<br>FFMpeg -i Robocop.mp4.eng.srt -ss 00:51:46.279 -to 01:10:25.380 Chapter_4.srt<br>FFMpeg -i Robocop.mp4 -ss 01:11:31.113 -to 01:25:52.780 -c:v copy -c:a copy Chapter_5.mp4<br>FFMpeg -i Robocop.mp4.eng.srt -ss 01:11:31.113 -to 01:25:52.780 Chapter_5.srt<br>FFMpeg -i Robocop.mp4 -ss 01:27:08.846 -to 01:47:35.000 -c:v copy -c:a copy Chapter_6.mp4<br>FFMpeg -i Robocop.mp4.eng.srt -ss 01:27:08.846 -to 01:47:35.000 Chapter_6.srt<br><br>REM # Join the Chapters into a new Movie File without Commercials<br>ffmpeg -safe 0 -f concat -i Chapter_list_Robocop.txt -c copy "C:\Users\dance\Desktop\Tuesday Test\Output\Robocop.mp4"<br><br>REM # Prepare to Fix the Subtitles by copying the FixSubs_PS.ps1 module<br>copy "C:\POWER-SHELL-SCRIPTS\0000_FixSubs_PS.ps1" .<br><br><br>REM # Run the module<br>Powershell -Command "&amp; 'C:\Users\dance\Desktop\Tuesday Test\0000_FixSubs_PS.ps1' 'C:\Users\dance\Desktop\Tuesday Test\Output\Robocop.srt'"<br><br>REM # Clean Up<br>move "Robocop.*" "C:\Users\dance\Desktop\Tuesday Test\Backup" <br>del Chapter*.mp4<br>del Chapter*.srt<br>del Corrected*.srt<br>del Chapter_list_Robocop.txt<br>del 0000_FixSubs_PS.ps1<br>del Split-Join-PS.bat<br><br>REM # Replace Underscores with Spaces in Output Directory<br>Set "Pattern=_"<br>Set "Replace= "<br><br>cd Output<br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br>cd ..<br><br>REM # Replace Underscores with Spaces in Backup Directory<br>cd Backup<br>For %%a in (*.*) Do (<br>    Set "File=%%~a"<br>    Ren "%%a" "!File:%Pattern%=%Replace%!"<br>)<br>cd ..<br><br>REM # Push/Pop Directory<br>Popd<br><br>REM <b>Main</b><b> </b><b>Engine</b><b> FFMPEG NOTES </b><b>:</b><br>REM SPLIT Commands run from Batchfile<br>REM <span bgcolor="#8d3df5" style="background-color:#8d3df5">For</span><span bgcolor="#8d3df5" style="background-color:#8d3df5"> </span><span bgcolor="#8d3df5" style="background-color:#8d3df5">Legibility</span><br>REM FFMpeg -i Robocop.mp4 #Input File<br>REM -ss 00:00:00.000 #Start HH:MM:SS.Milliseconds<br>REM -to 00:14:49.730 #END HH:MM:SS.Milliseconds<br>REM -c:v copy # -c = Copy Video Codec<br>REM -c:a copy # -a = Copy Audio Codec<br>REM Chapter_1.mp4 #Name of Chapter Part<br><br>REM JOIN Command run from Batchfile<br>REM <span bgcolor="#8d3df5" style="background-color:#8d3df5">For</span><span bgcolor="#8d3df5" style="background-color:#8d3df5"> </span><span bgcolor="#8d3df5" style="background-color:#8d3df5">Legibility</span><br>REM FFMpeg -safe 0 # -safe 0 = Ignore Warning Messages<br>REM -f concat # -f concat = Concatenate these files<br>REM -i Chapter_list_PS.txt # -i Input the list of files to Concatenate<br>REM -c copy DONE-Robocop.mp4 # -c copy FILENAME.mp4 = Put the results here<br></pre>
+
+<h3 id='temp:C:IIDbb51ef1483ce4ce6a120269f8'>DIRECTORY Listing Before </h3>
+
+<pre id='temp:C:IID2cd66d9f1e334d22a95f4b5ac'>1. Current Directory<br><br>Robocop.mp4<br>Robocop.mp4.eng.srt<br>Robocop.json<br><br>2.  NOTES:  Windows Send-To Directory<br># On my Computer:<br>#     C:\Users\dance\AppData\Roaming\Microsoft\Windows\SendTo<br>#     C:\Users\[Current-USER]\AppData\Roaming\Microsoft\Windows\SendTo<br><br># Batchfile:  Drop Robocop.json ON "[Right Click]\Send-To\DROP_JSON_HERE.bat"<br>DROP_JSON_HERE.bat<br><br># This is an arbitrary Location <br>#    I created this when first learning PowerShell Scripting<br>#    to have a repository for all my scripts.<br>3.  PowerShell Directoy (C:\POWER-SHELL-SCRIPTS\)<br><br>TestJSON.ps1 (Called by DROP_JSON_HERE.bat # (Previously named TestJSON.bat))<br>0000_FixSubs_PS.ps1 # Module from my first Program</pre>
+
+<h3 id='temp:C:IID4ed5ec269cb34e56a708a820e'>DIRECTORY Listing (during running Split-Join-PS.bat) </h3>
+
+<pre id='temp:C:IID2762b8664289469fa9426ba20'>1. Current Directory<br><br># Drop the Robocop.json file on this one in the SendTo Directory.<br># Calls TestJSON.ps1 below<br><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">DROP_JSON_HERE</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">.</span><span bgcolor="#9ee9fa" style="background-color:#9ee9fa">bat</span><br><br># These are the only 3 files that exist in the Beginning<br>Robocop.mp4<br>Robocop.mp4.eng.srt<br><span bgcolor="#ccf6ff" style="background-color:#ccf6ff">Robocop</span><span bgcolor="#ccf6ff" style="background-color:#ccf6ff">.</span><span bgcolor="#ccf6ff" style="background-color:#ccf6ff">json</span><br><br># Generated by Created Batchfile<br># List of Created Chapter Files without Glitches/Commercials<br>Chapter_list_Robocop.txt<br><br># Copied from C:\POWER_SHELL_SCRIPTS<br># Takes care of the Subtitles<br>0000_FixSubs_PS.ps1<br><br># Generated by Created Batchfile<br># Created Movie and Subtitle Chapters Temporary Files<br>Chapter_1.mp4<br>Chapter_1.srt<br>Chapter_2.mp4<br>Chapter_2.srt<br>Chapter_3.mp4<br>Chapter_3.srt<br>Chapter_4.mp4<br>Chapter_4.srt<br>Chapter_5.mp4<br>Chapter_5.srt<br>Chapter_6.mp4<br>Chapter_6.srt<br><br>Corrected Chapter_1.srt<br>Corrected Chapter_2.srt<br>Corrected Chapter_3.srt<br>Corrected Chapter_4.srt<br>Corrected Chapter_5.srt<br>Corrected Chapter_6.srt<br><br># DIRS created by PS1 Script<br># Move Operation by Created Batchfile<br># Create Merged Subtitles and Movie into the Output Directory<br>Output\Robocop.mp4<br>Output\Robocop.srt<br># Move the Original Subtitles and Movie into the Backup Directory<br>Backup\Robocop.mp4<br>Backup\Robocop.srt<br><br># Operation by Created Batchfile<br># Delete Movie and Subtitle Chapters and all (Temporary Files)</pre>
+
+<h3 id='temp:C:IID8732c3bb4ac649338f7de97a3'>DROP_JSON_HERE.bat (In the SendTo Directory) aka TestJSON.bat</h3>
+
+<pre id='temp:C:IIDc6d360f2f9944f199d8f5ba01'>REM # Example of a Batchfile that runs a PowerShell Script<br>REM # Batchfile DROP_JSON_HERE.bat <br>REM # Calls TestJSON.ps1 with ENV Variables as Arguments<br><br>@ECHO OFF<br><br>SET NameWDir=%~1             <br>SET NameOnly=%~n1<br>SET NameWExt=%~n1%~x1<br>SET DirPath=%~d1%~p1<br>SET PSScript=C:\POWER-SHELL-SCRIPTS\TestJSON.ps1<br>SET PowerShellDir=C:\Windows\System32\WindowsPowerShell\v1.0<br><br>REM # Action Time<br>CD /D "%PowerShellDir%"<br>Powershell -Command "&amp; '%PSScript%' '%DirPath%%NameWExt%' '%NameWExt%' '%DirPath%' '%NameOnly%'"<br></pre>
+
+<h2 id='temp:C:IIDc47c69e3ea0244669cc81a361'>Now for the Main EVENT . . .</h2>
+
+<h3 id='temp:C:IID7c9946de27f34b5dba6d773a7'>TestJSON.ps1    </h3>
+
+<span style="color:#cc0300" textcolor="#cc0300">#This is the Main Program</span><br/>
+
+<pre id='temp:C:IIDed250b15840e4a50adc61cf51'><br># 03/23/2023<br>Set-Alias rh Read-Host<br>Set-Alias ds Write-Host<br><br>#Initialize Variables<br>#From TestJSON.bat in SendTo DIR<br>$Video_W_Path_JSON = $args[0]<br><br># Original Filename<br>$Video_W_Ext = $args[1]<br># Filename with underlines instead of spaces<br><br>$U_Video_W_Ext = $args[1].replace(' ', '_')<br># Same as above<br><br>$Video_Name_Only = $args[3]<br>$U_Video_Name_Only = $args[3].replace(' ', '_')<br><br># The Current Directory of the Movie File<br>$DirPath = $args[2]<br><br># List File created by this script<br>$CHAP_LIST_TXT = $DirPath + "Chapter_list_$U_Video_Name_Only.txt"<br><br># Batchfile created by this script<br>$SPLIT_JOIN_BAT = $DirPath + "Split-Join-$U_Video_Name_Only.bat"<br><br># Final Output Location and Backup Location <br>$OutDirPath = $DirPath + "Output"<br>$BkDirPath = $DirPath + "Backup"<br><br># DEBUG<br>ds<br>ds 1 With Path: $Video_W_Path_JSON<br>ds 2 With Extension: $Video_W_Ext<br>ds 3 Directory: $DirPath<br>ds 4 Name Only: $Video_Name_Only<br>ds <br>#DEBUG:  rh "Press any key to continue."<br><br># Converts 123.456 Seconds to "00:02:03.456"<br>Function Convert_2_TimeSignature ($Secs){<br> $ts = [timespan]::fromseconds($Secs)<br> ("{0:hh\:mm\:ss\.fff}" -f $ts)<br>}<br><br># Converts "00:02:03.456" to 123.456<br>Function Convert_2_Seconds ($TimeSig){<br> $timespan = [TimeSpan]::Parse($TimeSig)<br> $totalSeconds = $timespan.TotalSeconds<br> $totalSeconds<br>}<br><br># Setting Variables<br>$ST = 0.000 # Start Time<br>$ET = 0.000 # End Time<br><br># Read the contents of the MOVIE.json file into $myJson<br>$myJson = Get-Content "$Video_W_Path_JSON" -Raw | ConvertFrom-Json <br><br># Pull out Variable Arrays<br>$Starttimes = $myJson.start<br>$Endtimes = $myJson.end<br><br>#Initialize Variable Arrays<br>$ST_TimeArr = [System.Collections.ArrayList]@()<br>$ET_TimeArr = [System.Collections.ArrayList]@()<br><br># Calculate File_Length and add it to the ET_Time[] Array<br># Good to Know: $Folder = (get-location).path<br>$Folder = $DirPath<br>$File = "$Video_Name_Only.mp4"<br>$U_File = "$U_Video_Name_Only.mp4"<br>$LengthColumn = 27<br><br># Get Length of VideoFile in Seconds<br>$objShell = New-Object -ComObject Shell.Application <br>$objFolder = $objShell.Namespace($Folder)<br>$objFile = $objFolder.ParseName($File)<br>$Length = $objFolder.GetDetailsOf($objFile, $LengthColumn)<br><br># Add on Decimal to String<br>$Length = $Length + ".000"<br>$LOF = $Length<br><br># Translate to Seconds<br>$Length = [datetime]::ParseExact($Length,"HH:mm:ss.fff",$null)<br>$FS = [string]($Length.Hour*3600 + $Length.Minute*60 + $Length.Second) +"."+ [string]$Length.Millisecond<br>ds File Length - Seconds: $FS `n`n<br><br># Build the first FFMpeg CUT Command<br>$FF="FFMpeg -i $U_File"<br>$FS="FFMpeg -i $U_Video_Name_Only.mp4.eng.srt"<br>$SS="-ss"<br>$TO="-to"<br>$C="-c:v copy -c:a copy"<br>$ZERO="00:00:00.000"<br><br># Delete Listfile if EXISTS<br>if (Test-Path "$CHAP_LIST_TXT") {<br> Remove-Item "$CHAP_LIST_TXT"<br>}<br><br># Delete Batchfile if EXISTS<br>if (Test-Path "$SPLIT_JOIN_BAT") {<br> Remove-Item "$SPLIT_JOIN_BAT"<br>}<br><br># WHY? "-encoding ASCII"<br># This was a HUGE Problem at the Beginning.  <br>#  The Batchfile wouldn't run due to the Generated Batchfile<br>#  not being utf-8 format.<br>#<br># Note: utf8 and ASCII are almost interchangable in the command.<br>#       but ASCII writes without BOM (Byte-Order Mark)<br>#       The BOM causes Batchfile to fail<br>#       The BOM causes the Listfile to fail<br>#       BOM = Byte-Order Mark. <br><br>#       What is the BOM?  You are the BOM!<br>#       Three chars placed at the beginning of a file (0xEF,0xBB,0xBF) <br>#       that look like "Ã¯Â»Â¿"<br>#       (You can only see them in Microsoft Word.  You can tell because it asks for<br>#        which encoding you want to open the file in.)<br><br># FIRST Line in Batchfile<br>Write "`@Echo Off`n" | out-file $SPLIT_JOIN_BAT -encoding ASCII<br>Write "Setlocal enabledelayedexpansion" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write "Pushd `"$DirPath`"`n" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br><br><br># Prep Files: No Spaces in Filenames<br>Write "Set `"Pattern= `"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write "Set `"Replace=_`"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br><br>Write "For `%`%a in (*.*) Do (" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write " Set `"File=`%`%`~a`"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write " Ren `"`%`%a`" `"`!File`:`%Pattern`%=`%Replace`%`!`"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write ")" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br><br># End Prep<br><br># Build a String to Handle adjusting Subtitles <br># When Extracting .srt the time start becomes 00:00:00 for each file<br># Therefore the time needs to be adjusted before the Join.<br>$FFFirst="FFMpeg"<br>$FFS="FFMpeg -itsoffset " #Followed by the OFFSET<br><br># Loop through all the Movie and Subtitle Splits<br>for ($i=0; $i -lt $Endtimes.length; $i+=1) {<br><br># Convert 123.4 to 123.400<br># ST (Start), ET (End), STL (Previous Start), ETL (Previous End)<br> $ST=[math]::Round($Starttimes[$i],3)<br> $STL=[math]::Round($Starttimes[$i-1],3)<br> $ET=[math]::Round($Endtimes[$i],3)<br> $ETL=[math]::Round($Endtimes[$i-1],3)<br> <br># DEBUG<br># ds ST: $ST<br> # ds ET: $ET<br> # ds ETL: $ETL<br><br># TS (Time Signature)<br> $TSETL=Convert_2_TimeSignature($ETL)<br> $TSST=Convert_2_TimeSignature($ST)<br> $CNT = $i+1<br><br> # Add Chapters to List File<br> # This is used by FFMPEG to Concatenate the Chapter Videos<br> Write "file 'Chapter_$CNT.mp4'" | out-file -append $CHAP_LIST_TXT -encoding ASCII<br> if ($i -eq 0) {<br> <br># Build the Command Strings for Movies and Subtitles<br> # START="00:00:00.000" and END=Start of first Commercial<br> $CMD="$FF $SS $ZERO $TO $TSST $C Chapter_$CNT.mp4"<br> $CMDD="$FS $SS $ZERO $TO $TSST Chapter_$CNT.srt"<br><br> Write $CMD | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br> Write $CMDD | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br> $TOTAL_CURSOR=$ST<br> } elseif ($i -lt $Endtimes.length) {<br> # Middle Chapters START and END<br> $CMD="$FF $SS $TSETL $TO $TSST $C Chapter_$CNT.mp4"<br> ds $CMD<br> $CMDD="$FS $SS $TSETL $TO $TSST Chapter_$CNT.srt"<br> ds CMDD : $CMDD<br> $SRT_SECS=Convert_2_Seconds($TSST)<br><br> Write $CMD | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br> Write $CMDD | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br> <br># NOTE: Convert 123.456789 Seconds to 123.456<br># [math]::Round($Starttimes[$i],3)<br># Used throughout this section<br> <br>$STL=[math]::Round($Starttimes[$i-1],3)<br> $FFDash= "-i Chapter_$CNT.srt"<br> } <br><br># End of Looping through Middle<br>}<br># Last Command for the (End of Commercial) to (End Of File)<br>$ST=[math]::Round($Starttimes[$i],3)<br>$ET=[math]::Round($Endtimes[$i-1],3)<br><br>$STL=[math]::Round($Starttimes[$i-1],3)<br># Last Chapter START and END<br>$ET=[math]::Round($Endtimes[$i-1],3)<br>$TSET=Convert_2_TimeSignature($ET)<br>$CNT = $i+1<br>$SRT_SECS=Convert_2_Seconds($TSET)<br><br># Last Chapter START to END (aka LOF)<br># Building the final Command Strings<br>$CMD="$FF $SS $TSET $TO $LOF $C Chapter_$CNT.mp4"<br>$CMDD="$FS $SS $TSET $TO $LOF Chapter_$CNT.srt"<br>$FFDash= "-i Chapter_$CNT.srt"<br><br># Write the final Chapter lines to LIST and Batchfile<br>Write "file `'Chapter_$CNT.mp4`'" | out-file -append $CHAP_LIST_TXT -encoding ASCII<br><br>Write $CMD | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write $CMDD | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br><br># Build a JOIN Command STRING<br>$LastJoin = "ffmpeg -safe 0 -f concat -i Chapter_list_$U_Video_Name_Only.txt -c copy `"$OutDirPath\$U_Video_Name_Only.mp4`"" <br><br># Add a blank line for legibility ONLY<br>Write "" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br><br># Write the JOIN Command to the Batchfile<br>Write $LastJoin | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>$Fix=$DirPath + "0000_FixSubs_PS.ps1"<br><br>$SRT_Exist="$DirPath\$Video_Name_Only.mp4.eng.srt"<br>ds $SRT_Exist<br># If Subtitles Exist then process Subtitles<br>if (Test-Path $SRT_Exist) { <br> ds "Subtitle File Exists so Process Subtitles" <br> Write "copy `"C:\POWER-SHELL-SCRIPTS\0000_FixSubs_PS.ps1`" ." | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br> Write "Powershell `-Command `"`&amp; `'$Fix' '$OutDirPath\$U_Video_Name_Only.srt'`"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>}<br>else<br>{<br> ds "Subtitle File Doesn't Exist, so no Subtitle Processing"<br>}<br><br># DEBUG in Batchfile<br># Write "pause" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII # quip<br># Clean-Up<br># DELETE Commands, Move Commands<br>Write "move `"$U_Video_Name_Only.*`" `"$BkDirPath`" " | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write "del Chapter*.mp4" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write "del Chapter*.srt" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write "del Corrected*.srt" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write "del Chapter_list_$U_Video_Name_Only.txt" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write "del 0000_FixSubs_PS.ps1" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write "del Split-Join-PS.bat" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br><br># Create the OUTPUT directory if it does not already exist<br>if (Test-Path $OutDirPath) { <br> Write-Host "Folder Exists"<br>}<br>else<br>{<br> #PowerShell Create directory if not exists<br> New-Item -ItemType Directory -Path $OutDirPath<br> Write-Host "Folder Created successfully"<br>}<br><br># Create the Backup directory if it does not already exist<br>if (Test-Path $BkDirPath) { <br> Write-Host "Folder Exists"<br>}<br>else<br>{<br> #PowerShell Create directory if not exists<br> New-Item -ItemType Directory -Path $BkDirPath<br> Write-Host "Folder Created successfully"<br>}<br><br># Restore Files: Dashes to Spaces in Filenames<br>Write "`nSet `"Pattern=_`"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write "Set `"Replace= `"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write "cd Output" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write "For `%`%a in (*.*) Do (" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write " Set `"File=`%`%`~a`"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write " Ren `"`%`%a`" `"`!File`:`%Pattern`%=`%Replace`%`!`"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write ")" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write "cd .." | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write "cd Backup" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write "For `%`%a in (*.*) Do (" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write " Set `"File=`%`%`~a`"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write " Ren `"`%`%a`" `"`!File`:`%Pattern`%=`%Replace`%`!`"" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br>Write ")" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br>Write "cd .." | out-file -append $SPLIT_JOIN_BAT -encoding ASCII <br># End File Restore <br><br># Pop goes the Path or Return to Script Directory<br>Write "Popd" | out-file -append $SPLIT_JOIN_BAT -encoding ASCII<br><br># rh "DEBUG: Check Error Messages"</pre>
+
+<h2 id='temp:C:IID0ae9e4849e204087bbb5edd73'>0000_FixSubs_PS.ps1 (Stored in C:\POWER_SHELL_SCRIPTS)</h2>
+
+<pre id='temp:C:IIDfac144a1913645e08d5226e5e'>Set-Alias rh Read-Host<br>Set-Alias ds Write-Host<br><br># Variable $FileNames = Chapter_1.mp4, Chapter_2.mp4, ... <br>$FileNames = Get-ChildItem -Path '.\' -Name 'Chapter*.mp4' -File<br><br>#' QUIP<br><br>$TotalSeconds = 000000<br>$DONE_FileName=$args[0]<br><br># Convert 00000.000 Seconds to "00:00:00.000" as Time Signature<br>Function Convert_2_TimeSignature ($Secs){<br>     $ts =  [timespan]::fromseconds($Secs)<br>     ("{0:hh\:mm\:ss\,fff}" -f $ts)<br>}<br><br># Loop through all the Chapter N.srt<br># Find the Cumulative Length of the Chapters <br># Adjust the Subtitles accordingly<br>for ($i=0; $i -lt $FileNames.length; $i++ ) {<br>    $duration = (C:\FFMPEG\bin\ffprobe.exe $FileNames[$i] -v quiet -show_entries format=duration -of csv="p=0")<br>    $duration_time = (C:\FFMPEG\bin\ffprobe.exe $FileNames[$i] -sexagesimal -v quiet -show_entries format=duration -of csv="p=0")<br>    <br>    # In Seconds<br>    ds Duration : $duration<br>    ds Duration Time : $duration_time<br>    <br>    # Convert Seconds to Time Format "00:00:00.000"<br>    $TimeSig = Convert_2_TimeSignature($TotalSeconds)<br>    <br>    # DEBUG<br>    ds $FileNames[$i] " File (TimeStamp) " $duration_time " (Seconds): " $duration<br>    ds "The OFFSET is " $TotalSeconds " with Time Stamp: " $TimeSig ""<br><br>    $str = $Filenames[$i]<br><br>    # Remove .mp4 Extension from Filename    <br>    # Get the length of the string<br>    $len = $str.Length<br>    $len = $len - 4<br>    $temp = $str.Remove($len,4) + ".srt"<br>    $temp2 = "Corrected " + $temp<br>    # DEBUG: $temp now contains the Filename without the extension<br>    ds $temp<br><br>    # Adjust SUBTITLE Timestamps HERE by $TotalSeconds<br>    ffmpeg -itsoffset $TotalSeconds -i $temp -c copy .\$temp2<br>    <br>    $temp3 = $temp.remove(0, 10)<br><br>    # pipe into final.srt<br>    type Corrected* &gt; $DONE_FileName    <br>    <br>    # Cumulate the Number of Seconds for Each "Chapter N.mp4"<br>    $TotalSeconds += $duration    <br>}</pre>
+
+<br/>
+
+<h2 id='temp:C:IID0bf327044b6d4a1d8b5d091c2'>C’est Tout, mon Ami!  (That’s Everything, my Friend!)</h2>
+
+<br/>
+
+<q id='temp:C:IIDc3765b33c6134a3aadc45735d'>ENDE, Schluss.  (END, All Locked Up or Locked Down)</q>
+
+<q id='temp:C:IIDce9cda2bf50049518d7918d59'><br>Shirm, Stock, und GesangBuch  (Raincoat, Walking Cane, and Song Book)</q>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

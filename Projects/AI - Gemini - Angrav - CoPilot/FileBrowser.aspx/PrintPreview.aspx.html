@@ -1,0 +1,618 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>PrintPreview.aspx</title>
+    </head>
+    <body>
+        <h1>PrintPreview.aspx
+
+        </h1><div><br></div><div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;">PrintPreview.aspx
+
+
+&lt;%@ Page Language="C#" AutoEventWireup="<span style="color:#22863A;font-weight:bold;">true</span>" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.IO" %&gt;
+&lt;%@ Import <span style="color:#D73A49;font-weight:bold;">Namespace</span>="System.Web" %&gt;
+
+
+&lt;script runat="server"&gt;
+&nbsp; &nbsp; <span style="color:#D73A49;">protected</span> <span style="color:#D73A49;font-weight:bold;">void</span> Page_Load(<span style="color:#005CC5;">object</span> sender, EventArgs e)
+&nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!IsPostBack)
+&nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Parameter 1: Name of the HTML file (e.g., ID=sample.html)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> fileName = Request.QueryString["ID"];
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Parameter 2: Name of the <span style="color:#D73A49;">Virtual</span> Folder inside ~/uploads/notes/ (e.g., Folder=2026/Reports)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> virtualFolder = Request.QueryString["Folder"];
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(fileName))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; litHtmlContent.Text = "&lt;p style='color:red; font-weight:bold;'&gt;Error: 'ID' parameter <span style="color:#D73A49;font-weight:bold;">is</span> missing.&lt;/p&gt;";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // <span style="color:#D73A49;">Virtual</span> Root <span style="color:#D73A49;">base</span> directory relative to the site root (~/)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> baseVirtualPath = "~/uploads/notes/";
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Append subfolder <span style="color:#D73A49;font-weight:bold;">if</span> provided
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!<span style="color:#005CC5;font-weight:bold;">string</span>.IsNullOrEmpty(virtualFolder))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; virtualFolder = virtualFolder.Trim('/', '\\');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; baseVirtualPath = "~/uploads/notes/" + virtualFolder + "/";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Construct target <span style="color:#D73A49;">virtual</span> and physical paths
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> fullVirtualPath = baseVirtualPath + fileName.TrimStart('/', '\\');
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> physicalPath = Server.MapPath(fullVirtualPath);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Security Check: Verify target path remains strictly inside ~/uploads/notes/
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">string</span> rootNotesPath = Server.MapPath("~/uploads/notes/");
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!physicalPath.StartsWith(rootNotesPath, StringComparison.OrdinalIgnoreCase))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; litHtmlContent.Text = "&lt;p style='color:red; font-weight:bold;'&gt;Access Denied: Path escape detected.&lt;/p&gt;";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Read and render the target file
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (File.Exists(physicalPath))
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; litHtmlContent.Text = File.ReadAllText(physicalPath);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">else</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; litHtmlContent.Text = "&lt;p style='color:red; font-weight:bold;'&gt;File not found: " + HttpUtility.HtmlEncode(fileName) + "&lt;/p&gt;";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">catch</span> (<span style="color:#6F42C1;">Exception</span> ex)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; litHtmlContent.Text = "&lt;p style='color:red; font-weight:bold;'&gt;Error: " + HttpUtility.HtmlEncode(ex.Message) + "&lt;/p&gt;";
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+&lt;/script&gt;
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+&nbsp; &nbsp; &lt;title&gt;Print Preview&lt;/title&gt;
+&nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &lt;!-- External JS Libraries <span style="color:#D73A49;font-weight:bold;">for</span> Client-side PDF, DOCX, and TXT File Exports --&gt;
+&nbsp; &nbsp; &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"&gt;&lt;/script&gt;
+&nbsp; &nbsp; &lt;script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.min.js"&gt;&lt;/script&gt;
+&nbsp; &nbsp; &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"&gt;&lt;/script&gt;
+
+
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&nbsp; &nbsp; &lt;style type="text/css"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; body {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #525659;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-family</span>: Arial, Helvetica, sans-serif;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* <span style="color:#005CC5;">Top</span> Action Ribbon */
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #2c3e50;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #ffffff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 10px 20px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">flex</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">gap</span>: 10px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">align-items</span>: center;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">position</span>: sticky;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">top</span>: 0;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">z-index</span>: 1000;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar <span style="color:#D73A49;">button</span>, #toolbar select {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 6px 12px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-size</span>: 13px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">border</span>-radius</span>: 4px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">cursor</span>: <span style="color:#22863A;">pointer</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #D4FDFF;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #333333;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar <span style="color:#D73A49;">button</span>:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #86FCFF;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Colorful Font Control Buttons */
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar .btn-font-sub {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #D4FDFF;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #ffffff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar .btn-font-sub:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #86FCFF;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar .btn-font-add {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #D4FDFF;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #ffffff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar .btn-font-add:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #86FCFF;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Colorful Undo <span style="color:#D73A49;">Button</span> */
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar .btn-history-undo {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #D4FDFF;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #000000;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar .btn-history-undo:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #86FCFF;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; /* Colorful Redo <span style="color:#D73A49;">Button</span> */
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar .btn-history-redo {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #D4FDFF;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #000000;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">border</span>: 1px solid #ccc;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">font-weight</span>: <span style="color:#22863A;font-weight:bold;">bold</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar .btn-history-redo:<span style="color:#6F42C1;font-style:italic;">hover</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #86FCFF;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Paper Document <span style="color:#005CC5;font-weight:bold;">Display</span> */
+&nbsp; &nbsp; &nbsp; &nbsp; #preview-container {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 25px auto;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">width</span>: 800px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: #ffffff;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 40px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: 0 0 15px rgba(0,0,0,0.5);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; min-<span style="color:#005CC5;">height</span>: 900px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">box-sizing</span>: <span style="color:#005CC5;">border</span>-box;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">color</span>: #000000;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Printing Adjustments for the Native Windows Print Dialog */
+&nbsp; &nbsp; &nbsp; &nbsp; @media print {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #toolbar {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;font-style:italic;">none</span> !<span style="color:#D73A49;font-weight:bold;">important</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; body {&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">background</span>: <span style="color:#22863A;font-style:italic;">none</span> !<span style="color:#D73A49;font-weight:bold;">important</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0 !<span style="color:#D73A49;font-weight:bold;">important</span>;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #preview-container {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; box-shadow: <span style="color:#22863A;font-style:italic;">none</span> !<span style="color:#D73A49;font-weight:bold;">important</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0 !<span style="color:#D73A49;font-weight:bold;">important</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 100% !<span style="color:#D73A49;font-weight:bold;">important</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; max-<span style="color:#005CC5;">width</span>: <span style="color:#22863A;font-style:italic;">none</span> !<span style="color:#D73A49;font-weight:bold;">important</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">padding</span>: 0 !<span style="color:#D73A49;font-weight:bold;">important</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; /* Vertical Line Divider between <span style="color:#D73A49;">Button</span> Groups */
+&nbsp; &nbsp; &nbsp; &nbsp; #toolbar .toolbar-divider {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;">display</span>: <span style="color:#22863A;">inline-<span style="color:#22863A;">block</span></span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">width</span>: 1px;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">height</span>: 24px;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* Adjust <span style="color:#005CC5;">height</span> to match your toolbar <span style="color:#005CC5;">height</span> */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;"><span style="color:#005CC5;">background</span>-<span style="color:#005CC5;font-weight:bold;">color</span></span>: #cccccc;&nbsp; &nbsp;/* Line <span style="color:#005CC5;font-weight:bold;">color</span> */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">margin</span>: 0 10px;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* Space to the <span style="color:#005CC5;">left</span> and <span style="color:#005CC5;">right</span> of the line */
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#005CC5;">vertical-align</span>: middle;&nbsp; &nbsp; &nbsp; &nbsp;/* Aligns line vertically with buttons */
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &lt;/style&gt;
+</span>&lt;/head&gt;
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;"><span style="color:#005CC5;font-weight:bold;">&lt;body&gt;</span>
+&nbsp; &nbsp; &lt;<span style="color:#22863A;font-weight:bold;">form</span> <span style="color:#6F42C1;font-weight:normal;">id</span>="form1" runat="server"&gt;
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="toolbar"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Back <span style="color:#E36209;font-weight:bold;">Button</span> --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="goBackToFilingCabinet()" title="Back to Editor"&gt;&amp;#8592; Back&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="toolbar-divider"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Print &amp; Export <span style="color:#D73A49;font-weight:normal;">Action</span> Buttons --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="window.print()" title="Windows Print Dialog"&gt;🖨️ Win&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="exportPDF()" title="Save as PDF"&gt;📄 PDF&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="exportDOCX()" title="Save as DOCX"&gt;📝 DOCX&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="exportTXT()" title="Save as TXT"&gt;📃 TXT&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="toolbar-divider"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Colorful Undo &amp; Redo History Control Buttons --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="undoAction()" <span style="color:#6F42C1;font-weight:normal;">class</span>="btn-history-undo" title="Undo"&gt;↩️ Undo&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="redoAction()" <span style="color:#6F42C1;font-weight:normal;">class</span>="btn-history-redo" title="Redo"&gt;↪️ Redo&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="toolbar-divider"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Colorful Font Resizing Controls --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="changeFontSize(-2)" <span style="color:#6F42C1;font-weight:normal;">class</span>="btn-font-sub" title="<span style="color:#E36209;font-weight:normal;">Select</span> Text: Font -"&gt;➖&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:bold;">button</span> <span style="color:#D73A49;font-weight:normal;">type</span>="<span style="color:#E36209;font-weight:bold;">button</span>" <span style="color:#6F42C1;font-weight:normal;">onclick</span>="changeFontSize(2)" <span style="color:#6F42C1;font-weight:normal;">class</span>="btn-font-add" title="<span style="color:#E36209;font-weight:normal;">Select</span> Text: Font +"&gt;➕&lt;/<span style="color:#E36209;font-weight:bold;">button</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">class</span>="toolbar-divider"&gt;</span><span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Display Margin Selector --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label <span style="color:#6F42C1;font-weight:normal;">style</span>="margin-left: auto; font-size: 13px;"&gt;Margins:&lt;/label&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;<span style="color:#E36209;font-weight:normal;">select</span> <span style="color:#6F42C1;font-weight:normal;">id</span>="marginSelect" onchange="adjustMargins(this.<span style="color:#005CC5;font-weight:normal;">value</span>)" title="Margins"&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;option <span style="color:#005CC5;font-weight:normal;">value</span>="40px"&gt;Normal (40px)&lt;/option&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;option <span style="color:#005CC5;font-weight:normal;">value</span>="15px"&gt;Narrow (15px)&lt;/option&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;option <span style="color:#005CC5;font-weight:normal;">value</span>="60px"&gt;Wide (60px)&lt;/option&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/<span style="color:#E36209;font-weight:normal;">select</span>&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+
+
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;div <span style="color:#6F42C1;font-weight:normal;">id</span>="preview-container"&gt;</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;!-- Target HTML <span style="color:#D73A49;font-weight:normal;">Content</span> Loaded by C# --&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;asp:Literal <span style="color:#6F42C1;font-weight:normal;">ID</span>="litHtmlContent" runat="server"&gt;&lt;/asp:Literal&gt;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">&lt;/div&gt;</span>
+&nbsp; &nbsp; &lt;/<span style="color:#22863A;font-weight:bold;">form</span>&gt;
+</span>
+
+
+
+<span style="white-space: pre-wrap; display: inline-block; width: 100%;">&lt;script type="text/javascript"&gt;
+&nbsp; &nbsp; // History State Arrays <span style="color:#D73A49;font-weight:bold;">for</span> Undo / Redo
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> undoStack = [];
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> redoStack = [];
+
+
+&nbsp; &nbsp; // Strip editor-only code box action buttons from the loaded preview content
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> stripCodeBoxActionIcons() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> container = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('preview-container');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!container) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; container.querySelectorAll('.code-box-action-bar').forEach(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(actionBar) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; actionBar.remove();
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; container.querySelectorAll('.code-box-read-btn, .code-box-highlight-btn, .code-box-copy-btn, .code-box-save-btn').forEach(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(actionButton) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; actionButton.remove();
+&nbsp; &nbsp; &nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; container.querySelectorAll('pre.code-box-content').forEach(<span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(codeBox) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (codeBox.style.paddingRight === '280px') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; codeBox.style.paddingRight = '';
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // Capture initial <span style="color:#6F42C1;font-weight:bold;">document</span> state when the DOM is fully loaded
+&nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.addEventListener('DOMContentLoaded', <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>() {
+&nbsp; &nbsp; &nbsp; &nbsp; stripCodeBoxActionIcons();
+&nbsp; &nbsp; &nbsp; &nbsp; saveState();
+&nbsp; &nbsp; });
+
+
+&nbsp; &nbsp; // Saves current innerHTML state of preview-container into history
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> saveState() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> container = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('preview-container');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!container) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> currentState = container.innerHTML;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Prevent saving duplicate consecutive states
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (undoStack.length === 0 || undoStack[undoStack.length - 1] !== currentState) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; undoStack.push(currentState);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Clear redo stack whenever <span style="color:#D73A49;">new</span> modifications occur
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; redoStack = [];
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // Reverts preview content to previous history snapshot
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> undoAction() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> container = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('preview-container');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!container || undoStack.length &lt;= 1) <span style="color:#D73A49;font-weight:bold;">return</span>; // Need at least initial state + 1 state to undo
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Move current state to redo stack
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> currentState = undoStack.pop();
+&nbsp; &nbsp; &nbsp; &nbsp; redoStack.push(currentState);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Apply previous state
+&nbsp; &nbsp; &nbsp; &nbsp; container.innerHTML = undoStack[undoStack.length - 1];
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // Reapplies previously undone snapshot
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> redoAction() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> container = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('preview-container');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!container || redoStack.length === 0) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Pop state from redo stack and push onto undo stack
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> nextState = redoStack.pop();
+&nbsp; &nbsp; &nbsp; &nbsp; undoStack.push(nextState);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Apply state
+&nbsp; &nbsp; &nbsp; &nbsp; container.innerHTML = nextState;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // Helper <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>: Extracts the ID from URL query <span style="color:#005CC5;font-weight:bold;">string</span> to use as <span style="color:#D73A49;">default</span> filename base
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> getDefaultFileName() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> urlParams = <span style="color:#D73A49;">new</span> URLSearchParams(<span style="color:#6F42C1;font-weight:bold;">window</span>.location.search);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> fileId = urlParams.get('ID') || urlParams.get('id') || '<span style="color:#6F42C1;font-weight:bold;">Document</span>.html';
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // Strip .html or .htm extension <span style="color:#D73A49;font-weight:bold;">if</span> present
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (fileId.toLowerCase().endsWith('.html')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fileId = fileId.substring(0, fileId.length - 5);
+&nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (fileId.toLowerCase().endsWith('.htm')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fileId = fileId.substring(0, fileId.length - 4);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span> fileId;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // Change display margins on screen
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> adjustMargins(val) {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('preview-container').style.padding = val;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // Helper: Shared Native "Save As" / Prompt execution <span style="color:#D73A49;font-weight:bold;">for</span> Blobs/Files
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> saveFileWithDialog(blobData, defaultFullName, extension, description, mimeType) {
+&nbsp; &nbsp; &nbsp; &nbsp; // Method 1: Modern Native OS "Save As" Dialog (File System Access API)
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> ('showSaveFilePicker' <span style="color:#D73A49;">in</span> <span style="color:#6F42C1;font-weight:bold;">window</span>) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">try</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> acceptObj = {};
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; acceptObj[mimeType] = ['.' + extension];
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> handle = <span style="color:#D73A49;font-weight:bold;">await</span> <span style="color:#6F42C1;font-weight:bold;">window</span>.showSaveFilePicker({
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; suggestedName: defaultFullName,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; types: [{
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; description: description,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; accept: acceptObj
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }]
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">const</span> writable = <span style="color:#D73A49;font-weight:bold;">await</span> handle.createWritable();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">await</span> writable.write(blobData);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">await</span> writable.close();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>; // Completed native save
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">catch</span> (err) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (err.name === 'AbortError') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>; // User clicked Cancel
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Fall through to Method 2 <span style="color:#D73A49;font-weight:bold;">if</span> blocked by browser policy
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Method 2: Custom JavaScript Prompt Fallback
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> userFileName = prompt("Save As - Enter filename:", defaultFullName);
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (userFileName === <span style="color:#22863A;font-weight:bold;">null</span>) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>; // User canceled
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; userFileName = userFileName.trim();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (userFileName === '') {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; userFileName = defaultFullName;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!userFileName.toLowerCase().endsWith('.' + extension)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; userFileName += '.' + extension;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Trigger file save using FileSaver.js
+&nbsp; &nbsp; &nbsp; &nbsp; saveAs(blobData, userFileName);
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // <span style="color:#D73A49;font-weight:bold;">Export</span> PDF <span style="color:#D73A49;">with</span> "Save As" Dialog
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> exportPDF() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> defaultFullName = getDefaultFileName() + '.pdf';
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> element = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('preview-container');
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> opt = {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; margin: 0.5,
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; image: { type: 'jpeg', quality: 0.98 },
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; html2canvas: { scale: 2 },
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; jsPDF: { unit: '<span style="color:#D73A49;">in</span>', format: 'letter', orientation: 'portrait' }
+&nbsp; &nbsp; &nbsp; &nbsp; };
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Generate PDF as a Blob without auto-downloading
+&nbsp; &nbsp; &nbsp; &nbsp; html2pdf().set(opt).from(element).output('blob').then(<span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span>(pdfBlob) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">await</span> saveFileWithDialog(
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pdfBlob,&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; defaultFullName,&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'pdf',&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'PDF <span style="color:#6F42C1;font-weight:bold;">Document</span> (*.pdf)',&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'application/pdf'
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; );
+&nbsp; &nbsp; &nbsp; &nbsp; });
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // <span style="color:#D73A49;font-weight:bold;">Export</span> DOCX <span style="color:#D73A49;">with</span> "Save As" Dialog
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> exportDOCX() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> defaultFullName = getDefaultFileName() + '.docx';
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> content = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('preview-container').innerHTML;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> htmlString = '&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset="utf-8"&gt;&lt;/head&gt;&lt;body&gt;' + content + '&lt;/body&gt;&lt;/html&gt;';
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // Convert HTML to DOCX Blob
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> docxBlob = htmlDocx.asBlob(htmlString);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">await</span> saveFileWithDialog(
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; docxBlob,&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; defaultFullName,&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'docx',&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'Word <span style="color:#6F42C1;font-weight:bold;">Document</span> (*.docx)',&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'application/vnd.openxmlformats-officedocument.wordprocessingml.<span style="color:#6F42C1;font-weight:bold;">document</span>'
+&nbsp; &nbsp; &nbsp; &nbsp; );
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // <span style="color:#D73A49;font-weight:bold;">Export</span> TXT <span style="color:#D73A49;">with</span> "Save As" Dialog
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">async</span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> exportTXT() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> textContent = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('preview-container').innerText;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> defaultFullName = getDefaultFileName() + '.txt';
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> txtBlob = <span style="color:#D73A49;">new</span> Blob([textContent], { type: "text/plain;charset=utf-8" });
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">await</span> saveFileWithDialog(
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtBlob,&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; defaultFullName,&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'txt',&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'Text Files (*.txt)',&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'text/plain'
+&nbsp; &nbsp; &nbsp; &nbsp; );
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // Navigates back to FilingCabinet.aspx <span style="color:#D73A49;">in</span> the current <span style="color:#6F42C1;font-weight:bold;">window</span> using current URL parameters
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> goBackToFilingCabinet() {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!confirm("<span style="color:#D73A49;font-weight:bold;">Do</span> you want to leave the Print Preview Dialogue?")) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> urlParams = <span style="color:#D73A49;">new</span> URLSearchParams(<span style="color:#6F42C1;font-weight:bold;">window</span>.location.search);
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; // Read parameters passed to PrintPreview.aspx
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> fileId = urlParams.get('ID') || urlParams.get('id') || '';
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> folderName = urlParams.get('Folder') || urlParams.get('folder') || '';
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Strip .html or .htm extension <span style="color:#D73A49;font-weight:bold;">if</span> present to restore original id parameter
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (fileId.toLowerCase().endsWith('.html')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fileId = fileId.substring(0, fileId.length - 5);
+&nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> <span style="color:#D73A49;font-weight:bold;">if</span> (fileId.toLowerCase().endsWith('.htm')) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fileId = fileId.substring(0, fileId.length - 4);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Build <span style="color:#D73A49;font-weight:bold;">return</span> URL
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> targetUrl = 'FilingCabinet.aspx';
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> queryParts = [];
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (fileId) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; queryParts.push('id=' + encodeURIComponent(fileId));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (folderName) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; queryParts.push('Folder=' + encodeURIComponent(folderName));
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (queryParts.length &gt; 0) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; targetUrl += '?' + queryParts.join('&amp;');
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; // Navigate <span style="color:#D73A49;">in</span> current <span style="color:#6F42C1;font-weight:bold;">window</span>/page
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#6F42C1;font-weight:bold;">window</span>.location.href = targetUrl;
+&nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; // Adjusts font size of highlighted text or the entire <span style="color:#6F42C1;font-weight:bold;">document</span> when nothing is selected
+&nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;"><span style="color:#005CC5;">function</span></span> changeFontSize(deltaPixels) {
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> container = <span style="color:#6F42C1;font-weight:bold;">document</span>.getElementById('preview-container');
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> selection = <span style="color:#6F42C1;font-weight:bold;">window</span>.getSelection();
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!container) <span style="color:#D73A49;font-weight:bold;">return</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> range;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> shouldSelectEntireDocument = <span style="color:#22863A;font-weight:bold;">false</span>;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (selection.rangeCount &gt; 0 &amp;&amp; !selection.isCollapsed) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; range = selection.getRangeAt(0);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // <span style="color:#D73A49;font-weight:bold;">If</span> the current selection is not inside the preview container, fall back to the whole <span style="color:#6F42C1;font-weight:bold;">document</span>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!container.contains(range.commonAncestorContainer)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; shouldSelectEntireDocument = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }
+&nbsp; &nbsp; &nbsp; &nbsp; } <span style="color:#D73A49;font-weight:bold;">else</span> {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; shouldSelectEntireDocument = <span style="color:#22863A;font-weight:bold;">true</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (shouldSelectEntireDocument) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selection.removeAllRanges();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; range = <span style="color:#6F42C1;font-weight:bold;">document</span>.createRange();
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; range.selectNodeContents(container);
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selection.addRange(range);
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; range = selection.getRangeAt(0);
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">if</span> (!container.contains(range.commonAncestorContainer)) {
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">return</span>;
+&nbsp; &nbsp; &nbsp; &nbsp; }
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> selectedContent = range.extractContents();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> span = <span style="color:#6F42C1;font-weight:bold;">document</span>.createElement('span');
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> parentElem = range.commonAncestorContainer.nodeType === 1
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ? range.commonAncestorContainer
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : range.commonAncestorContainer.parentNode;
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> currentSize = parseFloat(<span style="color:#6F42C1;font-weight:bold;">window</span>.getComputedStyle(parentElem).fontSize) || 16;
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> newSize = <span style="color:#005CC5;">Math</span>.max(8, currentSize + deltaPixels);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; span.style.fontSize = newSize + 'px';
+&nbsp; &nbsp; &nbsp; &nbsp; span.appendChild(selectedContent);
+&nbsp; &nbsp; &nbsp; &nbsp; range.insertNode(span);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; selection.removeAllRanges();
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#D73A49;font-weight:bold;">var</span> newRange = <span style="color:#6F42C1;font-weight:bold;">document</span>.createRange();
+&nbsp; &nbsp; &nbsp; &nbsp; newRange.selectNodeContents(span);
+&nbsp; &nbsp; &nbsp; &nbsp; selection.addRange(newRange);
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; saveState();
+&nbsp; &nbsp; }
+&lt;/script&gt;
+</span>
+
+
+
+&lt;/body&gt;
+        &lt;/html&gt;</span></pre></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div>
+    </body>
+</html>

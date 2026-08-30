@@ -1,0 +1,562 @@
+<!doctype html>
+<html><head><title>How to Generate Text from Audio with SubtitleEdit</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:aSB0f88560e345c40ff9c1721346'>How to Generate Text from Audio with SubtitleEdit</h1>
+
+(AI Generated Answer)<br/>
+
+<h2 id='temp:C:aSBd38c6275ea7f4ee6b669a4ca8'><span style="color:#001d35" textcolor="#001d35">Step 1: Open your file</span></h2>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:aSB5d0f366fa80c4e70b18ba851c'><li id='temp:C:aSB195b9e8167ac47c2b67d9ebda' class='' value='1'><span style="color:#001d35" textcolor="#001d35">Launch Subtitle Edit.</span>
+
+<br/></li><li id='temp:C:aSB0d07d1300e264dd1ac92e9834' class=''><span style="color:#001d35" textcolor="#001d35">Navigate to the menu and select </span><b><span style="color:#001d35" textcolor="#001d35">Video &gt; Open video file</span></b><span style="color:#001d35" textcolor="#001d35">.</span>
+
+<br/></li><li id='temp:C:aSB7b10e77926d14b7cba2758734' class=''><span style="color:#001d35" textcolor="#001d35">Choose the audio or video file you want to transcribe.</span>
+
+<br/></li></ul></div><div style="" data-section-style='5' class=""><ul id='temp:C:aSB187c9d6ffad44d66849d2d491'><ul><li id='temp:C:aSB6e258a89b1b643ba94ce63658' class='' value='1'><span style="color:#001d35" textcolor="#001d35">Although the dialog box is labeled for video, you can use the file type dropdown menu to select audio formats like </span><code><span style="color:#001d35" textcolor="#001d35">.mp3</span></code><span style="color:#001d35" textcolor="#001d35"> or </span><code><span style="color:#001d35" textcolor="#001d35">.wav</span></code><span style="color:#001d35" textcolor="#001d35">. </span>
+
+<br/></li></ul></ul></div><h2 id='temp:C:aSBa596c4ada1da4ee4a68700424'><span style="color:#001d35" textcolor="#001d35">Step 2: Access the audio-to-text tool </span></h2>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:aSBd435a8f94fbc41a7a60e142a7'><li id='temp:C:aSBbaec861f8267485e8624d809b' class='' value='1'><span style="color:#001d35" textcolor="#001d35">Go to the </span><b><span style="color:#001d35" textcolor="#001d35">Video</span></b><span style="color:#001d35" textcolor="#001d35"> menu again.</span>
+
+<br/></li><li id='temp:C:aSB24498d722bb643cab15f4d574' class=''><span style="color:#001d35" textcolor="#001d35">Select </span><b><span style="color:#001d35" textcolor="#001d35">Audio to text (Whisper)</span></b><span style="color:#001d35" textcolor="#001d35">. Subtitle Edit also offers Vosk as an alternative, but Whisper is generally recommended for its superior accuracy. </span>
+
+<br/></li></ul></div><h2 id='temp:C:aSBb1f870b34e1d4087ad7291dce'><span style="color:#001d35" textcolor="#001d35">Step 3: Configure settings and download models </span></h2>
+
+<span style="color:#001d35" textcolor="#001d35">Before the first use, you may need to install components and download language models. </span><br/>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:aSBed6287c7432547688c882f617'><li id='temp:C:aSBabf6e7f0c0a542e69ae992bb8' class='' value='1'><b><span style="color:#001d35" textcolor="#001d35">Engine:</span></b><span style="color:#001d35" textcolor="#001d35"> The software will often suggest a fast, high-quality engine, such as Purfview's Faster-Whisper. It may prompt you to download it if you don't have it.</span>
+
+<br/></li><li id='temp:C:aSBa1b42876bc6343b4a0f49bfc2' class=''><b><span style="color:#001d35" textcolor="#001d35">Language:</span></b><span style="color:#001d35" textcolor="#001d35"> Select the language spoken in your audio or video.</span>
+
+<br/></li><li id='temp:C:aSB5b4fbc18bbe2487f864ca492f' class=''><b><span style="color:#001d35" textcolor="#001d35">Model:</span></b><span style="color:#001d35" textcolor="#001d35"> Choose a model size. Larger models offer higher accuracy but take longer to process and download. The </span><code><span style="color:#001d35" textcolor="#001d35">large-v3</span></code><span style="color:#001d35" textcolor="#001d35"> model is often recommended for the best results.</span>
+
+<br/></li><li id='temp:C:aSB4133a3707a9b4f70a6d448a02' class=''><b><span style="color:#001d35" textcolor="#001d35">Auto adjust timings:</span></b><span style="color:#001d35" textcolor="#001d35"> Check this box to have the software automatically time the generated text to the audio.</span>
+
+<br/></li><li id='temp:C:aSB5dae572e56ca4a08a6a852949' class=''><b><span style="color:#001d35" textcolor="#001d35">Post-processing:</span></b><span style="color:#001d35" textcolor="#001d35"> Enable this option for better results. This feature can help merge short lines, split long lines, and fix short durations. </span>
+
+<br/></li></ul></div><h2 id='temp:C:aSB05c7101960ca43b4b035fb289'><span style="color:#001d35" textcolor="#001d35">Step 4: Generate the text</span></h2>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:aSBc3286516d8b34af2a320e97f1'><li id='temp:C:aSB323e9e3351df40138b546466b' class='' value='1'><span style="color:#001d35" textcolor="#001d35">Click the </span><b><span style="color:#001d35" textcolor="#001d35">Generate</span></b><span style="color:#001d35" textcolor="#001d35"> button to start the transcription process.</span>
+
+<br/></li><li id='temp:C:aSB21810b4f787d42179998ac38e' class=''><span style="color:#001d35" textcolor="#001d35">The software will transcribe the audio and populate the main text window with the generated subtitles.</span>
+
+<br/></li><li id='temp:C:aSBfa2e9f533a334a189a2e247d2' class=''><span style="color:#001d35" textcolor="#001d35">The time required for this process depends on the length of your file and the model size you selected. </span>
+
+<br/></li></ul></div><h2 id='temp:C:aSBde9602e87af343708820b33e5'><span style="color:#001d35" textcolor="#001d35">Step 5: Review and refine</span></h2>
+
+<span style="color:#001d35" textcolor="#001d35">The automated transcript will be highly accurate but may still contain errors. </span><br/>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:aSB3503fab4254045c396ced1dbe'><li id='temp:C:aSB8c20a4817df74cc89bcec6714' class='' value='1'><b><span style="color:#001d35" textcolor="#001d35">Proofread:</span></b><span style="color:#001d35" textcolor="#001d35"> Read through the generated text and correct any spelling or punctuation mistakes.</span>
+
+<br/></li><li id='temp:C:aSB6258f31be8574a1ea300b5923' class=''><b><span style="color:#001d35" textcolor="#001d35">Edit Timings:</span></b><span style="color:#001d35" textcolor="#001d35"> Review the timings to ensure the text syncs correctly with the audio.</span>
+
+<br/></li><li id='temp:C:aSBa2b59980c3ac43549c739e461' class=''><b><span style="color:#001d35" textcolor="#001d35">Fix Line Breaks:</span></b><span style="color:#001d35" textcolor="#001d35"> Use the built-in tools to merge or split lines for better readability. You can right-click on a line and select from the "Merge with line before" or "Split line" options. </span>
+
+<br/></li></ul></div><h2 id='temp:C:aSB577332644fbf4a08aacbc93e0'><span style="color:#001d35" textcolor="#001d35">Step 6: Export your text</span></h2>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:aSBcdb3c81b0ced4f39bee414715'><li id='temp:C:aSB1fae5f6a34f444d3b3bae1a88' class='' value='1'><span style="color:#001d35" textcolor="#001d35">Once you are satisfied with the result, go to the menu and select </span><b><span style="color:#001d35" textcolor="#001d35">File &gt; Save As</span></b><span style="color:#001d35" textcolor="#001d35"> to save your work as an </span><code><span style="color:#001d35" textcolor="#001d35">.srt</span></code><span style="color:#001d35" textcolor="#001d35"> file.</span>
+
+<br/></li><li id='temp:C:aSBfff853ef98c04ca3ab91a1596' class=''><span style="color:#001d35" textcolor="#001d35">If you only need a plain text transcript, go to </span><b><span style="color:#001d35" textcolor="#001d35">File &gt; Export &gt; Plain text</span></b><span style="color:#001d35" textcolor="#001d35">. This option allows you to save the text in various formats, such as with or without time codes. </span>
+
+<br/></li></ul></div></body></html>

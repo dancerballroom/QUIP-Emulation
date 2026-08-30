@@ -1,0 +1,558 @@
+<!doctype html>
+<html><head><title>Time Sig Milli-Second Conversion Tests</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:DEe7ff8d1a2039346c8a3a2d58d9'>Time Sig Milli-Second Conversion Tests</h1>
+
+<h2 id='temp:C:DEe130ea9a128c6488ba504c9d53'><span style="color:#083f91" textcolor="#083f91">The EVOLUTION of The Sign of the Times</span></h2>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:DEe3e7e5f950626443f8f7e65c90'><li id='temp:C:DEea097811eba2e42f1bc7c84926' class='parent' value='1'><b>The Developing of Functions</b>:   
+
+<br/></li><ul><li id='temp:C:DEed48aeb520c5b430e930f02530' class=''>REM # Function TimeSig2MilliSec<br>REM # INPUT:  %1 (Time-Signature: 12:34:56,789)<br>REM #         CALL :TimeSig2MilliSec !12.34.56.789! MilliSec<br>REM # OUTPUT: MilliSec (MilliSeconds: 123456789)
+
+<br/></li><li id='temp:C:DEee914ad7b066342ca8ad7f67b8' class=''>REM # Function MilliSec2TimeSig<br>REM # INPUT:  %1 (Milli-Seconds)<br>REM #          CALL :MilliSec2TimeSig !Milli-Seconds! Timex TimexC<br>REM # OUTPUT: Timex (Time-Signature: 12:34:56.789)<br>REM # OUTPUT: TimexC (Time-Signature: 12:34:56,789)
+
+<br/></li><li id='temp:C:DEef584456208a44d89ba2ba7c02' class=''>REM # Function ADD_TIMES<br>REM # INPUT:  %1 %2 (Time-Signatures: 12:34:56,789)<br>REM # CALL :ADD_TIMES !TIME-VAR-1! !TIME-VAR-2! Total TimexC<br>REM # OUTPUT: Total (Time-Signature:  12:34:56,789)
+
+<br/></li><li id='temp:C:DEed81d48e64e7445828d984485c' class=''>REM # Function SUB_TIMES<br>REM # INPUT:  %1 %2 (Time-Signatures: 12:34:56,789)<br>REM # CALL :SUB_TIMES !TIME-VAR-1! !TIME-VAR-2! Total TimexC<br>REM # OUTPUT: Total (Time-Signature:  12:34:56,789)
+
+<br/></li></ul></ul></div><h2 id='temp:C:DEeb20db02a54044679a296fe9f5'>Version 1.  TimeTest_NEW_01.bat (The <span style="color:#001d35" textcolor="#001d35">Paleolithic Era: Rock meet Stone)</span></h2>
+
+<h3 id='temp:C:DEee4d887aecba643ef9edd4f4ca'>Output:</h3>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/DEeAAANSatv/gAe_8AIpus3ken0lwWKNMQ?a=aHnyTarYXW1gNMthgUmtzvEnHer1ECVIOmvbMcHbhKoa' id='temp:C:DEe5a5e9a75e1ea42498429e93ab' alt="000998 - Greenshot.jpg"></img></div><br/>
+
+<h3 id='temp:C:DEe4b67644c64414a3ca90b2afde'>CODE:</h3>
+
+<pre id='temp:C:DEe1682d32013324e28bb5bef749'>@ECHO OFF<br>SETLOCAL ENABLEDELAYEDEXPANSION<br><br>Set TT=12:32:57.347<br>Set HH=!TT:~0,2!<br>Set MM=!TT:~3,2!<br>Set SS=!TT:~6,2!<br>Set MS=!TT:~9,3!<br>Echo Time:     !TT!<br>Echo Hour:     !HH!<br>Echo Minute:   !MM!<br>Echo Second:   !SS!<br>Echo Mili-Sec: !MS!<br>Set /A MS_SS=(!SS!*1000)<br>Set /A MS_MM=(!MM!*60*1000)<br>Set /A MS_HH=(!HH!*60*60*1000) <br>Echo MS_SS:  !MS_SS!<br>Echo MS_MM:  !MS_MM!<br>Echo MS_MM:  !MS_HH!<br>Set /A MS_TOT=!MS_HH!+!MS_MM!+!MS_SS!+!MS!<br>Echo MS_TOT: !MS_TOT!<br>Set MS_EXT=!MS_TOT:~-3,3!<br>Echo Mili-Seconds Extracted: !MS_EXT!<br>Set /A Rem_Minus_MS=!MS_TOT!-MS_EXT<br>Echo Total Minus MS: !Rem_Minus_MS!<br>Set /A HH_EXT=(!Rem_Minus_MS!/(60*60*1000))<br>Echo Hours Extracted: !HH_EXT!<br>Set /A Rem_Minus_HH=(!Rem_Minus_MS!%%(60*60*1000))<br>Echo Total Minus HH: !Rem_Minus_HH!<br>Set /A MM_EXT=(!Rem_Minus_HH!/(60*1000))<br>Echo Minutes Extracted: !MM_EXT!<br>Set /A Rem_Minus_MM=(!Rem_Minus_HH!%%(60*1000))<br>Echo Total Seconds SS: !Rem_Minus_MM!<br>Set /A SS_EXT=(!Rem_Minus_MM!/1000)<br>Echo Seconds Extracted: !SS_EXT!<br>Echo Time Extracted: !HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>REM Set /A HH_EXT=(!MS_TOT!%%(60*60*60*1000))<br>REM Echo Extracted Hour: !HH_EXT!<br><br>pause</pre>
+
+<h2 id='temp:C:DEed049c1cd6f3d4d50876fbdf38'>Version 2. TimeTest_NEW_02.bat (The <span style="color:#001d35" textcolor="#001d35">Mesopotamian Era:  Rudimentary Wheel)</span></h2>
+
+<h3 id='temp:C:DEe538a03958c0f49ab8a247b532'>Output:</h3>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/DEeAAANSatv/KrfjPpeBz8A97nhxAyLO_w?a=qqawBPcEueQYxAMRNVaafr3wPckX3RUDqwGX1QYZSWQa' id='temp:C:DEe0421f0f360a7414b9a52860b3' alt="000999 - Greenshot.jpg"></img></div><br/>
+
+<h3 id='temp:C:DEe6e32227a1c414562938966565'>CODE:</h3>
+
+<pre id='temp:C:DEef36fc02d31454a93b79e33c1c'>@ECHO OFF<br>SETLOCAL ENABLEDELAYEDEXPANSION<br><br>Set /A FALSE=0<br>Set /A TRUE=1<br>Set /A DEBUG=!FALSE!<br><br>Set New_Timex=12:32:57.347<br><br>Echo Outside Time Signature: !New_Timex!<br>CALL :TimeSig2MilliSec New_Timex MilliSec<br>Echo Outside Milli-Seconds: !MilliSec!<br><br>CALL :MilliSec2TimeSig MilliSec Extract_Timex<br>Echo Outside Time Signature: !Extract_Timex!<br><br>pause<br>exit<br><br>:TimeSig2MilliSec<br>    Set TT=!New_Timex!<br>    Set HH=!TT:~0,2!<br>    Set MM=!TT:~3,2!<br>    Set SS=!TT:~6,2!<br>    Set MS=!TT:~9,3!<br>    if !DEBUG! EQU !TRUE! Echo Time:     !TT!<br>    if !DEBUG! EQU !TRUE! Echo Hour:     !HH!<br>    if !DEBUG! EQU !TRUE! Echo Minute:   !MM!<br>    if !DEBUG! EQU !TRUE! Echo Second:   !SS!<br>    if !DEBUG! EQU !TRUE! Echo Mili-Sec: !MS!<br>    Set /A MS_SS=(!SS!*1000)<br>    Set /A MS_MM=(!MM!*60*1000)<br>    Set /A MS_HH=(!HH!*60*60*1000) <br>    if !DEBUG! EQU !TRUE! Echo MS_SS:  !MS_SS!<br>    if !DEBUG! EQU !TRUE! Echo MS_MM:  !MS_MM!<br>    if !DEBUG! EQU !TRUE! Echo MS_MM:  !MS_HH!<br>    Set /A MS_TOT=!MS_HH!+!MS_MM!+!MS_SS!+!MS!<br>    if !DEBUG! EQU !TRUE! Echo MS_TOT: !MS_TOT!<br>    Set /A MilliSec=!MS_TOT!<br>Exit /b<br><br>:MilliSec2TimeSig<br>    Set /A MS_TOT=!MilliSec!<br>    Set MS_EXT=!MS_TOT:~-3,3!<br>    if !DEBUG! EQU !TRUE! Echo Mili-Seconds Extracted: !MS_EXT!<br>    Set /A Rem_Minus_MS=!MS_TOT!-MS_EXT<br>    if !DEBUG! EQU !TRUE! Echo Total Minus MS: !Rem_Minus_MS!<br>    Set /A HH_EXT=(!Rem_Minus_MS!/(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Hours Extracted: !HH_EXT!<br>    Set /A Rem_Minus_HH=(!Rem_Minus_MS!%%(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Minus HH: !Rem_Minus_HH!<br>    Set /A MM_EXT=(!Rem_Minus_HH!/(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Minutes Extracted: !MM_EXT!<br>    Set /A Rem_Minus_MM=(!Rem_Minus_HH!%%(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Seconds SS: !Rem_Minus_MM!<br>    Set /A SS_EXT=(!Rem_Minus_MM!/1000)<br>    if !DEBUG! EQU !TRUE! Echo Seconds Extracted: !SS_EXT!<br>    if !DEBUG! EQU !TRUE! Echo Time Extracted: !HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>    Set Extract_Timex=!HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>Exit /b<br><br></pre>
+
+<h2 id='temp:C:DEe3c95a88665494b5b8f49028e7'>Version 3. TimeTest_NEW_03.bat (Age of Enlightenment Era:  Building with Tools)</h2>
+
+<h3 id='temp:C:DEe35764c98daf9479a882444cba'>Output:</h3>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/DEeAAANSatv/LoO1-3Hoewy8Wz_pxrxCfQ?a=0ElDas2yDO6dV2bc9rx4sqwHtLF1BxYrVjZcPTOb3fAa' id='temp:C:DEea43769d85be8459a9d5697143' alt="001000 - Greenshot.jpg"></img></div><br/>
+
+<h3 id='temp:C:DEe37657026be7c44e39d15ab64d'>CODE:</h3>
+
+<pre id='temp:C:DEe15dee25df7f54eeabb732a48c'>@ECHO OFF<br>SETLOCAL ENABLEDELAYEDEXPANSION<br><br>Set /A FALSE=0<br>Set /A TRUE=1<br>Set /A DEBUG=!FALSE!<br><br>Set Timex=12:32:57.347<br>Echo # *******[ TEST 1 ]********<br>Echo Outside Time Signature: !Timex!<br>CALL :TimeSig2MilliSec !Timex! MilliSec<br>Echo Outside Milli-Seconds: !MilliSec!<br><br>CALL :MilliSec2TimeSig !MilliSec! Timex<br>Echo Outside Time Signature: !Timex!<br>Echo # *******[ TEST 2 ]********<br>Set First_Time=01:02:03.406<br>Set Second_Time=00:01:00:110<br>Echo First Time:  !First_Time!<br>Echo Second Time: !Second_Time!<br>CALL :TimeSig2MilliSec !First_Time! MilliSec<br>Set /A FT=!MilliSec!<br>CALL :TimeSig2MilliSec !Second_Time! MilliSec<br>Set /A ST=!MilliSec!<br>Set /A FT_ST_TOT=!FT!+!ST!<br>CALL :MilliSec2TimeSig !FT_ST_TOT! Timex<br>Echo Total Time: !Timex!<br>pause<br>exit<br><br>REM # INPUT:  %1 (Time-Signature: 12:34:56,789)<br>REM # OUTPUT: MilliSec (MilliSeconds: 123456789)<br>:TimeSig2MilliSec<br>    Set TT=%1<br>    Set HH=!TT:~0,2!<br>    Set MM=!TT:~3,2!<br>    Set SS=!TT:~6,2!<br>    Set MS=!TT:~9,3!<br>    if !DEBUG! EQU !TRUE! Echo Time:     !TT!<br>    if !DEBUG! EQU !TRUE! Echo Hour:     !HH!<br>    if !DEBUG! EQU !TRUE! Echo Minute:   !MM!<br>    if !DEBUG! EQU !TRUE! Echo Second:   !SS!<br>    if !DEBUG! EQU !TRUE! Echo Mili-Sec: !MS!<br>    Set /A MS_SS=(!SS!*1000)<br>    Set /A MS_MM=(!MM!*60*1000)<br>    Set /A MS_HH=(!HH!*60*60*1000) <br>    if !DEBUG! EQU !TRUE! Echo MS_SS:  !MS_SS!<br>    if !DEBUG! EQU !TRUE! Echo MS_MM:  !MS_MM!<br>    if !DEBUG! EQU !TRUE! Echo MS_MM:  !MS_HH!<br>    Set /A MS_TOT=!MS_HH!+!MS_MM!+!MS_SS!+!MS!<br>    if !DEBUG! EQU !TRUE! Echo MS_TOT: !MS_TOT!<br>    Set /A MilliSec=!MS_TOT!<br>Exit /b<br><br>REM # INPUT:  %1 (Milli-Seconds)<br>REM # OUTPUT: Timex (Time-Signature: 12:34:56,789)<br>:MilliSec2TimeSig<br>    Set /A MS_TOT=%1<br>    Set MS_EXT=!MS_TOT:~-3,3!<br>    if !DEBUG! EQU !TRUE! Echo Mili-Seconds Extracted: !MS_EXT!<br>    Set /A Rem_Minus_MS=!MS_TOT!-MS_EXT<br>    if !DEBUG! EQU !TRUE! Echo Total Minus MS: !Rem_Minus_MS!<br>    Set /A HH_EXT=(!Rem_Minus_MS!/(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Hours Extracted: !HH_EXT!<br>    Set /A Rem_Minus_HH=(!Rem_Minus_MS!%%(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Minus HH: !Rem_Minus_HH!<br>    Set /A MM_EXT=(!Rem_Minus_HH!/(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Minutes Extracted: !MM_EXT!<br>    Set /A Rem_Minus_MM=(!Rem_Minus_HH!%%(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Seconds SS: !Rem_Minus_MM!<br>    Set /A SS_EXT=(!Rem_Minus_MM!/1000)<br>    if !DEBUG! EQU !TRUE! Echo Seconds Extracted: !SS_EXT!<br><br>    if !HH_EXT! lss 10 set HH_EXT=0!HH_EXT!<br>    if !MM_EXT! lss 10 set MM_EXT=0!MM_EXT!<br>    if !SS_EXT! lss 10 set SS_EXT=0!SS_EXT!<br><br>    if !DEBUG! EQU !TRUE! Echo Time Extracted: !HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>    Set Timex=!HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>Exit /b<br><br></pre>
+
+<h2 id='temp:C:DEe60c093ca23a247dbb4fdd75c5'>Version 4.  TimeTest_NEW_04.bat (The Modern Era:  The First Adding Machine)</h2>
+
+<h3 id='temp:C:DEe6fc41407b9da4cfe823bc8a62'>Output:</h3>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/DEeAAANSatv/N3lf_Io6hP17Vl8Bn-SHaA?a=bkOzXfGsKNwdKxBtMHuJeA2Ax8ya2xytIJwvNaBk4v8a' id='temp:C:DEe22a588de1cbb46ed94f4a6873' alt="001004 - Time Sig Milli-Second Conversion Tests - Quip.jpg"></img></div><br/>
+
+<h3 id='temp:C:DEe32ede6a069af4d8e82c8ef4aa'>CODE:</h3>
+
+<pre id='temp:C:DEef1fc6f2a5634489abf087eb36'>@ECHO OFF<br>SETLOCAL ENABLEDELAYEDEXPANSION<br><br>Set /A FALSE=0<br>Set /A TRUE=1<br>Set /A DEBUG=!FALSE!<br><br>REM # Echo ********[ TEST 1 ]**********<br>Set Timex1=00:00:05.010<br>Set Timex2=00:00:00.001<br>Echo                 !Timex1!<br>Echo             +   !Timex2!<br>Set Timex3=12:32:57.347<br>Set Timex4=00:00:00.001<br>Echo                                         !Timex3!<br>Echo                                     -   !Timex4!<br><br>:BEGIN<br>SET Timex1=!Timex1:~0,8!.!Timex1:~9,11!<br>SET Timex2=!Timex2:~0,8!.!Timex2:~9,11!<br>CALL :ADD_TIMES !Timex1! !Timex2! Total TimexC<br>Echo          Total: (!Total!) <br>Echo                 (!TimexC!)<br>SET Timex1=!Total!<br>REM # Echo ********[ TEST 2 ]**********<br>SET Timex3=!Timex3:~0,8!.!Timex3:~9,11!<br>SET Timex4=!Timex4:~0,8!.!Timex4:~9,11!<br>CALL :SUB_TIMES !Timex3! !Timex4! Total TimexC<br>Echo                                         (!Total!) <br>Echo                                         (!TimexC!)<br>SET Timex3=!Total!<br><br>SET /P "key="<br><br>GOTO :BEGIN<br><br>REM # Function ADD_TIMES<br>REM # INPUT:  %1 %2 (Time-Signatures: 12:34:56,789)<br>REM # CALL :ADD_TIMES !TIME-VAR-1! !TIME-VAR-2! Total TimexC<br>REM # OUTPUT: Total (Time-Signature:  12:34:56,789)<br>:ADD_TIMES<br>    Set First_Time=%1<br>    Set Second_Time=%2<br>    if !DEBUG! EQU !TRUE! Echo First Time:  !First_Time!<br>    if !DEBUG! EQU !TRUE! Echo Second Time: !Second_Time!<br>    CALL :TimeSig2MilliSec !First_Time! MilliSec<br>    Set /A FT=!MilliSec!<br>    CALL :TimeSig2MilliSec !Second_Time! MilliSec<br>    Set /A ST=!MilliSec!<br>    Set /A FT_ST_TOT=!FT!+!ST!<br>    CALL :MilliSec2TimeSig !FT_ST_TOT! Timex TimexC<br>    if !DEBUG! EQU !TRUE! Echo Total Time: !Timex!<br>    Set Total=!Timex!<br>exit /b<br><br>REM # Function SUB_TIMES<br>REM # INPUT:  %1 %2 (Time-Signatures: 12:34:56,789)<br>REM # CALL :SUB_TIMES !TIME-VAR-1! !TIME-VAR-2! Total TimexC<br>REM # OUTPUT: Total (Time-Signature:  12:34:56,789)<br>:SUB_TIMES<br>    Set First_Time=%1<br>    Set Second_Time=%2<br>    if !DEBUG! EQU !TRUE! Echo First Time:  !First_Time!<br>    if !DEBUG! EQU !TRUE! Echo Second Time: !Second_Time!<br>    CALL :TimeSig2MilliSec !First_Time! MilliSec<br>    Set /A FT=!MilliSec!<br>    CALL :TimeSig2MilliSec !Second_Time! MilliSec<br>    Set /A ST=!MilliSec!<br>    Set /A FT_ST_TOT=!FT!-!ST!<br>    CALL :MilliSec2TimeSig !FT_ST_TOT! Timex TimexC<br>    if !DEBUG! EQU !TRUE! Echo Total Time: !Timex!<br>    Set Total=!Timex!<br>exit /b<br><br>REM # Function TimeSig2MilliSec<br>REM # INPUT:  %1 (Time-Signature: 12:34:56,789)<br>REM #         CALL :TimeSig2MilliSec !12.34.56.789! MilliSec<br>REM # OUTPUT: MilliSec (MilliSeconds: 123456789)<br>:TimeSig2MilliSec<br>    Set TT=%1<br>    Set HH=!TT:~0,2!<br>    Set MM=!TT:~3,2!<br>    Set SS=!TT:~6,2!<br>    Set MS=!TT:~9,3!<br>    if !DEBUG! EQU !TRUE! Echo Time:     !TT!<br>    if !DEBUG! EQU !TRUE! Echo Hour:     !HH!<br>    if !DEBUG! EQU !TRUE! Echo Minute:   !MM!<br>    if !DEBUG! EQU !TRUE! Echo Second:   !SS!<br>    if !DEBUG! EQU !TRUE! Echo Mili-Sec: !MS!<br>    <br>    <span bgcolor="#fefccb" style="background-color:#fefccb">Set /A MS_MS=((1!MS! %% 100))</span><br>    Set /A MS_SS=((1!SS! %% 100)*1000)<br>    Set /A MS_MM=((1!MM! %% 100)*60*1000)<br>    Set /A MS_HH=((1!HH! %% 100)*60*60*1000)<br>    if !DEBUG! EQU !TRUE! Echo MS_SS:  !MS_SS!<br>    if !DEBUG! EQU !TRUE! Echo MS_MM:  !MS_MM!<br>    if !DEBUG! EQU !TRUE! Echo MS_MM:  !MS_HH!<br>    Set /A MS_TOT=!MS_HH!+!MS_MM!+!MS_SS!+!MS_MS!<br>    if !DEBUG! EQU !TRUE! Echo MS_TOT: !MS_TOT!<br>    Set /A MilliSec=!MS_TOT!<br>    REM Echo MilliSec: !MilliSec!<br>Exit /b<br><br>REM # Function MilliSec2TimeSig<br>REM # INPUT:  %1 (Milli-Seconds)<br>REM #          CALL :MilliSec2TimeSig !Milli-Seconds! Timex TimexC<br>REM # OUTPUT: Timex (Time-Signature: 12:34:56.789)<br>REM # OUTPUT: TimexC (Time-Signature: 12:34:56,789)<br>:MilliSec2TimeSig<br>    Set /A MS_TOT=%1<br>    Set MS_EXT=!MS_TOT:~-3,3!<br>    if !DEBUG! EQU !TRUE! Echo Mili-Seconds Extracted: !MS_EXT!<br>    Set /A Rem_Minus_MS=!MS_TOT!-MS_EXT<br>    if !DEBUG! EQU !TRUE! Echo Total Minus MS: !Rem_Minus_MS!<br>    Set /A HH_EXT=(!Rem_Minus_MS!/(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Hours Extracted: !HH_EXT!<br>    Set /A Rem_Minus_HH=(!Rem_Minus_MS!%%(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Minus HH: !Rem_Minus_HH!<br>    Set /A MM_EXT=(!Rem_Minus_HH!/(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Minutes Extracted: !MM_EXT!<br>    Set /A Rem_Minus_MM=(!Rem_Minus_HH!%%(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Seconds SS: !Rem_Minus_MM!<br>    Set /A SS_EXT=(!Rem_Minus_MM!/1000)<br>    if !DEBUG! EQU !TRUE! Echo Seconds Extracted: !SS_EXT!<br><br>    if !HH_EXT! lss 10 set HH_EXT=0!HH_EXT!<br>    if !MM_EXT! lss 10 set MM_EXT=0!MM_EXT!<br>    if !SS_EXT! lss 10 set SS_EXT=0!SS_EXT!<br><br>    if !DEBUG! EQU !TRUE! Echo Time Extracted: !HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>    Set Timex=!HH_EXT!:!MM_EXT!:!SS_EXT!.!MS_EXT!<br>    Set TimexC=!HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>Exit /b<br><br></pre>
+
+</body></html>

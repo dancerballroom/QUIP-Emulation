@@ -1,0 +1,592 @@
+<!doctype html>
+<html><head><title>Hoisin Eggplant Bao (Chinese Steamed Buns)</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:eZVb1bd813d433a4c2bbee0f1df8'>Hoisin Eggplant Bao (Chinese Steamed Buns)</h1>
+
+<h2 id='temp:C:eZV916e0a6ced2f4eb380c5616fd'>Ingredients</h2>
+
+<h3 id='temp:C:eZVf63f6fba3db84b9c8711bfb5c'>Bao Dough</h3>
+
+<div class="" data-section-style='5' style=""><ul id='temp:C:eZV383596fc52bc4d4e99a2c2f05'><li id='temp:C:eZV270a6df0120f4360b9a069533' class='' value='1'>1 cup (226 mL) warm water, 115 ºF
+
+<br/></li><li id='temp:C:eZVb9be43764e4b4d6bbfe8e65f4' class=''>2 tbsp (27 g) sugar
+
+<br/></li><li id='temp:C:eZVf8fe928ef90249caaf7a99cef' class=''>2 tsp (7 g) instant yeast
+
+<br/></li><li id='temp:C:eZV7501d0e91f574571b2003a61b' class=''>2 tbsp (22 g) vegetable oil
+
+<br/></li><li id='temp:C:eZVf1f1761736ec49908bfc95645' class=''>3 cups (380 g) all purpose flour
+
+<br/></li><li id='temp:C:eZV06521fa145d74d32a1b5889cd' class=''>1 1/2 tsp (7 g) baking powder
+
+<br/></li><li id='temp:C:eZV0ececa165f734421a0343e089' class=''>1/4 tsp salt
+
+<br/></li></ul></div><h3 id='temp:C:eZVb039e8ecfe02474792d85e7fd'>Filling</h3>
+
+<div class="" data-section-style='5' style=""><ul id='temp:C:eZVff47e1a2f2c847b4944d227f9'><li id='temp:C:eZVcdf1091f0f584fa5b80075814' class='' value='1'>1 lb Japanese eggplant
+
+<br/></li></ul></div><h3 id='temp:C:eZV0ffad07b6b3b467ca12fe0ce0'>Hoisin Sauce</h3>
+
+<div class="" data-section-style='5' style=""><ul id='temp:C:eZV3a55022839c14a588fe8fd074'><li id='temp:C:eZV6ceadffdf0d249bebfc20a9b6' class='' value='1'>1 tbsp oil
+
+<br/></li><li id='temp:C:eZVcd97c799893b480ca6e2ae3e5' class=''>2-3 cloves garlic, minced
+
+<br/></li><li id='temp:C:eZV635986a9f1384f778f9be52a6' class=''>1/4 cup soy sauce
+
+<br/></li><li id='temp:C:eZVdb1533c12af84bf38300bcf1b' class=''>2 tbsp maple syrup
+
+<br/></li><li id='temp:C:eZV21ba21c9286047e8a985ab2dd' class=''>1 1/2 tbsp rice vinegar
+
+<br/></li><li id='temp:C:eZVf296b4bcec374e418cd0bdbf1' class=''>2 tbsp tahini
+
+<br/></li><li id='temp:C:eZVc04264903bd344dbafc1a557e' class=''>2 tsp sriracha or chili oil (to taste)
+
+<br/></li><li id='temp:C:eZV152c7a2005af407fbca95882f' class=''>1 tsp doubanjiang or miso
+
+<br/></li><li id='temp:C:eZVb63a9e285ae646cebd74ef2f0' class=''>1 tsp toasted sesame oil
+
+<br/></li><li id='temp:C:eZVf36b8fd72fb4411aae967fec3' class=''>1/4 tsp black pepper
+
+<br/></li></ul></div><h2 id='temp:C:eZV6951a0d899494a19969cb4590'>Instructions</h2>
+
+<h4 id='temp:C:eZVf7abc275d3ac40f8b2bcd54ab'>Make the Bao Dough</h4>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:eZVe51dd15024a547fba9013dd76'><li id='temp:C:eZV2979f759cb4c486da718fbe55' class='' value='1'>Add the sugar and yeast to the warm water in a large liquid measuring cup or mixing bowl. Stir and let sit for a few minutes to get foamy. Add the oil.
+
+<br/></li><li id='temp:C:eZVfa728d85fe1b4f1ab6edbc35b' class=''>In a large mixing bowl whisk together the flour, baking powder, and salt. Add the yeast mixture and mix together with a wooden spoon or by hand (wetting your hand to prevent sticking), until you have a coarse dough. Turn the dough onto a lightly floured counter and knead by hand around 5 minutes until the dough is smooth and elastic. Add flour if necessary, though give it a minute before adding as it takes time for the flour to absorb the moisture. You should have a soft and lightly tacky dough (not sticky). Alternatively you can knead in a stand mixer on low speed for 4-5 minutes.
+
+<br/></li><li id='temp:C:eZVcca7841c0e2c4dd9b82ac292a' class=''>Transfer the dough ball to a lightly oiled mixing bowl and cover with plastic wrap. Let rise for 45 minutes - 1 hour until doubled in size.
+
+<br/></li></ul></div><h4 id='temp:C:eZV7ae389c06a3c4135a72cacb9b'>Make the Filling</h4>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:eZVf1b94bb7ad854cac9d3a753c0'><li id='temp:C:eZV25de0fd9cb154463ab4f8ed92' class='' value='1'>Trim the ends of the eggplant and cut them in half. Brush with oil, then grill over medium-high heat (using grill pan or outdoor grill) until the eggplant is tender when pierced with a fork, about 4-5 minutes each side, but this depends on size of eggplant. When cool enough to handle, cut grilled eggplant into ~3/4" cubes
+
+<br/></li><li id='temp:C:eZV0439032fea454edf8650b37da' class=''>Heat the oil and garlic in a small pot over low heat. When the garlic turns a pale golden--not too dark or it will taste burnt--carefully add the liquids and whisk to combine. Bring to a simmer and let simmer for about 5 minutes, stirring occasionally until the sauce is thickened.
+
+<br/></li><li id='temp:C:eZVa4e9bc07799f42688354f6519' class=''>Toss the eggplant in the sauce.
+
+<br/></li></ul></div><h2 id='temp:C:eZVc5759da38eb0416083c521c17'>Shape and Steam the Bao</h2>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:eZV5d84fc6263f44ecb8add40fb8'><li id='temp:C:eZV4ca84b7ed1b849afbca2b0e85' class='' value='1'>Punch down the dough and divide into 12 (~54 g) balls of dough. Let rest a few minutes before shaping so the gluten has a chance to relax.
+
+<br/></li><li id='temp:C:eZVe4f278fcfcb34b02bbd064d96' class=''>Prepare your steaming apparatus and bring water to a boil. Line the steamer with parchment to prevent sticking and/or cut 12 ~2.5" squares of parchment paper to use with each bun.
+
+<br/></li><li id='temp:C:eZVd77789315987429ebd0859b7e' class=''>Pat or roll out each piece of dough into a ~5" round. Place in your non-dominant hand, and a heaping tablespoon of the eggplant to the center. Take opposing sides of the dough and pinch together over the filling with your thumb and forefinger. Repeat pinching the dough together as you go around the bun until all of the dough meets in the center. Pinch and twist the top to seal it off. Place the bun on a piece of parchment paper and repeat with the remaining dough.
+
+<br/></li><li id='temp:C:eZV189845388f1a4da384416b9c0' class=''>When the water is boiling place the buns in batches in the steamer basket. Be careful not to overcrowd as they double in size while steaming. In my steamer I can make 4 at a time. Keep the remaining shaped buns in the refrigerator while you steam so that they do not get over proofed.
+
+<br/></li><li id='temp:C:eZV911ab3230dfc454b87b818de4' class=''>Steam each batch 12-15 minutes. Best enjoyed warm or on the same day. Store leftovers in a tightly sealed container in the fridge and reheat in the microwave until warm. Cover with a damp paper towel while microwaving if they feel dry.
+
+<br/></li></ul></div><h2 id='temp:C:eZV46b946f862c9496394dc35b5a'>Notes</h2>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:eZVb9b4970ec5d04964af9f67a3a'><li id='temp:C:eZVf80003ee7c364f3b917e7b8b0' class='' value='1'>You can substitute 1/2 cup of prepared hoisin sauce for the homemade.
+
+<br/></li><li id='temp:C:eZVfea14955bc104b0888b5e7092' class=''>If at any point the dough is rising too quickly, stick it in the fridge to slow down the rising.
+
+<br/></li></ul></div><div data-section-style='11' style='max-width:100%' class='tall'><img src='https://quip.com/blob/eZVAAAzhxzi/IognPmc0WN-DxrWP2JyT3g?a=IIo2f1xjPjyOVUkcm7hNzT2bnjuTZWOJhNWujca04vYa' id='temp:C:eZV636967a997644149bbf2e92ad' alt="image.png"></img></div><br/>
+
+</body></html>

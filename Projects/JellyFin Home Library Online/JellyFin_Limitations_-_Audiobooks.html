@@ -1,0 +1,562 @@
+<!doctype html>
+<html><head><title>JellyFin Limitations - Audiobooks</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:UJQ394e9c4d13ca420f9c1d1f3a4'>JellyFin Limitations - Audiobooks</h1>
+
+<h2 id='temp:C:UJQ47e893a3f28d49278d23d94d1'><span style="color:#cc0300" textcolor="#cc0300">1000’s of Audiobooks left out in JellyFin Search</span></h2>
+
+<h2 id='temp:C:UJQ9f8c25bc26414d919b4c26018'>Issue:</h2>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:UJQ1d3cc12825b2486dbd48f9d13'><li id='temp:C:UJQ4eeee6c17dbd422d9aee4d5a3' class='' value='1'>Searches only 1 Level Deep
+
+<br/></li></ul></div><h2 id='temp:C:UJQe605f0bee1ad41bc89972e143'>Clunky Work Around:</h2>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:UJQ0ba5e0f063454e4bbb3cf3135'><li id='temp:C:UJQ4265c7d1c2a840cfaadd44181' class='' value='1'>Search for Keyword in CMD
+
+<br/></li></ul></div><h3 id='temp:C:UJQ84c8e49707ed4d2c860728b97'>Example 1</h3>
+
+A Regular JellyFin Search will Show Movie Locations, but leave out Audiobook Infomation, although JellyFin can still be used to Play the Audiobook.  (No Bookmark or Start-At/Left-Off-At Support)<br/>
+
+<pre id='temp:C:UJQ9a2057eba2f342909ec9ef598'>C:\&gt;dir /b /ad /s F:\AUDIOBOOKS | findstr /i "Hobbit"<br>F:\AUDIOBOOKS\000_Languages_000\French\Le Hobbit  - J.R.R. Tolkien<br>F:\AUDIOBOOKS\000_Languages_000\German\Der Hobbit (German)<br>F:\AUDIOBOOKS\000_Languages_000\Spanish\El Hobbit (Spanish)<br>F:\AUDIOBOOKS\JRR Tolkien\The Hobbit (1937)</pre>
+
+<h3 id='temp:C:UJQcab0e3f2c9a848b7a94dbc57b'>Example 2</h3>
+
+A Regular JellyFin Search Will Show:<br/>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:UJQa536bd3957d148d99de666eda'><li id='temp:C:UJQ68285b35ab3348349b243cff6' class='' value='1'>Movie Locations (Video)
+
+<br/></li><li id='temp:C:UJQ5fbf0e6fe52448ff9b58eef8c' class=''>Show Locations (Video)
+
+<br/></li><li id='temp:C:UJQba1d5b216bdb43869fe5ad4cc' class=''>Episodes
+
+<br/></li><li id='temp:C:UJQcc22bcc58ade409bbeaaf33a0' class=''>People
+
+<br/></li><li id='temp:C:UJQb87e348b9d8940da92ef939ba' class=''>Artists
+
+<br/></li><li id='temp:C:UJQd26ce2a2ed4640d0be72a9411' class=''>Collections
+
+<br/></li></ul></div>It will heap 1st level Sub-Directories into the SONG category, mixed together in a jumble.<br/>
+
+It will Not list any 2nd level DIRS even mixed in the SONG CATEGORY<br/>
+
+Below, This NONE of these BOOKS will be found in:<br/>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:UJQ8afff12d63374016b970ee1b0'><li id='temp:C:UJQfa842edefccf430b9bd6ee1d0' class='' value='1'>F:\AUDIOBOOKS\2021\
+
+<br/></li><li id='temp:C:UJQ9d989f6231a54cd787dc08a8f' class=''>F:\AUDIOBOOKS\2024 AudioBooks\
+
+<br/></li><li id='temp:C:UJQ3f0e35e54657433ca48853bb5' class=''>F:\AUDIOBOOKS\2025\
+
+<br/></li><li id='temp:C:UJQ54f121e0afc445d7b8cdbca72' class=''>F:\AUDIOBOOKS\Nightside\
+
+<br/></li><li id='temp:C:UJQ70f0bef95b6e4de2943aa4b79' class=''>F:\AUDIOBOOKS\Stephen King\
+
+<br/></li></ul></div><pre id='temp:C:UJQ3068cb10b55f40cf95566d061'>C:\&gt;dir /b /ad /s F:\AUDIOBOOKS | findstr /i "Black"<br>F:\AUDIOBOOKS\Black Tide Rising Series<br>F:\AUDIOBOOKS\2021\Blackthorn Hunters Academy<br>F:\AUDIOBOOKS\2021\Blackthorn Hunters Academy\Bk1 of 5 - The Demon Kiss<br>F:\AUDIOBOOKS\2021\Blackthorn Hunters Academy\Bk2 of 5 - The Hunter Secret<br>F:\AUDIOBOOKS\2021\Blackthorn Hunters Academy\Bk3 of 5 - The Soul Bond<br>F:\AUDIOBOOKS\2021\Blackthorn Hunters Academy\Bk4 of 5 - The Shadow Trials<br>F:\AUDIOBOOKS\2021\Blackthorn Hunters Academy\Bk5 of 5 - The Infernal Curse<br>F:\AUDIOBOOKS\2024 AudioBooks\__Erotica\__Their Virgin Captive - Masters of Ménage -  by Shayla Black<br>F:\AUDIOBOOKS\2025\Magic Kingdom of Landover Series\Bk 02 of 06 - The Black Unicorn(1987)<br>F:\AUDIOBOOKS\Anne McCaffrey\Non-Series\Black Horses For The King<br>F:\AUDIOBOOKS\Black Tide Rising Series\01 Under a Graveyard Sky (2013) - John Ringo<br>F:\AUDIOBOOKS\Black Tide Rising Series\02 To Sail a Darkling Sea Sky (2014) - John Ringo<br>F:\AUDIOBOOKS\Black Tide Rising Series\03 Island of Rage and Hope (2014) - John Ringo<br>F:\AUDIOBOOKS\Black Tide Rising Series\04 Strands of Sorrow (2014) - John Ringo<br>F:\AUDIOBOOKS\Black Tide Rising Series\ORIGINAL<br>F:\AUDIOBOOKS\Nightside\Nightside-12-The Bride Wore Black Leather<br>F:\AUDIOBOOKS\Nightside\Nightside-12-The Bride Wore Black Leather (20)<br>F:\AUDIOBOOKS\Stephen King\2001 - Black House (with Peter Straub - read by Frank Muller)<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\01 of 10<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\02 of 10<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\03 of 10<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\04 of 10<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\05 of 10<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\06 of 10<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\07 of 10<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\08 of 10<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\09 of 10<br>F:\AUDIOBOOKS\Terry Brooks - Landover Series\Terry Brooks  Landover Books 1-5 Unabriged\2 The Black Unicorn\10 of 10<br><br>C:\&gt;</pre>
+
+<br/>
+
+<h2 id='temp:C:UJQ1e5815025b794227b57add82c'>Audiobook Library Search.bat - in - “Send To“</h2>
+
+<pre id='temp:C:UJQf64a52e9656b41fdb1efb4c3f'>@Echo Off<br>Echo Audiobook Library Search:<br>echo.<br>if not defined Library_Item set /p "Library_Item=Audiobook String Search: "<br>dir /b /ad /s F:\AUDIOBOOKS | findstr /i %Library_Item%<br>echo.<br>pause<br></pre>
+
+</body></html>

@@ -1,0 +1,516 @@
+<!doctype html>
+<html><head><title>PokeBatch-2D - Batch File Example</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:YDBc4f6c3dd9e50435a9001276cd'>PokeBatch-2D - Batch File Example</h1>
+
+NOTE:  ANSI encoding works after enable in REG, but this program doesn’t work.<br/>
+
+<br/>
+
+REF:<br/>
+
+<a href="https://pastebin.com/Rmf9t2Js">https://pastebin.com/Rmf9t2Js</a><br/>
+
+<pre id='temp:C:YDB168b2e024fa5470cb8bd024ea'>::-----Version-1-june-22---MADE-BY-HIDDE663-----Started-at-11-Dec-2014----<br>::Don't forget to save this file with ANSI encoding!!!!!!!!!!!!!!!!!!!!!!!!!!<br>::------recommended is using these cmd.exe properties for the font-----------<br>::size=12<br>::font=Lucida Console<br>::bold=off<br>::-----------------------------CHANGE-LOGG-----------------------------------<br>::<br>::I am currently playing the game myself &amp; fixing any problems i find<br>::<br>::Higher on the list means last bugg fixed<br>::<br>::fixed having more than 4 cores causing some maps to load incorrectly, this was caused by some error in the loadsplitter code, which i still cant find.<br>::load time of a map is now ^(2 seconds instead of 19^), ^~900^% faster compared to the original 1 thread loading time without repeating string compression, from 6-11-17<br>::<br>::fixed evasion &amp; accuracy not being checked for max stages<br>::fixed an issue where a move that does damage, but without a damage indicator, like nig ht shade would throw an missing opperant error.<br>::fixed moving pkmn in the pkmn center, gives the new pkmn the moves of the previous (was a typo or 2)<br>::fixed effect 45 for moves dragon rag e, sonic boom, psy wave &amp; night shade (missing power value, missing operant.)<br>::fixed foe being able to deal damage but also miss a move<br>::player will no longer be asked to switch pkmn if all pkmn other than invpkmn1 have fainted<br>::fixed a bugg where invpkmn1type2(2nd type GLOO M = type1 GRASS, type 2 POISON) would reset to nothing, meaning:<br>::fixed GLOO M can still be poisioned..., if invpkmntype1 NEQ POISON, so if type2=POISON, they can be poisoned<br>::fix DIG G (not using 2 turns &amp; also having half the power + affecting FLYING pkmn)<br>::added soft-coded script for trainers walking up to you when they want to fight (currenlty only checks for trainers not in GRASS/WATER &amp; only checks up to 8 tiles)<br>::fixed double screen refresh being drawn right before the "foe uses move frame", turns out to be embedded in another function<br>::fixed rocket hideout floor 4 trainer 1 does not drop the lift key...<br>::fixed status moves sometimes showing "it's not very effective" or "it's super effective" (like defence curl), turns out to be a type for GEODUD E in BROCK's fight only.<br>::PIDG Y, PIDGEOTT O, SPEARO W, FEARO W are now FLYING type only, not also NORMAL type (so not really gen 1 spec'd)<br>::fixed all trainers &amp; battle triggers in MT Moon, rocket hidout floor 1 also done<br>::fixed missing trainers in rocket hideout floor 1 to 4, no battle triggers yet tho<br>::fixed GRASS moves being super effective vs electric instead of WATER &amp; vice versa<br>::fixed exe gutor &amp; exe ggcute were GRA SS + ELE CTRIC, now GR ASS + PS YCHIC<br>::added battle triggers for all route 8 trainers<br>::changes to Battl e interface/UI<br>::fixed being able to apply status effec t to a foe which already had a statuseffect applied<br>::fixed sleep status (~25% chance of waking up, might change this later so no more than 5 turns can be slept)<br>::fixed missing trainer 1 on route 24 data<br>::fixed losing a battle in mt moon creating an endless battle loop as there was no "lastpkmncenter label for Route 4 - 0"<br>::fixed zub at &amp; gol bat having leech seed instead of leech life<br>::fixed skipping rout e-4-(0) because you would go from route -3 to route -4-1 instead, skiping mt-moon<br>::fixed some trainers having a pkmn called MALE instead of N idoran - Male, sme with female<br>::fixed SPECIAL type moves having missing operant.<br>::fixed leech-seed<br>::--------------------------------TO-DO--------------------------------------<br>::<br>::Higher on the list means, will be done earlier/has higher priority<br>::<br>::fix exiting from the menu bringing you back to the last battle you where in...<br>::fix not being able to use items outside of battle (item menu overhaul)<br>::fix being able to use items on pkmn which are still in the inventory<br>::fix new moves learned not getting pp<br>::fix caught pkmn not getting move pp when stored into the inventory<br>::fix rival not being present at pkmn tower floor 1<br>::fix maro wak ghost not appearing on pkmn tower floor 4(door to floor 5)<br>::fix effect 8(recoil damage): strug gle,Sub mission,Double edge, take down<br>::fix trainers at ROC KTUNNEL, ROCKE T-HIDEOUT floor 4, Rout e-9, pkmn-tower<br>::trainers to be linked to a battle: almost all, ~315 (including gym leaders, etc, etc)<br>::fix nicknames, variables are already in the game<br>::fix maps: pkmn mansion, victory road, seafoam islands, cerulean cave(these are currently unaccessible&amp;/or skipped)(which means mew-two, arti-cuno mol-tres can not be captured)<br>::get strength to work(not necessary as of right now), also a pain<br>::------2D-map-version-----------PokeBatch2(D)-------------------------------<br>::PokeBatch2(D) - Debugger.bat        https://pastebin.com/2gd3M6nk<br>::PokeBatch2(D).bat                    https://pastebin.com/Rmf9t2Js<br>::------text-version-------------PokeBatch-----------------------------------<br>::PokeBatch.bat                        https://pastebin.com/qhgTGvU5<br>::----My-inspiration-------------Original------------------------------------<br>::Original Poke in Batch by Coder-san (IT_Frank)?<br>::https://community.spiceworks.com/scripts/show/2360-pkmn-game-in-batch<br>::my spiceworks for communication purposes:<br>::https://community.spiceworks.com/people/hidde663/projects/pokebatch-pokebatch-2d<br>::---------------------------------------------------------------------------<br>@echo off&amp;mode 71,30&amp;title PokeBatch2&amp;setlocal enabledelayedexpansion&amp;Pushd "%~dp0"<br>:Presets<br>if %number_of_processors% GTR 8 (set NOP=4) else (set/a NOP=%number_of_processors%/2)<br>set "ln=echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"<br>set "p=&amp;pause&gt;nul"<br>set "v=set/p "<br>set "t1n=&amp;timeout 1 /NOBREAK &gt;nul"<br>if not exist invisible.vbs (<br>    call :Createinvisiblevbs<br>) else (<br>    for /f "tokens=3" %%a in ('dir /A-D ^| find "invisible.vbs"') do (<br>        if not %%a==80 (<br>            call :Createinvisiblevbs<br>        )<br>    )<br>)<br>::this needs to be here:,10,10,10 because skip=0 gives errors<br>for /f "skip=2 tokens=1 delims=[]:" %%a in ('find /N /I ")&lt;%%oldname%%.txt" "%~nx0"') do set varcount=%%a<br>for /f "skip=3 tokens=1 delims=[]:" %%a in ('find /N /I ":Load-Menu" "%~nx0"') do set/a varcount=!varcount!-(%%a+11)&amp;goto Instructions<br>:Instructions<br>cls<br>%ln%<br>echo PokeBatch2(D) - The pkmn experience in Batch - 18-FEBRUARY-2021<br>%ln%<br>echo.<br>echo If the game asks you a question, answer it, with a word or a number<br>echo.<br>echo Use WASD to move, press I to open the start menu<br>echo.<br>echo Good luck ;)%p%<br>:Memory-options<br>cls<br>%ln%<br>echo                            Memory options<br>%ln%<br>echo.<br>echo [1] New game<br>echo [2] Continue<br>echo [3] Instructions<br>choice /c 123 /n&gt;nul<br>if !errorlevel!==1 goto Start-1<br>if !errorlevel!==2 goto Load-menu<br>if !errorlevel!==3 goto Instructions<br>:Load-menu<br>cls<br>%ln%<br>echo                              Load menu<br>%ln%<br>echo.<br>echo What was your name in the saved game?<br>%v%oldname=<br>if '%oldname%'=='' goto Load-menu<br>cls&amp;echo Loading %oldname%.txt.<br>(<br>%v%music=<br>%v%name=<br>%v%starter=<br>%v%rival=<br>%v%money=<br>%v%potions=<br>%v%Old-Rod=<br>%v%HM-surf=<br>%v%HM-fly=<br>%v%HM-cut=<br>%v%Pokeflute=<br>%v%exp=<br>%v%exptill=<br>%v%badges=<br>%v%bikevoucher=<br>%v%bike=<br>%v%pkmnstorage=<br>%v%pokeballs=<br>%v%ss-anne=<br>%v%color=<br>%v%snorlax1=<br>%v%snorlax2=<br>%v%pkmn1=<br>%v%pkmn1lvl=<br>%v%pkmn2=<br>%v%pkmn2lvl=<br>%v%pkmn3=<br>%v%pkmn3lvl=<br>%v%pkmn4=<br>%v%pkmn4lvl=<br>%v%pkmn5=<br>%v%pkmn5lvl=<br>%v%pkmn6=<br>%v%pkmn6lvl=<br>%v%pkmn7=<br>%v%pkmn7lvl=<br>%v%pkmn8=<br>%v%pkmn8lvl=<br>%v%pkmn9=<br>%v%pkmn9lvl=<br>%v%pkmn10=<br>%v%pkmn10lvl=<br>%v%pkmn11=<br>%v%pkmn11lvl=<br>%v%pkmn12=<br>%v%pkmn12lvl=<br>%v%pkmn13=<br>%v%pkmn13lvl=<br>%v%pkmn14=<br>%v%pkmn14lvl=<br>%v%pkmn15=<br>%v%pkmn15lvl=<br>%v%pkmn16=<br>%v%pkmn16lvl=<br>%v%pkmn17=<br>%v%pkmn17lvl=<br>%v%pkmn18=<br>%v%pkmn18lvl=<br>%v%pkmn19=<br>%v%pkmn19lvl=<br>%v%pkmn20=<br>%v%pkmn20lvl=<br>%v%invpkmn1=<br>%v%invpkmn1lvl=<br>%v%invpkmn1hp=<br>%v%invpkmn2=<br>%v%invpkmn2lvl=<br>%v%invpkmn2hp=<br>%v%invpkmn3=<br>%v%invpkmn3lvl=<br>%v%invpkmn3hp=<br>%v%invpkmn4=<br>%v%invpkmn4lvl=<br>%v%invpkmn4hp=<br>%v%invpkmn5=<br>%v%invpkmn5lvl=<br>%v%invpkmn5hp=<br>%v%invpkmn6=<br>%v%invpkmn6lvl=<br>%v%invpkmn6hp=<br>%v%profoakparcel=<br>%v%inventory=<br>%v%guardwater=<br>%v%Silphscope=<br>%v%coins=<br>%v%lift-key=<br>%v%pkmn1nick=<br>%v%pkmn2nick=<br>%v%pkmn3nick=<br>%v%pkmn4nick=<br>%v%pkmn5nick=<br>%v%pkmn6nick=<br>%v%pkmn7nick=<br>%v%pkmn8nick=<br>%v%pkmn9nick=<br>%v%pkmn10nick=<br>%v%pkmn11nick=<br>%v%pkmn12nick=<br>%v%pkmn13nick=<br>%v%pkmn14nick=<br>%v%pkmn15nick=<br>%v%pkmn16nick=<br>%v%pkmn17nick=<br>%v%pkmn18nick=<br>%v%pkmn19nick=<br>%v%pkmn20nick=<br>%v%invpkmn1nick=<br>%v%invpkmn2nick=<br>%v%invpkmn3nick=<br>%v%invpkmn4nick=<br>%v%invpkmn5nick=<br>%v%invpkmn6nick=<br>%v%superpotions=<br>%v%Doomfossil=<br>%v%Helixfossil=<br>%v%lm=<br>%v%x=<br>%v%y=<br>%v%g=<br>%v%char=<br>%v%SURL=<br>%v%Town-Map=<br>%v%Golden-Teeth=<br>%v%HM-strength=<br>%v%invpkmn1type1=<br>%v%invpkmn1atk=<br>%v%invpkmn1def=<br>%v%invpkmn1spd=<br>%v%invpkmn1spe=<br>%v%invpkmn1status=<br>%v%invpkmn1atkiv=<br>%v%invpkmn1defiv=<br>%v%invpkmn1spdiv=<br>%v%invpkmn1speiv=<br>%v%invpkmn1hpiv=<br>%v%invpkmn1exp=<br>%v%invpkmn1exptill=<br>%v%invpkmn1m1=<br>%v%invpkmn1m2=<br>%v%invpkmn1m3=<br>%v%invpkmn1m4=<br>%v%invpkmn2type1=<br>%v%invpkmn2atk=<br>%v%invpkmn2def=<br>%v%invpkmn2spd=<br>%v%invpkmn2spe=<br>%v%invpkmn2status=<br>%v%invpkmn2atkiv=<br>%v%invpkmn2defiv=<br>%v%invpkmn2spdiv=<br>%v%invpkmn2speiv=<br>%v%invpkmn2hpiv=<br>%v%invpkmn2exp=<br>%v%invpkmn2exptill=<br>%v%invpkmn2m1=<br>%v%invpkmn2m2=<br>%v%invpkmn2m3=<br>%v%invpkmn2m4=<br>%v%invpkmn3type1=<br>%v%invpkmn3atk=<br>%v%invpkmn3def=<br>%v%invpkmn3spd=<br>%v%invpkmn3spe=<br>%v%invpkmn3status=<br>%v%invpkmn3atkiv=<br>%v%invpkmn3defiv=<br>%v%invpkmn3spdiv=<br>%v%invpkmn3speiv=<br>%v%invpkmn3hpiv=<br>%v%invpkmn3exp=<br>%v%invpkmn3exptill=<br>%v%invpkmn3m1=<br>%v%invpkmn3m2=<br>%v%invpkmn3m3=<br>%v%invpkmn3m4=<br>%v%invpkmn4type1=<br>%v%invpkmn4atk=<br>%v%invpkmn4def=<br>%v%invpkmn4spd=<br>%v%invpkmn4spe=<br>%v%invpkmn4status=<br>%v%invpkmn4atkiv=<br>%v%invpkmn4defiv=<br>%v%invpkmn4spdiv=<br>%v%invpkmn4speiv=<br>%v%invpkmn4hpiv=<br>%v%invpkmn4exp=<br>%v%invpkmn4exptill=<br>%v%invpkmn4m1=<br>%v%invpkmn4m2=<br>%v%invpkmn4m3=<br>%v%invpkmn4m4=<br>%v%invpkmn5type1=<br>%v%invpkmn5atk=<br>%v%invpkmn5def=<br>%v%invpkmn5spd=<br>%v%invpkmn5spe=<br>%v%invpkmn5status=<br>%v%invpkmn5atkiv=<br>%v%invpkmn5defiv=<br>%v%invpkmn5spdiv=<br>%v%invpkmn5speiv=<br>%v%invpkmn5hpiv=<br>%v%invpkmn5exp=<br>%v%invpkmn5exptill=<br>%v%invpkmn5m1=<br>%v%invpkmn5m2=<br>%v%invpkmn5m3=<br>%v%invpkmn5m4=<br>%v%invpkmn6type1=<br>%v%invpkmn6atk=<br>%v%invpkmn6def=<br>%v%invpkmn6spd=<br>%v%invpkmn6spe=<br>%v%invpkmn6status=<br>%v%invpkmn6atkiv=<br>%v%invpkmn6defiv=<br>%v%invpkmn6spdiv=<br>%v%invpkmn6speiv=<br>%v%invpkmn6hpiv=<br>%v%invpkmn6exp=<br>%v%invpkmn6exptill=<br>%v%invpkmn6m1=<br>%v%invpkmn6m2=<br>%v%invpkmn6m3=<br>%v%invpkmn6m4=<br>%v%lastpkmncenter=<br>%v%pkmn1atkiv=<br>%v%pkmn1defiv=<br>%v%pkmn1spdiv=<br>%v%pkmn1speiv=<br>%v%pkmn1hpiv=<br>%v%pkmn1exp=<br>%v%pkmn1exptill=<br>%v%pkmn1m1=<br>%v%pkmn1m2=<br>%v%pkmn1m3=<br>%v%pkmn1m4=<br>%v%pkmn2atkiv=<br>%v%pkmn2defiv=<br>%v%pkmn2spdiv=<br>%v%pkmn2speiv=<br>%v%pkmn2hpiv=<br>%v%pkmn2exp=<br>%v%pkmn2exptill=<br>%v%pkmn2m1=<br>%v%pkmn2m2=<br>%v%pkmn2m3=<br>%v%pkmn2m4=<br>%v%pkmn3atkiv=<br>%v%pkmn3defiv=<br>%v%pkmn3spdiv=<br>%v%pkmn3speiv=<br>%v%pkmn3hpiv=<br>%v%pkmn3exp=<br>%v%pkmn3exptill=<br>%v%pkmn3m1=<br>%v%pkmn3m2=<br>%v%pkmn3m3=<br>%v%pkmn3m4=<br>%v%pkmn4atkiv=<br>%v%pkmn4defiv=<br>%v%pkmn4spdiv=<br>%v%pkmn4speiv=<br>%v%pkmn4hpiv=<br>%v%pkmn4exp=<br>%v%pkmn4exptill=<br>%v%pkmn4m1=<br>%v%pkmn4m2=<br>%v%pkmn4m3=<br>%v%pkmn4m4=<br>%v%pkmn5atkiv=<br>%v%pkmn5defiv=<br>%v%pkmn5spdiv=<br>%v%pkmn5speiv=<br>%v%pkmn5hpiv=<br>%v%pkmn5exp=<br>%v%pkmn5exptill=<br>%v%pkmn5m1=<br>%v%pkmn5m2=<br>%v%pkmn5m3=<br>%v%pkmn5m4=<br>%v%pkmn6atkiv=<br>%v%pkmn6defiv=<br>%v%pkmn6spdiv=<br>%v%pkmn6speiv=<br>%v%pkmn6hpiv=<br>%v%pkmn6exp=<br>%v%pkmn6exptill=<br>%v%pkmn6m1=<br>%v%pkmn6m2=<br>%v%pkmn6m3=<br>%v%pkmn6m4=<br>%v%pkmn7atkiv=<br>%v%pkmn7defiv=<br>%v%pkmn7spdiv=<br>%v%pkmn7speiv=<br>%v%pkmn7hpiv=<br>%v%pkmn7exp=<br>%v%pkmn7exptill=<br>%v%pkmn7m1=<br>%v%pkmn7m2=<br>%v%pkmn7m3=<br>%v%pkmn7m4=<br>%v%pkmn8atkiv=<br>%v%pkmn8defiv=<br>%v%pkmn8spdiv=<br>%v%pkmn8speiv=<br>%v%pkmn8hpiv=<br>%v%pkmn8exp=<br>%v%pkmn8exptill=<br>%v%pkmn8m1=<br>%v%pkmn8m2=<br>%v%pkmn8m3=<br>%v%pkmn8m4=<br>%v%pkmn9atkiv=<br>%v%pkmn9defiv=<br>%v%pkmn9spdiv=<br>%v%pkmn9speiv=<br>%v%pkmn9hpiv=<br>%v%pkmn9exp=<br>%v%pkmn9exptill=<br>%v%pkmn9m1=<br>%v%pkmn9m2=<br>%v%pkmn9m3=<br>%v%pkmn9m4=<br>%v%pkmn10atkiv=<br>%v%pkmn10defiv=<br>%v%pkmn10spdiv=<br>%v%pkmn10speiv=<br>%v%pkmn10hpiv=<br>%v%pkmn10exp=<br>%v%pkmn10exptill=<br>%v%pkmn10m1=<br>%v%pkmn10m2=<br>%v%pkmn10m3=<br>%v%pkmn10m4=<br>%v%pkmn11atkiv=<br>%v%pkmn11defiv=<br>%v%pkmn11spdiv=<br>%v%pkmn11speiv=<br>%v%pkmn11hpiv=<br>%v%pkmn11exp=<br>%v%pkmn11exptill=<br>%v%pkmn11m1=<br>%v%pkmn11m2=<br>%v%pkmn11m3=<br>%v%pkmn11m4=<br>%v%pkmn12atkiv=<br>%v%pkmn12defiv=<br>%v%pkmn12spdiv=<br>%v%pkmn12speiv=<br>%v%pkmn12hpiv=<br>%v%pkmn12exp=<br>%v%pkmn12exptill=<br>%v%pkmn12m1=<br>%v%pkmn12m2=<br>%v%pkmn12m3=<br>%v%pkmn12m4=<br>%v%pkmn13atkiv=<br>%v%pkmn13defiv=<br>%v%pkmn13spdiv=<br>%v%pkmn13speiv=<br>%v%pkmn13hpiv=<br>%v%pkmn13exp=<br>%v%pkmn13exptill=<br>%v%pkmn13m1=<br>%v%pkmn13m2=<br>%v%pkmn13m3=<br>%v%pkmn13m4=<br>%v%pkmn14atkiv=<br>%v%pkmn14defiv=<br>%v%pkmn14spdiv=<br>%v%pkmn14speiv=<br>%v%pkmn14hpiv=<br>%v%pkmn14exp=<br>%v%pkmn14exptill=<br>%v%pkmn14m1=<br>%v%pkmn14m2=<br>%v%pkmn14m3=<br>%v%pkmn14m4=<br>%v%pkmn15atkiv=<br>%v%pkmn15defiv=<br>%v%pkmn15spdiv=<br>%v%pkmn15speiv=<br>%v%pkmn15hpiv=<br>%v%pkmn15exp=<br>%v%pkmn15exptill=<br>%v%pkmn15m1=<br>%v%pkmn15m2=<br>%v%pkmn15m3=<br>%v%pkmn15m4=<br>%v%pkmn16atkiv=<br>%v%pkmn16defiv=<br>%v%pkmn16spdiv=<br>%v%pkmn16speiv=<br>%v%pkmn16hpiv=<br>%v%pkmn16exp=<br>%v%pkmn16exptill=<br>%v%pkmn16m1=<br>%v%pkmn16m2=<br>%v%pkmn16m3=<br>%v%pkmn16m4=<br>%v%pkmn17atkiv=<br>%v%pkmn17defiv=<br>%v%pkmn17spdiv=<br>%v%pkmn17speiv=<br>%v%pkmn17hpiv=<br>%v%pkmn17exp=<br>%v%pkmn17exptill=<br>%v%pkmn17m1=<br>%v%pkmn17m2=<br>%v%pkmn17m3=<br>%v%pkmn17m4=<br>%v%pkmn18atkiv=<br>%v%pkmn18defiv=<br>%v%pkmn18spdiv=<br>%v%pkmn18speiv=<br>%v%pkmn18hpiv=<br>%v%pkmn18exp=<br>%v%pkmn18exptill=<br>%v%pkmn18m1=<br>%v%pkmn18m2=<br>%v%pkmn18m3=<br>%v%pkmn18m4=<br>%v%pkmn19atkiv=<br>%v%pkmn19defiv=<br>%v%pkmn19spdiv=<br>%v%pkmn19speiv=<br>%v%pkmn19hpiv=<br>%v%pkmn19exp=<br>%v%pkmn19exptill=<br>%v%pkmn19m1=<br>%v%pkmn19m2=<br>%v%pkmn19m3=<br>%v%pkmn19m4=<br>%v%pkmn20atkiv=<br>%v%pkmn20defiv=<br>%v%pkmn20spdiv=<br>%v%pkmn20speiv=<br>%v%pkmn20hpiv=<br>%v%pkmn20exp=<br>%v%pkmn20exptill=<br>%v%pkmn20m1=<br>%v%pkmn20m2=<br>%v%pkmn20m3=<br>%v%pkmn20m4=<br>%v%safariballs=<br>%v%steps=<br>%v%old-amber=<br>%v%Zapdos=<br>%v%Moltres=<br>%v%Articuno=<br>%v%Mewtwo=<br>%v%HallofFame=<br>%v%lastmart=<br>%v%chapterone=<br>%v%invpkmn1m1pp=<br>%v%invpkmn1m2pp=<br>%v%invpkmn1m3pp=<br>%v%invpkmn1m4pp=<br>%v%invpkmn2m1pp=<br>%v%invpkmn2m2pp=<br>%v%invpkmn2m3pp=<br>%v%invpkmn2m4pp=<br>%v%invpkmn3m1pp=<br>%v%invpkmn3m2pp=<br>%v%invpkmn3m3pp=<br>%v%invpkmn3m4pp=<br>%v%invpkmn4m1pp=<br>%v%invpkmn4m2pp=<br>%v%invpkmn4m3pp=<br>%v%invpkmn4m4pp=<br>%v%invpkmn5m1pp=<br>%v%invpkmn5m2pp=<br>%v%invpkmn5m3pp=<br>%v%invpkmn5m4pp=<br>%v%invpkmn6m1pp=<br>%v%invpkmn6m2pp=<br>%v%invpkmn6m3pp=<br>%v%invpkmn6m4pp=<br>%v%antidotes=<br>%v%burn-heals=<br>%v%awakenings=<br>%v%parlyz-heals=<br>%v%freeze-heals=<br>%v%dark=<br>%v%HM-flash=<br>%v%Lorelei=<br>%v%Bruno=<br>%v%Agatha=<br>%v%Lance=<br>%v%switches=<br>%v%seen1=<br>%v%seen2=<br>%v%seen3=<br>%v%seen4=<br>%v%seen5=<br>%v%seen6=<br>%v%seen7=<br>%v%seen8=<br>%v%seen9=<br>%v%seen10=<br>%v%seen11=<br>%v%seen12=<br>%v%seen13=<br>%v%seen14=<br>%v%seen15=<br>%v%seen16=<br>%v%seen17=<br>%v%seen18=<br>%v%seen19=<br>%v%seen20=<br>%v%seen21=<br>%v%seen22=<br>%v%seen23=<br>%v%seen24=<br>%v%seen25=<br>%v%seen26=<br>%v%seen27=<br>%v%seen28=<br>%v%seen29=<br>%v%seen30=<br>%v%seen31=<br>%v%seen32=<br>%v%seen33=<br>%v%seen34=<br>%v%seen35=<br>%v%seen36=<br>%v%seen37=<br>%v%seen38=<br>%v%seen39=<br>%v%seen40=<br>%v%seen41=<br>%v%seen42=<br>%v%seen43=<br>%v%seen44=<br>%v%seen45=<br>%v%seen46=<br>%v%seen47=<br>%v%seen48=<br>%v%seen49=<br>%v%seen50=<br>%v%seen51=<br>%v%seen52=<br>%v%seen53=<br>%v%seen54=<br>%v%seen55=<br>%v%seen56=<br>%v%seen57=<br>%v%seen58=<br>%v%seen59=<br>%v%seen60=<br>%v%seen61=<br>%v%seen62=<br>%v%seen63=<br>%v%seen64=<br>%v%seen65=<br>%v%seen66=<br>%v%seen67=<br>%v%seen68=<br>%v%seen69=<br>%v%seen70=<br>%v%seen71=<br>%v%seen72=<br>%v%seen73=<br>%v%seen74=<br>%v%seen75=<br>%v%seen76=<br>%v%seen77=<br>%v%seen78=<br>%v%seen79=<br>%v%seen80=<br>%v%seen81=<br>%v%seen82=<br>%v%seen83=<br>%v%seen84=<br>%v%seen85=<br>%v%seen86=<br>%v%seen87=<br>%v%seen88=<br>%v%seen89=<br>%v%seen90=<br>%v%seen91=<br>%v%seen92=<br>%v%seen93=<br>%v%seen94=<br>%v%seen95=<br>%v%seen96=<br>%v%seen97=<br>%v%seen98=<br>%v%seen99=<br>%v%seen100=<br>%v%seen101=<br>%v%seen102=<br>%v%seen103=<br>%v%seen104=<br>%v%seen105=<br>%v%seen106=<br>%v%seen107=<br>%v%seen108=<br>%v%seen109=<br>%v%seen110=<br>%v%seen111=<br>%v%seen112=<br>%v%seen113=<br>%v%seen114=<br>%v%seen115=<br>%v%seen116=<br>%v%seen117=<br>%v%seen118=<br>%v%seen119=<br>%v%seen120=<br>%v%seen121=<br>%v%seen122=<br>%v%seen123=<br>%v%seen124=<br>%v%seen125=<br>%v%seen126=<br>%v%seen127=<br>%v%seen128=<br>%v%seen129=<br>%v%seen130=<br>%v%seen131=<br>%v%seen132=<br>%v%seen133=<br>%v%seen134=<br>%v%seen135=<br>%v%seen136=<br>%v%seen137=<br>%v%seen138=<br>%v%seen139=<br>%v%seen140=<br>%v%seen141=<br>%v%seen142=<br>%v%seen143=<br>%v%seen144=<br>%v%seen145=<br>%v%seen146=<br>%v%seen147=<br>%v%seen148=<br>%v%seen149=<br>%v%seen150=<br>%v%seen151=<br>%v%Super-Rod=<br>%v%Trainer-VIRIDIAN-FOREST-1=<br>%v%Trainer-VIRIDIAN-FOREST-2=<br>%v%Trainer-VIRIDIAN-FOREST-3=<br>%v%Trainer-PEWTER-CITY-GYM-1=<br>%v%Trainer-PEWTER-CITY-GYM-2=<br>%v%Trainer-ROUTE-3-1=<br>%v%Trainer-ROUTE-3-2=<br>%v%Trainer-ROUTE-3-3=<br>%v%Trainer-ROUTE-3-4=<br>%v%Trainer-ROUTE-3-5=<br>%v%Trainer-ROUTE-3-6=<br>%v%Trainer-ROUTE-3-7=<br>%v%Trainer-ROUTE-3-8=<br>%v%Trainer-ROUTE-3-9=<br>%v%Trainer-MT-MOON-1-1=<br>%v%Trainer-MT-MOON-1-2=<br>%v%Trainer-MT-MOON-1-3=<br>%v%Trainer-MT-MOON-1-4=<br>%v%Trainer-MT-MOON-1-5=<br>%v%Trainer-MT-MOON-1-6=<br>%v%Trainer-MT-MOON-1-7=<br>%v%Trainer-MT-MOON-3-1=<br>%v%Trainer-MT-MOON-3-2=<br>%v%Trainer-MT-MOON-3-3=<br>%v%Trainer-MT-MOON-3-4=<br>%v%Trainer-MT-MOON-3-5=<br>%v%Trainer-CERULEAN-CITY-GYM-1=<br>%v%Trainer-CERULEAN-CITY-GYM-2=<br>%v%Trainer-CERULEAN-CITY-GYM-3=<br>%v%Trainer-ROUTE-24-1=<br>%v%Trainer-ROUTE-24-2=<br>%v%Trainer-ROUTE-24-3=<br>%v%Trainer-ROUTE-24-4=<br>%v%Trainer-ROUTE-24-5=<br>%v%Trainer-ROUTE-24-6=<br>%v%Trainer-ROUTE-24-7=<br>%v%Trainer-ROUTE-24-8=<br>%v%Trainer-ROUTE-24-9=<br>%v%Trainer-ROUTE-24-10=<br>%v%Trainer-ROUTE-25-1=<br>%v%Trainer-ROUTE-25-2=<br>%v%Trainer-ROUTE-25-3=<br>%v%Trainer-ROUTE-25-4=<br>%v%Trainer-ROUTE-25-5=<br>%v%Trainer-ROUTE-25-6=<br>%v%Trainer-ROUTE-25-7=<br>%v%Trainer-ROUTE-25-8=<br>%v%Trainer-ROUTE-25-9=<br>%v%Trainer-ROUTE-25-10=<br>%v%Trainer-CERULEAN-CITY-1=<br>%v%Trainer-ROUTE-6-1=<br>%v%Trainer-ROUTE-6-2=<br>%v%Trainer-ROUTE-6-3=<br>%v%Trainer-ROUTE-6-4=<br>%v%Trainer-ROUTE-6-5=<br>%v%Trainer-SS-ANNE-1=<br>%v%Trainer-SS-ANNE-2=<br>%v%Trainer-SS-ANNE-3=<br>%v%Trainer-SS-ANNE-4=<br>%v%Trainer-SS-ANNE-5=<br>%v%Trainer-SS-ANNE-6=<br>%v%Trainer-SS-ANNE-7=<br>%v%Trainer-SS-ANNE-8=<br>%v%Trainer-SS-ANNE-9=<br>%v%Trainer-SS-ANNE-10=<br>%v%Trainer-SS-ANNE-11=<br>%v%Trainer-SS-ANNE-12=<br>%v%Trainer-SS-ANNE-13=<br>%v%Trainer-SS-ANNE-14=<br>%v%Trainer-Vermilion-CITY-GYM-1=<br>%v%Trainer-Vermilion-CITY-GYM-2=<br>%v%Trainer-Vermilion-CITY-GYM-3=<br>%v%Trainer-ROUTE-12-1=<br>%v%Trainer-ROUTE-12-2=<br>%v%Trainer-ROUTE-12-3=<br>%v%Trainer-ROUTE-12-4=<br>%v%Trainer-ROUTE-12-5=<br>%v%Trainer-ROUTE-12-6=<br>%v%Trainer-ROUTE-12-7=<br>%v%Trainer-ROUTE-12-8=<br>%v%Trainer-ROUTE-12-9=<br>%v%Trainer-ROUTE-12-10=<br>%v%Trainer-ROUTE-9-1=<br>%v%Trainer-ROUTE-9-2=<br>%v%Trainer-ROUTE-9-3=<br>%v%Trainer-ROUTE-9-4=<br>%v%Trainer-ROUTE-9-5=<br>%v%Trainer-ROUTE-9-6=<br>%v%Trainer-ROUTE-9-7=<br>%v%Trainer-ROUTE-9-8=<br>%v%Trainer-ROUTE-9-9=<br>%v%Trainer-ROUTE-9-10=<br>%v%Trainer-ROUTE-9-11=<br>%v%Trainer-ROUTE-9-12=<br>%v%Trainer-ROUTE-9-13=<br>%v%Trainer-ROUTE-9-14=<br>%v%Trainer-ROUTE-9-15=<br>%v%Trainer-ROUTE-9-16=<br>%v%Trainer-ROUTE-9-17=<br>%v%Trainer-ROUTE-9-18=<br>%v%Trainer-ROUTE-9-19=<br>%v%Trainer-ROUTE-9-20=<br>%v%Trainer-ROUTE-9-21=<br>%v%Trainer-ROUTE-9-22=<br>%v%Trainer-ROUTE-9-23=<br>%v%Trainer-ROUTE-9-24=<br>%v%Trainer-ROUTE-9-25=<br>%v%Trainer-ROUTE-9-26=<br>%v%Trainer-ROUTE-9-27=<br>%v%Trainer-ROUTE-9-28=<br>%v%Trainer-ROUTE-9-29=<br>%v%Trainer-PKMN-TOWER-1=<br>%v%Trainer-PKMN-TOWER-2=<br>%v%Trainer-PKMN-TOWER-3=<br>%v%Trainer-PKMN-TOWER-4=<br>%v%Trainer-PKMN-TOWER-5=<br>%v%Trainer-PKMN-TOWER-6=<br>%v%Trainer-PKMN-TOWER-7=<br>%v%Trainer-PKMN-TOWER-8=<br>%v%Trainer-PKMN-TOWER-9=<br>%v%Trainer-PKMN-TOWER-10=<br>%v%Trainer-PKMN-TOWER-11=<br>%v%Trainer-PKMN-TOWER-12=<br>%v%Trainer-PKMN-TOWER-13=<br>%v%Trainer-PKMN-TOWER-14=<br>%v%Trainer-PKMN-TOWER-15=<br>%v%Trainer-PKMN-TOWER-16=<br>%v%Trainer-PKMN-TOWER-17=<br>%v%Trainer-PKMN-TOWER-18=<br>%v%Trainer-ROUTE-8-1=<br>%v%Trainer-ROUTE-8-2=<br>%v%Trainer-ROUTE-8-3=<br>%v%Trainer-ROUTE-8-4=<br>%v%Trainer-ROUTE-8-5=<br>%v%Trainer-ROUTE-8-6=<br>%v%Trainer-ROUTE-8-7=<br>%v%Trainer-ROUTE-8-8=<br>%v%Trainer-ROUTE-8-9=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-4-5=<br>%v%Trainer-CELADON-GYM-1=<br>%v%Trainer-CELADON-GYM-2=<br>%v%Trainer-CELADON-GYM-3=<br>%v%Trainer-CELADON-GYM-4=<br>%v%Trainer-CELADON-GYM-5=<br>%v%Trainer-CELADON-GYM-6=<br>%v%Trainer-CELADON-GYM-7=<br>%v%Trainer-CELADON-GYM-8=<br>%v%Trainer-GAME-CORNER-1=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-1-1=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-1-2=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-1-3=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-1-4=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-1-5=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-2-1=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-3-1=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-3-2=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-4-1=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-4-2=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-4-3=<br>%v%Trainer-ROCKET-HIDEOUT-FLOOR-4-4=<br>%v%Trainer-SAFFRON-CITY-DOJO-1=<br>%v%Trainer-SAFFRON-CITY-DOJO-2=<br>%v%Trainer-SAFFRON-CITY-DOJO-3=<br>%v%Trainer-SAFFRON-CITY-DOJO-4=<br>%v%Trainer-SAFFRON-CITY-DOJO-5=<br>%v%Trainer-SILPH-CO-1=<br>%v%Trainer-SILPH-CO-2=<br>%v%Trainer-SILPH-CO-3=<br>%v%Trainer-SILPH-CO-4=<br>%v%Trainer-SILPH-CO-5=<br>%v%Trainer-SILPH-CO-6=<br>%v%Trainer-SILPH-CO-7=<br>%v%Trainer-SILPH-CO-8=<br>%v%Trainer-SILPH-CO-9=<br>%v%Trainer-SILPH-CO-10=<br>%v%Trainer-SILPH-CO-11=<br>%v%Trainer-SILPH-CO-12=<br>%v%Trainer-SILPH-CO-13=<br>%v%Trainer-SILPH-CO-14=<br>%v%Trainer-SILPH-CO-15=<br>%v%Trainer-SILPH-CO-16=<br>%v%Trainer-SILPH-CO-17=<br>%v%Trainer-SILPH-CO-18=<br>%v%Trainer-SILPH-CO-19=<br>%v%Trainer-SILPH-CO-20=<br>%v%Trainer-SILPH-CO-21=<br>%v%Trainer-SILPH-CO-22=<br>%v%Trainer-SILPH-CO-23=<br>%v%Trainer-SILPH-CO-24=<br>%v%Trainer-SILPH-CO-25=<br>%v%Trainer-SILPH-CO-26=<br>%v%Trainer-SILPH-CO-27=<br>%v%Trainer-SILPH-CO-28=<br>%v%Trainer-SILPH-CO-29=<br>%v%Trainer-SILPH-CO-30=<br>%v%Trainer-SILPH-CO-31=<br>%v%Trainer-SILPH-CO-32=<br>%v%Trainer-SAFFRON-CITY-GYM-1=<br>%v%Trainer-SAFFRON-CITY-GYM-2=<br>%v%Trainer-SAFFRON-CITY-GYM-3=<br>%v%Trainer-SAFFRON-CITY-GYM-4=<br>%v%Trainer-SAFFRON-CITY-GYM-5=<br>%v%Trainer-SAFFRON-CITY-GYM-6=<br>%v%Trainer-SAFFRON-CITY-GYM-7=<br>%v%Trainer-SAFFRON-CITY-GYM-8=<br>%v%Trainer-SAFFRON-CITY-GYM-9=<br>%v%Trainer-SAFFRON-CITY-GYM-10=<br>%v%Trainer-ROUTE-16-1=<br>%v%Trainer-ROUTE-16-2=<br>%v%Trainer-ROUTE-16-3=<br>%v%Trainer-ROUTE-16-4=<br>%v%Trainer-ROUTE-16-5=<br>%v%Trainer-ROUTE-16-6=<br>%v%Trainer-ROUTE-17-1=<br>%v%Trainer-ROUTE-17-2=<br>%v%Trainer-ROUTE-17-3=<br>%v%Trainer-ROUTE-17-4=<br>%v%Trainer-ROUTE-17-5=<br>%v%Trainer-ROUTE-17-6=<br>%v%Trainer-ROUTE-17-7=<br>%v%Trainer-ROUTE-17-8=<br>%v%Trainer-ROUTE-17-9=<br>%v%Trainer-ROUTE-17-10=<br>%v%Trainer-ROUTE-18-1=<br>%v%Trainer-ROUTE-18-2=<br>%v%Trainer-ROUTE-18-3=<br>%v%Trainer-FUCHSIA-CITY-GYM-1=<br>%v%Trainer-FUCHSIA-CITY-GYM-2=<br>%v%Trainer-FUCHSIA-CITY-GYM-3=<br>%v%Trainer-FUCHSIA-CITY-GYM-4=<br>%v%Trainer-FUCHSIA-CITY-GYM-5=<br>%v%Trainer-FUCHSIA-CITY-GYM-6=<br>%v%Trainer-FUCHSIA-CITY-GYM-7=<br>%v%Trainer-ROUTE-15-1=<br>%v%Trainer-ROUTE-15-2=<br>%v%Trainer-ROUTE-15-3=<br>%v%Trainer-ROUTE-15-4=<br>%v%Trainer-ROUTE-15-5=<br>%v%Trainer-ROUTE-15-6=<br>%v%Trainer-ROUTE-15-7=<br>%v%Trainer-ROUTE-15-8=<br>%v%Trainer-ROUTE-15-9=<br>%v%Trainer-ROUTE-15-10=<br>%v%Trainer-ROUTE-15-11=<br>%v%Trainer-ROUTE-14-1=<br>%v%Trainer-ROUTE-14-2=<br>%v%Trainer-ROUTE-14-3=<br>%v%Trainer-ROUTE-14-4=<br>%v%Trainer-ROUTE-14-5=<br>%v%Trainer-ROUTE-14-6=<br>%v%Trainer-ROUTE-14-7=<br>%v%Trainer-ROUTE-13-1=<br>%v%Trainer-ROUTE-13-2=<br>%v%Trainer-ROUTE-13-3=<br>%v%Trainer-ROUTE-13-4=<br>%v%Trainer-ROUTE-13-5=<br>%v%Trainer-ROUTE-13-6=<br>%v%Trainer-ROUTE-13-7=<br>%v%Trainer-ROUTE-13-8=<br>%v%Trainer-ROUTE-13-9=<br>%v%Trainer-ROUTE-13-10=<br>%v%Trainer-ROUTE-13-11=<br>%v%Trainer-ROUTE-12-1=<br>%v%Trainer-ROUTE-12-2=<br>%v%Trainer-ROUTE-12-3=<br>%v%Trainer-ROUTE-12-4=<br>%v%Trainer-ROUTE-19-1=<br>%v%Trainer-ROUTE-19-2=<br>%v%Trainer-ROUTE-19-3=<br>%v%Trainer-ROUTE-19-4=<br>%v%Trainer-ROUTE-19-5=<br>%v%Trainer-ROUTE-19-6=<br>%v%Trainer-ROUTE-19-7=<br>%v%Trainer-ROUTE-19-8=<br>%v%Trainer-ROUTE-19-9=<br>%v%Trainer-ROUTE-19-10=<br>%v%Trainer-ROUTE-19-11=<br>%v%Trainer-ROUTE-19-12=<br>%v%Trainer-ROUTE-19-13=<br>%v%Trainer-ROUTE-19-14=<br>%v%Trainer-ROUTE-19-15=<br>%v%Trainer-ROUTE-19-16=<br>%v%Trainer-ROUTE-19-17=<br>%v%Trainer-ROUTE-19-18=<br>%v%Trainer-ROUTE-19-19=<br>%v%Trainer-PKMN-MANSION-1=<br>%v%Trainer-PKMN-MANSION-2=<br>%v%Trainer-PKMN-MANSION-3=<br>%v%Trainer-PKMN-MANSION-4=<br>%v%Trainer-PKMN-MANSION-5=<br>%v%Trainer-PKMN-MANSION-6=<br>%v%Trainer-CINNABAR-ISLAND-GYM-1=<br>%v%Trainer-CINNABAR-ISLAND-GYM-2=<br>%v%Trainer-CINNABAR-ISLAND-GYM-3=<br>%v%Trainer-CINNABAR-ISLAND-GYM-4=<br>%v%Trainer-CINNABAR-ISLAND-GYM-5=<br>%v%Trainer-CINNABAR-ISLAND-GYM-6=<br>%v%Trainer-CINNABAR-ISLAND-GYM-7=<br>%v%Trainer-CINNABAR-ISLAND-GYM-8=<br>%v%Trainer-ROUTE-21-1=<br>%v%Trainer-ROUTE-21-2=<br>%v%Trainer-ROUTE-21-3=<br>%v%Trainer-ROUTE-21-4=<br>%v%Trainer-ROUTE-21-5=<br>%v%Trainer-ROUTE-21-6=<br>%v%Trainer-ROUTE-21-7=<br>%v%Trainer-ROUTE-21-8=<br>%v%Trainer-ROUTE-21-9=<br>%v%Trainer-VIRIDIAN-CITY-GYM-1=<br>%v%Trainer-VIRIDIAN-CITY-GYM-2=<br>%v%Trainer-VIRIDIAN-CITY-GYM-3=<br>%v%Trainer-VIRIDIAN-CITY-GYM-4=<br>%v%Trainer-VIRIDIAN-CITY-GYM-5=<br>%v%Trainer-VIRIDIAN-CITY-GYM-6=<br>%v%Trainer-VIRIDIAN-CITY-GYM-7=<br>%v%Trainer-VIRIDIAN-CITY-GYM-8=<br>%v%Trainer-VIRIDIAN-CITY-GYM-9=<br>%v%Trainer-ROUTE-22-1=<br>%v%Trainer-VICTORY-ROAD-1=<br>%v%Trainer-VICTORY-ROAD-2=<br>%v%Trainer-VICTORY-ROAD-3=<br>%v%Trainer-VICTORY-ROAD-4=<br>%v%Trainer-VICTORY-ROAD-5=<br>%v%Trainer-VICTORY-ROAD-6=<br>%v%Trainer-VICTORY-ROAD-7=<br>%v%Trainer-VICTORY-ROAD-8=<br>%v%Trainer-VICTORY-ROAD-9=<br>%v%Trainer-VICTORY-ROAD-10=<br>%v%Trainer-VICTORY-ROAD-11=<br>%v%Trainer-INDIGO-PLATEAU-1=<br>%v%Trainer-INDIGO-PLATEAU-2=<br>%v%Trainer-INDIGO-PLATEAU-3=<br>%v%Trainer-INDIGO-PLATEAU-4=<br>%v%Trainer-INDIGO-PLATEAU-5=<br>%v%Trainer-MT-MOON-3-6=<br>)&lt;%oldname%.txt<br>if /I not '%name%'=='%oldname%' (<br>    cls<br>    %ln%<br>    echo                            Loading error<br>    %ln%<br>    echo.<br>    echo The saved game with that name does not exist%p%<br>    goto Memory-options<br>)<br>::goto skip-compatibility-scanning<br>cls&amp;echo Scanning and correcting compatibility issues.<br>::counting number of lines in save file<br>::set "cmd1=findstr /R /N "^^" %name%.txt | find /C ":""<br>::for /f %%a in ('!cmd1!') do set number=%%a<br>::if not !number!==!varcount! <br>for /L %%a in (1,1,6) do if "!invpkmn%%astatus:~0,4!"=="ECHO" set "invpkmn%%astatus=ÿ"<br>for /f "tokens=2 delims=%%=" %%a in ('type "%~nx0" ^| findstr "%v%"') do (<br>    if not "%%a"=="2 delims" if not "%%a"=="name" if not "%%a"=="rival" if not "%%a"=="in" (<br>        if "!%%a:~0,4!"=="ECHO" set "%%a=0"<br>        if "!%%a!"=="" set "%%a=0"<br>    )<br>)<br>for /l %%a in (1 1 6) do for /l %%A in (1 1 4) do if "!invpkmn%%am%%App!"=="" set invpkmn%%am%%App=0<br>for /l %%a in (1 1 6) do for /l %%A in (1 1 4) do if "!invpkmn%%am%%App:~0,4!"=="ECHO" set invpkmn%%am%%App=0<br>for /l %%a in (1 1 8) do if "!Trainer-CINNABAR-ISLAND-GYM-%%a!"=="" set Trainer-CINNABAR-ISLAND-GYM-%%a=0<br>for /l %%a in (1 1 8) do if "!Trainer-CINNABAR-ISLAND-GYM-%%a:~0,4!"=="ECHO" set Trainer-CINNABAR-ISLAND-GYM-%%a=0<br>for /l %%a in (1 1 9) do if "!Trainer-VIRIDIAN-CITY-GYM-%%a!"=="" set Trainer-VIRIDIAN-CITY-GYM-%%a=0<br>for /l %%a in (1 1 9) do if "!Trainer-VIRIDIAN-CITY-GYM-%%a:~0,4!"=="ECHO" set Trainer-VIRIDIAN-CITY-GYM-%%a=0<br>for /l %%a in (1 1 3) do if "!Trainer-VIRIDIAN-FOREST-%%a!"=="" set Trainer-VIRIDIAN-FOREST-%%a=0<br>for /l %%a in (1 1 3) do if "!Trainer-VIRIDIAN-FOREST-%%a:~0,4!"=="ECHO" set Trainer-VIRIDIAN-FOREST-%%a=0<br>for /l %%a in (1 1 7) do if "!Trainer-MT-MOON-1-%%a!"=="" set Trainer-MT-MOON-1-%%a=0<br>for /l %%a in (1 1 7) do if "!Trainer-MT-MOON-1-%%a:~0,4!"=="ECHO" set Trainer-MT-MOON-1-%%a=0<br>for /l %%a in (1 1 6) do if "!Trainer-MT-MOON-3-%%a!"=="" set Trainer-MT-MOON-3-%%a=0<br>for /l %%a in (1 1 6) do if "!Trainer-MT-MOON-3-%%a:~0,4!"=="ECHO" set Trainer-MT-MOON-3-%%a=0<br>for /l %%a in (24,1,25) do for /l %%A in (1 1 8) do if "!Trainer-ROUTE-%%a-%%A!"=="" set Trainer-ROUTE-%%a-%%A=0<br>for /l %%a in (24,1,25) do for /l %%A in (1 1 8) do if "!Trainer-ROUTE-%%a-%%A:~0,4!"=="ECHO" set Trainer-ROUTE-%%a-%%A=0<br>for /l %%a in (1 1 11) do if "!Trainer-VICTORY-ROAD-%%a!"=="" set Trainer-VICTORY-ROAD-%%a=0<br>for /l %%a in (1 1 11) do if "!Trainer-VICTORY-ROAD-%%a:~0,4!"=="ECHO" set Trainer-VICTORY-ROAD-%%a=0<br>for /l %%a in (1 1 9) do if "!Trainer-ROUTE-21-%%a!"=="" set Trainer-ROUTE-21-%%a=0<br>for /l %%a in (1 1 9) do if "!Trainer-ROUTE-21-%%a:~0,4!"=="ECHO" set Trainer-ROUTE-21-%%a=0<br>for /l %%a in (1 1 5) do if "!Trainer-INDIGO-PLATEAU-%%a!"=="" set Trainer-INDIGO-PLATEAU-%%a=0<br>for /l %%a in (1 1 5) do if "!Trainer-INDIGO-PLATEAU-%%a:~0,4!"=="ECHO" set Trainer-INDIGO-PLATEAU-%%a=0<br>for /l %%a in (1 1 6) do if "!Trainer-PKMN-MANSION-%%a!"=="" set Trainer-PKMN-MANSION-%%a=0<br>for /l %%a in (1 1 6) do if "!Trainer-PKMN-MANSION-%%a:~0,4!"=="ECHO" set Trainer-PKMN-MANSION-%%a=0<br>for /l %%a in (1 1 2) do if "!Trainer-ROUTE-22-%%a!"=="" set Trainer-ROUTE-22-%%a=0<br>for /l %%a in (1 1 2) do if "!Trainer-ROUTE-22-%%a:~0,4!"=="ECHO" set Trainer-ROUTE-22-%%a=0<br>for /l %%a in (1 1 18) do if "!Trainer-PKMN-TOWER-%%a!"=="" set Trainer-PKMN-TOWER-%%a=0<br>for /l %%a in (1 1 18) do if "!Trainer-PKMN-TOWER-%%a:~0,4!"=="ECHO" set Trainer-PKMN-TOWER-%%a=0<br>cls&amp;echo Scanning and correcting compatibility issues..<br>set testing=0&amp;for /l %%a in (1,1,9) do if not "!seen%%a!"=="" set/a testing+=!seen%%a!<br>if !testing!==0 for /l %%a in (1 1 151) do set seen%%a=0<br>::proceed to check for rivalstarter, invpkmn1-6 &amp; pkmn1-20<br>call :checkrivalstarter<br>call :minimaxi<br>for /l %%a in (1 1 151) do (<br>    if "!seen%%a:~0,4!"=="ECHO" set seen%%a=0<br>    if "!seen%%a!"=="" set seen%%a=0<br>    if !seen%%a! LSS 2 (<br>        for /f "tokens=1-3 delims=[]." %%A in ('find /N "%%a." "%~nx0" ') do (<br>            if %%A GTR !mini! (<br>                if %%A LSS !maxi! (<br>                    if "%%a."=="%%B." (<br>                        for /l %%1 in (1 1 6) do (<br>                            if "%%C"=="!invpkmn%%1!" set seen%%a=2<br>                        )<br>                        for /l %%7 in (1 1 20) do (<br>                            if "%%C"=="!pkmn%%7!" set seen%%a=2<br>                        )<br>                        if "%%C"=="!foe!" set seen%%a=1<br>                    )<br>                )<br>            )<br>        )<br>    )<br>)<br>::moves for invpkmn 1~6<br>cls&amp;echo Scanning and correcting compatibility issues...<br>if "!safariballs!"=="" set safariballs=0<br>if "!steps!"=="" set steps=0<br>if "!old-amber!"=="" set old-amber=0<br>if "!Zapdos!"=="" set Zapdos!=0<br>if "!Moltres!"=="" set Moltres=0<br>if "!Articuno!"=="" set Articuno=0<br>if "!Mewtwo!"=="" set Mewtwo=0<br>if "!HallofFame!"=="" set HallofFame=0<br>if "!lastmart!"=="" set lastmart=0<br>if "!antidote!"=="" set antidote=0<br>if "!burn-heal!"=="" set burn-heal=0<br>if "!awakening!"=="" set awakening=0<br>if "!parlyz-heal!"=="" set parlyz-heal=0<br>if "!freeze-heal!"=="" set freeze-heal=0<br>if "!dark!"=="" set dark=0<br>if "!HM-flash!"=="" set HM-flash=0<br>if "!Lorelei!"=="" set Lorelei=0<br>if "!Bruno!"=="" set Bruno=0<br>if "!Agatha!"=="" set Agatha=0<br>if "!Lance!"=="" set Lance=0<br>if "!switches!"=="" set switches=0<br>if "!chapterone!"=="" set chapterone=0<br>if "!Super-Rod!"=="" set Super-Rod=0<br>if "!safariballs:~0,4!"=="ECHO" set safariballs=0<br>if "!steps:~0,4!"=="ECHO" set steps=0<br>if "!old-amber:~0,4!"=="ECHO" set old-amber=0<br>if "!Zapdos:~0,4!"=="ECHO" set Zapdos!=0<br>if "!Moltres:~0,4!"=="ECHO" set Moltres=0<br>if "!Articuno:~0,4!"=="ECHO" set Articuno=0<br>if "!Mewtwo:~0,4!"=="ECHO" set Mewtwo=0<br>if "!HallofFame:~0,4!"=="ECHO" set HallofFame=0<br>if "!lastmart:~0,4!"=="ECHO" set lastmart=0<br>if "!antidote:~0,4!"=="ECHO" set antidote=0<br>if "!burn-heal:~0,4!"=="ECHO" set burn-heal=0<br>if "!awakening:~0,4!"=="ECHO" set awakening=0<br>if "!parlyz-heal:~0,4!"=="ECHO" set parlyz-heal=0<br>if "!freeze-heal:~0,4!"=="ECHO" set freeze-heal=0<br>if "!dark:~0,4!"=="ECHO" set dark=0<br>if "!HM-flash:~0,4!"=="ECHO" set HM-flash=0<br>if "!Lorelei:~0,4!"=="ECHO" set Lorelei=0<br>if "!Bruno:~0,4!"=="ECHO" set Bruno=0<br>if "!Agatha:~0,4!"=="ECHO" set Agatha=0<br>if "!Lance:~0,4!"=="ECHO" set Lance=0<br>if "!switches:~0,4!"=="ECHO" set switches=0<br>if "!chapterone:~0,4!"=="ECHO" set chapterone=0<br>if "!Super-Rod:~0,4!"=="ECHO" set Super-Rod=0<br>if %color%==1 color<br>if %color%==0 (<br>    if '%starter%'=='BULBASAUR' color 2f<br>    if '%starter%'=='SQUIRTLE' color 9f<br>    if '%starter%'=='CHARMANDER' color 4f<br>    if '%starter%'=='PIKACHU' color 6f<br>    if '%starter%'=='EEVEE' color 5f<br>)<br>:skip-compatibility-scanning<br>if %music%==1 (<br>    taskkill /f /fi "WINDOWTITLE eq terminator2"&gt;nul&amp;start Sound.vbs !SURL!&amp;wscript.exe "invisible.vbs" "terminator2.bat"<br>)<br>call :music !SURL!<br>set startmenu=0<br>cls&amp;echo Loading map...<br>goto SLR<br>:Save-menu<br>cls&amp;echo Saving.<br>set OSURL=!SURL!<br>set SURL=save.mp3<br>call :music !SURL!<br>cls&amp;echo Saving..%t1n%<br>cls&amp;echo Saving...%t1n%<br>set SURL=!OSURL!<br>call :music !SURL!<br>for /f "skip=3 tokens=1 delims=[]:" %%a in ('find /N /I ":Load-Menu" "%~nx0"') do set/a loadgameline=%%a+10&amp;goto nextsave<br>:nextsave<br>echo off&gt;%name%.txt<br>set temp=0<br>for /f "skip=%loadgameline% tokens=2 delims=%%=" %%a in ('type "%~nx0"') do (<br>    set /a temp+=1<br>    echo !%%a!&gt;&gt;%name%.txt<br>    if '!temp!'=='%varcount%' goto Chari<br>)<br>exit/b<br>:Start-1<br>cls<br>%ln%<br>echo                            Music options<br>%ln%<br>echo.<br>echo [1] Disable music<br>echo [2] Enable music<br>echo [3] Go back<br>choice /c 123 /n&gt;nul<br>if !errorlevel!==1 set music=0&amp;goto Start-2<br>if !errorlevel!==2 set music=1<br>if !errorlevel!==3 goto Memory-options<br>if not exist Heal.mp3 (<br>    set music=0<br>    cls&amp;echo You dont have all the audio files installed, music will be disabled%p%<br>    goto Start-2<br>)<br>if not exist Sound.vbs call :CreateSvbs &gt;Sound.vbs<br>if not exist terminator2.bat call :Createterminator2bat &gt;terminator2.bat<br>:Start-2<br>for /f "skip=3 tokens=1 delims=[]:" %%a in ('find /N /I ":Load-Menu" "%~nx0"') do set/a loadgameline=%%a+11&amp;goto nextstart-2<br>::+11 instead of +10 to ignore music=0, which is preset<br>:nextstart-2<br>set temp=0<br>for /f "skip=%loadgameline% tokens=2 delims=%%=" %%a in ('type "%~nx0"') do (<br>    set/a temp+=1<br>    set %%a=0<br>    if '!temp!'=='%varcount%' goto start-exceptions<br>)<br>:start-exceptions<br>for /L %%a in (1,1,20) do set pkmn%%a=NAN&amp;set pkmn%%anick=NAN&amp;for /l %%A in (1,1,4) do set pkmn%%am%%A=-<br>for /L %%a in (1,1,6) do set invpkmn%%a=NAN&amp;set invpkmn%%atype1=NAN&amp;set invpkmn%%astatus=ÿ&amp;set invpkmn%%anick=NAN&amp;for /L %%A in (1,1,4) do set invpkmn%%am%%A=-<br>::placeholder because those trainers do not have stats yet<br>for /L %%a in (1,1,7) do set Trainer-Cinnabar-Island-Gym-Trainer-%%a=1<br>for /L %%a in (1,1,8) do set Trainer-Viridian-City-Gym-Trainer-%%a=1<br>set color=1<br>set SURL=Intro.mp3<br>set char=#<br>set lastmart=NAN<br>set inventory=1<br>set coins=10<br>set money=2000<br>set potions=1<br>set x=8<br>set y=10<br>set lm=Pallet-Town<br>set g=0<br>set chapterone=1<br>:My-name-is-Prof-Oak<br>set SURL=Professor-oak.mp3<br>if %music%==1 wscript.exe "invisible.vbs" "terminator2.bat"&amp;start Sound.vbs !SURL!<br>cls&amp;echo Prof. Oak: Hi. My name is Prof. Oak%p%<br>cls&amp;echo Prof. Oak: Welcome to the wonderful world of pkmn%p%<br>:Name<br>cls&amp;echo Prof. Oak: It seems I don't remember your name. What is it?<br>%v%name=<br>if '%name%'=='' goto Name<br>if '%name%'=='tlm' cls&amp;echo you name cannot be choosen since this file will be used for loading maps%p%&amp;goto Name<br>if exist "%name%.txt" (<br>    cls&amp;echo A save file with that name already exists, overwrite?<br>    echo.<br>    echo [1] Yes<br>    echo [2] No<br>    choice /c 12 /n&gt;nul<br>    if !errorlevel!==2 goto Name<br>)<br>if %name%==0 goto Name<br>cls&amp;echo Hi %name%^^! It's nice seeing you again%p%<br>:Rival-name<br>cls&amp;echo Prof. Oak: I think i'm getting old, can you tell me my son's name?<br>%v%rival=<br>if "%rival%"=="" goto Rival-name<br>if %rival%==0 goto Rival-name<br>cls&amp;echo Ah ofcourse his name was %rival% I hope I won't forget again%p%<br>goto SLR<br>:Chapter-One<br>set script=1<br>set script#=1<br>set scripttmp=0<br>set profx=18<br>set profy=26<br>set !profx!,!profy!=#<br>goto RM<br>:script1<br>set "!profx!,!profy!=ÿ"<br>set/a scripttmp+=1<br>if !scripttmp! GEQ 1 if !scripttmp! LEQ 6 (<br>    set/a profy-=1<br>    set "!profx!,!profy!=#"<br>    goto RM<br>)<br>if !scripttmp! GEQ 7 if !scripttmp! LEQ 16 (<br>    set/a profx-=1<br>    set "!profx!,!profy!=#"<br>    goto RM<br>)<br>if !scripttmp! GEQ 17 if !scripttmp! LEQ 18 (<br>    set/a profy+=1<br>    set "!profx!,!profy!=#"<br>    goto RM<br>)<br>if !scripttmp! GEQ 19 if !scripttmp! LEQ 23 (<br>    set/a profx-=1<br>    set "!profx!,!profy!=#"<br>    goto RM<br>)<br>set/a profx-=1&amp;set "!profx!,!profy!=#"<br>set/a profx+=1<br>cls&amp;echo Prof. Oak: Come with me grandson, I got something for you.%p%<br>set script#=2<br>goto RM<br>:script2<br>set "!profx!,!profy!=ÿ"<br>set/a scripttmp-=1<br>set "!x!,!y!=ÿ"<br>if !scripttmp! GEQ 1 if !scripttmp! LEQ 5 (<br>    set/a y+=1<br>)<br>if !scripttmp! GEQ 6 if !scripttmp! LEQ 15 (<br>    set/a x+=1<br>)<br>if !scripttmp! GEQ 16 if !scripttmp! LEQ 17 (<br>    set/a y-=1<br>)<br>if !scripttmp! GEQ 18 if !scripttmp! LEQ 23 (<br>    set/a x+=1<br>)<br>if !scripttmp! GEQ 1 if !scripttmp! LEQ 6 (<br>    set/a profy+=1<br>    set "!profx!,!profy!=#"<br>    goto RM<br>)<br>if !scripttmp! GEQ 7 if !scripttmp! LEQ 16 (<br>    set/a profx+=1<br>    set "!profx!,!profy!=#"<br>    goto RM<br>)<br>if !scripttmp! GEQ 17 if !scripttmp! LEQ 18 (<br>    set/a profy-=1<br>    set "!profx!,!profy!=#"<br>    goto RM<br>)<br>if !scripttmp! GEQ 19 if !scripttmp! LEQ 23 (<br>    set/a profx+=1<br>    set "!profx!,!profy!=#"<br>    goto RM<br>)<br>if !scripttmp!==0 set/a y+=1&amp;goto RM<br>set script#=3<br>goto Pallet-Town-3<br>:script3<br>set/a scripttmp+=1<br>set "!x!,!y!=ÿ"<br>if !scripttmp! LEQ 6 (<br>    set/a x-=1<br>    goto RM<br>)<br>set script=0<br>set scripttmp=0<br>cls&amp;echo Prof. Oak: I've got five pkmn right here%p%<br>cls&amp;echo Prof. Oak: You may choose one each, choose wisely<br>cls&amp;echo %rival%: You can pick first %name%, I insist xD%p%<br>cls&amp;echo Prof. Oak: %name% what are you waiting for, choose your pkmn%p%<br>set startercycle=0<br>set chapterone=0<br>goto Starter-cycle<br>:script4<br>set/a scripttmp+=1<br>if !scripttmp! GEQ 1 if !scripttmp! LEQ 15 (<br>    set "!profx!,!profy!=ÿ"<br>    set/a profx-=1<br>    set "!profx!,!profy!=#"<br>)<br>if !scripttmp! EQU 15 (<br>    set !x!,!y!=ÿ<br>    set/a x+=1<br>)<br>if !scripttmp! EQU 16 (<br>    cls&amp;echo Prof. Oak: Congratulations, I came as soon as i saw on TV you won^^!%p%<br>    cls&amp;echo Prof. Oak: I'll take you into the palace, follow me%p%<br>    set script#=5<br>    set scripttmp=0<br>)<br>goto RM<br>:script5<br>set/a scripttmp+=1<br>if !scripttmp! EQU 1 (<br>    set 4,22=ÿ<br>    set 5,22=#<br>)<br>if !scripttmp! EQU 2 (<br>    set 5,22=ÿ<br>    set 5,21=#<br>)<br>if !scripttmp! GEQ 3 (<br>    set !x!,!y!=ÿ<br>    set/a x-=1<br>    set !profx!,!profy!=ÿ<br>    set/a profx-=1<br>    set !profx!,!profy!=#<br>)<br>if !scripttmp! EQU 8 (<br>    set lm=Palace<br>    set SURL=Into-the-palace.mp3<br>    set scripttmp=0<br>    set script#=6<br>    set x=23<br>    set y=22<br>    set profx=22<br>    set profy=22<br>    goto SLR<br>)<br>goto RM<br>:script6<br>set/a scripttmp+=1<br>if !scripttmp! LEQ 18 (<br>    set !profx!,!profy!=ÿ<br>    set/a profx-=1<br>    set !profx!,!profy!=#<br>    set !x!,!y!=ÿ<br>    set/a x-=1<br>)<br>if !scripttmp! EQU 19 set !x!,!y!=ÿ&amp;set/a y+=1<br>if !scripttmp! EQU 20 set !x!,!y!=ÿ&amp;set/a x-=1<br>if !scripttmp! EQU 21 (<br>    set script=0<br>    cls&amp;echo Prof. Oak: This is the Hall-of-Fame machine, it stores winning teams in the database%p%<br>    cls&amp;echo Prof. Oak: Place your pkmn on the machine so we can start the saving process%p%<br>    goto Hall-Of-Fame<br>)<br>goto RM<br>:script7<br>set/a scripttmp+=1<br>set !x!,!y!=ÿ<br>if !scripttmp! LEQ 7 set/a y-=1<br>if !scripttmp! GEQ 8 if !scripttmp! LEQ 19 set/a x+=1<br>if !scripttmp! GEQ 20 if !scripttmp! LEQ 40 set/a y-=1<br>if !scripttmp! GEQ 41 set/a x-=1<br>if !scripttmp! EQU 54 (<br>    set lm=Elite-Four-Lance<br>    set x=23<br>    set y=22<br>    set script=0<br>    goto SLR<br>)<br>goto RM<br>:script8<br>set/a scripttmp+=1<br>if !scripttmp! EQU 1 set/a tmpdist-=1&amp;if not "!exclamationold!"=="" (set "!exclamationX!,!profy!=!exclamationold!") else (set "!exclamationX!,!profy!=ÿ")<br>set "!profx!,!profy!=ÿ"<br>if !scripttmp! EQU !tmpdist! set script=Trainer<br>if "!trainerdir!"=="up" set/a profx+=1<br>if "!trainerdir!"=="down" set/a profx-=1<br>if "!trainerdir!"=="left" set/a profy+=1<br>if "!trainerdir!"=="right" set/a profy-=1<br>::yes i am ignoring if the trainer is standing on water/grass or if there is grass/water in between the player and trainer<br>set "!profx!,!profy!=#"%t1n%<br>goto RM<br>:Starter-cycle<br>if %startercycle%==0 set invpkmn1=BULBASAUR&amp;set starter=BULBASAUR&amp;set foe1=CHARMANDER&amp;set invpkmn1m1=TACKLE&amp;set invpkmn1m2=GROWL<br>if %startercycle%==1 set invpkmn1=SQUIRTLE&amp;set starter=SQUIRTLE&amp;set foe1=BULBASAUR&amp;set invpkmn1m1=TACKLE&amp;set invpkmn1m2=TAIL-WHIP<br>if %startercycle%==2 set invpkmn1=CHARMANDER&amp;set starter=CHARMANDER&amp;set foe1=SQUIRTLE&amp;set invpkmn1m1=SCRATCH&amp;set invpkmn1m2=GROWL<br>if %startercycle%==3 set invpkmn1=PIKACHU&amp;set starter=PIKACHU&amp;set foe1=EEVEE&amp;set invpkmn1m1=TACKLE&amp;set invpkmn1m2=GROWL<br>if %startercycle%==4 set invpkmn1=EEVEE&amp;set starter=EEVEE&amp;set foe1=PIKACHU&amp;set invpkmn1m1=TACKLE&amp;set invpkmn1m2=TAIL-WHIP<br>if %startercycle% GTR 4 set startercycle=0&amp;goto starter-cycle<br>:Starters<br>cls<br>%ln%<br>echo                           %starter% :L5<br>%ln%<br>echo.<br>echo Prof. Oak: Do you want to pick %starter%?<br>echo.<br>echo (Color can be enabled in the start-menu (press i))<br>echo.<br>echo [1] Choose %starter%<br>echo [2] Choose a different pkmn<br>choice /c 12 /n&gt;nul<br>if !errorlevel!==1 cls&amp;echo %rival%: Then I will take !foe!%p%&amp;goto Starter-choice<br>if !errorlevel!==2 set/a startercycle+=1&amp;goto Starter-cycle<br>:Starter-choice<br>set invpkmn1m3=-&amp;set invpkmn1m4=-&amp;set invpkmn1lvl=5<br>:hpiv-lp<br>call :iv-loop invpkmn1<br>call :healinvpkmn<br>cls&amp;echo Prof. Oak: Congratulations, you've just become a pkmn trainer%p%<br>cls&amp;echo Prof. Oak: Make sure to have fun with !invpkmn1!%p%<br>cls&amp;echo Prof. Oak: Collect Gym badges and compete in the pkmn League%p%<br>cls&amp;echo Prof. Oak: Good luck%p%<br>:Prof-OAKs-assignment<br>cls&amp;echo Prof. Oak: Hey %name%, can you pick up my PARCEL?%p%<br>cls&amp;echo Prof. Oak: Viridian-City Mart is where it's being held for me%p%<br>cls&amp;echo Prof. Oak: Thanks, it would take me ages with this sore back of mine%p%<br>cls&amp;echo Prof. Oak: I'll be waiting in the lab%p%<br>set SURL=Pallet-Town.mp3<br>call :music !SURL!<br>goto RM<br>:wp-Battle<br>if "!SURL!"=="Evolution-Safari-zone.mp3" set OSURL=!SURL!&amp;goto Safari-Zone-Battle<br>set count=0<br>set wincount=0<br>set pkmnbattle=1<br>if "%foe%"=="MissingNo." goto generate-random-moveset<br>if "%foe%"=="" (<br>    set string=ABSORB<br>    set foe=MissingNo.<br>    call :rand0-99<br>    set/a foelvl=!rand!<br>    ::switching form range 0-99 to 1-100<br>    set/a foelvl+=1<br>    for /f "tokens=1 delims=[]" %%A in ('find /N "!string!;11,2,20,99" "%~nx0"') do (<br>        set templine=%%A<br>        goto generate-random-moveset<br>    )<br>) else (<br>    goto Battle-start<br>)<br>:generate-random-moveset<br>call :rand-move-id<br>set/a count+=1<br>set/a tempmaxline=!templine!+!rand!<br>if !count! LEQ 4 for /f "tokens=1 delims=;" %%A in ('more "%~nx0" +!tempmaxline!') do set foem!count!=%%A&amp;goto generate-random-moveset<br>goto Battle-start<br>:Rival-Battle<br>set wincount=0<br>set/a foe#=!wincount!+1<br>set foe=!foe%foe#%!<br>set foelvl=!foe%foe#%lvl!<br>set pkmnbattle=2<br>goto Battle-start<br>:Trainer-Battle<br>set wincount=0<br>set/a foe#=!wincount!+1<br>set foe=!foe%foe#%!<br>set foelvl=!foe%foe#%lvl!<br>set pkmnbattle=3<br>:Walker-Script<br>for /f "tokens=1,2 delims=," %%a in ('echo !check!') do set checkx=%%a&amp;set checky=%%b<br>for /d %%A in (-,+) do (<br>    for /l %%a in (1,1,8) do (<br>        call :computeXY x %%A %%a<br>    )<br>)<br>for /d %%A in (-,+) do (<br>    for /l %%a in (1,1,8) do (<br>        call :computeXY y %%A %%a<br>    )<br>)<br>:trainer-found<br>if "!rocket!"=="1" (<br>    call :music Rocket-appears.mp3<br>) else (<br>    call :t1inX 2<br>    if "!t!"=="1" call :music Trainer1-appears.mp3<br>    if "!t!"=="2" call :music Trainer2-appears.mp3<br>)<br>set script=1<br>set script#=8<br>set scripttmp=0<br>set/a exclamationX=!profx!-1<br>set "exclamationold=!%exclamationX%,%profy%!"<br>set "!exclamationX!,!profy!=^!"<br>goto RM<br>:computeXY<br>set/a LFtrainer%1=!check%1! %2 %3<br>if "%1"=="x" (<br>    if "!%LFtrainerX%,%checky%!"=="#" (<br>            set profx=!LFtrainerX!<br>        set profy=!checky!<br>        if "%2"=="-" (<br>            set trainerdir=up<br>        ) else (<br>            set trainerdir=down<br>        )<br>        set "tmpdist=%3"<br>    )<br>)<br>if "%1"=="y" (<br>    if "!%checkx%,%LFtrainerY%!"=="#" (<br>        set profy=!LFtrainerY!<br>        set profx=!checkx!<br>        if "%2"=="-" (<br>            set trainerdir=left<br>        ) else (<br>            set trainerdir=right<br>        )<br>        set "tmpdist=%3"<br>    )<br>)<br>exit/b<br>:Gym-Battle<br>set wincount=0<br>set/a foe#=!wincount!+1<br>set foe=!foe%foe#%!<br>set foelvl=!foe%foe#%lvl!<br>for /l %%a in (1,1,4) do set foem%%a=!foe%foe#%m%%a!<br>set pkmnbattle=4<br>goto Battle-start<br>:Safari-Zone-Battle<br>set wincount=0<br>set pkmnbattle=5<br>set eatingcounter=0<br>set angrycounter=0<br>::this is only for flee-chance<br>for /f "tokens=4-8 delims=." %%a in ('findstr ".!foe!." "%~nx0"') do (<br>    set/a foebasehp=%%a<br>    set/a foebaseatk=%%b<br>    set/a foebasedef=%%c<br>    set/a foebasespd=%%d<br>    set/a foebasespe=%%e<br>)<br>set/a totalbasestats=%foebasehp%+%foebaseatk%+%foebasedef%+%foebasespd%+%foebasespe%<br>goto Battle-start<br>:Battle-safari-zone-foemove<br>echo.<br>set/a fleechance=%totalbasestats%/16<br>call :rand0-99<br>set temp=!rand!<br>if !fleechance! GEQ %temp% (<br>    echo Wild !foe! fled%p%<br>    call :music !SURL!<br>    goto RM<br>)<br>if !eatingcounter! GTR !angrycounter! echo Wild !foe! is eating%p%<br>if !eatingcounter! LSS !angrycounter! echo Wild !foe! is getting angry%p%<br>if !eatingcounter!==!angrycounter! echo Wild !foe! is watching carefully%p%<br>goto Battle<br>:Battle-start<br>set wincount=0<br>set OSURL=!SURL!<br>call :resetinvpkmn1stats<br>call :setinvpkmn1types<br>call :setinvpkmn1stats<br>if !pkmnbattle!==1 (<br>    call :music wp-battle.mp3<br>    cls<br>    echo A wild !foe! has appeared^^!<br>    echo.<br>    echo !foe!: !foe!<br>    echo.<br>    echo %name%: Go !invpkmn1! I choose you^^!<br>    echo.<br>    echo !invpkmn1!: !invpkmn1!^^!%t1n%<br>)<br>if !pkmnbattle!==2 (<br>    call :music Rival-appears.mp3<br>    timeout 5 /NOBREAK &gt;nul<br>    cls&amp;echo %rival%: Lets fight^^!%t1n%<br>    call :music Trainer.mp3<br>    set wincount=0<br>)<br>if !pkmnbattle!==3 (<br>    set trainercalc=%random:~-1%<br>    if !trainercalc! LEQ 4 set trainermusic=Trainer1-appears<br>    if !trainercalc! GEQ 5 set trainermusic=Trainer2-appears<br>    set SURL=!trainermusi...</pre>
+
+</body></html>

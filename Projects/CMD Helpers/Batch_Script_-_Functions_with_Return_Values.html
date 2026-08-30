@@ -1,0 +1,19 @@
+<!DOCTYPE html><html><head><meta charset='utf-8' /><title>Saved Note</title></head><body>
+        <h1 id="temp:C:JDd31744f56a6324dfcb94a42376">Batch Script - Functions with Return Values</h1>
+
+Functions can work with return values by simply passing variables names which will hold the return values when a call is made to the function as shown below<br>
+
+<h2 id="temp:C:JDd5f30d03d35f54b6798e7d1f9e">Syntax</h2>
+
+<pre id="temp:C:JDd5c0bb707fc6c4606b4e6767b5">Call :function_name value1, value2… valuen</pre>
+
+The return values are set in the function using the set command and the tilde(~) character along with the positional number of the parameter.<br>
+
+Following example shows how a function can be called with return values.<br>
+
+<h2 id="temp:C:JDdbea9d98e73134b7e929f62fc3">Example</h2><h2 id="temp:C:JDdbea9d98e73134b7e929f62fc3"><span style="border: 2px solid rgb(51, 51, 51); padding: 2px 6px; margin: 0px 2px; border-radius: 3px; display: inline-block; background-color: rgb(252, 252, 252);">
+
+<pre id="temp:C:JDd82412a80645b4fd78daf15bbf">@echo&nbsp;off<br>SETLOCAL<br><br>CALL :SetValue&nbsp;value1,value2<br>echo %value1%<br>echo %value2%<br>EXIT /B %ERRORLEVEL%<br><br>:SetValue<br>set&nbsp;"%~1 = 5"<br>set&nbsp;"%~2 = 10"<br><br>EXIT /B 0</pre></span></h2><br>
+
+
+    </body></html>

@@ -1,0 +1,554 @@
+<!doctype html>
+<html><head><title>Minerva</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+</style></head><body><h1 id='DGJACAQ1qgB'>Minerva</h1>
+
+Dear Todd and Minerva,<br/>
+
+<br/>
+
+Thank you for the update on your address, phone number and E-mail.<br/>
+
+<br/>
+
+<div data-section-style='6' class="" style=""><ul id='DGJACA3pdHw'><li id='DGJACAGoOjS' class='' value='1'>I receive my E-mail at Judith’s house:  22 Hastie Way, Oroville CA  95966, although  I currently live at 206 Table Mountain Blvd. Apartment #1 with my wife Christine, my stepson William, and his girlfriend Kenika, and we currently have a visitor, Kenyatta (Kenika’s sister).  We will probably be moving in the next couple of months, so I still have my mail go to Judith’s address.  My cell phone # is <a href="tel:5303542398">530-354-2398</a>.
+
+<br/></li><li id='DGJACAkSMrj' class=''>A bit of history with Denver.  He is very successful at getting jobs.  Unfortunately he lost his Wall Street job due to the economic downturn.  After moving multiple times between Texas and Colorado and his work dissolving each time as people were laid off he had a nervous breakdown and he moved in with Shelley and I in 2003.  When Shelley and I parted it worked out well because she really needed help and he was a strong emotional support.  He has worked for the Welfare department for a couple of years now, and recently he decided to help his mom full time, but now he is looking for another job with the state.  I’m sure he will find another soon.
+
+<br/></li><li id='DGJACAYX7vC' class=''>I lived with Judith after I moved out from Shelley’s house.  I moved in with my wife a few months before we married on 4/16/16.  After my dad died on 3/16/14 I went from helping 2 days a week to 7 days a week for about 2 months.  Then I had to change things up, as living up at her house and working full time became way too stressful.  Finally my sister Regina and Judith decided that I would help M-F, 11am-7pm, depending on doctor’s appointments, of course, and Regina and other hired helpers would help out on the weekends.
+
+<br/></li><li id='DGJACAYufq4' class=''>Judith is doing OK.  She is gradually declining and it was very stressful over this last week when we were without electricity for 60 hours.  We lost all food in the fridge and the freezer, and there was a lot of difficulties created because I was either at the house or on call 24 hours a day for the 2 1/2 days that lasted. 
+
+<br/></li><li id='DGJACAaLhkh' class=''>The pastor of the Clean Slate Community Church, John Craig, had established the new church first at the Ramses Funeral Parlor in Oroville and then after the funds were established, the church moved to a location about 15 miles outside of Oroville in Palermo.  Now, the pastor had been working at the Baptist Church at least 10 years and had a very successful mission of helping people with addiction recovery.  There was a split in the church long after I stopped visiting there and people wanted John to continue his ministry, so therefore the new church.  It’s still a Baptist church basically.
+
+<br/></li><li id='DGJACALGEW0' class=''>Unfortunately Andy has had many problems since the passing of my mother.  He lost his trailer due to losing his job, trusting people who burned him on rent, and not paying rent for almost 9 months.  He has been on and off homeless for years now.  
+
+<br/></li><li id='DGJACA5jout' class=''>My Brother was not my best man because I have always felt closer to Kirk McCoskey than to my Brother.  When Kirk was married and I was his best man and I was honored to have him do the same for me.
+
+<br/></li><li id='DGJACAj8uUr' class=''>It’s amazing but I managed to do it.  Shelley and Shelley’s family are still my good friends.  I managed to leave on good terms.  It was a herculean effort on my part, but I did it.  I told Shelley when I was starting to date again after I moved out that she should consider it as well.  Anyway, I check in on my friends from time to time, and Christine and I invite Shelley to play Scrabble and Texas Hold-Em (Cards) on occasion on Saturday’s in Chico and we have a good time.  Sometimes we even visit with Sandra Canepari, sometimes with Kirk.
+
+<br/></li><li id='DGJACA2z0ug' class=''>I had to pull teeth to get my brother to come to the wedding because he was so tired from working his paper route, but I convinced friends of the family to drive him there.  It was a really nice wedding.  
+
+<br/></li><li id='DGJACA32ywx' class=''>I didn’t want my sister Lindy to make the wedding event about her(she would have complained, cried, whatever), also since she had decided years ago to not be part of the family anymore, so I decided not to invite her.  I don’t regret my decision at all.  Now that is not to say that I don’t put out effort to visit with her.  For the last two years now I have taken her out to Olive garden for her birthday and I was also able to get her to our uncle Gilbert’s funeral.  Our uncle had been taking Lindy shopping once a week for years after my father died.
+
+<br/></li><li id='DGJACAZ6cMz' class=''>Minerva and Todd, you will always be my friends.  You are and were always there for me when I needed it during a period of life where I really needed the emotional support.  An event like a wedding does not replace all the wonderful memories that I have shared with you.  If we all make it that far, maybe we can get together for the reaffirmation of vows.  :).
+
+<br/></li><li id='DGJACAmy2Er' class=''>By the way, I do still feel bad that I did not acknowledge your trip when my mother died in 2007.  At the time I was emotionally a wreck and I am still amazed I didn’t have a breakdown in the church.  It was a very bad time for me and I don’t think I fully recovered for years and years.  Now that I have lost both my father and mother I find that I am just a little too serious sometimes.  I miss being relaxed, although I pretend from time to time.
+
+<br/></li><li id='DGJACAn6WJj' class=''>I would have been to your wedding of course, but I was never free, either from a schedule or money wise.  I even missed my nephew’s wedding (Regina’s son Tim and his wife Jen) due to financial embarrassment.  They had it in Lake Tahoe way back when.  The Hotel cost was prohibitive.  So, yeah, I have no qualms about anyone who missed my wedding.  I think it cost us under $500.00, mostly with help from friends and family.  The reception was at my sister Regina’s house for close family and friends.  It still turned out great.
+
+<br/></li><li id='DGJACAzDbw2' class=''>I am really sorry to hear about your brother losing his beautiful house.  I really liked his house and loved his neighborhood.  My niece Angie (Regina’s Daughter) and her fiance, whose name I cannot remember right now, lost their house in Paradise that day as well.  That year she also had seen her teenage step son die, her car stolen, and now that Christopher and Regina are getting a divorce...  OMG, and I thought we had it hard as kids...
+
+<br/></li><li id='DGJACAELB5R' class=''>The way I figure it, you have to appreciate people for as long as you can.  You never know who or when they will move on.  Thank you for being my friends.  I hope that our paths cross again.  Love you guys.
+
+<br/></li></ul></div>-Larry<br/>
+
+<br/>
+
+</body></html>

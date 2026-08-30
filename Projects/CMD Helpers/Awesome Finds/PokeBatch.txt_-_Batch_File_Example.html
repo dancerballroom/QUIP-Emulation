@@ -1,0 +1,514 @@
+<!doctype html>
+<html><head><title>PokeBatch.txt - Batch File Example</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:WMfb5020bc9759b463f974575832'>PokeBatch.txt - Batch File Example</h1>
+
+REF:  <br/>
+
+<a href="https://pastebin.com/qhgTGvU5#google_vignette">https://pastebin.com/qhgTGvU5#google_vignette</a><br/>
+
+<br/>
+
+<pre id='temp:C:WMf7e7de942103f44deb085af1c2'>@echo off&amp;mode 71,30&amp;title PokeBatch&amp;color 07&amp;pushd "%~dp0"&amp;setlocal Enabledelayedexpansion<br>::I will update the game often at http://pastebin.com/qhgTGvUF5<br>::NEW, BETTER, 2D VERSION AT https://pastebin.com/Rmf9t2Js<br>:Compressed-lines<br>set ln=ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ<br>set cl=##################################################<br>set "p=&amp;pause&gt;nul"<br>set g=Go to <br>set n= [NORTH]<br>set e= [EAST]<br>set s= [SOUTH]<br>set w= [WEST]<br>set l=Look for wild pkmn<br>set r=Route <br>:Memory-options<br>cls<br>echo !ln!<br>echo Memory options<br>echo !ln!<br>echo.<br>echo [1] New game<br>echo [2] Continue<br>echo [3] Instructions<br>choice /c 123 /n&gt;nul<br>if !errorlevel! equ 1 goto Start-1<br>if !errorlevel! equ 2 goto Load-menu<br>if !errorlevel! equ 3 goto Instructions<br>:Instructions<br>cls<br>echo !ln!<br>echo PokeBatch - The pkmn experience in Batch - Version 10-10-2017<br>echo !ln!<br>echo.<br>echo NEW, BETTER, 2D VERSION AT https://pastebin.com/Rmf9t2Js<br>echo.<br>echo If the game asks you a question, answer it, with a word or a number<br>echo.<br>echo You can save in pkmn centers<br>echo.<br>echo Be aware that if you dont type anything and hit enter, the game will<br>echo use your last entry<br>echo.<br>echo Good luck ;)%p%<br>goto Memory-options<br>:Load-menu<br>cls<br>echo !ln!<br>echo Load menu<br>echo !ln!<br>echo.<br>echo What was your name in the saved game?<br>set /p oldname=<br>if '!oldname!'=='' goto Load-menu<br>echo.<br>echo Loading !oldname!.txt...<br>(<br>set /p music=<br>set /p name=<br>set /p starter=<br>set /p rival=<br>set /p rivalstarter=<br>set /p money=<br>set /p potions=<br>set /p fishingrod=<br>set /p HM-surf=<br>set /p HM-fly=<br>set /p HM-cut=<br>set /p location=<br>set /p sublocation=<br>set /p exp=<br>set /p exptill=<br>set /p badges=<br>set /p bikevoucher=<br>set /p bike=<br>set /p pkmnstorage=<br>set /p pokeballs=<br>set /p rivalencounters=<br>set /p ss-anne=<br>set /p color=<br>set /p snorlaks1=<br>set /p snorlaks2=<br>set /p pkmn1=<br>set /p pkmn1lvl=<br>set /p pkmn2=<br>set /p pkmn2lvl=<br>set /p pkmn3=<br>set /p pkmn3lvl=<br>set /p pkmn4=<br>set /p pkmn4lvl=<br>set /p pkmn5=<br>set /p pkmn5lvl=<br>set /p pkmn6=<br>set /p pkmn6lvl=<br>set /p pkmn7=<br>set /p pkmn7lvl=<br>set /p pkmn8=<br>set /p pkmn8lvl=<br>set /p pkmn9=<br>set /p pkmn9lvl=<br>set /p pkmn10=1<br>set /p pkmn10lvl=<br>set /p pkmn11=<br>set /p pkmn11lvl=<br>set /p pkmn12=<br>set /p pkmn12lvl=<br>set /p pkmn13=<br>set /p pkmn13lvl=<br>set /p pkmn14=<br>set /p pkmn14lvl=<br>set /p pkmn15=<br>set /p pkmn15lvl=<br>set /p pkmn16=<br>set /p pkmn16lvl=<br>set /p pkmn17=<br>set /p pkmn17lvl=<br>set /p pkmn18=<br>set /p pkmn18lvl=<br>set /p pkmn19=<br>set /p pkmn19lvl=<br>set /p pkmn20=<br>set /p pkmn20lvl=<br>set /p invpkmn1=<br>set /p invpkmn1lvl=<br>set /p invpkmn1hp=<br>set /p invpkmn2=<br>set /p invpkmn2lvl=<br>set /p invpkmn2hp=<br>set /p invpkmn3=<br>set /p invpkmn3lvl=<br>set /p invpkmn3hp=<br>set /p invpkmn4=<br>set /p invpkmn4lvl=<br>set /p invpkmn4hp=<br>set /p invpkmn5=<br>set /p invpkmn5lvl=<br>set /p invpkmn5hp=<br>set /p invpkmn6=<br>set /p invpkmn6lvl=<br>set /p invpkmn6hp=<br>set /p trainer-SS-anne-floor-1-1=<br>set /p trainer-SS-anne-floor-1-2=<br>set /p trainer-SS-anne-floor-1-6=<br>set /p trainer-SS-anne-floor-2-3=<br>set /p trainer-SS-anne-floor-2-4=<br>set /p profoakparcel=<br>set /p Trainer-route-3=<br>set /p Trainer-route-24=<br>set /p Trainer-mt-moon=<br>set /p inventory=<br>set /p guardwater=<br>set /p Silphscope=<br>set /p coins=<br>set /p Trainer-Rocket-Hideout-floor-4=<br>set /p lift-key=<br>set /p Trainer-Rocket-Hideout-Giovanni=<br>set /p pkmn1nick=<br>set /p pkmn2nick=<br>set /p pkmn3nick=<br>set /p pkmn4nick=<br>set /p pkmn5nick=<br>set /p pkmn6nick=<br>set /p pkmn7nick=<br>set /p pkmn8nick=<br>set /p pkmn9nick=<br>set /p pkmn10nick=<br>set /p pkmn11nick=<br>set /p pkmn12nick=<br>set /p pkmn13nick=<br>set /p pkmn14nick=<br>set /p pkmn15nick=<br>set /p pkmn16nick=<br>set /p pkmn17nick=<br>set /p pkmn18nick=<br>set /p pkmn19nick=<br>set /p pkmn20nick=<br>set /p invpkmn1nick=<br>set /p invpkmn2nick=<br>set /p invpkmn3nick=<br>set /p invpkmn4nick=<br>set /p invpkmn5nick=<br>set /p invpkmn6nick=<br>)&lt;!oldname!.txt<br>set SoundURL=Jigglypuff-s-song.mp3<br>if /I not !name! equ !oldname! (cls<br>echo !ln!<br>echo Loading error<br>echo !ln!<br>echo.<br>echo The saved game with that name does not exist%p%&amp;goto Memory-options)<br>timeout 1 &gt;nul<br>echo.<br>echo Loading done&amp;timeout 1 &gt;nul<br>if !color! equ 1 color 07<br>if !color! equ 0 (<br>if !starter! equ BULBASAUR color 27<br>if !starter! equ SQUIRTLE color 97<br>if !starter! equ CHARMANDER color 47<br>if !starter! equ PIKACHU color 67<br>if !starter! equ EEVEE color 57)<br>if !music! equ 1 taskkill /FI "windowtitle eq terminator"&gt;nul&amp;start sound.vbs !SoundURL!&amp;start /min terminator.bat<br>goto !location!<br>:Save-menu<br>cls<br>echo !ln!<br>echo Save menu<br>echo !ln!<br>echo.<br>echo Saving !name!.txt...<br>(<br>echo !music!<br>echo !name!<br>echo !starter!<br>echo !rival!<br>echo !rivalstarter!<br>echo !money!<br>echo !potions!<br>echo !fishingrod!<br>echo !HM-surf!<br>echo !HM-fly!<br>echo !HM-cut!<br>echo !location!<br>echo !sublocation!<br>echo !exp!<br>echo !exptill!<br>echo !badges!<br>echo !bikevoucher!<br>echo !bike!<br>echo !pkmnstorage!<br>echo !pokeballs!<br>echo !rivalencounters!<br>echo !ss-anne!<br>echo !color!<br>echo !snorlaks1!<br>echo !snorlaks2!<br>echo !pkmn1!<br>echo !pkmn1lvl!<br>echo !pkmn2!<br>echo !pkmn2lvl!<br>echo !pkmn3!<br>echo !pkmn3lvl!<br>echo !pkmn4!<br>echo !pkmn4lvl!<br>echo !pkmn5!<br>echo !pkmn5lvl!<br>echo !pkmn6!<br>echo !pkmn6lvl!<br>echo !pkmn7!<br>echo !pkmn7lvl!<br>echo !pkmn8!<br>echo !pkmn8lvl!<br>echo !pkmn9!<br>echo !pkmn9lvl!<br>echo !pkmn10!<br>echo !pkmn10lvl!<br>echo !pkmn11!<br>echo !pkmn11lvl!<br>echo !pkmn12!<br>echo !pkmn12lvl!<br>echo !pkmn13!<br>echo !pkmn13lvl!<br>echo !pkmn14!<br>echo !pkmn14lvl!<br>echo !pkmn15!<br>echo !pkmn15lvl!<br>echo !pkmn16!<br>echo !pkmn16lvl!<br>echo !pkmn17!<br>echo !pkmn17lvl!<br>echo !pkmn18!<br>echo !pkmn18lvl!<br>echo !pkmn19!<br>echo !pkmn19lvl!<br>echo !pkmn20!<br>echo !pkmn20lvl!<br>echo !invpkmn1!<br>echo !invpkmn1lvl!<br>echo !invpkmn1hp!<br>echo !invpkmn2!<br>echo !invpkmn2lvl!<br>echo !invpkmn2hp!<br>echo !invpkmn3!<br>echo !invpkmn3lvl!<br>echo !invpkmn3hp!<br>echo !invpkmn4!<br>echo !invpkmn4lvl!<br>echo !invpkmn4hp!<br>echo !invpkmn5!<br>echo !invpkmn5lvl!<br>echo !invpkmn5hp!<br>echo !invpkmn6!<br>echo !invpkmn6lvl!<br>echo !invpkmn6hp!<br>echo !trainer-SS-anne-floor-1-1!<br>echo !trainer-SS-anne-floor-1-2!<br>echo !trainer-SS-anne-floor-1-6!<br>echo !trainer-SS-anne-floor-2-3!<br>echo !trainer-SS-anne-floor-2-4!<br>echo !profoakparcel!<br>echo !Trainer-route-3!<br>echo !Trainer-route-24!<br>echo !Trainer-mt-moon!<br>echo !inventory!<br>echo !guardwater!<br>echo !Silphscope!<br>echo !coins!<br>echo !Trainer-Rocket-Hideout-floor-4!<br>echo !lift-key!<br>echo !Trainer-Rocket-Hideout-Giovanni!<br>echo !pkmn1nick!<br>echo !pkmn2nick!<br>echo !pkmn3nick!<br>echo !pkmn4nick!<br>echo !pkmn5nick!<br>echo !pkmn6nick!<br>echo !pkmn7nick!<br>echo !pkmn8nick!<br>echo !pkmn9nick!<br>echo !pkmn10nick!<br>echo !pkmn11nick!<br>echo !pkmn12nick!<br>echo !pkmn13nick!<br>echo !pkmn14nick!<br>echo !pkmn15nick!<br>echo !pkmn16nick!<br>echo !pkmn17nick!<br>echo !pkmn18nick!<br>echo !pkmn19nick!<br>echo !pkmn20nick!<br>echo !invpkmn1nick!<br>echo !invpkmn2nick!<br>echo !invpkmn3nick!<br>echo !invpkmn4nick!<br>echo !invpkmn5nick!<br>echo !invpkmn6nick!<br>)&gt;!name!.txt<br>timeout 1 &gt;nul<br>echo.<br>echo Saving done<br>timeout 1 &gt;nul<br>if '!sublocation!'=='pkmn-Center-4a' goto !sublocation!<br>if '!pkmnbattle!' equ 1 goto wild-pkmn-battle-switch-check<br>if '!pkmnbattle!' equ 2 goto Gym-battle-switch-check<br>if '!pkmnbattle!' equ 3 goto Trainer-pkmn-switch-check<br>if '!pkmnbattle!' equ 4 goto rival-battle-switch-check<br>goto !sublocation!<br>:Start-1<br>cls<br>echo !ln!<br>echo Music options<br>echo !ln!&amp;<br>echo.<br>echo [1] Disable music<br>echo [2] Enable music<br>echo [3] Go back<br>choice /c 123 /n&gt;nul<br>if !errorlevel! equ 1 set music=0&amp;goto Start-2<br>if !errorlevel! equ 2 goto Start-1-1<br>if !errorlevel! equ 3 goto Memory-options<br>:Start-1-1<br>if not exist heal.mp3 (set music=0<br>cls&amp;echo You do not have all the audio files installed, music will be disabled%p%&amp;goto start-2)<br>set music=1<br>:Createsoundvbs<br>if exist sound.vbs goto Createterminatorbat<br>echo Set args=WScript.Arguments&gt;sound.vbs<br>echo arg1=args.Item(0)&gt;&gt;sound.vbs<br>echo main&gt;&gt;sound.vbs<br>echo sub main&gt;&gt;sound.vbs<br>echo do&gt;&gt;sound.vbs<br>echo Set Sound=CreateObject("WMPlayer.OCX.7")&gt;&gt;sound.vbs<br>echo Sound.URL=""^&amp;arg1^&amp;""&gt;&gt;sound.vbs<br>echo Sound.Controls.play&gt;&gt;sound.vbs<br>echo do while Sound.currentmedia.duration=0 &gt;&gt;sound.vbs<br>echo wscript.sleep 100&gt;&gt;sound.vbs<br>echo loop&gt;&gt;sound.vbs<br>echo wscript.sleep (int(Sound.currentmedia.duration)+1)*1000&gt;&gt;sound.vbs<br>echo loop&gt;&gt;sound.vbs<br>echo end sub&gt;&gt;sound.vbs<br>:Createterminatorbat<br>if exist terminator.bat goto Start-2<br>echo @echo off &gt;terminator.bat<br>echo title terminator2 &gt;&gt;terminator.bat<br>echo @mode 23,2 &gt;&gt;terminator.bat<br>echo FOR /F "tokens=2 delims= " !!!!A IN (^'TASKLIST /FI ^"WINDOWTITLE eq PokeBatch^" /NH^') DO SET tid=!!!!A &gt;&gt;terminator.bat<br>echo :loop &gt;&gt;terminator.bat<br>echo cls &gt;&gt;terminator.bat<br>echo ^time^out ^1 ^&gt;nul &gt;&gt;terminator.bat<br>echo FOR /F "tokens=2 delims= " !!!!B IN (^'TASKLIST /FI ^"WINDOWTITLE eq PokeBatch^" /NH^') DO SET dit=!!!!B &gt;&gt;terminator.bat<br>echo ^if ^not !!tid!! ^equ !!dit!! ^taskkill /f /im wscript.exe ^&amp; exit &gt;&gt;terminator.bat<br>echo ^goto ^loop &gt;&gt;terminator.bat<br>:Start-2<br>set fishingrod=0<br>set HM-surf=0<br>set HM-fly=0<br>set HM-cut=0<br>set money=2000<br>set potions=1<br>set badges=0<br>set bikevoucher=0<br>set bike=0<br>set pkmnstorage=0<br>set sublocation=NAN<br>set pokeballs=0<br>set exp=0<br>set exptill=25<br>set rivalstarterlvl=5<br>set /a rivalstarterhp=!rivalstarterlvl!*4<br>set rivalencounters=0<br>set ss-anne=0<br>set color=0<br>set snorlaks1=0<br>set snorlaks2=0<br>set pkmn1=NAN<br>set pkmn1lvl=NAN<br>set pkmn2=NAN<br>set pkmn2lvl=NAN<br>set pkmn3=NAN<br>set pkmn3lvl=NAN<br>set pkmn4=NAN<br>set pkmn4lvl=NAN<br>set pkmn5=NAN<br>set pkmn5lvl=NAN<br>set pkmn6=NAN<br>set pkmn6lvl=NAN<br>set pkmn7=NAN<br>set pkmn7lvl=NAN<br>set pkmn8=NAN<br>set pkmn8lvl=NAN<br>set pkmn9=NAN<br>set pkmn9lvl=NAN<br>set pkmn10=NAN<br>set pkmn10lvl=NAN<br>set pkmn11=NAN<br>set pkmn11lvl=NAN<br>set pkmn12=NAN<br>set pkmn12lvl=NAN<br>set pkmn13=NAN<br>set pkmn13lvl=NAN<br>set pkmn14=NAN<br>set pkmn14lvl=NAN<br>set pkmn15=NAN<br>set pkmn15lvl=NAN<br>set pkmn16=NAN<br>set pkmn16lvl=NAN<br>set pkmn17=NAN<br>set pkmn17lvl=NAN<br>set pkmn18=NAN<br>set pkmn18lvl=NAN<br>set pkmn19=NAN<br>set pkmn19lvl=NAN<br>set pkmn20=NAN<br>set pkmn20lvl=NAN<br>set invpkmn1=!starter!<br>set invpkmn1lvl=5<br>set /a invpkmn1hp=!invpkmn1lvl!*4<br>set invpkmn2=NAN<br>set invpkmn2lvl=NAN<br>set /a invpkmn2hp=!invpkmn2lvl!*4<br>set invpkmn3=NAN<br>set invpkmn3lvl=NAN<br>set /a invpkmn3hp=!invpkmn3lvl!*4<br>set invpkmn4=NAN<br>set invpkmn4lvl=NAN<br>set /a invpkmn4hp=!invpkmn4lvl!*4<br>set invpkmn5=NAN<br>set invpkmn5lvl=NAN<br>set /a invpkmn5hp=!invpkmn5lvl!*4<br>set invpkmn6=NAN<br>set invpkmn6lvl=NAN<br>set /a invpkmn6hp=!invpkmn6lvl!*4<br>set trainer-SS-anne-floor-1-1=0<br>set trainer-SS-anne-floor-1-2=0<br>set trainer-SS-anne-floor-1-6=0<br>set trainer-SS-anne-floor-2-3=0<br>set trainer-SS-anne-floor-2-4=0<br>set profoakparcel=0<br>set Trainer-route-3=0<br>set Trainer-route-24=0<br>set Trainer-mt-moon=0<br>set startercycle=0<br>set input=0<br>set SoundURL=Intro.mp3<br>set inventory=1<br>set guardwater=0<br>set Silphscope=0<br>set sublocation=Pallet-Town-1<br>set coins=280<br>set Trainer-Rocket-Hideout-floor-4=0<br>set lift-key=0<br>set Trainer-Rocket-Hideout-Giovanni=0<br>set pkmn1nick=NAN<br>set pkmn2nick=NAN<br>set pkmn3nick=NAN<br>set pkmn4nick=NAN<br>set pkmn5nick=NAN<br>set pkmn6nick=NAN<br>set pkmn7nick=NAN<br>set pkmn8nick=NAN<br>set pkmn9nick=NAN<br>set pkmn10nick=NAN<br>set pkmn11nick=NAN<br>set pkmn12nick=NAN<br>set pkmn13nick=NAN<br>set pkmn14nick=NAN<br>set pkmn15nick=NAN<br>set pkmn16nick=NAN<br>set pkmn17nick=NAN<br>set pkmn18nick=NAN<br>set pkmn19nick=NAN<br>set pkmn20nick=NAN<br>set invpkmn1nick=NAN<br>set invpkmn2nick=NAN<br>set invpkmn3nick=NAN<br>set invpkmn4nick=NAN<br>set invpkmn5nick=NAN<br>set invpkmn6nick=NAN<br>:My-name-is-Prof-Oak<br>if !music! equ 1 start /min terminator.bat&amp;start sound.vbs !SoundURL!<br>cls&amp;echo Prof. Oak: Hi. My name is Prof. Oak%p%<br>cls&amp;echo Prof. Oak: Welcome to the wonderful world of pkmn%p%<br>:Name<br>cls&amp;echo Prof. Oak: It seems I dont remember your name. What is it?<br>set /p name=<br>if '!name!'=='' goto Name<br>cls&amp;echo Hi !name!! Its nice seeing you again%p%<br>:Rival-name<br>cls&amp;echo Prof. Oak: I think Im getting old, could you tell me your rivals name?<br>set /p rival=<br>if '!rival!'=='' goto Rival-name<br>cls&amp;echo Ah ofcourse his name was !rival!! I hope I wont forget again%p%<br>cls&amp;echo !rival!: You can pick first !name!, I insist<br>cls&amp;echo Prof. Oak: So !name! what are you waiting for, choose your pkmn%p%<br>:Starter-cycle<br>if !startercycle! equ 0 color 27&amp;set invpkmn1=BULBASAUR&amp;set starter=BULBASAUR&amp;set rivalstarter=CHARMANDER<br>if !startercycle! equ 1 color 97&amp;set invpkmn1=SQUIRTLE&amp;set starter=SQUIRTLE&amp;set rivalstarter=BULBASAUR<br>if !startercycle! equ 2 color 47&amp;set invpkmn1=CHARMANDER&amp;set starter=CHARMANDER&amp;set rivalstarter=SQUIRTLE<br>if !startercycle! equ 3 color 67&amp;set invpkmn1=PIKACHU&amp;set starter=PIKACHU&amp;set rivalstarter=EEVEE<br>if !startercycle! equ 4 color 57&amp;set invpkmn1=EEVEE&amp;set starter=EEVEE&amp;set rivalstarter=PIKACHU<br>if !startercycle! GTR 4 set startercycle=0&amp;goto starter-cycle<br>:Starters<br>cls<br>echo !ln!<br>echo                            !starter! LVL 5<br>echo !ln!<br>echo.<br>echo Prof. Oak: Do you want to pick !starter!?<br>echo.<br>echo [1] Choose !starter!<br>echo [2] Choose a different pkmn<br>choice /c 12 /n&gt;nul<br>if !errorlevel! equ 1 cls&amp;echo !rival!: Then I will take !rivalstarter!%p%&amp;goto Starter-choice<br>set /a startercycle+=1<br>if !errorlevel! equ 2 goto Starter-cycle<br>:Starter-choice<br>cls&amp;echo Prof. Oak: Would you like to give your !starter! a nickname? y/n<br>choice /c yn /n&gt;nul<br>if !errorlevel! equ 1 set /p "invpkmn1nick=nickname="<br>if !errorlevel! equ 2 set invpkmn1nick=!invpkmn1!<br>cls&amp;echo Prof. Oak: Congratulations, youve just become a pkmn trainer%p%<br>cls&amp;echo Prof. Oak: Make sure to have fun with !invpkmn1nick!%p%<br>cls&amp;echo Prof. Oak: Collect Gym badges and compete in the pkmn League%p%<br>cls&amp;echo Prof. Oak: Good luck%p%<br>:Prof-OAKs-assignment<br>cls&amp;echo Prof. Oak: Hey !name!, could you pick up my PARCEL<br>echo from the Viridian-City Mart?%p%<br>cls&amp;echo Prof. Oak: Thanks, it would take me ages with this sore back of mine%p%<br>goto Pallet-Town<br>:Rival-battle-start<br>set SoundURL=Rival-appears.mp3<br>if !music! equ 1 taskkill /F /IM wscript.exe&gt;nul&amp;start sound.vbs !SoundURL!<br>set /a rivalstarterhp=!rivalstarterlvl!*4<br>cls&amp;echo !rival!: Here I come^!&amp;timeout 5 &gt;nul<br>set SoundURL=Trainer.mp3<br>if !music! equ 1 taskkill /F /IM wscript.exe&gt;nul&amp;start sound.vbs !SoundURL!<br>set pkmnbattle=4<br>:Rival-battle<br>cls<br>echo !ln!<br>echo !rivalstarter! LVL: !rivalstarterlvl! HP: !rivalstarterhp!<br>echo !ln!<br>echo.<br>echo.<br>echo.<br>echo.<br>echo !ln!<br>echo !invpkmn1! LVL: !invpkmn1lvl! HP: !invpkmn1hp!<br>echo !ln!<br>echo.<br>echo [1] Strong attack<br>echo [2] Accurate attack<br>echo [3] Use a potion, you have !potions! potion(s)<br>echo [4] Switch pkmn<br>if !invpkmn1hp! LSS 1 echo !invpkmn1! fainted%p%&amp;goto rival-battle-switch<br>choice /c 1234 /n&gt;nul<br>if !errorlevel! equ 1 (echo.<br>echo !ln!<br>echo !name!: !invpkmn1! use Strong-attack<br>echo !ln!<br>set stronghit=!random:~-1!<br>if !stronghit! GTR 2 set /a rivalstarterhp-=5<br>if !stronghit! LSS 3 echo !invpkmn1! missed%p%<br>goto Rival-starter-attack-kind-calc)<br>if !errorlevel! equ 2 (echo.<br>echo !ln!<br>echo !name!: !invpkmn1! use Accurate-attack<br>echo !ln!%p%<br>set /a rivalstarterhp-=3<br>goto Rival-starter-attack-kind-calc)<br>if !errorlevel! equ 3 goto Rival-battle-potion<br>if !errorlevel! equ 4 goto Rival-battle-switch<br>:Rival-battle-potion<br>if !potions! LSS 1 echo You dont have any potions left%p%<br>if !potions! GTR 0 set /a potions-=1&amp;set /a invpkmn1hp+=20<br>goto Rival-starter-attack-kind-calc<br>:Rival-starter-attack-kind-calc<br>if !rivalstarterhp! LSS 1 (set /a exp=!rivalstarterlvl!*5<br>echo.<br>echo !rivalstarter! fainted<br>echo.<br>echo !invpkmn1! gained some exp%p%&amp;goto Rival-battle-victory)<br>set rivalstarterattackcalc=!random:~-1!<br>if !rivalstarterattackcalc! GTR 1 goto Rival-starter-attack-kind-calc<br>if !rivalstarterattackcalc! equ 0 set rivalstarterattackkind=Strong-attack&amp;set /a invpkmn1hp-=4<br>if !rivalstarterattackcalc! equ 1 set rivalstarterattackkind=Accurate-attack&amp;set /a invpkmn1hp-=3<br>goto Rival-turn<br>:Rival-turn<br>cls<br>echo !ln!<br>echo !rivalstarter! LVL: !rivalstarterlvl! HP: !rivalstarterhp!<br>echo !ln!<br>echo.<br>echo.<br>echo.<br>echo.<br>echo !ln!<br>echo !invpkmn1! LVL: !invpkmn1lvl! HP: !invpkmn1hp!<br>echo !ln!<br>echo.<br>echo.<br>echo !ln!<br>echo !rival!: !rivalstarter! use !rivalstarterattackkind!<br>echo !ln!%p%<br>goto Rival-battle<br>:Rival-battle-lost<br>cls&amp;echo !rival!: Haha, you should have known !name!%p%<br>cls&amp;echo !rival!: I will always be better at training pkmn than you will<br>echo ever be!%p%<br>set SoundURL=Pallet-Town.mp3<br>if !music! equ 1 taskkill /F /IM wscript.exe&gt;nul&amp;start sound.vbs !SoundURL!<br>cls&amp;echo Nurse Joy: Oh !name! your pkmn is hurt%p%<br>cls&amp;echo Nurse Joy: Come with me and ill heal him with my love%p%<br>cls&amp;echo Your !invpkmn1! is blushed red%p%<br>set /a rivalencounters+=1<br>set /a invpkmn1hp=!invpkmn1lvl!*4<br>set pkmnbattle=0<br>goto !location!<br>:Rival-battle-victory<br>set /a exptill=!exptill!-!exp!<br>if !exptill! LSS 1 (set /a invpkmn1lvl+=1<br>set /a exptill=!invpkmn1lvl!*5<br>cls&amp;echo Your !invpkmn1! has LVLd up%p%)<br>cls&amp;echo !rival!: You won this time, and only because of luck%p%<br>cls&amp;echo You got $500 for winning%p%<br>cls&amp;echo !rival!: Smell ya later!%p%<br>set /a money+=500<br>set pkmnbattle=0<br>if !location! equ SS-anne-floor-3 goto SS-anne-floor-3-1<br>set rivalencounter=!rivalencounter!+1<br>goto !sublocation!<br>:Rival-battle-switch<br>set temppkmn=NAN<br>set temppkmnlvl=NAN<br>set temppkmnhp=NAN<br>cls<br>echo !ln!<br>echo Inventory<br>echo !ln!<br>echo 1:!invpkmn1! LVL:!invpkmn1lvl! HP:!invpkmn1hp!<br>echo 2:!invpkmn2! LVL:!invpkmn2lvl! HP:!invpkmn2hp!<br>echo 3:!invpkmn3! LVL:!invpkmn3lvl! HP:!invpkmn3hp!<br>echo 4:!invpkmn4! LVL:!invpkmn4lvl! HP:!invpkmn4hp!<br>echo 5:!invpkmn5! LVL:!invpkmn5lvl! HP:!invpkmn5hp!<br>echo 6:!invpkmn6! LVL:!invpkmn6lvl! HP:!invpkmn6hp!<br>echo !ln!<br>echo.<br>echo [1] Act like you faint<br>echo [2] Switch your 1st pkmn with your 2nd pkmn<br>echo [3] Switch your 1st pkmn with your 3rd pkmn<br>echo [4] Switch your 1st pkmn with your 4th pkmn<br>echo [5] Switch your 1st pkmn with your 5th pkmn<br>echo [6] Switch your 1st pkmn with your 6th pkmn<br>choice /c 123456 /n&gt;nul<br>if !errorlevel! equ 1 goto Rival-battle-lost<br>set temppkmn=!invpkmn1!&amp;set temppkmnlvl=!invpkmn1lvl!&amp;set temppkmnhp=!invpkmn1hp!&amp;set pkmnbattle=2<br>if !errorlevel! equ 2 goto Rival-battle-switch-2<br>if !errorlevel! equ 3 goto Rival-battle-switch-3<br>if !errorlevel! equ 4 goto Rival-battle-switch-4<br>if !errorlevel! equ 5 goto Rival-battle-switch-5<br>if !errorlevel! equ 6 goto Rival-battle-switch-6<br>:Rival-battle-switch-2<br>set invpkmn1=!invpkmn2!&amp;set invpkmn1lvl=!invpkmn2lvl!&amp;set invpkmn1hp=!invpkmn2hp!<br>set invpkmn2=!temppkmn!&amp;set invpkmn2lvl=!temppkmnlvl!&amp;set invpkmn2hp=!temppkmnhp!<br>goto Rival-battle-switch-check<br>:Rival-battle-switch-3<br>set invpkmn1=!invpkmn3!&amp;set invpkmn1lvl=!invpkmn3lvl!&amp;set invpkmn1hp=!invpkmn3hp!<br>set invpkmn3=!temppkmn!&amp;set invpkmn3lvl=!temppkmnlvl!&amp;set invpkmn3hp=!temppkmnhp!<br>goto Rival-battle-switch-check<br>:Rival-battle-switch-4<br>set invpkmn1=!invpkmn4!&amp;set invpkmn1lvl=!invpkmn4lvl!&amp;set invpkmn1hp=!invpkmn4hp!<br>set invpkmn4=!temppkmn!&amp;set invpkmn4lvl=!temppkmnlvl!&amp;set invpkmn4hp=!temppkmnhp!<br>goto Rival-battle-switch-check<br>:Rival-battle-switch-5<br>set invpkmn1=!invpkmn5!&amp;set invpkmn1lvl=!invpkmn5lvl!&amp;set invpkmn1hp=!invpkmn5hp!<br>set invpkmn5=!temppkmn!&amp;set invpkmn5lvl=!temppkmnlvl!&amp;set invpkmn5hp=!temppkmnhp!<br>goto Rival-battle-switch-check<br>:Rival-battle-switch-6<br>set invpkmn1=!invpkmn6!&amp;set invpkmn1lvl=!invpkmn6lvl!&amp;set invpkmn1hp=!invpkmn6hp!<br>set invpkmn6=!temppkmn!&amp;set invpkmn6lvl=!temppkmnlvl!&amp;set invpkmn6hp=!temppkmnhp!<br>goto Rival-battle-switch-check<br>:Rival-battle-switch-check<br>if !invpkmn1hp! GTR 0 goto rival-starter-attack-kind-calc<br>goto Rival-battle-switch<br>:Wild-pkmnlvl-calc<br>cls&amp;echo You are looking for a wild pkmn<br>echo.<br>echo There is one!%p%<br>goto Wild-pkmnlvl-calc-!sublocation!<br>:Wild-pkmnlvl-calc-route-1<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 6 goto Wild-pkmnlvl-calc-route-1<br>if !wldpkmnk! equ 0 set wildpkmn=POLIWAG<br>if !wldpkmnk! equ 1 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=SANDSHREW<br>if !wldpkmnk! equ 5 set wildpkmn=MANKEY<br>if !wldpkmnk! equ 6 set wildpkmn=DIGLETT<br>:Wild-pkmn-stats-route-1<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 2 goto Wild-pkmn-stats-route-1<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=2<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=3<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=4<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-2<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 4 goto Wild-pkmnlvl-calc-route-2<br>if !wldpkmnk! equ 0 set wildpkmn=CATERPIE<br>if !wldpkmnk! equ 1 set wildpkmn=NIDORAN-MALE<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=NIDORAN-FEMALE<br>:Wild-pkmn-stats-route-2<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 2 goto Wild-pkmn-stats-route-2<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=3<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=4<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=5<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-3<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 5 goto Wild-pkmnlvl-calc-route-3<br>if !wldpkmnk! equ 0 set wildpkmn=JIGGLYPUFF<br>if !wldpkmnk! equ 1 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=SANDSHREW<br>if !wldpkmnk! equ 5 set wildpkmn=MANKEY<br>:Wild-pkmn-stats-route-3<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 2 goto Wild-pkmn-stats-route-3<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=6<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=8<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=10<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-4<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 4 goto Wild-pkmnlvl-calc-route-4<br>if !wldpkmnk! equ 0 set wildpkmn=EKANS<br>if !wldpkmnk! equ 1 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=MANKEY<br>if !wldpkmnk! equ 4 set wildpkmn=SANDSHREW<br>:Wild-pkmn-stats-route-4<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 2 goto Wild-pkmn-stats-route-4<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=8<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=10<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=12<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-5<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 8 goto Wild-pkmnlvl-calc-route-5<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 1 set wildpkmn=JIGGLYPUFF<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=ODDISH<br>if !wldpkmnk! equ 5 set wildpkmn=MANKEY<br>if !wldpkmnk! equ 6 set wildpkmn=MEOWTH<br>if !wldpkmnk! equ 7 set wildpkmn=ABRA<br>if !wldpkmnk! equ 8 set wildpkmn=BELLSPROUT<br>:Wild-pkmn-stats-route-5<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 8 goto Wild-pkmn-stats-route-5<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=7<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=10<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=11<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=12<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=14<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=17<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-6<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 8 goto Wild-pkmnlvl-calc-route-6<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 1 set wildpkmn=JIGGLYPUFF<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=ODDISH<br>if !wldpkmnk! equ 5 set wildpkmn=MEOWTH<br>if !wldpkmnk! equ 6 set wildpkmn=MANKEY<br>if !wldpkmnk! equ 7 set wildpkmn=ABRA<br>if !wldpkmnk! equ 8 set wildpkmn=BELLSPROUT<br>:Wild-pkmn-stats-route-6<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 4 goto Wild-pkmn-stats-route-6<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=14<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=17<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-7<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 9 goto Wild-pkmnlvl-calc-route-7<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 1 set wildpkmn=VULPIX<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=JIGGLYPUFF<br>if !wldpkmnk! equ 5 set wildpkmn=MANKEY<br>if !wldpkmnk! equ 6 set wildpkmn=MEOWTH<br>if !wldpkmnk! equ 7 set wildpkmn=GROWLITHE<br>if !wldpkmnk! equ 8 set wildpkmn=ABRA<br>if !wldpkmnk! equ 9 set wildpkmn=BELLSPROUT<br>:Wild-pkmn-stats-route-7<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 7 goto Wild-pkmn-stats-route-7<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=17<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=18<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=19<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=20<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=21<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=22<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=24<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=26<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-8<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 9 goto Wild-pkmnlvl-calc-route-8<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 1 set wildpkmn=EKANS<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=VULPIX<br>if !wldpkmnk! equ 4 set wildpkmn=SANDSHREW<br>if !wldpkmnk! equ 5 set wildpkmn=MANKEY<br>if !wldpkmnk! equ 6 set wildpkmn=MEOWTH<br>if !wldpkmnk! equ 7 set wildpkmn=GROWLITHE<br>if !wldpkmnk! equ 8 set wildpkmn=ABRA<br>if !wldpkmnk! equ 9 set wildpkmn=KADABRA<br>:Wild-pkmn-stats-route-8<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 8 goto Wild-pkmn-stats-route-8<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=11<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=14<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=17<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=18<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=19<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=20<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-9<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 9 goto Wild-pkmnlvl-calc-route-9<br>if !wldpkmnk! equ 0 set wildpkmn=RATICATE<br>if !wldpkmnk! equ 1 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=FEAROW<br>if !wldpkmnk! equ 4 set wildpkmn=SANDSHREW<br>if !wldpkmnk! equ 5 set wildpkmn=EKANS<br>if !wldpkmnk! equ 6 set wildpkmn=NIDORAN-MALE<br>if !wldpkmnk! equ 7 set wildpkmn=NIDORAN-FEMALE<br>if !wldpkmnk! equ 8 set wildpkmn=NIDORINO<br>if !wldpkmnk! equ 9 set wildpkmn=NIDORINA<br>:Wild-pkmn-stats-route-9<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 8 goto Wild-pkmn-stats-route-9<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=11<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=14<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=17<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=18<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=19<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=20<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-10<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 9 goto Wild-pkmnlvl-calc-route-10<br>if !wldpkmnk! equ 0 set wildpkmn=RATICATE<br>if !wldpkmnk! equ 1 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=EKANS<br>if !wldpkmnk! equ 4 set wildpkmn=SANDSHREW<br>if !wldpkmnk! equ 5 set wildpkmn=NIDORAN-MALE<br>if !wldpkmnk! equ 6 set wildpkmn=NIDORAN-FEMALE<br>if !wldpkmnk! equ 7 set wildpkmn=MACHOP<br>if !wldpkmnk! equ 8 set wildpkmn=MAGNEMITE<br>if !wldpkmnk! equ 9 set wildpkmn=VOLTORB<br>:Wild-pkmn-stats-route-10<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 9 goto Wild-pkmn-stats-route-10<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=11<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=12<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=14<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=17<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=18<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=19<br>if !wldpkmnlvlcalc! equ 9 set wildpkmnlvl=20<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-11<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 7 goto Wild-pkmnlvl-calc-route-11<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 1 set wildpkmn=RATICATE<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 5 set wildpkmn=EKANS<br>if !wldpkmnk! equ 6 set wildpkmn=SANDSHREW<br>if !wldpkmnk! equ 7 set wildpkmn=DROWZEE<br>:Wild-pkmn-stats-route-11<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 9 goto Wild-pkmn-stats-route-11<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=11<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=12<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=14<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=17<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=18<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=19<br>if !wldpkmnlvlcalc! equ 9 set wildpkmnlvl=20<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-12<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 8 goto Wild-pkmnlvl-calc-route-12<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 1 set wildpkmn=ODDISH<br>if !wldpkmnk! equ 2 set wildpkmn=GLOOM<br>if !wldpkmnk! equ 3 set wildpkmn=VENONAT<br>if !wldpkmnk! equ 4 set wildpkmn=BELLSPROUT<br>if !wldpkmnk! equ 5 set wildpkmn=WEEPINBELL<br>if !wldpkmnk! equ 6 set wildpkmn=FARFETCHD<br>if !wldpkmnk! equ 7 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 8 set wildpkmn=PIDGEY<br>:Wild-pkmn-stats-route-12<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 9 goto Wild-pkmn-stats-route-12<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=22<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=23<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=24<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=25<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=26<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=27<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=28<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=29<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=30<br>if !wldpkmnlvlcalc! equ 9 set wildpkmnlvl=31<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-13<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 8 goto Wild-pkmnlvl-calc-route-13<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 1 set wildpkmn=ODDISH<br>if !wldpkmnk! equ 2 set wildpkmn=GLOOM<br>if !wldpkmnk! equ 3 set wildpkmn=VENONAT<br>if !wldpkmnk! equ 4 set wildpkmn=WEEPINBELL<br>if !wldpkmnk! equ 5 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 6 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 7 set wildpkmn=DITTO<br>if !wldpkmnk! equ 8 set wildpkmn=BELLSPROUT<br>:Wild-pkmn-stats-route-13<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 9 goto Wild-pkmn-stats-route-13<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=22<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=23<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=24<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=25<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=26<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=27<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=28<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=29<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=30<br>if !wldpkmnlvlcalc! equ 9 set wildpkmnlvl=31<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-14<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 9 goto Wild-pkmnlvl-calc-route-14<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 1 set wildpkmn=ODDISH<br>if !wldpkmnk! equ 2 set wildpkmn=GLOOM<br>if !wldpkmnk! equ 3 set wildpkmn=VENONAT<br>if !wldpkmnk! equ 4 set wildpkmn=WEEPINBELL<br>if !wldpkmnk! equ 5 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 6 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 7 set wildpkmn=DITTO<br>if !wldpkmnk! equ 8 set wildpkmn=BELLSPROUT<br>if !wldpkmnk! equ 9 set wildpkmn=VENOMOTH<br>:Wild-pkmn-stats-route-14<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 9 goto Wild-pkmn-stats-route-14<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=22<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=23<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=24<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=25<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=26<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=27<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=28<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=29<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=30<br>if !wldpkmnlvlcalc! equ 9 set wildpkmnlvl=31<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-15<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 8 goto Wild-pkmnlvl-calc-route-15<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 1 set wildpkmn=ODDISH<br>if !wldpkmnk! equ 2 set wildpkmn=GLOOM<br>if !wldpkmnk! equ 3 set wildpkmn=VENONAT<br>if !wldpkmnk! equ 4 set wildpkmn=WEEPINBELL<br>if !wldpkmnk! equ 5 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 6 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 7 set wildpkmn=DITTO<br>if !wldpkmnk! equ 8 set wildpkmn=BELLSPROUT<br>:Wild-pkmn-stats-route-15<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 8 goto Wild-pkmn-stats-route-15<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=22<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=23<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=24<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=25<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=26<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=27<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=28<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=29<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=30<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-16<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 4 goto Wild-pkmnlvl-calc-route-16<br>if !wldpkmnk! equ 0 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 1 set wildpkmn=RATICATE<br>if !wldpkmnk! equ 2 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 3 set wildpkmn=FEAROW<br>if !wldpkmnk! equ 4 set wildpkmn=DODUO<br>:Wild-pkmn-stats-route-16<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 6 goto Wild-pkmn-stats-route-16<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=18<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=20<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=22<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=23<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=24<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=25<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=26<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-17<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 5 goto Wild-pkmnlvl-calc-route-17<br>if !wldpkmnk! equ 0 set wildpkmn=RATICATE<br>if !wldpkmnk! equ 1 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 2 set wildpkmn=FEAROW<br>if !wldpkmnk! equ 3 set wildpkmn=PONYTA<br>if !wldpkmnk! equ 4 set wildpkmn=DODUO<br>if !wldpkmnk! equ 5 set wildpkmn=DODRIO<br>:Wild-pkmn-stats-route-17<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 9 goto Wild-pkmn-stats-route-17<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=20<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=22<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=24<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=25<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=26<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=27<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=28<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=29<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=30<br>if !wldpkmnlvlcalc! equ 9 set wildpkmnlvl=32<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-18<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 7 goto Wild-pkmnlvl-calc-route-18<br>if !wldpkmnk! equ 0 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 1 set wildpkmn=RATICATE<br>if !wldpkmnk! equ 2 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=FEAROW<br>if !wldpkmnk! equ 5 set wildpkmn=PONYTA<br>if !wldpkmnk! equ 6 set wildpkmn=DODUO<br>if !wldpkmnk! equ 7 set wildpkmn=DODRIO<br>:Wild-pkmn-stats-route-18<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 8 goto Wild-pkmn-stats-route-18<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=20<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=22<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=23<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=24<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=25<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=26<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=27<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=28<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=29<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-19<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 1 goto Wild-pkmnlvl-calc-route-19<br>if !wldpkmnk! equ 0 set wildpkmn=TENTACOOL<br>if !wldpkmnk! equ 1 set wildpkmn=TENTACRUEL<br>:Wild-pkmn-stats-route-19<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 7 goto Wild-pkmn-stats-route-19<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=5<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=10<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=20<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=25<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=30<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=35<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=40<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-20<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 1 goto Wild-pkmnlvl-calc-route-20<br>if !wldpkmnk! equ 0 set wildpkmn=TENTACOOL<br>if !wldpkmnk! equ 1 set wildpkmn=TENTACRUEL<br>:Wild-pkmn-stats-route-20<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 7 goto Wild-pkmn-stats-route-20<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=5<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=10<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=20<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=25<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=30<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=35<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=40<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-21<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 4 goto Wild-pkmnlvl-calc-route-21<br>if !wldpkmnk! equ 0 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 1 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=RATICATE<br>if !wldpkmnk! equ 4 set wildpkmn=TANGELA<br>:Wild-pkmn-stats-route-21<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 8 goto Wild-pkmn-stats-route-21<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=11<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=17<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=19<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=21<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=23<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=28<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=30<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-22<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 5 goto Wild-pkmnlvl-calc-route-22<br>if !wldpkmnk! equ 0 set wildpkmn=NIDORAN-MALE<br>if !wldpkmnk! equ 1 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 2 set wildpkmn=RATTATA<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=NIDORAN-FEMALE<br>if !wldpkmnk! equ 5 set wildpkmn=MANKEY<br>:Wild-pkmn-stats-route-22<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 4 goto Wild-pkmn-stats-route-22<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=2<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=3<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=4<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=5<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=6<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-23<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 7 goto Wild-pkmnlvl-calc-route-23<br>if !wldpkmnk! equ 0 set wildpkmn=SANDSLASH<br>if !wldpkmnk! equ 1 set wildpkmn=SPARROW<br>if !wldpkmnk! equ 2 set wildpkmn=NIDORINA<br>if !wldpkmnk! equ 3 set wildpkmn=NIDORINO<br>if !wldpkmnk! equ 4 set wildpkmn=SANDSHREW<br>if !wldpkmnk! equ 5 set wildpkmn=MANKEY<br>if !wldpkmnk! equ 6 set wildpkmn=PRIMEAPE<br>if !wldpkmnk! equ 7 set wildpkmn=DITTO<br>:Wild-pkmn-stats-route-23<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 7 goto Wild-pkmn-stats-route-23<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=26<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=33<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=38<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=40<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=41<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=43<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=44<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=45<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-24<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 9 goto Wild-pkmnlvl-calc-route-24<br>if !wldpkmnk! equ 0 set wildpkmn=CATERPIE<br>if !wldpkmnk! equ 1 set wildpkmn=METAPOD<br>if !wldpkmnk! equ 2 set wildpkmn=WEEDLE<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=KAKUNA<br>if !wldpkmnk! equ 5 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 6 set wildpkmn=ODDISH<br>if !wldpkmnk! equ 7 set wildpkmn=VENONAT<br>if !wldpkmnk! equ 8 set wildpkmn=ABRA<br>if !wldpkmnk! equ 9 set wildpkmn=BELLSPROUT<br>:Wild-pkmn-stats-route-24<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 9 goto Wild-pkmn-stats-route-24<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=7<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=8<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=10<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=11<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=12<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=14<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 9 set wildpkmnlvl=17<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-route-25<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 9 goto Wild-pkmnlvl-calc-route-25<br>if !wldpkmnk! equ 0 set wildpkmn=CATERPIE<br>if !wldpkmnk! equ 1 set wildpkmn=METAPOD<br>if !wldpkmnk! equ 2 set wildpkmn=WEEDLE<br>if !wldpkmnk! equ 3 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 4 set wildpkmn=KAKUNA<br>if !wldpkmnk! equ 5 set wildpkmn=PIDGEOTTO<br>if !wldpkmnk! equ 6 set wildpkmn=ODDISH<br>if !wldpkmnk! equ 7 set wildpkmn=VENONAT<br>if !wldpkmnk! equ 8 set wildpkmn=ABRA<br>if !wldpkmnk! equ 9 set wildpkmn=BELLSPROUT<br>:Wild-pkmn-stats-route-25<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 8 goto Wild-pkmn-stats-route-25<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=7<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=8<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=9<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=12<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=14<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=17<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-viridian-forest<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 5 goto Wild-pkmnlvl-calc-viridian-forest<br>if !wldpkmnk! equ 0 set wildpkmn=CATERPIE<br>if !wldpkmnk! equ 1 set wildpkmn=METAPOD<br>if !wldpkmnk! equ 2 set wildpkmn=WEEDLE<br>if !wldpkmnk! equ 3 set wildpkmn=KAKUNA<br>if !wldpkmnk! equ 4 set wildpkmn=PIDGEY<br>if !wldpkmnk! equ 5 set wildpkmn=PIKACHU<br>:Wild-pkmn-stats-viridian-forest<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 3 goto Wild-pkmn-stats-viridian-forest<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=3<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=4<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=5<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=6<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-digletts-cave<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 4 goto Wild-pkmnlvl-calc-digletts-cave<br>if !wldpkmnk! equ 0 set wildpkmn=DIGLETT<br>if !wldpkmnk! equ 1 set wildpkmn=DIGLETT<br>if !wldpkmnk! equ 2 set wildpkmn=DIGLETT<br>if !wldpkmnk! equ 3 set wildpkmn=DIGLETT<br>if !wldpkmnk! equ 4 set wildpkmn=DUGTRIO<br>:Wild-pkmn-stats-digletts-cave<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 8 goto Wild-pkmn-stats-digletts-cave<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=17<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=18<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=19<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=20<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=21<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=22<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=29<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=31<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-mt-moon<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 4 goto Wild-pkmnlvl-calc-mt-moon<br>if !wldpkmnk! equ 0 set wildpkmn=SANDSHREW<br>if !wldpkmnk! equ 1 set wildpkmn=CLEFAIRY<br>if !wldpkmnk! equ 2 set wildpkmn=ZUBAT<br>if !wldpkmnk! equ 3 set wildpkmn=PARAS<br>if !wldpkmnk! equ 4 set wildpkmn=GEODUDE<br>:Wild-pkmn-stats-mt-moon<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 7 goto Wild-pkmn-stats-mt-moon<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=6<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=7<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=8<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=9<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=10<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=11<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=12<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=13<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-rock-tunnel-floor-1<br>:Wild-pkmnlvl-calc-rock-tunnel-floor-1-1<br>:Wild-pkmnlvl-calc-rock-tunnel-floor-1-2<br>:Wild-pkmnlvl-calc-rock-tunnel-floor-2<br>:Wild-pkmnlvl-calc-rock-tunnel-floor-2-1<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 3 goto Wild-pkmnlvl-calc-rock-tunnel-floor-2-1<br>if !wldpkmnk! equ 0 set wildpkmn=ZUBAT<br>if !wldpkmnk! equ 1 set wildpkmn=GEODUDE<br>if !wldpkmnk! equ 2 set wildpkmn=MACHOP<br>if !wldpkmnk! equ 3 set wildpkmn=ONIX<br>:Wild-pkmn-stats-rock-tunnel<br>set wldpkmnlvlcalc=!random:~-1!<br>if !wldpkmnlvlcalc! GTR 8 goto Wild-pkmn-stats-rock-tunnel<br>if !wldpkmnlvlcalc! equ 0 set wildpkmnlvl=13<br>if !wldpkmnlvlcalc! equ 1 set wildpkmnlvl=15<br>if !wldpkmnlvlcalc! equ 2 set wildpkmnlvl=16<br>if !wldpkmnlvlcalc! equ 3 set wildpkmnlvl=17<br>if !wldpkmnlvlcalc! equ 4 set wildpkmnlvl=18<br>if !wldpkmnlvlcalc! equ 5 set wildpkmnlvl=19<br>if !wldpkmnlvlcalc! equ 6 set wildpkmnlvl=20<br>if !wldpkmnlvlcalc! equ 7 set wildpkmnlvl=21<br>if !wldpkmnlvlcalc! equ 8 set wildpkmnlvl=22<br>goto Wild-pkmn-appeared<br>:Wild-pkmnlvl-calc-power-plant<br>set wldpkmnk=!random:~-1!<br>if !wldpkmnk! GTR 8 goto Wild-pkmnlvl-calc-power-plant<br>if !wldpkmnk! equ 0 set wildpkmn=PIKACHU<br>if !wldpkmnk! equ 1 set wildpkmn=RAICHU<br>if !wldpkmnk! equ 2 set wildpkmn=MAGNEMITE<br>if !wldpkmnk! equ 3 set wildpkmn=MAGNETON<br>if !wldpkmnk! equ 4 set wildpkmn=GRIMER<br>if !wldpk...</pre>
+
+</body></html>

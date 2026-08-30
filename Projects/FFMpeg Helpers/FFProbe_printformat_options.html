@@ -1,0 +1,622 @@
+<!doctype html>
+<html><head><title>FFProbe print_format options</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:aVR591f0c32d6c945cb89d3797af'>FFProbe print_format options</h1>
+
+<h2 id='temp:C:aVR0812941c944b43169db8b95e8'>JSON</h2>
+
+<pre id='temp:C:aVR6227b5a47dcb49faaf17490cb'>RAW<br>ffprobe -v quiet -print_format <b>json </b>-show_chapters "Top 10 Facts About Time and Space.mp4"<br><br>Filtered 1:<br>ffprobe -v quiet -print_format <b>json</b> <br>    -show_chapters "Top 10 Facts About Time and Space_.mp4" <br>    | <br>    findstr /C:"title"<br><br>Filtered 2:<br><br>ffprobe -v quiet -print_format <b>json</b> <br>    -show_chapters "Top 10 Facts About Time and Space_.mp4" <br>    | <br>    findstr /C:"title" /C:"start"</pre>
+
+<h3 id='temp:C:aVR574e45145bc640bea62c74eb4'>Filtered 1 Output</h3>
+
+<pre id='temp:C:aVRe5179e35fb2a4a7b901ab7451'>"title": "Time Passes Differently Depending on Gravity"<br>"title": "The Universe Has No Center"<br>"title": "Time May Not Be Fundamental"<br>"title": "Most of the Universe Is Invisible"<br>"title": "Space Is not Empty"<br>"title": "Time Travel Is Theoretically Possible"<br>"title": "There Are More Stars Than Grains of Sand on Earth"<br>"title": "Black Holes Can Slow and Trap Time"<br>"title": "The Universe May Be Infinite"<br>"title": "You Are Made of Stardust"<br>"title": "A Gentle Farewell to the Cosmos"</pre>
+
+<h3 id='temp:C:aVR98dea180678e455cae66c08cf'>Filtered 2 Output</h3>
+
+<pre id='temp:C:aVR332a6432bc5a484883e3b05fc'>"start": 0,<br>"start_time": "0.000000",<br>    "title": "Time Passes Differently Depending on Gravity"<br>"start": 322000,<br>"start_time": "322.000000",<br>    "title": "The Universe Has No Center"<br>"start": 693000,<br>"start_time": "693.000000",<br>    "title": "Time May Not Be Fundamental"<br>"start": 1040000,<br>"start_time": "1040.000000",<br>    "title": "Most of the Universe Is Invisible"<br>"start": 1355000,<br>"start_time": "1355.000000",<br>    "title": "Space Is not Empty"<br>"start": 1728000,<br>"start_time": "1728.000000",<br>    "title": "Time Travel Is Theoretically Possible"<br>"start": 2078000,<br>"start_time": "2078.000000",<br>    "title": "There Are More Stars Than Grains of Sand on Earth"<br>"start": 2409000,<br>"start_time": "2409.000000",<br>    "title": "Black Holes Can Slow and Trap Time"<br>"start": 2750000,<br>"start_time": "2750.000000",<br>    "title": "The Universe May Be Infinite"<br>"start": 3060000,<br>"start_time": "3060.000000",<br>    "title": "You Are Made of Stardust"<br>"start": 3380000,<br>"start_time": "3380.000000",<br>    "title": "A Gentle Farewell to the Cosmos"</pre>
+
+<h2 id='temp:C:aVRca9b6dd7c471410c80a949135'>CSV</h2>
+
+<pre id='temp:C:aVRdf2b22e23d1a494992312f920'>RAW<br>ffprobe -v quiet -print_format <b>csv </b>-show_chapters "Top 10 Facts About Time and Space.mp4"<br><br>Filtered:<br>C:\Users\Larry\Desktop\Extract Chapters&gt;ffprobe -v quiet -print_format <b>csv </b>-show_chapters "Top 10 Facts About Time and Space_.mp4" <br>| <br>findstr <br>/N<br>/C:"chapter,1"</pre>
+
+<h3 id='temp:C:aVR6967a5f218fd473ea03e7a42e'>Output: RAW</h3>
+
+<pre id='temp:C:aVRb81491e0fe3242e2a6517b3eb'>chapter,0,1/1000,0,0.000000,322000,322.000000,Time Passes Differently Depending on Gravity<br>chapter,1,1/1000,322000,322.000000,693000,693.000000,The Universe Has No Center<br>chapter,2,1/1000,693000,693.000000,1040000,1040.000000,Time May Not Be Fundamental<br>chapter,3,1/1000,1040000,1040.000000,1355000,1355.000000,Most of the Universe Is Invisible<br>chapter,4,1/1000,1355000,1355.000000,1728000,1728.000000,Space Is not Empty<br>chapter,5,1/1000,1728000,1728.000000,2078000,2078.000000,Time Travel Is Theoretically Possible<br>chapter,6,1/1000,2078000,2078.000000,2409000,2409.000000,There Are More Stars Than Grains of Sand on Earth<br>chapter,7,1/1000,2409000,2409.000000,2750000,2750.000000,Black Holes Can Slow and Trap Time<br>chapter,8,1/1000,2750000,2750.000000,3060000,3060.000000,The Universe May Be Infinite<br>chapter,9,1/1000,3060000,3060.000000,3380000,3380.000000,You Are Made of Stardust<br>chapter,10,1/1000,3380000,3380.000000,3380999,3380.999000,A Gentle Farewell to the Cosmos</pre>
+
+<h3 id='temp:C:aVR2be4677814314750a03de79dd'>Output: Filtered</h3>
+
+<pre id='temp:C:aVR8bb82719176d4e9d8df6d06cf'>2:chapter,1,1/1000,322000,322.000000,693000,693.000000,The Universe Has No Center<br>11:chapter,10,1/1000,3380000,3380.000000,3380999,3380.999000,A Gentle Farewell to the Cosmos</pre>
+
+<h2 id='temp:C:aVR46958543d42548e8946b92c00'>INI</h2>
+
+<pre id='temp:C:aVR6ec75dc94c24422390dee5e35'>ffprobe -v quiet -print_format <b>ini </b>-show_chapters "Top 10 Facts About Time and Space.mp4"</pre>
+
+<h3 id='temp:C:aVR5d1240feaf72428c934fa4848'>Output is very Verbose</h3>
+
+<pre id='temp:C:aVRb870c33e598045bdad00211a3'>[chapters.chapter.0]<br>id=0<br>time_base=1/1000<br>start=0<br>start_time=0.000000<br>end=322000<br>end_time=322.000000<br><br>[chapters.chapter.0.tags]<br>title=Time Passes Differently Depending on Gravity<br><br>ETC.</pre>
+
+<h2 id='temp:C:aVR844ba9050491445d8aa978794'>XML</h2>
+
+<pre id='temp:C:aVRe35ba392a7bb4d109634765f7'>ffprobe -v quiet -print_format <b>xml </b>-show_chapters "Top 10 Facts About Time and Space_.mp4"</pre>
+
+<h3 id='temp:C:aVR2f576ff077084edf8a3d7b5b0'>Output</h3>
+
+<pre id='temp:C:aVR5f8bd4c16b1e4560a5900baed'>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>&lt;ffprobe&gt;<br>    &lt;chapters&gt;<br>        &lt;chapter id="0" time_base="1/1000" start="0" start_time="0.000000" end="322000" end_time="322.000000"&gt;<br>            &lt;tag key="title" value="Time Passes Differently Depending on Gravity"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="1" time_base="1/1000" start="322000" start_time="322.000000" end="693000" end_time="693.000000"&gt;<br>            &lt;tag key="title" value="The Universe Has No Center"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="2" time_base="1/1000" start="693000" start_time="693.000000" end="1040000" end_time="1040.000000"&gt;<br>            &lt;tag key="title" value="Time May Not Be Fundamental"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="3" time_base="1/1000" start="1040000" start_time="1040.000000" end="1355000" end_time="1355.000000"&gt;<br>            &lt;tag key="title" value="Most of the Universe Is Invisible"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="4" time_base="1/1000" start="1355000" start_time="1355.000000" end="1728000" end_time="1728.000000"&gt;<br>            &lt;tag key="title" value="Space Is not Empty"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="5" time_base="1/1000" start="1728000" start_time="1728.000000" end="2078000" end_time="2078.000000"&gt;<br>            &lt;tag key="title" value="Time Travel Is Theoretically Possible"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="6" time_base="1/1000" start="2078000" start_time="2078.000000" end="2409000" end_time="2409.000000"&gt;<br>            &lt;tag key="title" value="There Are More Stars Than Grains of Sand on Earth"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="7" time_base="1/1000" start="2409000" start_time="2409.000000" end="2750000" end_time="2750.000000"&gt;<br>            &lt;tag key="title" value="Black Holes Can Slow and Trap Time"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="8" time_base="1/1000" start="2750000" start_time="2750.000000" end="3060000" end_time="3060.000000"&gt;<br>            &lt;tag key="title" value="The Universe May Be Infinite"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="9" time_base="1/1000" start="3060000" start_time="3060.000000" end="3380000" end_time="3380.000000"&gt;<br>            &lt;tag key="title" value="You Are Made of Stardust"/&gt;<br>        &lt;/chapter&gt;<br>        &lt;chapter id="10" time_base="1/1000" start="3380000" start_time="3380.000000" end="3380999" end_time="3380.999000"&gt;<br>            &lt;tag key="title" value="A Gentle Farewell to the Cosmos"/&gt;<br>        &lt;/chapter&gt;<br>    &lt;/chapters&gt;<br>&lt;/ffprobe&gt;</pre>
+
+<h2 id='temp:C:aVRa7fb4b5fcdfb4bf092a3dd684'>FLAT</h2>
+
+<pre id='temp:C:aVR7b7828c101cd4ac0a6a8ee8e7'>RAW:<br>ffprobe -v quiet -print_format <b>flat </b>-show_chapters "Top 10 Facts About Time and Space.mp4"</pre>
+
+<h3 id='temp:C:aVRab128b63ee214b26a199e61da'>Output (RAW: Verbose)</h3>
+
+<pre id='temp:C:aVRdefa0788ee974f7e88ae3b3c8'>chapters.chapter.0.id=0<br>chapters.chapter.0.time_base="1/1000"<br>chapters.chapter.0.start=0<br>chapters.chapter.0.start_time="0.000000"<br>chapters.chapter.0.end=322000<br>chapters.chapter.0.end_time="322.000000"<br>chapters.chapter.0.tags.title="Time Passes Differently Depending on Gravity"<br>chapters.chapter.1.id=1<br>chapters.chapter.1.time_base="1/1000"<br>chapters.chapter.1.start=322000<br>chapters.chapter.1.start_time="322.000000"<br>chapters.chapter.1.end=693000<br>chapters.chapter.1.end_time="693.000000"<br>chapters.chapter.1.tags.title="The Universe Has No Center"<br>ETC.</pre>
+
+<br/>
+
+<h3 id='temp:C:aVR27eb737542ba44aeac3afc516'>For Chapter Time and Title Extraction, my most useful -print_format is INI</h3>
+
+<h2 id='temp:C:aVRff94d233e5d54c4197bc24f71'>INI</h2>
+
+<pre id='temp:C:aVRe14f4fc0ef184d498da389d28'>Filtered 1: <br>ffprobe -v quiet <br>-print_format ini <br>-show_chapters "Top 10 Facts About Time and Space_.mp4" <br>| <br>findstr <br>/C:"title"<br><br>Filtered 2:<br>ffprobe -v quiet <br>-print_format ini <br>-show_chapters "Top 10 Facts About Time and Space_.mp4" <br>| <br>findstr <br>/C:"title" <br>/C:"start_time"</pre>
+
+<h3 id='temp:C:aVRcc1abe112ebe4d578dfc48ea9'>Output: Filtered 1</h3>
+
+<pre id='temp:C:aVReab2760625ad486b8a40b0160'>title=Time Passes Differently Depending on Gravity<br>title=The Universe Has No Center<br>title=Time May Not Be Fundamental<br>title=Most of the Universe Is Invisible<br>title=Space Is not Empty<br>title=Time Travel Is Theoretically Possible<br>title=There Are More Stars Than Grains of Sand on Earth<br>title=Black Holes Can Slow and Trap Time<br>title=The Universe May Be Infinite<br>title=You Are Made of Stardust<br>title=A Gentle Farewell to the Cosmos</pre>
+
+<h3 id='temp:C:aVR911df8d8c76f4b38b4a9f388d'>Output: Filtered 2</h3>
+
+<pre id='temp:C:aVR7de09345f8d34ddfa456432fc'>start_time=0.000000<br>title=Time Passes Differently Depending on Gravity<br>start_time=322.000000<br>title=The Universe Has No Center<br>start_time=693.000000<br>title=Time May Not Be Fundamental<br>start_time=1040.000000<br>title=Most of the Universe Is Invisible<br>start_time=1355.000000<br>title=Space Is not Empty<br>start_time=1728.000000<br>title=Time Travel Is Theoretically Possible<br>start_time=2078.000000<br>title=There Are More Stars Than Grains of Sand on Earth<br>start_time=2409.000000<br>title=Black Holes Can Slow and Trap Time<br>start_time=2750.000000<br>title=The Universe May Be Infinite<br>start_time=3060.000000<br>title=You Are Made of Stardust<br>start_time=3380.000000<br>title=A Gentle Farewell to the Cosmos</pre>
+
+<h2 id='temp:C:aVR615da938e76048188d668ca4a'>Basic Pseudo-Code for Batch File</h2>
+
+<pre id='temp:C:aVR6d61f4b200684c93a13bf699f'><b>INPUT:</b><b> </b> FILENAME.mp4<br><b>OUTPUT:</b> FILENAME-CHAPTERS.txt<br><br><b>ENGINE:</b><br>ffprobe -v quiet -print_format ini -show_chapters FILENAME.mp4 <br>| <br>findstr /C:"title" /C:"start_time"<br><br><b>Pseudo-Code</b><br>For Each "Start Time" "Title" Pair<br>    Convert from Mili-Seconds to HH:MM:SS<br>    Write HH:MM:SS Title to File<br>Next</pre>
+
+<h2 id='temp:C:aVRd1f394fe5ce04d2b8e8e0121a'>Extract_Chapters.bat</h2>
+
+<pre id='temp:C:aVRc022a52665d048e2ab2465359'>@ECHO OFF<br>SETLOCAL ENABLEDELAYEDEXPANSION<br><br>IF "%~1" == "" (<br>     CALL :HELP<br>        EXIT<br>)<br>Set FILENAME="%~d1%~p1%~n1.mp4"<br>Set CHAPTERS="%~d1%~p1%~n1-Chapters.txt"<br><br>REM             TRUE = SHOW DEBUGGING <br>set /A TRUE=1<br>REM             FALSE = HIDE DEBUGGING<br>set /A FALSE=0<br>REM SHOW/HIDE DEBUGGING<br>set /A DEBUG=!FALSE!<br><br>CALL :RUN_FFPROBE<br>exit<br><br>:RUN_FFPROBE<br><br>for /f "delims=" %%i in ('ffprobe -v quiet -print_format ini -show_chapters !FILENAME! ^| findstr /C:"title" /C:"start_time"') do (<br>    set my_variable=%%i<br>    REM echo !my_variable!<br>    REM echo.<br>    for /F "tokens=1,2 delims==^=" %%a in ("!my_variable!") do (<br>        REM echo Key: %%a<br>        REM echo Value: %%b<br>        if "%%a" EQU "title" (<br>            REM Echo %%b<br>            SET CHAPTER[!chapter_count!][2]= %%b<br>        )<br>        if "%%a" EQU "start_time" (<br>            set /a chapter_count+=1<br>            SET SPC=<br>            if !chapter_count! LEQ 9 (<br>                SET SPC=0<br>            )<br>            set /a Time_S=%%b 2&gt; nul<br>            set /a Time_S=!Time_S! * 1000<br>            <br>            CALL :MilliSec2TimeSig !Time_S! Timex TimexC<br>            REM powershell -command "Write-Host -NoNewLine '!SPC!!chapter_count!. !Timex! '"<br>            REM Echo !SPC!!chapter_count!. !Timex!<br>            SET CHAPTER[!chapter_count!][1]=!SPC!!chapter_count!. !Timex!<br>        )<br>    )<br>)<br>type NUL &gt; !CHAPTERS!<br>FOR /L %%c IN (1,1,!chapter_count!) DO (<br>    Echo !CHAPTER[%%c][1]! !CHAPTER[%%c][2]! &gt;&gt; !CHAPTERS!<br>    Echo !CHAPTER[%%c][1]! !CHAPTER[%%c][2]!<br>)<br>REM Echo !CHAPTERS!<br>type !CHAPTERS! | clip<br>pause<br>Exit /b<br><br>:HELP<br>    ECHO ==============================================================  <br>    ECHO ==== MP4 File not Specified<br>    ECHO ==== Extract_Chapters.bat "Filename.mp4"<br>    ECHO ====   Drag/Drop "Filename.mp4" on Extract_Chapters.bat<br>    ECHO ==============================================================  <br>pause<br>Exit /b<br><br>REM Function MilliSec2TimeSig<br>REM INPUT:  %1 (Milli-Seconds)<br>REM          CALL :MilliSec2TimeSig !Milli-Seconds! Timex TimexC<br>REM OUTPUT: Timex (Time-Signature: 12:34:56.789)<br>REM OUTPUT: TimexC (Time-Signature: 12:34:56,789)<br>:MilliSec2TimeSig<br>    Set /A MS_TOT=%1<br>    REM Echo MS_TOT: !MS_TOT!<br>    Set MS_EXT=!MS_TOT:~-3,3!<br>    if !DEBUG! EQU !TRUE! Echo Mili-Seconds Extracted: !MS_EXT!<br>    Set /A Rem_Minus_MS=!MS_TOT!-MS_EXT<br>    if !DEBUG! EQU !TRUE! Echo Total Minus MS: !Rem_Minus_MS!<br>    Set /A HH_EXT=(!Rem_Minus_MS!/(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Hours Extracted: !HH_EXT!<br>    Set /A Rem_Minus_HH=(!Rem_Minus_MS!%%(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Minus HH: !Rem_Minus_HH!<br>    Set /A MM_EXT=(!Rem_Minus_HH!/(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Minutes Extracted: !MM_EXT!<br>    Set /A Rem_Minus_MM=(!Rem_Minus_HH!%%(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Seconds SS: !Rem_Minus_MM!<br>    Set /A SS_EXT=(!Rem_Minus_MM!/1000)<br>    if !DEBUG! EQU !TRUE! Echo Seconds Extracted: !SS_EXT!<br><br>    if !HH_EXT! lss 10 set HH_EXT=0!HH_EXT!<br>    if !MM_EXT! lss 10 set MM_EXT=0!MM_EXT!<br>    if !SS_EXT! lss 10 set SS_EXT=0!SS_EXT!<br>    REM if !MS_EXT! lss 10 set MS_EXT=00!MS_EXT!<br>    REM MOD ERROR Results in .0 instead of .000<br>    REM ALSO Above 00!MS_EXT! Results in .000000 instead of .000<br><br>    if !DEBUG! EQU !TRUE! Echo Time Extracted: !HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>    Set Timex=!HH_EXT!:!MM_EXT!:!SS_EXT!<br>    Set TimexC=!HH_EXT!:!MM_EXT!:!SS_EXT!<br>Exit /b</pre>
+
+<h2 id='temp:C:aVR0ea00219fdde4d958ba157f24'>Example Run:</h2>
+
+<pre id='temp:C:aVR7193107dac25481a8b6ef600c'>Extract_Chapters.bat "100 Profound Paradoxes of Philosophy to Fall Asleep To.csv" <br>&gt; Chapters.txt</pre>
+
+Note:  Takes about 30 Seconds - Uses call to Powershell each time it writes a line to avoid Carriage Return<br/>
+
+<h3 id='temp:C:aVR9d46a385bccd4326b3b0a11b3'>Chapters.txt</h3>
+
+<pre id='temp:C:aVR047cca1e30f14073803cdb2ea'>1. 00:00:00 Introduction<br>2. 00:00:19 Newcombs Paradox<br>3. 00:02:55 The Toxin Puzzle<br>4. 00:05:30 The Simulation Paradox<br>5. 00:08:27 Moravecs Paradox<br>6. 00:11:28 The Fermi Paradox<br>7. 00:14:21 The Experience Machine<br>8. 00:17:06 The Gamers Paradox<br>9. 00:20:03 The Doomsday Argument<br>10. 00:22:49 The AI Alignment Problem<br>11. 00:25:52 The Paradox of Analysis<br>12. 00:28:42 The Absurd<br>13. 00:31:37 Camus Sisyphus Paradox<br>14. 00:34:26 The Self Reference Problem<br>15. 00:37:12 The Paradox of Self Improvement<br>16. 00:40:00 Nagels Paradox of Death<br>17. 00:42:49 The Existence vs Flourishing Dilemma<br>18. 00:45:39 The Meaning Creation Paradox<br>19. 00:48:24 The Paradox of Solipsism<br>20. 00:51:20 The Burden of Consciousness<br>21. 00:54:16 The Ultimate Question Paradox<br>22. 00:57:09 Marys Room Paradox<br>23. 00:59:58 The Chinese Room Argument<br>24. 01:02:39 Inverted Spectrum Problem<br>25. 01:05:31 The Ship of Theseus<br>26. 01:08:16 The Teleportation Paradox<br>27. 01:11:07 The Swampman Thought Experiment<br>28. 01:13:57 The Problem of Other Minds<br>29. 01:16:38 The Infinite Regress of Homunculi<br>30. 01:19:30 The Paradox of Perception<br>31. 01:22:22 The Missing Shade of Blue<br>32. 01:25:02 Grue Paradox<br>33. 01:28:00 The Unexpected Hanging Paradox<br>34. 01:30:54 The Sleeping Beauty Problem<br>35. 01:33:38 Hilberts Hotel Paradox<br>36. 01:36:33 The Raven Paradox<br>37. 01:39:21 The Sorites Paradox<br>38. 01:42:05 Zenos Dichotomy Paradox<br>39. 01:44:55 Achilles and the Tortoise<br>40. 01:47:43 The Liar Paradox<br>41. 01:50:34 Russells Paradox<br>42. 01:53:25 The Trolley Problem<br>43. 01:56:15 The Non Identity Problem<br>44. 01:59:10 The Repugnant Conclusion<br>45. 02:01:48 The Paradox of Tolerance<br>46. 02:04:40 The Meat Paradox<br>47. 02:07:32 The Kantian Lying Dilemma<br>48. 02:10:21 The Utility Monster<br>49. 02:13:16 The Moral Twin Earth Problem<br>50. 02:16:03 The Paralysis of Analysis<br>51. 02:18:58 The Veil of Ignorance<br>52. 02:21:58 The Liberal Paradox<br>53. 02:24:46 The Commons Tragedy<br>54. 02:27:35 The Paradox of Democracy<br>55. 02:30:20 The Abilene Paradox<br>56. 02:33:12 The Paradox of Thrift<br>57. 02:36:01 The Authenticity Paradox<br>58. 02:38:53 The Paradox of Choice<br>59. 02:41:48 The Liberals Dilemma<br>60. 02:44:33 The Privacy Paradox<br>61. 02:47:21 The Paradox of Trust<br>62. 02:50:19 The Split Brain Paradox<br>63. 02:53:11 The Swampman Paradox<br>64. 02:56:05 The Fission Paradox<br>65. 02:59:07 The Paradox of Self Deception<br>66. 03:01:57 Paradox of Fiction<br>67. 03:04:49 The Teletransportation Paradox<br>68. 03:07:37 The Continuity Problem<br>69. 03:10:32 The Transhumanist Dilemma<br>70. 03:13:23 Williams Day of the Dead<br>71. 03:16:12 The No Self Paradox<br>72. 03:19:01 Theseus Ship<br>73. 03:22:02 The Barber Paradox<br>74. 03:24:49 The Heap Paradox<br>75. 03:27:49 The Arrow Paradox<br>76. 03:30:39 The Paradox of the Stone<br>77. 03:33:31 The Crocodile Dilemma<br>78. 03:36:24 The Omnipotence Paradox<br>79. 03:39:11 The Heterological Paradox<br>80. 03:42:01 The Bootstrap Paradox<br>81. 03:44:58 The Grandfather Paradox<br>82. 03:47:42 The Preface Paradox<br>83. 03:50:37 The Lottery Paradox<br>84. 03:53:40 Gettier Problems<br>85. 03:56:36 Moores Paradox<br>86. 03:59:24 Fitchs Knowability Paradox<br>87. 04:02:18 The Problem of Induction<br>88. 04:05:01 The Paradox of Analysis<br>89. 04:07:59 The Skeptical Paradox<br>90. 04:10:40 The Dogmatism Paradox<br>91. 04:13:39 The Problem of the Criterion<br>92. 04:16:16 The Paradox of Free Will and Determinism<br>93. 04:19:09 The Hard Problem of Consciousness<br>94. 04:22:01 The Knowledge Argument<br>95. 04:24:47 The Problem of Other Minds<br>96. 04:27:25 The Symbol Grounding Problem<br>97. 04:30:12 Buridans Ass<br>98. 04:33:02 Newcombs Problem<br>99. 04:35:56 Frankfurt Cases<br>100. 04:39:01 The Experience Machine<br>101. 04:41:46 Pinocchios Paradox</pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

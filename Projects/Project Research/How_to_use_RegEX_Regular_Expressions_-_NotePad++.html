@@ -1,0 +1,672 @@
+<!doctype html>
+<html><head><title>How to use RegEX Regular Expressions - NotePad++</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:IKM62bfb40727864f478fcc3a9b2'>How to use RegEX Regular Expressions - NotePad++</h1>
+
+REF:  <a href="https://www.geeksforgeeks.org/write-regular-expressions/">https://www.geeksforgeeks.org/write-regular-expressions/</a><br/>
+
+<h1 id='temp:C:IKM40db9c0b658c4c2f977640e1f'>Regex Tutorial – How to write Regular Expressions in NotePad++?</h1>
+
+<h1 id='temp:C:IKM22ebf3487da0462188d24948b'><span style="color:#273239" textcolor="#273239">Last Updated : 12 Apr, 2024</span></h1>
+
+<span style="color:#273239" textcolor="#273239">A regular expression (regex) is a sequence of characters that define a search pattern. Here’s how to write regular expressions:</span><br/>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:IKM655645839e5d462a84498df43'><li id='temp:C:IKM876e8dce7eda42e2a9027c1b2' class='' value='1'><span style="color:#273239" textcolor="#273239">Start by understanding the special characters used in regex, such as “.”, “*”, “+”, “?”, and more.</span>
+
+<br/></li><li id='temp:C:IKM4044edb63719417bbef3ea475' class=''><span style="color:#273239" textcolor="#273239">Choose a programming language or tool that supports regex, such as Python, Perl, or grep.</span>
+
+<br/></li><li id='temp:C:IKM5fcd17c4c5d942ae9ba1c2e12' class=''><span style="color:#273239" textcolor="#273239">Write your pattern using the special characters and literal characters.</span>
+
+<br/></li><li id='temp:C:IKMb0ab9e17f54244f99784ecbb1' class=''><span style="color:#273239" textcolor="#273239">Use the appropriate function or method to search for the pattern in a string.</span>
+
+<br/></li></ul></div><h4 id='temp:C:IKMcd54bbe310bc4af29fcac7e7e'><b>Examples:</b></h4>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:IKM6eca24b34391449eae8c8d93f'><li id='temp:C:IKM191586ffbc38400e8aa12ddec' class='' value='1'><span style="color:#273239" textcolor="#273239">To match a sequence of literal characters, simply write those characters in the pattern.</span>
+
+<br/></li><li id='temp:C:IKM13f5ba95564149ff8aea29cdb' class=''><span style="color:#273239" textcolor="#273239">To match a single character from a set of possibilities, use square brackets, e.g. [0123456789] matches any digit.</span>
+
+<br/></li><li id='temp:C:IKM3ad65c90fad84875bdc70fbf7' class=''><span style="color:#273239" textcolor="#273239">To match zero or more occurrences of the preceding expression, use the star (*) symbol.</span>
+
+<br/></li><li id='temp:C:IKM09c984c7cd4d460facdbfb3f5' class=''><span style="color:#273239" textcolor="#273239">To match one or more occurrences of the preceding expression, use the plus (+) symbol.</span>
+
+<br/></li><li id='temp:C:IKMd48f3ced1cc74119af1555127' class=''><span style="color:#273239" textcolor="#273239">It is important to note that regex can be complex and difficult to read, so it is recommended to use tools like regex testers to debug and optimize your patterns.</span>
+
+<br/></li></ul></div><span style="color:#273239" textcolor="#273239">A regular expression (sometimes called a rational expression) is a sequence of characters that define a search pattern, mainly for use in pattern matching with strings, or string matching, i.e. “find and replace” like operations. Regular expressions are a generalized way to match patterns with sequences of characters. It is used in every programming language like C++, Java and Python. </span><br/>
+
+<h3 id='temp:C:IKMbc5266fc900b4f9899f9c48be'><b><b>What is a regular expression and what makes it so important?</b></b><b> </b></h3>
+
+<h3 id='temp:C:IKM3ec53baa5e814ed8b96f426a4'><span style="color:#273239" textcolor="#273239">Regex is used in </span><i><span style="color:#273239" textcolor="#273239">Google Analytics</span></i><span style="color:#273239" textcolor="#273239"> in URL matching in supporting search and replaces in most popular editors like Sublime, Notepad++, Brackets, Google Docs, and Microsoft Word.</span></h3>
+
+<pre id='temp:C:IKMf92a6a5b20264779b1d3c01ff'><b><b>Example : </b></b> Regular expression for an email address :<br>^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$ </pre>
+
+<span style="color:#273239" textcolor="#273239">The above regular expression can be used for checking if a given set of characters is an email address or not. </span><br/>
+
+<h2 id='temp:C:IKM28af4d3a01ac4859b7bb1297d'><b><b>How to write regular expressions?</b></b></h2>
+
+<h2 id='temp:C:IKMaee622c2220848889d4b3fd7d'><span style="color:#273239" textcolor="#273239">There are certain elements used to write regular expressions as mentioned below:</span></h2>
+
+<h4 id='temp:C:IKMac56f233b5194fd2bbd414885'><b><b>1. Repeaters ( *, +, and { } ) </b></b></h4>
+
+<h4 id='temp:C:IKM32ccc645a1b94e429c4f0d54d'><span style="color:#273239" textcolor="#273239">These symbols act as repeaters and tell the computer that the preceding character is to be used for more than just one time.</span></h4>
+
+<h4 id='temp:C:IKMda023a3aa6544ce491093223e'><b><b>2. The asterisk symbol ( * )</b></b></h4>
+
+<h4 id='temp:C:IKM13ec0f72a6d9448a8953a9ce1'><span style="color:#273239" textcolor="#273239">It tells the computer to match the preceding character (or set of characters) for 0 or more times (upto infinite).</span></h4>
+
+<pre id='temp:C:IKM7697355e0c5d4f8395a4a63a1'><b><b>Example :</b></b> The regular expression ab*c will give ac, abc, abbc, abbbc….and so on </pre>
+
+<h4 id='temp:C:IKMcd444be4c249453ca68105e88'><b><b>3. The Plus symbol ( + )</b></b><b> </b></h4>
+
+<h4 id='temp:C:IKM66a598717c064d23804b82701'><span style="color:#273239" textcolor="#273239">It tells the computer to repeat the preceding character (or set of characters) at atleast one or more times(up to infinite).</span></h4>
+
+<pre id='temp:C:IKMd797f2af138e4d33b2a013918'><b><b>Example :</b></b> The regular expression ab+c will give abc, abbc,<br>abbbc, … and so on.</pre>
+
+<h4 id='temp:C:IKMaa0af6101cf04d09b3b5da57b'><b><b>4. The curly braces { … }</b></b><b> </b></h4>
+
+<h4 id='temp:C:IKM36a889823a4f408fad7805ade'><span style="color:#273239" textcolor="#273239">It tells the computer to repeat the preceding character (or set of characters) for as many times as the value inside this bracket.</span></h4>
+
+<pre id='temp:C:IKMade5724cd1924be1a03c1cde2'><b><b>Example : </b></b>{2} means that the preceding character is to be repeated 2 <br>times, {min,} means the preceding character is matches min or  more <br>times. {min,max} means that the preceding character is repeated at<br>least min &amp; at most max times.</pre>
+
+<h4 id='temp:C:IKM7ff06f476f5547c085777e8ca'><b><b>5. Wildcard ( . ) </b></b></h4>
+
+<h4 id='temp:C:IKMc92f8d9482ca4ceba31a18140'><span style="color:#273239" textcolor="#273239">The dot symbol can take the place of any other symbol, that is why it is called the wildcard character.</span></h4>
+
+<pre id='temp:C:IKM4042233cddf741ab9fd0ad90a'><b><b>Example :</b></b> <br>The Regular expression .* will tell the computer that any character<br>can be used any number of times.</pre>
+
+<h4 id='temp:C:IKM6bbe919757cf4835b3a396289'><b><b>6. Optional character ( ? )</b></b><b> </b></h4>
+
+<h4 id='temp:C:IKM156623409653495b9a33e2985'><span style="color:#273239" textcolor="#273239">This symbol tells the computer that the preceding character may or may not be present in the string to be matched.</span></h4>
+
+<pre id='temp:C:IKM0ff20f32f003402b8ab1616b8'><b><b>Example :</b></b> <br>We may write the format for document file as – “docx?”<br>The ‘?’ tells the computer that x may or may not be <br>present in the name of file format.</pre>
+
+<h4 id='temp:C:IKMa06d8d9f8edd42b0a8f137d17'><b><b>7. The caret ( ^ ) symbol</b></b><b><b> </b>(<b> </b></b><i><i>Setting position for the match )</i></i></h4>
+
+<h4 id='temp:C:IKM46dd997275064a2385faa1c31'><span style="color:#273239" textcolor="#273239">The caret symbol tells the computer that the match must start at the beginning of the string or line.</span></h4>
+
+<pre id='temp:C:IKM6d072288efdd4a789c2a04d81'><b><b>Example :</b></b> ^\d{3} will match with patterns like "901" in "901-333-".</pre>
+
+<b><span style="color:#273239" textcolor="#273239">8. The dollar ( $ ) symbol</span></b><span style="color:#273239" textcolor="#273239"> </span><br/>
+
+<span style="color:#273239" textcolor="#273239">It tells the computer that the match must occur at the end of the string or before \n at the end of the line or string.</span><br/>
+
+<pre id='temp:C:IKMec1a0f94a59f4281945a271b6'><b><b>Example :</b></b> -\d{3}$  will match with patterns like "-333" in "-901-333".</pre>
+
+<b><span style="color:#273239" textcolor="#273239">9. Character Classes</span></b><span style="color:#273239" textcolor="#273239"> </span><br/>
+
+<span style="color:#273239" textcolor="#273239">A character class matches any one of a set of characters. It is used to match the most basic element of a language like a letter, a digit, a space, a symbol, etc. </span><br/>
+
+<b><i><span style="color:#273239" textcolor="#273239">\s</span></i></b><i><span style="color:#273239" textcolor="#273239">: matches any whitespace characters such as space and tab.<br></span></i><b><i><span style="color:#273239" textcolor="#273239">\S</span></i></b><i><span style="color:#273239" textcolor="#273239">: matches any non-whitespace characters.<br></span></i><b><i><span style="color:#273239" textcolor="#273239">\d</span></i></b><i><span style="color:#273239" textcolor="#273239">: matches any digit character.<br></span></i><b><i><span style="color:#273239" textcolor="#273239">\D: </span></i></b><i><span style="color:#273239" textcolor="#273239">matches any non-digit characters.<br></span></i><b><i><span style="color:#273239" textcolor="#273239">\w</span></i></b><i><span style="color:#273239" textcolor="#273239"> : matches any word character (basically alpha-numeric)<br></span></i><b><i><span style="color:#273239" textcolor="#273239">\W</span></i></b><i><span style="color:#273239" textcolor="#273239">: matches any non-word character.<br></span></i><b><i><span style="color:#273239" textcolor="#273239">\b</span></i></b><i><span style="color:#273239" textcolor="#273239">: matches any word boundary (this would include spaces, dashes, commas, semi-colons, etc.<br></span></i><b><i><span style="color:#273239" textcolor="#273239">[set_of_characters]:</span></i></b><i><span style="color:#273239" textcolor="#273239"> Matches any single character in set_of_characters. By default, the match is case-sensitive.</span></i><br/>
+
+<pre id='temp:C:IKMe4126259c6d5415fa66fd7d09'><b><b>Example :</b></b> [abc] will match characters a,b and c in any string.</pre>
+
+<h4 id='temp:C:IKM060ca6519f144e248b2265210'><b><b>10. [^set_of_characters]<b> </b></b></b><i><i>Negation:</i></i><b> </b></h4>
+
+<h4 id='temp:C:IKMd06ba3c31321421cb961c1478'><span style="color:#273239" textcolor="#273239">Matches any single character that is not in set_of_characters. By default, the match is case-sensitive.</span></h4>
+
+<pre id='temp:C:IKM1a4d19e7105f43bc923dbdf4e'><b><b>Example :</b></b> [^abc] will match any character except a,b,c .</pre>
+
+<h4 id='temp:C:IKM2462a5586c624af6a898fe38e'><b><b>11. [first-last]</b></b><b><b> </b></b><i><i>Character range:</i></i><b> </b></h4>
+
+<h4 id='temp:C:IKMc962cc02675d443ba235b4cee'><span style="color:#273239" textcolor="#273239">Matches any single character in the range from first to last.</span></h4>
+
+<pre id='temp:C:IKM79270d0673b3451289e9c8941'><b><b>Example :</b></b> [a-zA-z] will match any character from a to z or A to Z.</pre>
+
+<h4 id='temp:C:IKMa66ae13287c147729ea8d18f9'><b><b>12. The Escape Symbol ( \ ) </b></b></h4>
+
+<h4 id='temp:C:IKM4f0599f4cd5f480a88bb5c0fc'><span style="color:#273239" textcolor="#273239">If you want to match for the actual ‘+’, ‘.’ etc characters, add a backslash( \ ) before that character. This will tell the computer to treat the following character as a search character and consider it for a matching pattern.</span></h4>
+
+<pre id='temp:C:IKMb49ecac8ced6480ebe24cbe47'><b><b>Example :</b></b> \d+[\+-x\*]\d+ will match patterns like "2+2"<br>and "3*9" in "(2+2) * 3*9".</pre>
+
+<h4 id='temp:C:IKM070af8a1e12d4d29a25bfc31f'><b><b>13. Grouping Characters ( )</b></b><b> </b></h4>
+
+<h4 id='temp:C:IKM0de70ffd40d948ce86aafe4f5'><span style="color:#273239" textcolor="#273239">A set of different symbols of a regular expression can be grouped together to act as a single unit and behave as a block, for this, you need to wrap the regular expression in the parenthesis( ).</span></h4>
+
+<pre id='temp:C:IKM39c5bd060d6c4d90bda619768'><b><b>Example :</b></b> ([A-Z]\w+) contains two different elements of the regular <br>expression combined together. This expression will match any pattern <br>containing uppercase letter followed by any character.</pre>
+
+<h4 id='temp:C:IKM47dad675789a484cbdab4ca66'><b><b>14. Vertical Bar ( | )</b></b><b> </b></h4>
+
+<h4 id='temp:C:IKM50ff34f142114085940fd7c02'><span style="color:#273239" textcolor="#273239">Matches any one element separated by the vertical bar (|) character.</span></h4>
+
+<pre id='temp:C:IKM0be2fc24b68a4e4ea59c27ea4'><b><b>Example :</b></b>  th(e|is|at) will match words - the, this and that.</pre>
+
+<h4 id='temp:C:IKM6b49d677bbdc4638aaacd63b0'><b><b>15. \number </b></b></h4>
+
+<h4 id='temp:C:IKM100867798b7d4671b82cd1ec1'><i><span style="color:#273239" textcolor="#273239">Backreference:</span></i><span style="color:#273239" textcolor="#273239"> allows a previously matched sub-expression(expression captured or enclosed within circular brackets ) to be identified subsequently in the same regular expression. \n means that group enclosed within the n-th bracket will be repeated at current position.</span></h4>
+
+<pre id='temp:C:IKM0b35712a724f426a94cd744bb'><b><b>Example :</b></b> ([a-z])\1 will match “ee” in Geek because the character <br>at second position is same as character at position 1 of the match.</pre>
+
+<h4 id='temp:C:IKMd58be5fe110b412bbd8638429'><b><b>16. Comment ( ?# comment ) </b></b></h4>
+
+<h4 id='temp:C:IKM8858b8c15a41460ea5832aa15'><span style="color:#273239" textcolor="#273239">Inline comment: The comment ends at the first closing parenthesis.</span></h4>
+
+<pre id='temp:C:IKMbd8a0ff6bebd45ef951f6359a'><b><b>Example :</b></b> \bA(?#This is an inline comment)\w+\b</pre>
+
+<h4 id='temp:C:IKMc20342d3c2304e7ab6b549ed6'><b><b>17. # [to end of line] </b></b></h4>
+
+<h4 id='temp:C:IKMdbad5007638e45c7991509f80'><i><span style="color:#273239" textcolor="#273239">X-mode comment.</span></i><span style="color:#273239" textcolor="#273239"> The comment starts at an unescaped # and continues to the end of the line.</span></h4>
+
+<pre id='temp:C:IKM637da360591146ed9d21f994a'><b><b>Example :</b></b>  (?x)\bA\w+\b#Matches words starting with A</pre>
+
+<h2 id='temp:C:IKM6bacf260a3534a039ade1e4a4'><br>Replace Example:</h2>
+
+<h4 id='temp:C:IKMd2136be7ee6c460da798575b4'>Replacing YouTube Transcript Timestamps (variable length) with Timestamp format HH:MM:SS</h4>
+
+<pre id='temp:C:IKMf09064cd4cc5408f924f0d8d8'><b>Example</b><b> </b><b>1</b><br>FIND:     (^1:)(..$)   matches 1:00 - 1:59<br>REPLACE:  00:0\1\2<br><br>Before:  1:08<br>After:   00:01:08<br><br>Group \1<br>^   Line Starts<br>1:  with a 1 followed by a Colon<br><br>Group \2<br>..  followed by 2 (any single chars)<br>$   followed by Line END<br><br><i>Click</i><i> </i><i>Replace</i><i> </i><i>All</i><br><br>Replace Action:  <br>00:0\1\2  For Each Find type 00:0 followed by Group \1 and Group \2<br><br><b>Example</b><b> </b><b>2</b><br>FIND:     (^.:)(..$)   matches 1:00 - 9:59<br>REPLACE:  00:0\1\2<br><br>Before:  8:30<br>After:   00:08:30<br><br><i>Click</i><i> </i><i>Replace</i><i> </i><i>All</i><br><br>Replace Action:<br>(Basically SAME AS Example 1)<br><br><b>Example</b><b> </b><b>3</b><br>FIND:     (^..:)(..$)   matches 10:00 - 59:59<br>REPLACE:  00:\1\2<br><br>Before:  10:19<br>After:   00:10:19<br><br><i>Click</i><i> </i><i>Replace</i><i> </i><i>All</i><br><br>Replace Action:<br>(Basically SAME AS Example 1)<br><br><b>Example</b><b> </b><b>4</b><br>FIND:     (^.:)(..:..$)   matches 1:00:00 - 9:59:59<br>REPLACE:  0\1\2<br><br>Before:  6:30:03<br>After:   06:30:03<br><br><i>Click Replace All</i><br><br>Replace Action:<br>(Basically SAME AS Example 1)</pre>
+
+<h2 id='temp:C:IKM7c3b7d9564764c4282b9986bf'>Replacing SRT Errors</h2>
+
+<pre id='temp:C:IKM6b8d97c9adcc4d299a8ced712'><b>Example</b><b> </b><b>5</b><br>FIND:     (..:)(..:..)([A-Z])(.*)<br>REPLACE:  \1\2\t\3\4      where \t is a tab to insert<br><br>Before:  01:42:45I will never find out the next morning<br>After:   01:42:45     I will never find out the next morning</pre>
+
+<h2 id='temp:C:IKM960c06d3a36048f487aa37bb0'>Adding Font to SRT</h2>
+
+<pre id='temp:C:IKM10f9957b17ba4133ac0f75108'><b>Example</b><b> </b><b>6</b><br>FIND:     ($\r\n)([A-Z].*)<br>REPLACE:  \1\2&lt;/font&gt;<br><br>Before:<br>1<br>00:00:00,000 --&gt; 00:00:05,976<br>die Bestimmung von Veronica Roth<br>in unserem Haus gibt es nur einen<br><br>After:<br>1<br>00:00:00,000 --&gt; 00:00:05,976<br>die Bestimmung von Veronica Roth<br>in unserem Haus gibt es nur einen&lt;/font&gt;<br><br><b>Example</b><b> </b><b>7 - Add Green/Blue Font Color to SRT for Potplayer</b><br>FIND:    ($\r\n)([A-Z].*)<br>REPLACE: \1&lt;font color=#00FFFF&gt;\2<br><br>Before:<br>1<br>00:00:00,000 --&gt; 00:00:05,976<br>die Bestimmung von Veronica Roth&lt;/font&gt;<br>in unserem Haus gibt es nur einen&lt;/font&gt;<br><br><i>Highlight Lines you wish to change or Change All<br>Click: Replace All in Selection</i><br><br>After:<br>1<br>00:00:00,000 --&gt; 00:00:05,976<br>&lt;font color=#00FFFF&gt;die Bestimmung von Veronica Roth&lt;/font&gt;<br>&lt;font color=#00FFFF&gt;in unserem Haus gibt es nur einen&lt;/font&gt;<br><br></pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

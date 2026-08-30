@@ -1,0 +1,646 @@
+<!doctype html>
+<html><head><title>Useful Chrome Extensions</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='eaLACAfeaMV'>Useful Chrome Extensions</h1>
+
+FROM 09/04/2025 <br/>
+
+       Freaking out, A Web Site or Shareware HID all my Extensions in all my Accounts<br/>
+
+<br/>
+
+<h3 id='temp:C:eaL63224969c20140a4bceb87021'>Enabled:</h3>
+
+<div class="" style="" data-section-style='6'><ul id='temp:C:eaLcf9bc1e776124938802156435'><li id='temp:C:eaLfa5e0d18dbba44939f3e830de' class='parent' value='1'>Copyfish Free OCR Software
+
+<br/></li><ul><li id='temp:C:eaLbb94af82d3cb4979a4f407b88' class=''>Allows Text Extraction from YouTube Videos
+
+<br/></li></ul><li id='temp:C:eaL672315b2f7894b6abe1ff7f07' class='parent'> Link Klipper
+
+<br/></li><ul><li id='temp:C:eaL86175f5723324ce5bec192461' class=''>Extracts all Links on a Webpage as Text to File
+
+<br/></li></ul><li id='temp:C:eaL0ad9ac9760a94ccc973cdbd16' class='parent'>Tab-Snap
+
+<br/></li><ul><li id='temp:C:eaL31dd547a187945d0849502559' class=''>Extracts TAB URLs to TEXT
+
+<br/></li></ul><li id='temp:C:eaL5cab1ada8ca14708b41633f87' class='parent'>YouTube Ad Auto-Skipper
+
+<br/></li><ul><li id='temp:C:eaL7dfc21e7a63b40f6bca140bd9' class=''>Auto Press NEXT on YouTube When Adds show SKIP
+
+<br/></li></ul></ul></div><h3 id='temp:C:eaL823bd2e86dc24c8ab1aaf7d1b'>Disabled:</h3>
+
+<div class="" style="" data-section-style='6'><ul id='temp:C:eaL5b48d4c0f7324d13a3a4f4f8f'><li id='temp:C:eaLa019286067054af99faf52f37' class='' value='1'>Avira Browser Safety
+
+<br/></li><li id='temp:C:eaLc27d9a7bfba94e72977794a11' class=''>Avira Password Manager
+
+<br/></li><li id='temp:C:eaL0d25bd42a86742228b6f852f7' class='parent'>dotEPUB
+
+<br/></li><ul><li id='temp:C:eaLc4052243f00b4860a38b7ac27' class=''>Convert Webpage into an E-book
+
+<br/></li></ul><li id='temp:C:eaL3ece800ed6244e96b7850de69' class=''>EPUB READER
+
+<br/></li><li id='temp:C:eaLee2eb50a4af24560a1de67415' class='parent'>Full Screen for Google Chrome
+
+<br/></li><ul><li id='temp:C:eaL96905feae9024beab2e09a1dd' class=''>Full Screen Button
+
+<br/></li></ul><li id='temp:C:eaL25feb34ecf8c4bcda84d53181' class='parent'>GoFullPage 
+
+<br/></li><ul><li id='temp:C:eaLcc281e19cb894f14b96d4ccbb' class=''>Full Page Screen Capture
+
+<br/></li></ul><li id='temp:C:eaL1807a2fcc9674343a84f9877b' class=''>Google Translate
+
+<br/></li><li id='temp:C:eaL492714894fc54ad9bc9ae1cf5' class=''>High Contrast
+
+<br/></li><li id='temp:C:eaLce81ae8605f2409fbb8ea6b11' class=''>iMacros for Chrome
+
+<br/></li><li id='temp:C:eaL3e397d22aa584c20b1228ff07' class='parent'>Live Start Page
+
+<br/></li><ul><li id='temp:C:eaL79c266e577194dffaa4cbb8ef' class=''>Living Wallpapers
+
+<br/></li></ul><li id='temp:C:eaLbe95ab9d709c4a25ade1f1659' class=''>MP3 Downloader
+
+<br/></li><li id='temp:C:eaL7b6c84634b9d4512b3393d32d' class='parent'>PayPal Honey
+
+<br/></li><ul><li id='temp:C:eaL006fa5f87c67475a808955f1b' class=''>Automatic Coupons
+
+<br/></li></ul><li id='temp:C:eaL89c39af7b11c4e1fa3cc12e17' class=''>PotPlayer YouTube Shortcut
+
+<br/></li><li id='temp:C:eaL7a3d53372e4340abada0d04e7' class=''>PrintFriendly
+
+<br/></li><li id='temp:C:eaL72c3d276c8a749bbbd9084844' class=''>Read Aloud
+
+<br/></li><li id='temp:C:eaL52b2749bd376457289a9640bf' class=''>RSS Feed Reader
+
+<br/></li><li id='temp:C:eaL8bfa8316992d4c04a06f69973' class=''>Save to Google Drive
+
+<br/></li><li id='temp:C:eaL2740f16a4f1f4a00bcdfb6d56' class=''>Split Screen for Google Chrome
+
+<br/></li><li id='temp:C:eaL5a93ea3eb05c4a42a0e3fc006' class='parent'>Tab Resize
+
+<br/></li><ul><li id='temp:C:eaLe1fdc353ade148eba7f4cfdb0' class=''>Split Screen Layouts
+
+<br/></li></ul><li id='temp:C:eaL5fe25ee9af6d48418263de98a' class=''>Take Webpage Screenshots Entirely
+
+<br/></li><li id='temp:C:eaL7cd1d9d5f6254b3993ab2b403' class=''>Text Mode
+
+<br/></li><li id='temp:C:eaL525c80f06cdf4752904b5cfc6' class='parent'>TinEye Reversed Image Search
+
+<br/></li><ul><li id='temp:C:eaLf19f271985454ed999effeb16' class=''>Search for Image Name based on Picture
+
+<br/></li></ul><li id='temp:C:eaL41cf895a9cbe42429338901ac' class='parent'>Wikiwand
+
+<br/></li><ul><li id='temp:C:eaLac3c9f69c18943e394cacb512' class=''>Format Wiki Pages
+
+<br/></li></ul><li id='temp:C:eaL53322f49fcdd419289b312c76' class='parent'>YouTube NonStop
+
+<br/></li><ul><li id='temp:C:eaL5cace1fa7be14e8f98af023d8' class=''>Skips “Video paused.  Continue Watching?”
+
+<br/></li></ul><li id='temp:C:eaLe17d00b4034c4cfcbd88456a0' class=''>YouTube Music Visualizer
+
+<br/></li><li id='temp:C:eaLd0b7e4ef957e468fb957581db' class=''>
+
+<br/></li></ul></div><br/>
+
+<br/>
+
+<br/>
+
+From 04/04/2020<br/>
+
+<div class="" style="" data-section-style='6'><ul id='eaLACAQfO5Y'><li id='eaLACArp8U7' class='' value='1'> <b>Non-Stop</b> to keep playing without stopping when asked “Are you still listening?”
+
+<br/></li><li id='eaLACA6bQWF' class=''><b>dotEPUB   </b>Convert any webpage into an e-book
+
+<br/></li><li id='eaLACARIO9d' class=''><b>Floating for YouTube  </b>Always on top Floating MiniPlayer for YouTube
+
+<br/></li><li id='eaLACAwhhCG' class=''><b>Full Page Screen Capture  </b>Capture a screenshot of your current page in entirely and reliably - without requesting any extra permissions.
+
+<br/></li><li id='eaLACA6Trja' class=''><b>Google Docs Online  </b>Edit, create, and view your documents, spreadsheets, and presentations - all without internet access.
+
+<br/></li><li id='eaLACABVmkU' class=''><b>Google Translate  </b>View translations easily as you browse the web.
+
+<br/></li><li id='eaLACAcEdTt' class=''><b>High Contrast  </b>Change or invert the color scheme to make webpages easier to read
+
+<br/></li><li id='eaLACAPGNSs' class=''><b>Honey  </b>Automatically find and apply coupon codes when you shop online.
+
+<br/></li><li id='eaLACAT8DHB' class=''><b>iMacros for Chrome  </b>Automate your web browser.  Record and replay repetitious work.
+
+<br/></li><li id='eaLACAsBXjW' class=''><b>PotPlayer YouTube Shortcut  </b>Quickly play or add a YouTube video (playlist).  Switch to PotPlayer using buttons on a page, also via context menu and middle click.
+
+<br/></li><li id='eaLACAUZVc7' class=''><b>Read Aloud  </b>A Text to Speech Voice Reader.
+
+<br/></li><li id='eaLACA2q5X6' class=''><b>RSS Feed Reader  </b>RSS and Atom feeds in toolbar
+
+<br/></li><li id='eaLACAj1Dpk' class=''><b>Save to Google Drive  </b>Save web content or screen capture directly to Google Drive
+
+<br/></li><li id='eaLACAgMvcI' class=''><b>Tab Resize - Split Screen Layouts</b>
+
+<br/></li><li id='eaLACATySXv' class=''><b>Tab-Snap  </b>Get open tab URLs for window, or load a list of URLs into new tabs on this window.
+
+<br/></li><li id='eaLACA4wuxZ' class=''><b>TinEye Reverse Image Search  </b>Find higher resolution versions of an image.
+
+<br/></li><li id='eaLACAAA6xg' class=''><b>Wikiwand  </b>Wikipedia gets a great new look
+
+<br/></li><li id='eaLACAxP8Nu' class=''>
+
+<br/></li></ul></div></body></html>

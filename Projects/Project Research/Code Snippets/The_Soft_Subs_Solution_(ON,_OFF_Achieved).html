@@ -1,0 +1,548 @@
+<!doctype html>
+<html><head><title>The Soft Subs Solution (ON, OFF Achieved)</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:ICU67f3ff8f23f545dd9a01bb44e'>The Soft Subs Solution (ON, OFF Achieved)</h1>
+
+<h1 id='temp:C:ICUc6f8ee95d994475fa29a3df9f'>or (Got the Milliseconds, Baby!)</h1>
+
+<b><span style="color:#430891" textcolor="#430891">after Joining the Subtitles in “Subtitle Edit” the result is <span bgcolor="#fefccb" style="background-color:#fefccb">flawless.</span></span></b><br/>
+
+<h3 id='temp:C:ICU793ea861e0b74fdd9ab704d40'>1.  Find the Chapter length of the video in milliseconds.</h3>
+
+<h2 id='temp:C:ICU0eb64703cc4c45eb8398b5ba7'>EXAMPLE:  Milliseconds are Highlighted in <span bgcolor="#9ee9fa" style="background-color:#9ee9fa">BLUE</span></h2>
+
+<pre id='temp:C:ICUcc98257f9bf144deab6784764'>// ALL on one line when run.  Formatted for QUIP Viewing here<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 01 - Clash of the Titans.mp4"<br>&gt;404.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa"><b>338</b></span>000<br><br>404 / 60 = 6.7333 minutes and change so 6 + .7333 (of a minute) = 44 seconds<br>// Windows reports the "Chapter 1" being 00:06:44 long<br>// The Milliseconds added on:  00:06:44.338<br>// This will be the value of the last Subtitle<br>// (with a comma replacing the decimal ~ European System)<br><br>// 00:06:44,338 --&gt; 00:06:44,338<br>// &lt;font face="Serif"&gt;&lt;font size="18"&gt;&lt;/font&gt;&lt;/font&gt;<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 03 - Clash of the Titans.mp4"<br>&gt;1152.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa"><b>018</b></span>000<br>// and so like above:<br>//     "Chapter 3" -&gt; 00:19:12,018<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 05 - Clash of the Titans.mp4"<br>&gt;1257.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa"><b>557</b></span>000<br>//     "Chapter 5" -&gt; 00:20:57,557<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 07 - Clash of the Titans.mp4"<br>&gt;736.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa"><b>903</b></span>000<br>//     "Chapter 7" -&gt; 00:12:16,903<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 09 - Clash of the Titans.mp4"<br>&gt;707.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa"><b>307</b></span>000<br>//     "Chapter 9" -&gt; 00:11:47,307<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 11 - Clash of the Titans.mp4"<br>&gt;1244.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa"><b>877</b></span>000<br>//     "Chapter 11" -&gt; 00:20:44,877<br><br>&gt;ffprobe -v error -show_entries format=duration <br>-of default=noprint_wrappers=1:nokey=1 "Chapter 13 - Clash of the Titans.mp4"<br>&gt;859.<span bgcolor="#9ee9fa" style="background-color:#9ee9fa"><b>859</b></span>000<br>//     "Chapter 13" -&gt; 00:14:19,859</pre>
+
+<h2 id='temp:C:ICU8c110c6912c7441d865637e82'>The Above Commands shown on One Line in QUIP:</h2>
+
+<pre id='temp:C:ICU9bdb44498e0340fcb2ddb504f'>// Scroll Right to see the whole Command<br>ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "Chapter 01 - Clash of the Titans.mp4"<br>ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "Chapter 03 - Clash of the Titans.mp4"<br>ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "Chapter 05 - Clash of the Titans.mp4"<br>ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "Chapter 07 - Clash of the Titans.mp4"<br>ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "Chapter 09 - Clash of the Titans.mp4"<br>ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "Chapter 11 - Clash of the Titans.mp4"<br>ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "Chapter 13 - Clash of the Titans.mp4"<br></pre>
+
+<br/>
+
+The Resultant last lines of each Video are exactly the Video’s Length, down to the millisecond, making it possible to merge multiple files and subtitles.<br/>
+
+<h2 id='temp:C:ICUa3a28ea28c50415e81224464a'>Example from Above - <span style="color:#cc0300" textcolor="#cc0300">Last Lines of each Chapter’s Subtitles</span></h2>
+
+<pre id='temp:C:ICUb2d3bc8c18b14d6c8af99c76f'>FILE 'Chapter 01 - Embedded Subs - Clash of the Titans.eng.srt'<br><br>98<br>00:06:43,000 --&gt; 00:06:44,<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">338</span><br>&lt;font face="Serif"&gt;&lt;font size="18"&gt;&lt;/font&gt;&lt;/font&gt;<br>  <br>FILE 'Chapter 03 - Embedded Subs - Clash of the Titans.eng.srt' <br><br>338<br>00:19:12,500 --&gt; 00:19:12,<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">018</span><br>&lt;font face="Serif"&gt;&lt;font size="18"&gt;&lt;/font&gt;&lt;/font&gt;<br><br>FILE 'Chapter 05 - Embedded Subs - Clash of the Titans.eng.srt' <br><br>275<br>00:20:57,557 --&gt; 00:20:57,<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">557</span><br>&lt;font face="Serif"&gt;&lt;font size="18"&gt;&lt;/font&gt;&lt;/font&gt;<br><br>FILE 'Chapter 07 - Embedded Subs - Clash of the Titans.eng.srt' <br><br>187<br>00:12:16,903 --&gt; 00:12:16,<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">903</span><br>&lt;font face="Serif"&gt;&lt;font size="18"&gt;&lt;/font&gt;&lt;/font&gt;<br><br>FILE 'Chapter 09 - Embedded Subs - Clash of the Titans.eng.srt' <br><br>152<br>00:11:47,307 --&gt; 00:11:47,<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">307</span><br>&lt;font face="Serif"&gt;&lt;font size="18"&gt;&lt;/font&gt;&lt;/font&gt;<br><br>FILE 'Chapter 11 - Embedded Subs - Clash of the Titans.eng.srt' <br><br>249<br>00:20:44,877 --&gt; 00:20:44,<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">877</span><br>&lt;font face="Serif"&gt;&lt;font size="18"&gt;[dramatic music]&lt;/font&gt;&lt;/font&gt;<br><br>FILE 'Chapter 13 - Embedded Subs - Clash of the Titans.eng.srt' <br><br>62<br>00:14:19,859 --&gt; 00:14:19,<span bgcolor="#9ee9fa" style="background-color:#9ee9fa">859</span><br>&lt;font face="Serif"&gt;&lt;font size="18"&gt;[music continues]&lt;/font&gt;&lt;/font&gt;<br></pre>
+
+<h2 id='temp:C:ICU014126bc309d4c06a3f35865e'><span style="color:#8f0891" textcolor="#8f0891">Next:      Write the Automation Script!  Yippee!</span></h2>
+
+<h3 id='temp:C:ICUa6bce779e7ea4e1596f10e1b7'>Pseudo-Code</h3>
+
+<pre id='temp:C:ICU0544470c8ca04490bbed2b65d'><span bgcolor="#430891" style="background-color:#430891">1.</span>  Chop off Ends of Movie.mp4<br><span bgcolor="#430891" style="background-color:#430891">2.</span>  Separate Movie.mp4 from its Subtitles.srt (Commercial Removal HERE)<br><span bgcolor="#430891" style="background-color:#430891">3.</span>  X = Number of Milliseconds to add to Length of Chapter<br><span bgcolor="#430891" style="background-color:#430891">4.</span>  Add a line at the bottom of the SRT<br><br><span bgcolor="#f2ef90" style="background-color:#f2ef90">FORMAT </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">of</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> the </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">last</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">3</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> lines </span><span bgcolor="#f2ef90" style="background-color:#f2ef90">of</span><span bgcolor="#f2ef90" style="background-color:#f2ef90"> each CHAPTER</span><span bgcolor="#f2ef90" style="background-color:#f2ef90">#.SRT</span><br>Line 1:<br>(Last Line Number) + 1<br><br>Line 2:<br>(HH:MM:SS,fff --&gt; HH:MM:SS,fff)<br>// where<br>//     HH = The Hours Length of the Chapter<br>//     MM = The Minutes Length of the Chapter<br>//     SS = The Seconds Length of the Chapter<br>//     fff = X (The Milliseconds Length of the Chapter)<br><br>Line 3:<br>&lt;font face="Serif"&gt;&lt;font size="18"&gt;&lt;/font&gt;&lt;/font&gt;<br>// TRICK:<br>// There is no Text.  Just a Place-Holder.<br>// (Without any words between the &lt;font&gt;&lt;/font&gt; tags, nothing shows.)<br><br>// Why?  This last line establishes the Exact Lenth of the File<br>//       when using "Subtitle Edit" to Join the Chapters Exactly.<br><br><span bgcolor="#430891" style="background-color:#430891">5.</span> Join the SRT Subtitles in "Subtitle Edit".  Concatenate the resulting container files <br>   listed in the text file.<br>   <br>Edit with "Subtitle Editor" / Tools / Join SRT Subtitles<br># REPLACES FAIL:  for %a in (Chapter*.srt) do echo file '%a' &gt;&gt; srtfiles.txt<br>#           and:  ffmpeg -f concat -safe 0 -i srtfiles.txt -c copy everything.srt<br></pre>
+
+<b><span style="color:#5a0ac2" textcolor="#5a0ac2">Et Voila!</span></b><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

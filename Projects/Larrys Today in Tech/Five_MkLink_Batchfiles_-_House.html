@@ -1,0 +1,534 @@
+<!doctype html>
+<html><head><title>Five MkLink Batchfiles - House</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:ccMc170819691574e85bc9c2e84b'>Five MkLink Batchfiles - House</h1>
+
+<span bgcolor="#f2ef90" style="background-color:#f2ef90"><span style="color:#0a54c2" textcolor="#0a54c2">House Variation</span></span> of Home (<control data-remapped="true" id="temp:C:ccMc2467d1350074ca7a26c3708e"><a href="https://quip.com/DMueA65QLiEs">Five MkLink Batchfiles</a></control>)<br/>
+
+AS OF 07/21/2023<br/>
+
+<h3 id='temp:C:ccMff7972e258a642fea16d21e7b'>HDD-1 Script</h3>
+
+<pre id='temp:C:ccMe7fee09476854ca58ac1e1647'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME_HOUSE\HDD-1<br>REM FIRST HDD<br>REM F:\<br><br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\ANIMATED Movies A-L" "F:\ANIMATED Movies A-L"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\ANIMATED Movies M-Z" "F:\ANIMATED Movies M-Z"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\ANIMATED Series" "F:\ANIMATED Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\AUDIOBOOKS" "F:\AUDIOBOOKS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\AWARD WINNING Movies" "F:\AWARD WINNING Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\CHRISTMAS Movies" "F:\CHRISTMAS Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\CLASSIC Movies" "F:\CLASSIC Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\CLASSIC Series" "F:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\COMEDY and DRAMATIC Series" "F:\COMEDY and DRAMATIC Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\COMEDY Movies A-M" "F:\COMEDY Movies A-M"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\COMEDY Movies N-Z" "F:\COMEDY Movies N-Z"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\COMING OF AGE Movies" "F:\COMING OF AGE Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\FANTASY Movies" "F:\FANTASY Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\FANTASY Series" "F:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\FOREIGN Movies" "F:\FOREIGN Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\HORROR Movies" "F:\HORROR Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\MUSICALS" "F:\MUSICALS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\REALITY Movies" "F:\REALITY Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\REALITY Series" "F:\REALITY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\RELIGIOUS" "F:\RELIGIOUS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\SCI-FI Movies" "F:\SCI-FI Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\SCI-FI Series" "F:\SCI-FI Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\SPY and Kick Ass Movies" "F:\SPY and Kick Ass Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\STAND-UP Comedy" "F:\STAND-UP Comedy"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\SUPER HERO Movies" "F:\SUPER HERO Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\SUPER-HERO Series" "F:\SUPER-HERO Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\WESTERN Movies" "F:\WESTERN Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-1\YouTube Videos" "F:\YouTube Videos"<br></pre>
+
+<h3 id='temp:C:ccM12352f5dfdc042608f1749e9e'>HDD-2 Script</h3>
+
+<pre id='temp:C:ccM44d7b329ea644c9ab895a19b5'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME_HOUSE\HDD-2<br>REM SECOND HDD<br>REM G:\<br><br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\ANIMATED Movies A-L" "G:\ANIMATED Movies A-L"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\ANIMATED Movies M-Z" "G:\ANIMATED Movies M-Z"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\ANIMATED Sequels" "G:\ANIMATED Sequels"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\ANIMATED Series" "G:\ANIMATED Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\AWARD WINNING Movies" "G:\AWARD WINNING Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\CHRISTMAS Movies" "G:\CHRISTMAS Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\CLASSIC Movies" "G:\CLASSIC Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\CLASSIC Series" "G:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\COMEDY and DRAMATIC Series" "G:\COMEDY and DRAMATIC Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\COMEDY Movies A-M" "G:\COMEDY Movies A-M"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\COMEDY Movies N-Z" "G:\COMEDY Movies N-Z"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\DOCU-MOVIES" "G:\DOCU-MOVIES"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\DOCU-SERIES" "G:\DOCU-SERIES"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\FANTASY Movies" "G:\FANTASY Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\FANTASY Series" "G:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\FOREIGN Movies" "G:\FOREIGN Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\HORROR Movies" "G:\HORROR Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\MUSICALS" "G:\MUSICALS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\REALITY Movies" "G:\REALITY Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\REALITY Series" "G:\REALITY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\RELIGIOUS" "G:\RELIGIOUS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\SCI-FI Movies" "G:\SCI-FI Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\SCI-FI Series" "G:\SCI-FI Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\SPY and Kick Ass Movies" "G:\SPY and Kick Ass Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\STAND-UP Comedy" "G:\STAND-UP Comedy"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\SUPER HERO Movies" "G:\SUPER HERO Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\SUPER-HERO Series" "G:\SUPER-HERO Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\WESTERN Movies" "G:\WESTERN Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-2\WESTERN Series" "G:\WESTERN Series"</pre>
+
+<h3 id='temp:C:ccMe2d9e47d2ad042c383193ba07'>HDD-3 Script</h3>
+
+<pre id='temp:C:ccMdf39ca08bb7a47fc805f77911'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME_HOUSE\HDD-3<br>REM THIRD HDD<br>REM H:\<br><br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\ANIMATED Adult Series" "H:\ANIMATED Adult Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\ANIMATED Movies A-L" "H:\ANIMATED Movies A-L"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\ANIMATED Movies M-Z" "H:\ANIMATED Movies M-Z"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\ANIMATED Series" "H:\ANIMATED Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\ANIMATED Sequels" "H:\ANIMATED Sequels"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\ANIMATED Shorts" "H:\ANIMATED Shorts"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\AUDIOBOOKS" "H:\AUDIOBOOKS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\AWARD WINNING Movies" "H:\AWARD WINNING Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\CLASSIC Movies" "H:\CLASSIC Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\CLASSIC Series" "H:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\COMEDY and DRAMATIC Series" "H:\COMEDY and DRAMATIC Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\COMEDY Movies A-M" "H:\COMEDY Movies A-M"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\COMEDY Movies N-Z" "H:\COMEDY Movies N-Z"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\DOCU-MOVIES" "H:\DOCU-MOVIES"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\DOCU-SERIES" "H:\DOCU-SERIES"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\FANTASY Movies" "H:\FANTASY Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\FANTASY Series" "H:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\FOREIGN Movies" "H:\FOREIGN Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\GREAT COURSES" "H:\GREAT COURSES"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\HORROR Movies" "H:\HORROR Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\MUSICALS" "H:\MUSICALS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\REALITY Movies" "H:\REALITY Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\REALITY Series" "H:\REALITY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\RELIGIOUS" "H:\RELIGIOUS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\SCI-FI Movies" "H:\SCI-FI Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\SCI-FI Series" "H:\SCI-FI Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\SPY and Kick Ass Movies" "H:\SPY and Kick Ass Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\STAND-UP Comedy" "H:\STAND-UP Comedy"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\SUPER HERO Movies" "H:\SUPER HERO Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\SUPER-HERO Series" "H:\SUPER-HERO Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\Veggie Tales" "H:\Veggie Tales"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\WESTERN Movies" "H:\WESTERN Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\WESTERN Series" "H:\WESTERN Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-3\YouTube Videos" "H:\YouTube Videos"</pre>
+
+<h3 id='temp:C:ccMb3d5a8e28ee14d9da53a353ac'>HDD-4 Script</h3>
+
+<pre id='temp:C:ccM1538cd4066dd4cde9f1cb2559'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME_HOUSE\HDD-4<br>REM FOURTH HDD<br>REM I:\<br><br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\ANIMATED Adult Movies" "I:\ANIMATED Adult Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\ANIMATED Adult Series" "I:\ANIMATED Adult Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\ANIMATED Movies A-L" "I:\ANIMATED Movies A-L"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\ANIMATED Movies M-Z" "I:\ANIMATED Movies M-Z"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\ANIMATED Series" "I:\ANIMATED Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\Award Winning Movies" "I:\Award Winning Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\CLASSIC Movies" "I:\CLASSIC Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\CLASSIC Series" "I:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\COMEDY and DRAMATIC Series" "I:\COMEDY and DRAMATIC Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\COMEDY Movies A-M" "I:\COMEDY Movies A-M"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\COMEDY Movies N-Z" "I:\COMEDY Movies N-Z"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\DOCU-MOVIES" "I:\DOCU-MOVIES"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\DOCU-SERIES" "I:\DOCU-SERIES"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\FANTASY Movies" "I:\FANTASY Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\FANTASY Series" "I:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\FOREIGN Movies" "I:\FOREIGN Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\HORROR Movies" "I:\HORROR Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\MUSICALS" "I:\MUSICALS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\REALITY Movies" "I:\REALITY Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\REALITY Series" "I:\REALITY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\RELIGIOUS" "I:\RELIGIOUS"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\SCI-FI Movies" "I:\SCI-FI Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\SCI-FI Series" "I:\SCI-FI Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\SPY and Kick Ass Movies" "I:\SPY and Kick Ass Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\SUPER HERO Movies" "I:\SUPER HERO Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\SUPER-HERO Series" "I:\SUPER-HERO Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\WESTERN Movies" "I:\WESTERN Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-4\WESTERN Series" "I:\WESTERN Series"<br></pre>
+
+<h3 id='temp:C:ccM2bb3680c36e84d2fb13990889'>HDD-5 Script</h3>
+
+<pre id='temp:C:ccMeec29905af104367939132fe2'>@Echo Off<br>REM Link to C:\JELLYFIN_HOME_HOUSE\HDD-5<br>REM FIFTH HDD<br>REM J:\<br><br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-5\Award Winning Movies" "J:\Award Winning Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-5\CLASSIC Series" "J:\CLASSIC Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-5\FANTASY Series" "J:\FANTASY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-5\REALITY Series" "J:\REALITY Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-5\SCI-FI Series" "J:\SCI-FI Series"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-5\SUPER HERO Movies" "J:\SUPER HERO Movies"<br>mklink /j "C:\JELLYFIN_HOME_HOUSE\HDD-5\SUPER-HERO Series" "J:\SUPER-HERO Series"<br></pre>
+
+</body></html>

@@ -1,0 +1,588 @@
+<!doctype html>
+<html><head><title>French Toast Casserole</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:HQO47b94c6c51554550855f357ba'>French Toast Casserole</h1>
+
+<h2 id='temp:C:HQO79aa32ef0e4749e3b3b924e94'>Ingredients</h2>
+
+<div data-section-style='5' class="" style=""><ul id='temp:C:HQOb38654f410ab47698f1f08ae7'><li id='temp:C:HQOd2850cecbe8043c4ac655c5c1' class='parent' value='1'>1 Loaf Sourdough (24-oz) Bread, 
+
+<br/></li><ul><li id='temp:C:HQObaf13bbabd614c0cbb298bb83' class=''>Cut into 1-inch Cubes
+
+<br/></li></ul><li id='temp:C:HQO44471605021c4d4dab5e5ab4f' class=''>8 Eggs 
+
+<br/></li><li id='temp:C:HQOc41f44861d9342b0938ad09ce' class=''>2 Cups Milk
+
+<br/></li><li id='temp:C:HQO85c54aaede224d9e94aacb88c' class=''>1/2 Cup Heavy Cream
+
+<br/></li><li id='temp:C:HQOf3db1e3d968c49c0b8a5ec18b' class=''>1 Tblspoon Vanilla
+
+<br/></li><li id='temp:C:HQO97206aed90b442c393cae17d1' class=''>1/2 Cup Sugar
+
+<br/></li></ul></div><div data-section-style='5' class="" style=""><ul id='temp:C:HQO0bfb05144a2c4aa1b049ba284'><li id='temp:C:HQO4407a60ade4442d9a733cfc64' class='' value='1'>1/2 Cup Flour
+
+<br/></li><li id='temp:C:HQOb23e30ce861f4f4bbdcb48d93' class=''>1/2 Cup Brown Sugar
+
+<br/></li><li id='temp:C:HQO010ed46cded54f94bc288e266' class=''>1 Teaspoon Cinnamon
+
+<br/></li><li id='temp:C:HQO944e9916acae456c9d507b8f7' class=''>1 Teaspoon Salt
+
+<br/></li><li id='temp:C:HQO6fdd2e1692b34bb6b8052f831' class=''>1/2 Cup Butter
+
+<br/></li></ul></div><h2 id='temp:C:HQOf18fd5ef10504d75bf9734f6b'>Directions</h2>
+
+<div class="" data-section-style='6' style=""><ul id='temp:C:HQO564087e2db1c490e906eae04d'><li id='temp:C:HQOccd79f31ff14404198b395475' class='' value='1'><b>BREAD.<b> </b></b>Cut bread into 1-inch cubes and scatter evenly in a greased 9-x-13-inch baking dish.
+
+<br/></li><li id='temp:C:HQO4ebea8e8c2404fb2ba05c1c7a' class=''><b>EGG MIXTURE.<b> </b></b>In a medium bowl, whisk eggs, milk, heavy cream, vanilla, and sugar together, then pour evenly over the bread.
+
+<br/></li><li id='temp:C:HQOcf1123182cd944509b59589fe' class=''><b>CHILL.<b> </b></b>Cover the dish with plastic wrap and refrigerate for at least 4 hours, or overnight.
+
+<br/></li><li id='temp:C:HQO8cde63926c0645b3bcdd752b1' class=''><b>TOPPING.<b> </b></b>Mix flour, brown sugar, cinnamon, and salt in a medium bowl. Cut butter into this mixture until crumbly. Place the topping in a small resealable plastic bag and refrigerate overnight as well.
+
+<br/></li><li id='temp:C:HQO67d7c9ffe6e84d5db84e13f8d' class=''><b>BAKE.<b> </b></b>When ready to bake, preheat the oven to 350°F. Unwrap the baking dish and sprinkle the topping evenly over the bread. Bake, uncovered, for 45–60 minutes, depending on how soft you like it.
+
+<br/></li><li id='temp:C:HQOa0cee6ca8fd94b69ba0bcc780' class=''><b>STORE.</b> If you have any leftover baked French toast casserole, cover the pan with plastic or divide it into individual airtight containers. Keep it in the refrigerator for 3-4 days. Reheat in the microwave.
+
+<br/></li></ul></div><br/>
+
+<h2 id='temp:C:HQOf440b6df92ad41d18e8ab2062'>NOTES:</h2>
+
+<h2 id='temp:C:HQO424cacd8dbfe4aa490da5b0c8'>I.  French Toast Bake Recipe Tips</h2>
+
+This baked French toast casserole should be soft on the bottom and crisp on the top.<br/>
+
+<b>Too soggy.</b> If your casserole comes out too soggy try some of these tips:<br/>
+
+<div data-section-style='5' class="" style=""><ul id='temp:C:HQObfbdb449475c463c9e1f38275'><li id='temp:C:HQO06707998b65640fd8f419f9ff' class='' value='1'><i>Soak the bread in a separate bowl.</i> If there’s too much egg in the pan it may be left a little soggy. One way around this is to store your bread mixture overnight in a bowl. In the morning, transfer the bread to the baking dish leaving behind the extra liquid.
+
+<br/></li><li id='temp:C:HQO54e64dc4ab5f4528b796dae59' class=''><i>Not soaking the bread long enough.<i> </i></i>You want the egg mixture to seep deep into the bread for a soft custardy center. If the mixture doesn’t have time to soak into the bread it may end up creating a soggy mess.
+
+<br/></li></ul></div><h2 id='temp:C:HQO606109f418b94690bf2aa80a7'>II.  Variations</h2>
+
+<h3 id='temp:C:HQO292fa73990f14d7e997fea88a'>Change up your French toast casserole recipe with these delicious twists:</h3>
+
+<div data-section-style='5' class="" style=""><ul id='temp:C:HQOac352ae53ebc4400bbcfd4f80'><li id='temp:C:HQOdbb6c04dea204c429e8f381df' class='' value='1'><i><b>For a more savory casserole:</b></i> ham and cheese, chorizo, green chiles, sausage, or crumbled bacon.
+
+<br/></li><li id='temp:C:HQO61c28624eefd4a02b5765d1f1' class=''><i><b>For a sweet casserole:</b></i> thinly sliced apple, orange zest, sliced apricots, sliced pineapple, blueberries, raspberries, and chopped pecans.
+
+<br/></li><li id='temp:C:HQO758ed83737cb47e28ce6e8774' class=''>You can also swap ingredients, like milk for almond milk, cinnamon for nutmeg and more!
+
+<br/></li></ul></div><br/>
+
+<h2 id='temp:C:HQO49733b11bc4943c588fee6b2c'>III.  How TO Store French Toast Casserole</h2>
+
+<div data-section-style='5' class="" style=""><ul id='temp:C:HQOc522f1c5087c40889a488b36a'><li id='temp:C:HQOae076e479911427da14e9a860' class='parent' value='1'><b>FREEZE. </b>Freeze this easy French toast casserole before or after baking. Wrap the dish with plastic wrap then foil and freeze for up to 2 months.
+
+<br/></li><ul><li id='temp:C:HQO2dfd534a76944bd3b6f4f63bc' class=''>When you’re ready to eat, thaw overnight in the fridge, remove all the wrapping, and bake.
+
+<br/></li><li id='temp:C:HQO9cb5921ab6ce4bef93d36f6b4' class=''>If it has been prebaked, cook it at 350°F for 20 minutes. If it has not been pre-baked, cook according to the recipe directions.
+
+<br/></li></ul><li id='temp:C:HQOcc83b05e564f4ea6864fed6df' class=''><b>STORE.</b> If you have any leftover baked French toast casserole, cover the pan with plastic or divide it into individual airtight containers. Keep it in the refrigerator for 3-4 days. Reheat in the microwave.
+
+<br/></li></ul></div><br/>
+
+Source:  <a href="https://lilluna.com/french-toast-bake/">https://lilluna.com/french-toast-bake/</a><br/>
+
+<i>Recipe from<i> </i><a href="https://mormonmavens.blogspot.com/2011/11/baked-french-toast.html"><i>Mormon Mavens in the Kitchen</i></a></i><br/>
+
+</body></html>

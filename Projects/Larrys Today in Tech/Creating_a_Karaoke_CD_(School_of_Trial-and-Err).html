@@ -1,0 +1,618 @@
+<!doctype html>
+<html><head><title>Creating a Karaoke CD (School of Trial&amp;Err)</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+</style></head><body><h1 id='fGGACALyJrl'>Creating a Karaoke CD (School of Trial&amp;Err)</h1>
+
+<h2 id='fGGACAnTl1I'>Software:</h2>
+
+<div data-section-style='6' style="" class=""><ul id='fGGACATP54Q'><li id='fGGACAstvSH' class='' value='1'>Karaoke Builder Studio v3.0.300 (to sync the words with the musci)
+
+<br/></li><li id='fGGACAWbylQ' class=''>Power CD+G Burner (to burn the Karaoke CD)
+
+<br/></li><li id='fGGACAOEm5H' class=''>Audacity (to change the Sample Rate (44100) and the Bit Rate (16-bit) and save as WAV)
+
+<br/></li><li id='fGGACAWXSPc' class=''>PotPlayer ((64-bit) to download MP4 in Windows TEMP directory)
+
+<br/></li><li id='fGGACA4KWag' class=''>FFmpeg (To convert MP4 into MP3)
+
+<br/></li></ul></div><h2 id='fGGACAUo3jt'>Hardware:</h2>
+
+<div data-section-style='6' style="" class=""><ul id='fGGACARZW03'><li id='fGGACAScK5T' class='' value='1'>A CD+G Capable Burner:  See notes below at bottom.
+
+<br/></li></ul></div><h2 id='fGGACAxR99t'>My Steps-Prep:</h2>
+
+<div data-section-style='6' style="" class=""><ul id='fGGACAooQUR'><li id='fGGACAXOlZS' class='' value='1'>Download the backing track for the Karaoke using PotPlayer and YouTube.  
+
+<br/></li><li id='fGGACAbjQEd' class=''>Change Name to SONG.mp4 extension.
+
+<br/></li><li id='fGGACA4O24V' class=''>Extract SONG.wav from SONG.mp4 using FFmpeg, or record directly to Audacity.
+
+<br/></li><li id='fGGACApknwT' class=''><b>Edit SONG.wav with Audacity.  Resample the Song to 16-bit, Stereo, 41000 bit rate, both on the <u>song </u></b><b>and the <u>project</u> bit rate (located in a box at the bottom left).</b>
+
+<br/></li><li id='fGGACARPiCi' class=''>(IMPORTANT NOTE:  If you try to burn your disk onto CD without 16-Bit Stereo 41000 bit rate an error will occur:  Invalid audio format in Project file.  Most of the time this is a problem I have in Audacity not setting the Project Rate in the bottom left box.)
+
+<br/></li><li id='fGGACAKAwDv' class=''>(IMPORTANT NOTE:  Resampling does not change the pitch IF you use MENU: Tracks/Resample.)
+
+<br/></li><li id='fGGACAF4aqo' class=''>Download the lyrics for the Karaoke.  Save as SONG.txt
+
+<br/></li><li id='fGGACAEEBNk' class=''>EDIT SONG.txt Add Spaces to text every 4-6 lines, depends on FONT.
+
+<br/></li><li id='fGGACAE75bR' class=''>Group Versus and Chorus and shorten long lyric lines.  (4-6 max)
+
+<br/></li><li id='fGGACAY3d5l' class=''>Add Song and Artist Info at top of text. 
+
+<br/></li></ul></div><h2 id='fGGACA1kCun'>Steps-Karaoke:</h2>
+
+<div data-section-style='6' style="" class=""><ul id='fGGACAqv5Fe'><li id='fGGACA6Q8fp' class='' value='1'>Open project in Karaoke Builder Studio.
+
+<br/></li><li id='fGGACAFZ1Xe' class=''>Change Font, Color, Text Sweeping
+
+<br/></li><li id='fGGACAStYlC' class=''>Import the SONG.txt
+
+<br/></li><li id='fGGACAbKhN0' class=''>Import the SONG.wav
+
+<br/></li><li id='fGGACA4UpvC' class=''>Rehearse and then Sync Lyric with Song as close as possible using the space key.
+
+<br/></li><li id='fGGACA29ITG' class=''>Click EDIT ICON to EDIT TAB 1: Lyric Sweeping:  Lyric WORD DURATION
+
+<br/></li><li id='fGGACAKVVuR' class=''>EDIT TAB 2: Display/Remove:  Lyric LINE VISUAL DURATION
+
+<br/></li><li id='fGGACAX4Kqs' class=''>Save and click OK
+
+<br/></li><li id='fGGACA2ASGo' class=''>BUILD ICON and create SONG.cdg (the Graphic).  TEST (Note Wave and SONG must have same name)
+
+<br/></li><li id='fGGACAzyWDj' class=''>TOOLS ICON to create AVI for YouTube (NOTE: Try each CODEC, I recommend XVID)
+
+<br/></li></ul></div><h2 id='fGGACAe9PaD'>Burning the CD, Uploading the AVI, Sharing</h2>
+
+<div data-section-style='6' style="" class=""><ul id='fGGACADqo7d'><li id='fGGACAIn0Ly' class='' value='1'>Power CD+G Burner to open CDG and burn to CD.
+
+<br/></li><li id='fGGACANCXYA' class=''>Upload AVI to YouTube Account
+
+<br/></li><li id='fGGACAi4o2P' class=''>Share on Facebook
+
+<br/></li></ul></div><h1 id='fGGACACX4uG'>Note: CDG Compatible Burners</h1>
+
+Source:  <a href="http://www.karaoke-software.net/karaoke-disc-burners.html">http://www.karaoke-software.net/karaoke-disc-burners.html</a><br/>
+
+<br/>
+
+For a burner to be "CDG compatible" it needs to be able to read and write subchannel data. This is information that is written to the usually unused subchannel of a sound track. <br/>
+
+<br/>
+
+In a CDG song track this would be the graphic information in the form of lyrics and images.<br/>
+
+<br/>
+
+Not long ago you would be told that you MUST have a Plextor or some other specific make and model of burner in order to burn a CDG disc. While you still need such a drive to be able to play CDG discs with some computer programs you no longer need one to make copies of CDG discs or to rip song tracks from them.<br/>
+
+<br/>
+
+Modern software applications like <a href="http://www.karaoke-tutor.com/software/microstudio">Microstudio</a> and <a href="http://www.karaoke-software.net/power-cdg-burner.html">Power CD+G Burner</a> work with <b>most</b> modern burners. An easy way to find out if your burner is one of these is to download a <a href="http://www.karaoke-software.net/process/download-power-cdg-burner">trial copy of Power CD+G Burner</a> and see if it works.<br/>
+
+<br/>
+
+If you find that your burner will not read and write CD+G discs, here are some <a href="http://www.karaoke-software.net/karaoke-disc-burners.html">economically priced burners</a> that will:<br/>
+
+<br/>
+
+One of the ones listed under the economically priced burners:<br/>
+
+<h2 id='fGGACA3dHDl'>Samsung USB 2.0 Ultra Portable External DVD Writer Model SE-218CB/RSBS:  $54.99 as of <control data-remapped="true" id="fGGACAcuUIy">03/17/19</control></h2>
+
+<br/>
+
+<br/>
+
+</body></html>

@@ -1,0 +1,586 @@
+<!doctype html>
+<html><head><title>Orange Jell-O Gelatin Pretzel Salad</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:FUL539dfcdabe7d41a48e755ae31'>Orange Jell-O Gelatin Pretzel Salad</h1>
+
+<h2 id='temp:C:FUL9751299da1b14294897802061'>Ingredients</h2>
+
+<div style="" data-section-style='5' class=""><ul id='temp:C:FUL1b95c6e0e9f34ed68930fe447'><li id='temp:C:FUL75f866f534e0415f9de6f88bd' class='' value='1'>3/4 cup butter, melted
+
+<br/></li><li id='temp:C:FUL1cca825474414f17a0ac48f88' class=''>1 tablespoon plus 3/4 cup sugar, divided
+
+<br/></li><li id='temp:C:FUL57c4e0d53b4742028f1887d71' class=''>2 cups finely crushed pretzels
+
+<br/></li><li id='temp:C:FULe0cdfe6e9216492388dc2d101' class=''>2 cups boiling water
+
+<br/></li><li id='temp:C:FUL4347929955024b699aabde506' class=''>2 packages (3 ounces each) orange gelatin
+
+<br/></li><li id='temp:C:FUL260826749d574b7394cc8ed1b' class=''>2 cans (8 ounces each) crushed pineapple, drained
+
+<br/></li><li id='temp:C:FUL8d7993004ff14d728c1c509cd' class=''>1 can (11 ounces) mandarin oranges, drained
+
+<br/></li><li id='temp:C:FUL6a55f9056e794dedaffa228dc' class=''>1 package (8 ounces) cream cheese, softened
+
+<br/></li><li id='temp:C:FULf84fbd6d253444679e68594ea' class=''>2 cups whipped topping
+
+<br/></li><li id='temp:C:FUL9800141a84e4443787118269b' class=''>Optional: Additional whipped topping and mandarin oranges
+
+<br/></li></ul></div><h2 id='temp:C:FULda7f2fb35c4a4dbab6ebda6e3'>Directions</h2>
+
+<h3 id='temp:C:FULa9a5247be5ac4a63beef2cfc4'>Crust</h3>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:FULbb01c58343e44cceb4b22cd44'><li id='temp:C:FUL1c6ad25203a24b7899b348ff8' class='' value='1'><span style="color:#444444" textcolor="#444444">Preheat oven to 350°. </span>
+
+<br/></li><li id='temp:C:FULc59f8e35732b422f9287ff02d' class=''><span style="color:#444444" textcolor="#444444">Mix melted butter and 1 tablespoon sugar; stir in pretzels. </span>
+
+<br/></li><li id='temp:C:FUL5845844c43cc4fb481973e088' class=''><span style="color:#444444" textcolor="#444444">Press onto bottom of an ungreased 13x9-in. baking dish. </span>
+
+<br/></li><li id='temp:C:FUL172d0bdc842245049bff9d5ae' class=''><span style="color:#444444" textcolor="#444444">Bake 10 minutes. Cool completely on a wire rack.</span>
+
+<br/></li></ul></div><h3 id='temp:C:FULa13123924ef8455085bead0e8'>Jell-O Gelitain</h3>
+
+<div data-section-style='6' class="list-numbering-restart-at" style="--indent0: 5"><ul id='temp:C:FULaa5c871b06c4455dac16ab6ba'><li id='temp:C:FUL427e5ec208d94f919fdc20b65' class='' value='1'><span style="color:#444444" textcolor="#444444">In a large bowl, add boiling water to gelatin; stir 2 minutes to completely dissolve. </span>
+
+<br/></li><li id='temp:C:FUL23b21437b8984f7a8be9e0f7b' class=''><span style="color:#444444" textcolor="#444444">Stir in fruit. Refrigerate until partially set, about 30 minutes.</span>
+
+<br/></li><li id='temp:C:FULa5afd4bfb9774a2b9067b4487' class=''><span style="color:#444444" textcolor="#444444">Meanwhile, in a bowl, beat cream cheese and remaining sugar until smooth. </span>
+
+<br/></li><li id='temp:C:FULadda417714944a6e9397a16f0' class=''><span style="color:#444444" textcolor="#444444">Fold in whipped topping. Spread over crust.</span>
+
+<br/></li><li id='temp:C:FUL55ca6e848ab942569623f952e' class=''><span style="color:#444444" textcolor="#444444">Gently spoon gelatin mixture over top. </span>
+
+<br/></li><li id='temp:C:FULe2cc8053082348189670f00ef' class=''><span style="color:#444444" textcolor="#444444">Refrigerate, covered, until firm, 2-4 hours. </span>
+
+<br/></li><li id='temp:C:FUL0a5c8a420265499294a268243' class=''><span style="color:#444444" textcolor="#444444">To serve, cut into squares. </span>
+
+<br/></li><li id='temp:C:FUL4d6e3a3ca66b49a7be41bcf5b' class=''><span style="color:#444444" textcolor="#444444">If desired, top with additional whipped topping and oranges.</span>
+
+<br/></li></ul></div><h3 id='temp:C:FUL40bd35221cad41239d941e4ba'>Editor's Note:<span style="color:#444444" textcolor="#444444"> </span></h3>
+
+<div data-section-style='6' class="" style=""><ul id='temp:C:FUL8f85c54ce6b34831bf5b5f328'><li id='temp:C:FUL79ef186ff7f04cef8144f383a' class='' value='1'><span style="color:#444444" textcolor="#444444">For single-servings, prepare layers as directed. </span>
+
+<br/></li><li id='temp:C:FULada5c06af51442d59ea65bb89' class='parent'><span style="color:#444444" textcolor="#444444">In each of twelve 9-oz. cups or 1/2-pint canning jars, </span>
+
+<br/></li><ul><li id='temp:C:FUL8c89bf1e0f5a4afd938e80151' class=''><span style="color:#444444" textcolor="#444444">layer about 2 Tbsp. pretzel mixture, </span>
+
+<br/></li><li id='temp:C:FULcde2552fd9bc4771be0f8b9f6' class=''><span style="color:#444444" textcolor="#444444">2 Tbsp. cream cheese mixture </span>
+
+<br/></li><li id='temp:C:FULe9af602fc9c748329a6101835' class=''><span style="color:#444444" textcolor="#444444">and 1/3 cup gelatin mixture. </span>
+
+<br/></li></ul><li id='temp:C:FULba5cb6b793a64ce493f8df217' class=''><span style="color:#444444" textcolor="#444444">Refrigerate and top as directed.</span>
+
+<br/></li></ul></div><br/>
+
+Source:<br/>
+
+<a href="https://www.tasteofhome.com/recipes/orange-gelatin-pretzel-salad/">https://www.tasteofhome.com/recipes/orange-gelatin-pretzel-salad/</a><br/>
+
+<br/>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/FULAAAR8Trl/E_1rS3tLHFrOgi1aVHRawQ?a=TJQaXkrdLiHq3Fn5wSftcsTagkn5AN6tLi6pTzQGxyca' id='temp:C:FUL432ba2048a844ab8863b20009' alt="Orange Gelatin Pretzel Jello Salad.jpg"></img></div><br/>
+
+</body></html>

@@ -1,0 +1,564 @@
+<!doctype html>
+<html><head><title>ffmpeg - Add Picture overlay on Video</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:bcB6655b8c451944b1bb3cab9a1f'>ffmpeg - Add Picture overlay on Video</h1>
+
+Source:  <a href="https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg">https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg</a><br/>
+
+<pre id='temp:C:bcB9238d7d752c04c989ee64630d'><span style="color:#0c0d0e" textcolor="#0c0d0e">You can do a simple image overlay using the following syntax:</span></pre>
+
+<h2 id='temp:C:bcB1045201a2ef048018d8fa0e4b'>First Example</h2>
+
+<h2 id='temp:C:bcBe37aaa29fdce443ba78384730'>Overlay a transparent PNG on a video</h2>
+
+<h2 id='temp:C:bcB582d15c53d6e41e1bd1e92648'><span style="color:#243659" textcolor="#243659">If we assume our video and the transparent PNG overlay have the same width and height, just use the following command to overlay our video.</span></h2>
+
+<br/>
+
+<pre id='temp:C:bcB40328d6295394de097c492e52'>ffmpeg -i video.mp4 -i overlay.png \<br>    -filter_complex "[0:v][1:v] overlay=0:0" \<br>    -c:a copy \<br>    output.mp4<br>    <br>ffmpeg -i video.mp4 -i overlay.png -filter_complex "[0:v][1:v] overlay=12:920" -c:a copy output.mp4<br><br></pre>
+
+<span style="color:#243659" textcolor="#243659">Let's explain this command in details :</span><br/>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:bcB4080fdd300834c1280651da8e'><li id='temp:C:bcB12ffff9ce4ec4ceeb040541ec' class='' value='1'><b><i>-i video.mp4</i></b><span style="color:#243659" textcolor="#243659"> </span>is our source video
+
+<br/></li><li id='temp:C:bcB0b5f2d8837ad4101a70cfca00' class=''><b><i>-i overlay.png</i></b><span style="color:#243659" textcolor="#243659"> </span>is our PNG overlay
+
+<br/></li><li id='temp:C:bcBce88454e3c994c4b98824babe' class=''><b><i>-filter_complex "[0:v][1:v] overlay=0:0"<br>•<span style="color:#243659" textcolor="#243659"> </span></i></b>With<span style="color:#243659" textcolor="#243659"> </span><b><i>[0:v][1:v]<span style="color:#243659" textcolor="#243659"> </span></i></b>we are telling to FFMPEG put the input file with index 0 (the video) under the input file with index 1 (the overlay)<br>• With<span style="color:#243659" textcolor="#243659"> </span><b><i>overlay=0:0</i></b><span style="color:#243659" textcolor="#243659"> </span>we are setting the position of our overlay (in this case, top-left corner as our video and overlay have the exact same width/height)
+
+<br/></li><li id='temp:C:bcB29f8f680b1ee45ffb900148d2' class=''><b><i>-c:a copy</i></b><span style="color:#243659" textcolor="#243659"> </span> → we want to re-use the audio from the source file
+
+<br/></li><li id='temp:C:bcBbb30435f64db4b09b9ad77e3f' class=''><b><i>output.mp4</i></b><span style="color:#243659" textcolor="#243659"> </span> is the name of the output file
+
+<br/></li></ul></div><h2 id='temp:C:bcB485a4a8e841d40d0a34b134e6'>Second Example</h2>
+
+<pre id='temp:C:bcB5f08f15990ce42d2b1b03f159'>ffmpeg -i input.mp4 -i image.png \<br>-filter_complex "[0:v][1:v] overlay=25:25:enable='between(t,0,20)'" \<br>-pix_fmt yuv420p -c:a copy \<br>output.mp4</pre>
+
+<code><span style="color:#0c0d0e" textcolor="#0c0d0e">overlay=25:25</span></code><span style="color:#0c0d0e" textcolor="#0c0d0e"> means we want to position the image 25px to the right and 25px down, originating from the top left corner (0:0).</span><br/>
+
+<br/>
+
+<code><span style="color:#0c0d0e" textcolor="#0c0d0e">enable='between(t,0,20)'</span></code><span style="color:#0c0d0e" textcolor="#0c0d0e"> means we want the image to show between second 0 and 20.</span><br/>
+
+<br/>
+
+<code><span style="color:#0c0d0e" textcolor="#0c0d0e">[0:v][1:v]</span></code><span style="color:#0c0d0e" textcolor="#0c0d0e"> means that we want the first video file we import with </span><code><span style="color:#0c0d0e" textcolor="#0c0d0e">-i</span></code><span style="color:#0c0d0e" textcolor="#0c0d0e">, in our case input.mp4 or how ffmpeg sees it, video input file number 0, to be under video input file 1, in our case image.png. </span><code><span style="color:#0c0d0e" textcolor="#0c0d0e">:v</span></code><span style="color:#0c0d0e" textcolor="#0c0d0e"> just means we want the video track from these file sources. </span><code><span style="color:#0c0d0e" textcolor="#0c0d0e">[0:a]</span></code><span style="color:#0c0d0e" textcolor="#0c0d0e"> would mean we want the first imported audio track. Which would also come from input.mp4 but would point to the audio track instead of the video track in the mp4 file.</span><br/>
+
+<br/>
+
+<h2 id='temp:C:bcB82fc4e6f11674636ae2c293a3'>Second</h2>
+
+<pre id='temp:C:bcB31600828f0e04114a4bad6dfc'><span style="color:#0c0d0e" textcolor="#0c0d0e">This is an addition to the excellent answer by PTS and an answer for chovy. If you want to place the overlay at the lower right corner, FFMPEG can calculate that for you very easily.</span></pre>
+
+<span style="color:#0c0d0e" textcolor="#0c0d0e">Use the modified command:</span><br/>
+
+<pre id='temp:C:bcBb7863688b8e640b686276f062'>ffmpeg -i input.mp4 -i image.png \<br>-filter_complex "[0:v][1:v] overlay=W-w:H-h:enable='between(t,0,20)'" \<br>-pix_fmt yuv420p -c:a copy \<br>output.mp4</pre>
+
+<span style="color:#0c0d0e" textcolor="#0c0d0e">The W-w means main video width minus overlay width, and the same for H-h.</span><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

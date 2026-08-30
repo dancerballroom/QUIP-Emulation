@@ -1,0 +1,632 @@
+<!doctype html>
+<html><head><title>Eggplant Parmigiana</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+</style></head><body><h1 id='cZaACAr9opL'>Eggplant Parmigiana</h1>
+
+<h3 id='cZaACAbKqCu'>Ingredients (SAUCE + EGGPLANT)</h3>
+
+<div style="display: flex"><div style="flex: 3 3 0"><div data-section-style='5' class="" style=""><ul id='temp:C:cZa7f29ceb0bc444dc29710b2f0e'><li id='cZaACASrSOl' class='' style='' value='1'><span id='cZaACASrSOl'>1/4 cup extra-virgin olive oil</span>
+
+<br/></li><li id='cZaACAhgoTI' class='' style=''><span id='cZaACAhgoTI'>3 med. yellow onions, peeled, halved, thin slices</span>
+
+<br/></li><li id='cZaACA6HRA3' class='' style=''><span id='cZaACA6HRA3'>6 cloves garlic, peeled and grated</span>
+
+<br/></li><li id='temp:C:cZada812160c5ef4d2c9ae0ea4c3' class='' style=''><span id='temp:C:cZada812160c5ef4d2c9ae0ea4c3'>Kosher salt</span>
+
+<br/></li><li id='cZaACAzQjMy' class='' style=''><span id='cZaACAzQjMy'>2 med. eggplants, 1/2-inch thick rounds (2 1/2 LBS)</span>
+
+<br/></li><li id='cZaACAJNHId' class='' style=''><span id='cZaACAJNHId'>1/2 cup all-purpose flour</span>
+
+<br/></li><li id='cZaACATFBoI' class='' style=''><span id='cZaACATFBoI'>Freshly ground black pepper</span>
+
+<br/></li><li id='cZaACA6yz3W' class='' style=''><span id='cZaACA6yz3W'>5 large eggs</span>
+
+<br/></li><li id='cZaACAhhcPx' class='' style=''><span id='cZaACAhhcPx'>3 tablespoons whole milk</span>
+
+<br/></li><li id='cZaACAQLfFm' class='' style=''><span id='cZaACAQLfFm'>4 cups Italian-style breadcrumbs</span>
+
+<br/></li></ul></div></div><div style="flex: 3 3 0"><p id='cZaACAvx47f'>​</p>
+
+<div data-section-style='5' class="" style=""><ul id='cZaACAxjMqw'><li id='temp:C:cZa9f16ec003a69449d9fab9ddc2' class='' style='' value='1'><span id='temp:C:cZa9f16ec003a69449d9fab9ddc2'>1 tablespoon dried oregano</span>
+
+<br/></li><li id='cZaACAmP2VL' class='' style=''><span id='cZaACAmP2VL'>1 tablespoon crushed red pepper flakes</span>
+
+<br/></li><li id='cZaACAcxYqb' class='' style=''><span id='cZaACAcxYqb'>1 tablespoon granulated sugar</span>
+
+<br/></li><li id='cZaACAYaWor' class='' style=''><span id='cZaACAYaWor'>3 (28-ounce) cans whole plum tomatoes</span>
+
+<br/></li><li id='cZaACAphzTX' class='' style=''><span id='cZaACAphzTX'>1 tablespoon fresh thyme leaves</span>
+
+<br/></li><li id='cZaACAnJ9F0' class='' style=''><span id='cZaACAnJ9F0'>Vegetable oil, about 1 1/2 to 2 cups</span>
+
+<br/></li><li id='cZaACAPm7fD' class='' style=''><span id='cZaACAPm7fD'>1 1/2 pounds mozzarella cheese, thin slices</span>
+
+<br/></li><li id='cZaACAbtEx5' class='' style=''><span id='cZaACAbtEx5'>1/2 cup grated Parmesan</span>
+
+<br/></li><li id='cZaACAT9bsH' class='' style=''><span id='cZaACAT9bsH'>1 pound provolone cheese, grated</span>
+
+<br/></li><li id='cZaACABKdan' class='' style=''><span id='cZaACABKdan'>2 handfuls fresh basil, leaves only, torn</span>
+
+<br/></li></ul></div><p id='temp:C:cZa4cbbbf64ffe34f5aa448fe141'>​</p>
+
+</div></div><h3 id='cZaACAtWzAX'>dIRECTIONS - For the tomato sauce: </h3>
+
+<div style="display: flex"><div style="flex: 3 3 0"><div data-section-style='5' class="" style=""><ul id='temp:C:cZa15d0ff5d502c4b918d7d3545d'><li id='cZaACAQnsSH' class='' style='' value='1'><span id='cZaACAQnsSH'>Large skillet, olive oil over med heat. </span>
+
+<br/></li><li id='cZaACAIPwLP' class='' style=''><span id='cZaACAIPwLP'>Add onion and garlic, season with salt. </span>
+
+<br/></li><li id='temp:C:cZaa1024702f6ab4220b15da7b29' class='' style=''><span id='temp:C:cZaa1024702f6ab4220b15da7b29'>Cook onions til translucent, 3 to 5 minutes. </span>
+
+<br/></li></ul></div></div><div style="flex: 3 3 0"><div data-section-style='5' class="" style=""><ul id='cZaACA8l5UE'><li id='cZaACAJn5G2' class='' style='' value='1'><span id='cZaACAJn5G2'>Add the sugar and the canned tomatoes. </span>
+
+<br/></li><li id='cZaACAgHN4H' class='' style=''><span id='cZaACAgHN4H'>Cook 10 to 15 minutes over medium heat. </span>
+
+<br/></li><li id='cZaACABJP4N' class='' style=''><span id='cZaACABJP4N'>Set aside to cool.</span>
+
+<br/></li></ul></div></div></div><h3 id='temp:C:cZaf6d5192680a1423f92bc41caf'>DIRECTIONS - For the eggplant</h3>
+
+<div style="display: flex"><div style="flex: 3 3 0"><div data-section-style='5' class="" style=""><ul id='temp:C:cZab16d7ebde9c446e68a7ce02e0'><li id='temp:C:cZa798e361ebce04150af23aa76a' class='' style='' value='1'><span id='temp:C:cZa798e361ebce04150af23aa76a'>Eggplant rounds, 1 layer, 2 baking sheets. </span>
+
+<br/></li><li id='temp:C:cZa5b22f06da0d9446a8de22ed9e' class='' style=''><span id='temp:C:cZa5b22f06da0d9446a8de22ed9e'>Sprinkle with salt on both sides 1 hour. </span>
+
+<br/></li><li id='temp:C:cZa18d07a80dd624ca5b5f07434b' class='' style=''><span id='temp:C:cZa18d07a80dd624ca5b5f07434b'>Rinse with cold water and dry.</span>
+
+<br/></li><li id='temp:C:cZa6dbf22c789e44679b02c900f0' class='' style=''><span id='temp:C:cZa6dbf22c789e44679b02c900f0'>Flour in a medium bowl with salt and pepper. </span>
+
+<br/></li><li id='temp:C:cZaa442de81c7224367a45065859' class='' style=''><span id='temp:C:cZaa442de81c7224367a45065859'>2nd bowl, whisk the eggs and milk, salt+pepper. </span>
+
+<br/></li><li id='temp:C:cZa499b725bf8be4193a27caac9d' class='' style=''><span id='temp:C:cZa499b725bf8be4193a27caac9d'>3rd bowl, combine breadcrumbs, oregano, thyme. </span>
+
+<br/></li><li id='temp:C:cZa94e2392f585d4ff289980e77c' class='' style=''><span id='temp:C:cZa94e2392f585d4ff289980e77c'>Dip each eggplant slice in flour, shake off excess. </span>
+
+<br/></li><li id='temp:C:cZab6b1fc0a62c044bb8b9ee2ded' class='' style=''><span id='temp:C:cZab6b1fc0a62c044bb8b9ee2ded'>Dip in the egg mixture in the breadcrumbs. </span>
+
+<br/></li></ul></div></div><div style="flex: 3 3 0"><div data-section-style='5' class="" style=""><ul id='temp:C:cZa10bf18e9a7e1498eb614f26ec'><li id='temp:C:cZa0d2160c3eaf34131afef293a6' class='' style='' value='1'><span id='temp:C:cZa0d2160c3eaf34131afef293a6'>Coat both sides of eggplant slice. </span>
+
+<br/></li><li id='temp:C:cZaf6f25548fa084e01abeffdb2c' class='' style=''><span id='temp:C:cZaf6f25548fa084e01abeffdb2c'>Single layers on the baking sheets.</span>
+
+<br/></li><li id='temp:C:cZa8d369573ce704b4eb2465072b' class='' style=''><span id='temp:C:cZa8d369573ce704b4eb2465072b'>Pour 1/2-inch oil bottom Large Skillet. </span>
+
+<br/></li><li id='temp:C:cZa2ad7fdaccceb4a6dbb6a8f5d0' class='' style=''><span id='temp:C:cZa2ad7fdaccceb4a6dbb6a8f5d0'>Heat the oil until it begins to smoke lightly</span>
+
+<br/></li><li id='temp:C:cZa7ad3c6cfb19542b8ad3765a48' class='' style=''><span id='temp:C:cZa7ad3c6cfb19542b8ad3765a48'>Kitchen tongs, single layer eggplant to the pan. </span>
+
+<br/></li><li id='temp:C:cZae2841bd33e9b428e872d8c65a' class='' style=''><span id='temp:C:cZae2841bd33e9b428e872d8c65a'>Cook 2 min. each side until golden brown. </span>
+
+<br/></li><li id='temp:C:cZa7bc234fd608447bc8b8a430d0' class='' style=''><span id='temp:C:cZa7bc234fd608447bc8b8a430d0'>Remove from the oil, Transfer to a baking sheet. </span>
+
+<br/></li><li id='temp:C:cZa1530eb11ee5f4bfc9a6364c51' class='' style=''><span id='temp:C:cZa1530eb11ee5f4bfc9a6364c51'>Preheat oven to 350 degrees F.</span>
+
+<br/></li><li id='temp:C:cZabfe104fdf86a4ba895f921ae4' class='' style=''><span id='temp:C:cZabfe104fdf86a4ba895f921ae4'>Bake 350 degrees for </span>
+
+<br/></li></ul></div></div></div><h3 id='temp:C:cZa3be5a1922df14d5092a5d05de'>To assemble: </h3>
+
+<div style="display: flex"><div style="flex: 3 3 0"><div data-section-style='5' class="" style=""><ul id='temp:C:cZa494053535f8943c48b76e2a2e'><li id='temp:C:cZa10616294507b49798955ecfc3' class='' style='' value='1'><span id='temp:C:cZa10616294507b49798955ecfc3'>In a 9 by 13-inch baking dish, 1/4 tomato sauce. </span>
+
+<br/></li><li id='temp:C:cZa0ed0079cbd294309942d333ae' class='' style=''><span id='temp:C:cZa0ed0079cbd294309942d333ae'>Top with a layer of the fried eggplant</span>
+
+<br/></li><li id='temp:C:cZaac0881ebc68140fb9413e20e0' class='' style=''><span id='temp:C:cZaac0881ebc68140fb9413e20e0'>Top with about 1/3 of the mozzarella slices. </span>
+
+<br/></li><li id='temp:C:cZa47ee0f9e8fc94e3e9f4304843' class='' style=''><span id='temp:C:cZa47ee0f9e8fc94e3e9f4304843'>Sprinkle 1/4 Parmesan and provolone cheeses. </span>
+
+<br/></li><li id='temp:C:cZadd05478d6dc349ef9e1630ff9' class='' style=''><span id='temp:C:cZadd05478d6dc349ef9e1630ff9'>Top with a layer of torn basil leaves.</span>
+
+<br/></li></ul></div></div><div style="flex: 3 3 0"><div data-section-style='5' class="" style=""><ul id='temp:C:cZae0578ca42a064e99990ae4f1c'><li id='temp:C:cZac4481e4159834e709a93f7757' class='' style='' value='1'><span id='temp:C:cZac4481e4159834e709a93f7757'>Spoon sauce repeat layering 2 times = 3 layers. </span>
+
+<br/></li><li id='temp:C:cZa41dfbbf769534da1b6c6e1189' class='' style=''><span id='temp:C:cZa41dfbbf769534da1b6c6e1189'>End with the remaining mozzarella. </span>
+
+<br/></li><li id='temp:C:cZafa5c7d34009f4c2cb2f47ff58' class='' style=''><span id='temp:C:cZafa5c7d34009f4c2cb2f47ff58'>Carefully press the layers down firmly . </span>
+
+<br/></li><li id='temp:C:cZa5e83537b552b46ba8998c1194' class='' style=''><span id='temp:C:cZa5e83537b552b46ba8998c1194'>Cook until the cheese is melted 35 to 40 min. </span>
+
+<br/></li><li id='temp:C:cZac2a16879e01443ae972dc139e' class='' style=''><span id='temp:C:cZac2a16879e01443ae972dc139e'>Extra browning, dish under the broiler @1 minute.</span>
+
+<br/></li></ul></div></div></div><p id='cZaACA6neSf' class='line'>Source:  <a href="http://www.foodnetwork.com/recipes/alexandra-guarnaschelli/eggplant-parmigiana-recipe-2012703">http://www.foodnetwork.com/recipes/alexandra-guarnaschelli/eggplant-parmigiana-recipe-2012703</a></p>
+
+</body></html>

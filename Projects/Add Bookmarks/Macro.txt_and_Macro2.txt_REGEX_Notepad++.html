@@ -1,0 +1,564 @@
+<!doctype html>
+<html><head><title>Macro.txt and Macro2.txt REGEX Notepad++</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:cRe5aa808ddb8904053a52eee1e4'>Macro.txt and Macro2.txt REGEX Notepad++</h1>
+
+<b>Purpose</b>:  Take A YouTube Downloaded MP4 Video, along with its Subtitle and Indexed Chapters, often times located in the more... section of the YouTube Video, and turn it into a watchable Video for use on TV, Cell Phone, Tablet, etc. through Whatever Home Server (JellyFin, Emby, Plex, or Simply using an App like “Music Folder“, ”Musicolet“ or Application like ”VLC Media Player”, “PotPlayer”, etc. etc.)<br/>
+
+<br/>
+
+<b>GIVEN</b>:  Prepping TimeSig Links formatting to Merge TimeSigs with MP4 (Bookmark Project)<br/>
+
+<h3 id='temp:C:cRe4065b52beec5441dabd5936b9'>B4:</h3>
+
+<pre id='temp:C:cRe53e19cea45f943c1a42353068'>1.  00:00 Intro<br>2.  00:35 Murphys Law<br>3.  02:40 Hanlons Razor<br>4.  04:44 The Peter Principle<br>5.  06:47 The Dilbert Principle<br>6.  08:58 Pareto Principle (The 80/20 Rule)<br>7.  11:00 Parkinsons Law<br>8.  13:10 Dunning Kruger Effect<br>9.  15:04 Cunninghams Law<br>10. 17:06 Goodharts Law</pre>
+
+<h3 id='temp:C:cRedaa3bc2766f245ad91392cd26'>After Macro.txt:</h3>
+
+<pre id='temp:C:cRe0e4977abb8314bef968a8ca70'>1.  00:00:00.000 Intro<br>2.  00:00:35.000 Murphys Law<br>3.  00:02:40.000 Hanlons Razor<br>4.  00:04:44.000 The Peter Principle<br>5.  00:06:47.000 The Dilbert Principle<br>6.  00:08:58.000 Pareto Principle The 80 20 Rule<br>7.  00:11:00.000 Parkinsons Law<br>8.  00:13:10.000 Dunning Kruger Effect<br>9.  00:15:04.000 Cunninghams Law<br>10. 00:17:06.000 Goodharts Law</pre>
+
+<h3 id='temp:C:cReae3fb063627f4d9d9b1a9af9f'>After TimeSig2MilliSec.bat</h3>
+
+<pre id='temp:C:cRe87b3f05981ca48408f0880b56'>1.  1000 Intro<br>2.  35000 Murphys Law<br>3.  160000 Hanlons Razor<br>4.  284000 The Peter Principle<br>5.  407000 The Dilbert Principle<br>6.  538000 Pareto Principle The 80 20 Rule<br>7.  660000 Parkinsons Law<br>8.  790000 Dunning Kruger Effect<br>9.  904000 Cunninghams Law<br>10. 1026000 Goodharts Law</pre>
+
+<h3 id='temp:C:cRecf8c047c7a28470391cd66612'>After Macro2.txt - Part 1</h3>
+
+<pre id='temp:C:cRed5a5be1f4de14f2cb8a587646'>1;1000;Intro<br>2;35000;Murphys Law<br>3;160000;Hanlons Razor<br>4;284000;The Peter Principle<br>5;407000;The Dilbert Principle<br>6;538000;Pareto Principle The 80 20 Rule<br>7;660000;Parkinsons Law<br>8;790000;Dunning Kruger Effect<br>9;904000;Cunninghams Law<br>10;1026000;Goodharts Law</pre>
+
+<h3 id='temp:C:cRe760763b6956b43428cdc5a9bc'>After Macro2.txt - Part 2</h3>
+
+<pre id='temp:C:cRee9b2eb887b754c89a34cba9b8'>1;1000;1000c;Intro<br>2;35000;35000c;Murphys Law<br>3;160000;160000c;Hanlons Razor<br>4;284000;284000c;The Peter Principle<br>5;407000;407000c;The Dilbert Principle<br>6;538000;538000c;Pareto Principle The 80 20 Rule<br>7;660000;660000c;Parkinsons Law<br>8;790000;790000c;Dunning Kruger Effect<br>9;904000;904000c;Cunninghams Law<br>10;1026000;1026000c;Goodharts Law</pre>
+
+<h3 id='temp:C:cRed2df8896dbed412da33ff8c5a'>After Macro2.txt - Part 3 (Save as CSV)</h3>
+
+<pre id='temp:C:cRecb66c367b05748cba677f7e1b'>Number;Start time in milliseconds;End time in milliseconds;Text<br>1;1000;1999;Intro<br>2;35000;35999;Murphys Law<br>3;160000;160999;Hanlons Razor<br>4;284000;284999;The Peter Principle<br>5;407000;407999;The Dilbert Principle<br>6;538000;538999;Pareto Principle The 80 20 Rule<br>7;660000;660999;Parkinsons Law<br>8;790000;790999;Dunning Kruger Effect<br>9;904000;904999;Cunninghams Law<br>10;1026000;1026999;Goodharts Law</pre>
+
+<h2 id='temp:C:cRef1d1d2f079014c0c933446040'>Macro.txt</h2>
+
+<pre id='temp:C:cRe5ceadfae597a4892b705a3729'>CASE Based on No Milliseconds:  <br>1. N.  M:SS TEXT<br>2. N.  MM:SS TEXT<br>3. N. MM:SS TEXT<br>4. N. H:MM:SS TEXT<br>5. N.HH:MM:SS TEXT<br><br>NEXT:<br>1. Copy TIME BLOCK HH:MM:SS.ccc<br>2. Paste into Run of V2_TimeSig2MilliSec.bat<br>3. Open RESULT.txt, Copy Block back into MP4.csv Block<br>4. Continued with Macro2.txt<br><br>1. N  M:SS Time, End in Milliseconds<br>MODE: REGEX<br>FIND: (\.  )([0-9]):([0-9].) ([A-Za-z])<br>REPL: \100:0\2:\3\.000 \4<br><br>2.  N.  MM:SS Time, End in Milliseconds<br>MODE: REGEX<br>FIND: (\.  )([0-9].):([0-9].) ([A-Za-z])<br>REPL: \100:\2:\3\.000 \4<br><br>3. NN. MM:SS Time, End in Milliseconds<br>MODE: REGEX<br>FIND: (\. )([0-9].):([0-9].) ([A-Za-z])<br>REPL: \100:\2:\3\.000 \4<br><br>4. NN. HH:MM:SS Time, End in Milliseconds<br>MODE: REGEX<br>FIND: (\. )([0-9].):([0-9].):([0-9].) ([A-Za-z])<br>REPL: \1\2:\3:\4\.000 \5<br><br>5. NNN.HH:MM:SS Time, End in Milliseconds<br>MODE: REGEX<br>FIND: (\.)([0-9].):([0-9].):([0-9].) ([A-Za-z])<br>REPL: \1\2:\3:\4\.000 \5</pre>
+
+<h2 id='temp:C:cRe092f267e0902471b85c1130ea'>Macro2.txt</h2>
+
+<pre id='temp:C:cRe8aaadf23c65747fea1b1899fd'>Continued from Macro.txt<br>1. First Line: <br>Number;Start time in milliseconds;End time in milliseconds;Text<br><br>2. Manually change the 1st Case from 0 to 1000<br><br>File Format<br>CASE 1: <br>(Number).  Milli-Seconds TEXT<br>CASE 2:<br>(Number). Milli-Seconds TEXT<br>CASE 3:<br>(Number).Milli-Seconds TEXT<br><br>Output Format:<br>(Number);Milli-Seconds-LOW;Milli-Seconds-HIGH;TEXT<br>where least-significant-digits are LOW=000 and HIGH=999<br><br>1.  Intermediate Format: (Number);Milli-Seconds-LOW;TEXT<br>    FIND:  (^\d{1,3})\.\s{0,3}\b(\d{4,8})\b\s{0,3}([a-zA-Z\s\-\-\’\,]*)$<br>    REPL:  \1;\2;\3<br>    <br>2.  Intermediate Format: (Number);Milli-Seconds-LOW;Milli-Seconds-LOWc;TEXT<br>    FIND:  (^\d{1,3});(\d{4,8});([a-zA-Z\s\-\-\’\,]*)$<br>    REPL:  \1;\2;\2c;\3<br>    <br>3.  Final Format:    (Number);Milli-Seconds-LOW;Milli-Seconds-HIGHc;TEXT<br>    FIND:  000c<br>    REPL:  999<br><br>Find:  [Keyboard Apostrophe]' is not [Curly Apostrophe]’ ALT+[0146] <br><br></pre>
+
+<h2 id='temp:C:cRe88b2941d965e466d8df6c4976'>Update Addendum: NotePad++ Additional Functionality and REGEX Macros.ahk replaces Macro1.txt </h2>
+
+<h3 id='temp:C:cRef2ef5b6faae140f486390f7ef'>Macros.ahk</h3>
+
+<h2 id='temp:C:cRe285306d0311d44ba8edec020b'>See: <control data-remapped="true" id="temp:C:cRe5c376d6fc56547d88d62abd74"><a href="https://quip.com/WE0xAfbGMOPl">AHK Regex Special Characters - REGEX Macros.ahk</a></control></h2>
+
+<pre id='temp:C:cRe902aa10097b440338f24e13da'><b>NotePad</b><b>++</b><b> </b><b>Add</b><b> </b><b>Numbers</b><br>1. EDIT\Column Edit\Add Numbers<br><br><b>NotePad</b><b>++</b><b> </b><b>Inserting</b><b> </b><b>Column</b><b> </b><b>Zeros</b><b> </b><b>Spaces</b><b> </b><b>Periods</b><b> etc</b><b>.</b><br>2. [Shift+ALT+Down Arrow] or [Mouse Drag + ALT]<br><br><b>After</b><b> AHK </b><b>Macro</b><b> </b><b>Installed</b><br>3. Cntrl+E  Add REGEX into Find Field, Replace Field: \1;\2;\3<br>4. Cntrl+R  Add REGEX into Find Field, Replace Field: \1;\2;\2c;\3<br>5. Cntrl+T  Add REGEX into Find Field, Replace Field: 999<br><br>Change Filename2.txt to Filename.csv<br>DONE </pre>
+
+<h2 id='temp:C:cRe84dcbd0ca9c64939995abfd71'>Addendum:  REGEX - Deleting the last 3 characters from each line:</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/cReAAA53xsw/GaCyUhjR86qa1s7z4a0HCQ?a=1z5ruarLzc8RCCS7h3aGAA5z2EuUa4aUAT2VN4e4Onsa' id='temp:C:cReb84ce1cebe814e13b0c2bc2c5' alt="Deleting the Last 3 Characters from each line.jpg"></img></div><br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

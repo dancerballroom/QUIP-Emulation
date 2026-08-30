@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>1-STRING-REPLACE</title>
+    </head>
+    <body>
+        <h1>STRING-REPLACE.bat</h1><div><span style="font-size: 12px;"><br></span></div><div><span style="font-size: 12px; background-color: rgb(247, 247, 247);"></span></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><div><span style="font-size: 12px; background-color: rgb(247, 247, 247);"></span></div><span style="white-space: pre-wrap; display: inline-block; width: 100%;">STRING-REPLACE.bat
+@<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">echo</span></span> <span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;">off</span></span>
+Title Search Replace Batchfile
+<span style="color:#0F4539;font-weight:normal;"><span style="color:#0F4539;font-weight:normal;">Setlocal</span></span> enabledelayedexpansion
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">set</span></span> /p SR_File="File or File type -&gt; "
+
+
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">set</span></span> /p Pattern="String to Replace: -&gt; "
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">set</span></span> /p Replace="New String:&nbsp; &nbsp; &nbsp; &nbsp; -&gt; "
+
+
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span> File Type&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:&nbsp; !SR_File!
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span> Pattern to Replace:&nbsp; !Pattern!
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span> Replacement String:&nbsp; !Replace!
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span> Press Enter to Commit
+<span style="color:#040273;font-weight:bold;"><span style="color:#040273;font-weight:bold;">pause</span></span>
+
+
+<span style="color:#D73A49;font-weight:bold;"><span style="color:#D73A49;font-weight:bold;">For</span></span> %%a <span style="color:#D73A49;font-weight:bold;"><span style="color:#D73A49;font-weight:bold;">in</span></span> (!SR_File!) <span style="color:#D73A49;font-weight:bold;"><span style="color:#D73A49;font-weight:bold;">Do</span></span> (
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Set</span></span> "File=%%~a"
+&nbsp; &nbsp; Ren "%%a" "!File:%Pattern%=%Replace%!"
+&nbsp; &nbsp; <span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">echo</span></span> "%%a" "!File:%Pattern%=%Replace%!"
+)
+<span style="color:#040273;font-weight:bold;"><span style="color:#040273;font-weight:bold;">pause</span></span>
+<span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;">Exit</span></span> 0
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> STRING-REPLACE.bat
+
+
+        <span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> EOF</span><div><div><span style="font-size: 12px; background-color: rgb(247, 247, 247);"></span></div><div></div></div></pre></div><div><br></div><div><div><span style="font-size: 12px; background-color: rgb(247, 247, 247);"><br></span></div><div><span style="font-size: 12px; background-color: rgb(247, 247, 247);"><br></span></div><div><span style="font-size: 12px; background-color: rgb(247, 247, 247);"><br></span></div><div><span style="font-size: 12px; background-color: rgb(247, 247, 247);"><br></span></div><div><span style="font-size: 12px; background-color: rgb(247, 247, 247);"><br></span></div></div>
+    </body>
+</html>

@@ -1,0 +1,896 @@
+<!doctype html>
+<html><head><title>Christine - Med List - 11/04/2024</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+h3 {
+    text-transform: uppercase;
+}
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+</style></head><body><h1 id='temp:C:VIUf24c223df6e449f6b6928326c'>Christine - Med List - 11/04/2024</h1>
+
+<div data-section-style='13'><table id='temp:C:VIUa86ef53e9bef404ca1f37e5b3' title='11-3-15' style='width: 35.5654em'><thead><tr><th class='empty' style='width: 2em'/><th id='temp:C:VIUc7afdef0184f4477a554b9958' class='empty' style='width: 3.33333em'>A<br/></th><th id='temp:C:VIU67a3ae6441f445d3b369ba947' class='empty' style='width: 10.7956em'>B<br/></th><th id='temp:C:VIU94621e3ac09f48a299346e836' class='empty' style='width: 6.5229em'>C<br/></th><th id='temp:C:VIUbba85e77d5ad40988aa704458' class='empty' style='width: 2.93333em'>D<br/></th><th id='temp:C:VIU95760770b32047bc9d9421387' class='empty' style='width: 4.78022em'>E<br/></th><th id='temp:C:VIU60df5b19603343ba9bfb4411a' class='empty' style='width: 7.2em'>F<br/></th></tr></thead><tbody><tr id='temp:C:VIUac15ad2eaf6c4caaa3bc0a27b'><td style='background-color:#f0f0f0'>1</td><td id='temp:s:temp:C:VIUac15ad2eaf6c4caaa3bc0a27b;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>
+
+<br/></td><td id='temp:s:temp:C:VIUac15ad2eaf6c4caaa3bc0a27b;temp:C:VIUac6eea3091624b1bb14899c33' style='text-align: center;' class='bold'>Christine Wynn - Medications List
+
+<br/></td><td id='temp:s:temp:C:VIUac15ad2eaf6c4caaa3bc0a27b;temp:C:VIUa062d108646c48f3a1670ec25' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIUac15ad2eaf6c4caaa3bc0a27b;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIUac15ad2eaf6c4caaa3bc0a27b;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIUac15ad2eaf6c4caaa3bc0a27b;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>
+
+<br/></td></tr><tr id='temp:C:VIUef9ee7f360a04ee68678b1811'><td style='background-color:#f0f0f0'>2</td><td id='temp:s:temp:C:VIUef9ee7f360a04ee68678b1811;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>
+
+<br/></td><td id='temp:s:temp:C:VIUef9ee7f360a04ee68678b1811;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Updated 11-04-2024
+
+<br/></td><td id='temp:s:temp:C:VIUef9ee7f360a04ee68678b1811;temp:C:VIUa062d108646c48f3a1670ec25' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIUef9ee7f360a04ee68678b1811;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIUef9ee7f360a04ee68678b1811;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIUef9ee7f360a04ee68678b1811;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>
+
+<br/></td></tr><tr id='temp:C:VIUebb0ce02caef415aba9f450bf'><td style='background-color:#f0f0f0'>3</td><td id='temp:s:temp:C:VIUebb0ce02caef415aba9f450bf;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>
+
+<br/></td><td id='temp:s:temp:C:VIUebb0ce02caef415aba9f450bf;temp:C:VIUac6eea3091624b1bb14899c33' style='' class='bold'>Name
+
+<br/></td><td id='temp:s:temp:C:VIUebb0ce02caef415aba9f450bf;temp:C:VIUa062d108646c48f3a1670ec25' style='' class='bold'>Dosage
+
+<br/></td><td id='temp:s:temp:C:VIUebb0ce02caef415aba9f450bf;temp:C:VIU8c736f503cbc44c3b613ed2dd' style='' class='bold'># of Pills
+
+<br/></td><td id='temp:s:temp:C:VIUebb0ce02caef415aba9f450bf;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style='' class='bold'>Times a day
+
+<br/></td><td id='temp:s:temp:C:VIUebb0ce02caef415aba9f450bf;temp:C:VIUeeaa3371a113442fa10a535d3' style='' class='bold'>Notes
+
+<br/></td></tr><tr id='temp:C:VIU5970b00d3bc6482199a569dd0'><td style='background-color:#f0f0f0'>4</td><td id='temp:s:temp:C:VIU5970b00d3bc6482199a569dd0;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>1
+
+<br/></td><td id='temp:s:temp:C:VIU5970b00d3bc6482199a569dd0;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Dalfampridine (Ampyra)
+
+<br/></td><td id='temp:s:temp:C:VIU5970b00d3bc6482199a569dd0;temp:C:VIUa062d108646c48f3a1670ec25' style=''>10mg
+
+<br/></td><td id='temp:s:temp:C:VIU5970b00d3bc6482199a569dd0;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU5970b00d3bc6482199a569dd0;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIU5970b00d3bc6482199a569dd0;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>MS
+
+<br/></td></tr><tr id='temp:C:VIU30a7188b302a4fcfacb136b62'><td style='background-color:#f0f0f0'>5</td><td id='temp:s:temp:C:VIU30a7188b302a4fcfacb136b62;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>2
+
+<br/></td><td id='temp:s:temp:C:VIU30a7188b302a4fcfacb136b62;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Modafinil
+
+<br/></td><td id='temp:s:temp:C:VIU30a7188b302a4fcfacb136b62;temp:C:VIUa062d108646c48f3a1670ec25' style=''>200mg
+
+<br/></td><td id='temp:s:temp:C:VIU30a7188b302a4fcfacb136b62;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU30a7188b302a4fcfacb136b62;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIU30a7188b302a4fcfacb136b62;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>MS
+
+<br/></td></tr><tr id='temp:C:VIU7f65868a48004f57b99a0ad95'><td style='background-color:#f0f0f0'>6</td><td id='temp:s:temp:C:VIU7f65868a48004f57b99a0ad95;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>3
+
+<br/></td><td id='temp:s:temp:C:VIU7f65868a48004f57b99a0ad95;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Bafiertam
+
+<br/></td><td id='temp:s:temp:C:VIU7f65868a48004f57b99a0ad95;temp:C:VIUa062d108646c48f3a1670ec25' style=''>95mg
+
+<br/></td><td id='temp:s:temp:C:VIU7f65868a48004f57b99a0ad95;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIU7f65868a48004f57b99a0ad95;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIU7f65868a48004f57b99a0ad95;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>MS
+
+<br/></td></tr><tr id='temp:C:VIU7efb971b742e493eab2435422'><td style='background-color:#f0f0f0'>7</td><td id='temp:s:temp:C:VIU7efb971b742e493eab2435422;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>4
+
+<br/></td><td id='temp:s:temp:C:VIU7efb971b742e493eab2435422;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Januvia
+
+<br/></td><td id='temp:s:temp:C:VIU7efb971b742e493eab2435422;temp:C:VIUa062d108646c48f3a1670ec25' style=''>100mg
+
+<br/></td><td id='temp:s:temp:C:VIU7efb971b742e493eab2435422;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU7efb971b742e493eab2435422;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU7efb971b742e493eab2435422;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Diabetes
+
+<br/></td></tr><tr id='temp:C:VIUdf4561a26b2142f2abc8dc28f'><td style='background-color:#f0f0f0'>8</td><td id='temp:s:temp:C:VIUdf4561a26b2142f2abc8dc28f;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>5
+
+<br/></td><td id='temp:s:temp:C:VIUdf4561a26b2142f2abc8dc28f;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Atorvastatin (aka Lipitor)
+
+<br/></td><td id='temp:s:temp:C:VIUdf4561a26b2142f2abc8dc28f;temp:C:VIUa062d108646c48f3a1670ec25' style=''>80mg
+
+<br/></td><td id='temp:s:temp:C:VIUdf4561a26b2142f2abc8dc28f;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIUdf4561a26b2142f2abc8dc28f;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIUdf4561a26b2142f2abc8dc28f;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Hyperlipidemia / Cholesterol
+
+<br/></td></tr><tr id='temp:C:VIU403845117a444749b19113fa3'><td style='background-color:#f0f0f0'>9</td><td id='temp:s:temp:C:VIU403845117a444749b19113fa3;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>6
+
+<br/></td><td id='temp:s:temp:C:VIU403845117a444749b19113fa3;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Diltiazem
+
+<br/></td><td id='temp:s:temp:C:VIU403845117a444749b19113fa3;temp:C:VIUa062d108646c48f3a1670ec25' style=''>30mg
+
+<br/></td><td id='temp:s:temp:C:VIU403845117a444749b19113fa3;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU403845117a444749b19113fa3;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>as Needed
+
+<br/></td><td id='temp:s:temp:C:VIU403845117a444749b19113fa3;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Heartrate above 125 bpm
+
+<br/></td></tr><tr id='temp:C:VIU157e4c8577904957b17d94318'><td style='background-color:#f0f0f0'>10</td><td id='temp:s:temp:C:VIU157e4c8577904957b17d94318;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>7
+
+<br/></td><td id='temp:s:temp:C:VIU157e4c8577904957b17d94318;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Buspirone
+
+<br/></td><td id='temp:s:temp:C:VIU157e4c8577904957b17d94318;temp:C:VIUa062d108646c48f3a1670ec25' style=''>10mg
+
+<br/></td><td id='temp:s:temp:C:VIU157e4c8577904957b17d94318;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU157e4c8577904957b17d94318;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>3
+
+<br/></td><td id='temp:s:temp:C:VIU157e4c8577904957b17d94318;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Buspar (Anxiety)
+
+<br/></td></tr><tr id='temp:C:VIUe51abe3ed3c14c77a0a6bfacf'><td style='background-color:#f0f0f0'>11</td><td id='temp:s:temp:C:VIUe51abe3ed3c14c77a0a6bfacf;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>8
+
+<br/></td><td id='temp:s:temp:C:VIUe51abe3ed3c14c77a0a6bfacf;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Duloxetine
+
+<br/></td><td id='temp:s:temp:C:VIUe51abe3ed3c14c77a0a6bfacf;temp:C:VIUa062d108646c48f3a1670ec25' style=''>60mg x 2
+
+<br/></td><td id='temp:s:temp:C:VIUe51abe3ed3c14c77a0a6bfacf;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIUe51abe3ed3c14c77a0a6bfacf;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIUe51abe3ed3c14c77a0a6bfacf;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Depression
+
+<br/></td></tr><tr id='temp:C:VIU1009ecc490d740c3bf1d36053'><td style='background-color:#f0f0f0'>12</td><td id='temp:s:temp:C:VIU1009ecc490d740c3bf1d36053;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>9
+
+<br/></td><td id='temp:s:temp:C:VIU1009ecc490d740c3bf1d36053;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Albuterol Iperatopium Bromide (Nebulizer)
+
+<br/></td><td id='temp:s:temp:C:VIU1009ecc490d740c3bf1d36053;temp:C:VIUa062d108646c48f3a1670ec25' style=''>2.5mg/3ml/0.5mg per 2.5ml
+
+<br/></td><td id='temp:s:temp:C:VIU1009ecc490d740c3bf1d36053;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>Nebulizer
+
+<br/></td><td id='temp:s:temp:C:VIU1009ecc490d740c3bf1d36053;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>4
+
+<br/></td><td id='temp:s:temp:C:VIU1009ecc490d740c3bf1d36053;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>COPD: Breathing
+
+<br/></td></tr><tr id='temp:C:VIU071a4bc28c2a4da28c2ab9e4f'><td style='background-color:#f0f0f0'>13</td><td id='temp:s:temp:C:VIU071a4bc28c2a4da28c2ab9e4f;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>10
+
+<br/></td><td id='temp:s:temp:C:VIU071a4bc28c2a4da28c2ab9e4f;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Breo Ellipta
+
+<br/></td><td id='temp:s:temp:C:VIU071a4bc28c2a4da28c2ab9e4f;temp:C:VIUa062d108646c48f3a1670ec25' style=''>200mcg
+
+<br/></td><td id='temp:s:temp:C:VIU071a4bc28c2a4da28c2ab9e4f;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIU071a4bc28c2a4da28c2ab9e4f;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIU071a4bc28c2a4da28c2ab9e4f;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Steroid Inhaler
+
+<br/></td></tr><tr id='temp:C:VIU15b5bb60ae334c4e86892ef66'><td style='background-color:#f0f0f0'>14</td><td id='temp:s:temp:C:VIU15b5bb60ae334c4e86892ef66;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>11
+
+<br/></td><td id='temp:s:temp:C:VIU15b5bb60ae334c4e86892ef66;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Naproxen
+
+<br/></td><td id='temp:s:temp:C:VIU15b5bb60ae334c4e86892ef66;temp:C:VIUa062d108646c48f3a1670ec25' style=''>500mg
+
+<br/></td><td id='temp:s:temp:C:VIU15b5bb60ae334c4e86892ef66;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU15b5bb60ae334c4e86892ef66;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>As Needed
+
+<br/></td><td id='temp:s:temp:C:VIU15b5bb60ae334c4e86892ef66;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Anti-Inflamatory
+
+<br/></td></tr><tr id='temp:C:VIUfe7582e4b68547b2b15b6ea04'><td style='background-color:#f0f0f0'>15</td><td id='temp:s:temp:C:VIUfe7582e4b68547b2b15b6ea04;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>12
+
+<br/></td><td id='temp:s:temp:C:VIUfe7582e4b68547b2b15b6ea04;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Metoprolol
+
+<br/></td><td id='temp:s:temp:C:VIUfe7582e4b68547b2b15b6ea04;temp:C:VIUa062d108646c48f3a1670ec25' style=''>25mg
+
+<br/></td><td id='temp:s:temp:C:VIUfe7582e4b68547b2b15b6ea04;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIUfe7582e4b68547b2b15b6ea04;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIUfe7582e4b68547b2b15b6ea04;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>High Blood Pressure
+
+<br/></td></tr><tr id='temp:C:VIU228526cce9804bf88b13d51af'><td style='background-color:#f0f0f0'>16</td><td id='temp:s:temp:C:VIU228526cce9804bf88b13d51af;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>13
+
+<br/></td><td id='temp:s:temp:C:VIU228526cce9804bf88b13d51af;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Lisinopril
+
+<br/></td><td id='temp:s:temp:C:VIU228526cce9804bf88b13d51af;temp:C:VIUa062d108646c48f3a1670ec25' style=''>2.5mg
+
+<br/></td><td id='temp:s:temp:C:VIU228526cce9804bf88b13d51af;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU228526cce9804bf88b13d51af;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU228526cce9804bf88b13d51af;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>High Blood Pressure
+
+<br/></td></tr><tr id='temp:C:VIU7dff5c15317f43fbab6b37e50'><td style='background-color:#f0f0f0'>17</td><td id='temp:s:temp:C:VIU7dff5c15317f43fbab6b37e50;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>14
+
+<br/></td><td id='temp:s:temp:C:VIU7dff5c15317f43fbab6b37e50;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Loratadine
+
+<br/></td><td id='temp:s:temp:C:VIU7dff5c15317f43fbab6b37e50;temp:C:VIUa062d108646c48f3a1670ec25' style=''>10mg
+
+<br/></td><td id='temp:s:temp:C:VIU7dff5c15317f43fbab6b37e50;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU7dff5c15317f43fbab6b37e50;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU7dff5c15317f43fbab6b37e50;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Alergies
+
+<br/></td></tr><tr id='temp:C:VIU67b30e4981564359908c6ccde'><td style='background-color:#f0f0f0'>18</td><td id='temp:s:temp:C:VIU67b30e4981564359908c6ccde;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>15
+
+<br/></td><td id='temp:s:temp:C:VIU67b30e4981564359908c6ccde;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Montelukast (Singulaire)
+
+<br/></td><td id='temp:s:temp:C:VIU67b30e4981564359908c6ccde;temp:C:VIUa062d108646c48f3a1670ec25' style=''>10mg
+
+<br/></td><td id='temp:s:temp:C:VIU67b30e4981564359908c6ccde;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU67b30e4981564359908c6ccde;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU67b30e4981564359908c6ccde;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Alergy
+
+<br/></td></tr><tr id='temp:C:VIU6146b0a3bdc14274a69726fc3'><td style='background-color:#f0f0f0'>19</td><td id='temp:s:temp:C:VIU6146b0a3bdc14274a69726fc3;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>16
+
+<br/></td><td id='temp:s:temp:C:VIU6146b0a3bdc14274a69726fc3;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Azelastine HCl
+
+<br/></td><td id='temp:s:temp:C:VIU6146b0a3bdc14274a69726fc3;temp:C:VIUa062d108646c48f3a1670ec25' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIU6146b0a3bdc14274a69726fc3;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU6146b0a3bdc14274a69726fc3;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIU6146b0a3bdc14274a69726fc3;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Nasal Spray
+
+<br/></td></tr><tr id='temp:C:VIU374362f4bedd412c907487e4f'><td style='background-color:#f0f0f0'>20</td><td id='temp:s:temp:C:VIU374362f4bedd412c907487e4f;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>17
+
+<br/></td><td id='temp:s:temp:C:VIU374362f4bedd412c907487e4f;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Fluticaone (Flo-nase)
+
+<br/></td><td id='temp:s:temp:C:VIU374362f4bedd412c907487e4f;temp:C:VIUa062d108646c48f3a1670ec25' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIU374362f4bedd412c907487e4f;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU374362f4bedd412c907487e4f;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIU374362f4bedd412c907487e4f;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Nasal Spray/Alergy
+
+<br/></td></tr><tr id='temp:C:VIU00e22239043a4497be3480406'><td style='background-color:#f0f0f0'>21</td><td id='temp:s:temp:C:VIU00e22239043a4497be3480406;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>18
+
+<br/></td><td id='temp:s:temp:C:VIU00e22239043a4497be3480406;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Ammonium Lactate (12% Cream)
+
+<br/></td><td id='temp:s:temp:C:VIU00e22239043a4497be3480406;temp:C:VIUa062d108646c48f3a1670ec25' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIU00e22239043a4497be3480406;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIU00e22239043a4497be3480406;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1 to 2 x daily as needed
+
+<br/></td><td id='temp:s:temp:C:VIU00e22239043a4497be3480406;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Dry Skin
+
+<br/></td></tr><tr id='temp:C:VIUda888fd6f27a4132a839c519d'><td style='background-color:#f0f0f0'>22</td><td id='temp:s:temp:C:VIUda888fd6f27a4132a839c519d;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>19
+
+<br/></td><td id='temp:s:temp:C:VIUda888fd6f27a4132a839c519d;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Baclofen
+
+<br/></td><td id='temp:s:temp:C:VIUda888fd6f27a4132a839c519d;temp:C:VIUa062d108646c48f3a1670ec25' style=''>10mg
+
+<br/></td><td id='temp:s:temp:C:VIUda888fd6f27a4132a839c519d;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIUda888fd6f27a4132a839c519d;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>3
+
+<br/></td><td id='temp:s:temp:C:VIUda888fd6f27a4132a839c519d;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Muscle Spasticity
+
+<br/></td></tr><tr id='temp:C:VIU89df3885e7d0407ab6b613f1d'><td style='background-color:#f0f0f0'>23</td><td id='temp:s:temp:C:VIU89df3885e7d0407ab6b613f1d;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>20
+
+<br/></td><td id='temp:s:temp:C:VIU89df3885e7d0407ab6b613f1d;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Furosemide (Lasix)
+
+<br/></td><td id='temp:s:temp:C:VIU89df3885e7d0407ab6b613f1d;temp:C:VIUa062d108646c48f3a1670ec25' style=''>20mg
+
+<br/></td><td id='temp:s:temp:C:VIU89df3885e7d0407ab6b613f1d;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU89df3885e7d0407ab6b613f1d;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU89df3885e7d0407ab6b613f1d;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Periferal Edema
+
+<br/></td></tr><tr id='temp:C:VIU52d185cef2cd4335b42b32b17'><td style='background-color:#f0f0f0'>24</td><td id='temp:s:temp:C:VIU52d185cef2cd4335b42b32b17;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>21
+
+<br/></td><td id='temp:s:temp:C:VIU52d185cef2cd4335b42b32b17;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Tramadol 
+
+<br/></td><td id='temp:s:temp:C:VIU52d185cef2cd4335b42b32b17;temp:C:VIUa062d108646c48f3a1670ec25' style=''>50mg
+
+<br/></td><td id='temp:s:temp:C:VIU52d185cef2cd4335b42b32b17;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU52d185cef2cd4335b42b32b17;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIU52d185cef2cd4335b42b32b17;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Pain
+
+<br/></td></tr><tr id='temp:C:VIU8cbae11574494313a51c60c9f'><td style='background-color:#f0f0f0'>25</td><td id='temp:s:temp:C:VIU8cbae11574494313a51c60c9f;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>22
+
+<br/></td><td id='temp:s:temp:C:VIU8cbae11574494313a51c60c9f;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Pregbalin (gen Lyrica)
+
+<br/></td><td id='temp:s:temp:C:VIU8cbae11574494313a51c60c9f;temp:C:VIUa062d108646c48f3a1670ec25' style=''>100mg
+
+<br/></td><td id='temp:s:temp:C:VIU8cbae11574494313a51c60c9f;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU8cbae11574494313a51c60c9f;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>3
+
+<br/></td><td id='temp:s:temp:C:VIU8cbae11574494313a51c60c9f;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Nerve Pain
+
+<br/></td></tr><tr id='temp:C:VIU47ad80cefa0a47809be4855d2'><td style='background-color:#f0f0f0'>26</td><td id='temp:s:temp:C:VIU47ad80cefa0a47809be4855d2;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>23
+
+<br/></td><td id='temp:s:temp:C:VIU47ad80cefa0a47809be4855d2;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Diclofenac 1% Gel (Voltaren)
+
+<br/></td><td id='temp:s:temp:C:VIU47ad80cefa0a47809be4855d2;temp:C:VIUa062d108646c48f3a1670ec25' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIU47ad80cefa0a47809be4855d2;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>
+
+<br/></td><td id='temp:s:temp:C:VIU47ad80cefa0a47809be4855d2;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>up to 4x daily
+
+<br/></td><td id='temp:s:temp:C:VIU47ad80cefa0a47809be4855d2;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Topical Inflammatory
+
+<br/></td></tr><tr id='temp:C:VIU8938ad7ced424320bf1149c74'><td style='background-color:#f0f0f0'>27</td><td id='temp:s:temp:C:VIU8938ad7ced424320bf1149c74;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>24
+
+<br/></td><td id='temp:s:temp:C:VIU8938ad7ced424320bf1149c74;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Vitamin D3
+
+<br/></td><td id='temp:s:temp:C:VIU8938ad7ced424320bf1149c74;temp:C:VIUa062d108646c48f3a1670ec25' style=''>1000IU
+
+<br/></td><td id='temp:s:temp:C:VIU8938ad7ced424320bf1149c74;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU8938ad7ced424320bf1149c74;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU8938ad7ced424320bf1149c74;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Supplement
+
+<br/></td></tr><tr id='temp:C:VIU13d8415e4fe94ca0848866fb2'><td style='background-color:#f0f0f0'>28</td><td id='temp:s:temp:C:VIU13d8415e4fe94ca0848866fb2;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>25
+
+<br/></td><td id='temp:s:temp:C:VIU13d8415e4fe94ca0848866fb2;temp:C:VIUac6eea3091624b1bb14899c33' style=''>(NAC) N-Acetyl L-Cysteine
+
+<br/></td><td id='temp:s:temp:C:VIU13d8415e4fe94ca0848866fb2;temp:C:VIUa062d108646c48f3a1670ec25' style=''>600mg
+
+<br/></td><td id='temp:s:temp:C:VIU13d8415e4fe94ca0848866fb2;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU13d8415e4fe94ca0848866fb2;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIU13d8415e4fe94ca0848866fb2;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Supplement
+
+<br/></td></tr><tr id='temp:C:VIU2089feee295c4318a6cb30771'><td style='background-color:#f0f0f0'>29</td><td id='temp:s:temp:C:VIU2089feee295c4318a6cb30771;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>26
+
+<br/></td><td id='temp:s:temp:C:VIU2089feee295c4318a6cb30771;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Magnesium Oxide
+
+<br/></td><td id='temp:s:temp:C:VIU2089feee295c4318a6cb30771;temp:C:VIUa062d108646c48f3a1670ec25' style=''>750mg
+
+<br/></td><td id='temp:s:temp:C:VIU2089feee295c4318a6cb30771;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU2089feee295c4318a6cb30771;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU2089feee295c4318a6cb30771;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Supplement
+
+<br/></td></tr><tr id='temp:C:VIUf1412dcdb92745d0b5b1dd5af'><td style='background-color:#f0f0f0'>30</td><td id='temp:s:temp:C:VIUf1412dcdb92745d0b5b1dd5af;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>27
+
+<br/></td><td id='temp:s:temp:C:VIUf1412dcdb92745d0b5b1dd5af;temp:C:VIUac6eea3091624b1bb14899c33' style=''>KlorCon8 Potassium
+
+<br/></td><td id='temp:s:temp:C:VIUf1412dcdb92745d0b5b1dd5af;temp:C:VIUa062d108646c48f3a1670ec25' style=''>8 mEq
+
+<br/></td><td id='temp:s:temp:C:VIUf1412dcdb92745d0b5b1dd5af;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIUf1412dcdb92745d0b5b1dd5af;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIUf1412dcdb92745d0b5b1dd5af;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Potassium
+
+<br/></td></tr><tr id='temp:C:VIU871c5261d61b495eb54b40c0e'><td style='background-color:#f0f0f0'>31</td><td id='temp:s:temp:C:VIU871c5261d61b495eb54b40c0e;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>28
+
+<br/></td><td id='temp:s:temp:C:VIU871c5261d61b495eb54b40c0e;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Nexium (Omeprazole)
+
+<br/></td><td id='temp:s:temp:C:VIU871c5261d61b495eb54b40c0e;temp:C:VIUa062d108646c48f3a1670ec25' style=''>40mg
+
+<br/></td><td id='temp:s:temp:C:VIU871c5261d61b495eb54b40c0e;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIU871c5261d61b495eb54b40c0e;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIU871c5261d61b495eb54b40c0e;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Ant-Acid
+
+<br/></td></tr><tr id='temp:C:VIUfca186bd616449909a17e09fb'><td style='background-color:#f0f0f0'>32</td><td id='temp:s:temp:C:VIUfca186bd616449909a17e09fb;temp:C:VIU2846fbfb9df9485cb95445303' style='' class='bold'>29
+
+<br/></td><td id='temp:s:temp:C:VIUfca186bd616449909a17e09fb;temp:C:VIUac6eea3091624b1bb14899c33' style=''>Docusate Sod (Colase)
+
+<br/></td><td id='temp:s:temp:C:VIUfca186bd616449909a17e09fb;temp:C:VIUa062d108646c48f3a1670ec25' style=''>100mg
+
+<br/></td><td id='temp:s:temp:C:VIUfca186bd616449909a17e09fb;temp:C:VIU8c736f503cbc44c3b613ed2dd' style=''>1
+
+<br/></td><td id='temp:s:temp:C:VIUfca186bd616449909a17e09fb;temp:C:VIU3e3c9de7c7ba45ceaedc9c3b7' style=''>2
+
+<br/></td><td id='temp:s:temp:C:VIUfca186bd616449909a17e09fb;temp:C:VIUeeaa3371a113442fa10a535d3' style=''>Stool Softener
+
+<br/></td></tr></tbody></table></div></body></html>

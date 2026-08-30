@@ -1,0 +1,542 @@
+<!doctype html>
+<html><head><title>Self-Calling HTML JavaScript URL Key-Value Parser</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:IMf5b4c9a493af04e598cf63cbf2'>Self-Calling HTML JavaScript URL Key-Value Parser</h1>
+
+<h2 id='temp:C:IMfce4c0aacef28457eb06f3673d'>Purpose:  A Self-Calling HTML file that parses variables sent by the<span bgcolor="#ffe600" style="background-color:#ffe600"> GET Method</span></h2>
+
+<h3 id='temp:C:IMfe620e50a3b284bf38c4799d35'>Goal:  Clicking on Season X of Show Y, the page will load the selected IFRAME:  </h3>
+
+<h3 id='temp:C:IMf35a68d2cdcde46ce8fe73efec'>Note:  The images of Kermit, Ms. Piggy, Scooter,  Gonzo, etc. are based on Key-Value Pairs called from the same web page:  “Page=Season-X“ where X=1 through 5, or Nothing, which defaults to Season-1.</h3>
+
+<h3 id='temp:C:IMf7cdbba13ab5b4afeb0ab4eb7c'>[ Part of the Online Home Video HTML Project.]  </h3>
+
+<h2 id='temp:C:IMf785937361b6040398c8d3bc7d'>Output:</h2>
+
+<h2 id='temp:C:IMfdd5eb5687992451cb6f59073d'>CASE 0 (No Value-Pairs)</h2>
+
+<h2 id='temp:C:IMfed6ba9dae2f3448a85401f8d4'>CASE 1 (Page=Season-1)</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/IMfAAAdfTVR/cXfH3D-eRE6KWivwpCsCLw?a=TIGTp0cH6nxObGP8uhzanRYV8arjANIJ0Y2fepWMeawa' id='temp:C:IMfb11bf156631240ca8421cbb78' alt="000522 - Params03-IN-HEAD.html.jpg"></img></div><div data-section-style='11' style='max-width:100%' class='tall'><img src='https://quip.com/blob/IMfAAAdfTVR/eJctd0HfIis9wo8js_x1gg?a=SWnlRaBeTsQY87MqWO26HMSGwahEdMVxNW8GGv6eBUoa' id='temp:C:IMfe1462f84af8d499f8391dab9f' alt="000523 - Params03-IN-HEAD.html_Page=Season-1&amp;Bugs=Bunny&amp;Yosemite=Sam.jpg"></img></div><h2 id='temp:C:IMf3665cb7ed2ca4d269237194c7'>CASE 2 (Page=Season-2)</h2>
+
+<div data-section-style='11' style='max-width:100%' class='tall'><img src='https://quip.com/blob/IMfAAAdfTVR/hJhkpqVUoiYBBuEKPtX6qA?a=UkaMjljjVOoWMDRoqg4nXlGk1I3z9q9BfYUMJzlu8Z8a' id='temp:C:IMf5b42cfab8c59479bbee4e4f05' alt="000524 - Params03-IN-HEAD.html_Page=Season-2.jpg"></img></div><h2 id='temp:C:IMf8269422a4bc4485b93bdb4ba6'>CASE 3 (Page=Season-3)</h2>
+
+<div data-section-style='11' style='max-width:100%' class='tall'><img src='https://quip.com/blob/IMfAAAdfTVR/ZWbc1R4-0azfIbiHjicnBQ?a=pwb7lnPahGs6UWeYpz4Wi1z2AOPEwQJK2jeY52c0ZrYa' id='temp:C:IMf6b363c5ea2b34e64b00325ddd' alt="000525 - Params03-IN-HEAD.html_Page=Season-3&amp;Larry=Opa.jpg"></img></div><h2 id='temp:C:IMfba230f39e1bf4921868a0d985'>CASE 4 (Page=Season-4)</h2>
+
+<h2 id='temp:C:IMfb68f319084c04f34b0592b9e3'>CASE 5 (Page=Season-5)</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/IMfAAAdfTVR/u1EpElN76tfwFQC38c4yQw?a=AswAvQ3Ne12T50r9oNbswcE37aPXOTBaGZxlkZyxRqga' id='temp:C:IMf438848588b2f44458176ff61d' alt="000526 - Params03-IN-HEAD.html_Page=Season-4.jpg"></img></div><div data-section-style='11' style='max-width:100%' class='tall'><img src='https://quip.com/blob/IMfAAAdfTVR/Q8oplgd6zJ6QUIVjEyG7LA?a=zC7c5daby6rKJQ43d6kvIHiYVaQKdV07QNzTLcu9aEsa' id='temp:C:IMf359de3d598d84496bee4f7766' alt="000527 - Params03-IN-HEAD.html_Page=Season-5&amp;Patience=Virtue&amp;Truth=Sets-U-Free.jpg"></img></div><h2 id='temp:C:IMf607afaf3e60346da94c92c98c'>HTML-JavaScript for the Above Example OUTPUT</h2>
+
+<pre id='temp:C:IMfc25fcd640f9b48efab78aaf13'>&lt;HTML&gt;<br>&lt;HEAD&gt;<br>&lt;SCRIPT&gt;<br>function Load_Page() {<br>    // Get the URL<br>    let url = window.location.search;<br>    // Initialize<br>    let base = url.split("?").shift();<br>    // SPLIT on ? <br>    let querystring = url.split("?").pop();<br>    // SPLIT on &amp;<br>    let params = querystring.split("&amp;");<br>    // Array of pairs<br>    let pairs = {};<br><br>    // Tip-Toe through the Value Pairs<br>    for (let i = 0; i &lt; params.length ; i++) {<br>      let key = params[i].split("=").shift();<br>      let value = params[i].split("=").pop();<br>              // The Default Case<br>              if (key == "" &amp;&amp; value == "") {<br>                  key = "Page";<br>                  value = "Season-1";<br>              }<br>          // Print out the key-value pairs<br>          document.write("&lt;CENTER&gt;&lt;H2&gt;");<br>          document.write(key);<br>          document.write(" = ");<br>          document.write(value);<br>          document.write("&lt;/H2&gt;&lt;/CENTER&gt;");<br>          pairs[key] = value;<br>    }<br>    <br>    // Assign the values to output and retrieve their values<br>    output = [{url, base, querystring, params, pairs}];<br>    document.write("&lt;CENTER&gt;&lt;H4&gt;");<br>    document.write("url:          " + output[0].url + "&lt;BR&gt;");<br>    document.write("params:       " + output[0].params + "&lt;BR&gt;");<br>    document.write("querystring:  " + output[0].querystring + "&lt;BR&gt;");<br>    document.write("pairs key:    " + output[0].pairs["Page"] + "&lt;BR&gt;");<br>    document.write("Image3:    " + output[0].pairs["Page"] + ".jpg&lt;BR&gt;");    <br>    document.write("&lt;/H4&gt;&lt;/CENTER&gt;");<br>}<br><br>// Ok, here is the magic<br>// We assign the image based on the value pair "Page=Season-X"<br>function Bob2IMG(){<br>    document.getElementById('Bob').src=output[0].pairs["Page"] + ".jpg";<br>}<br><br>&lt;/SCRIPT&gt;<br>&lt;/HEAD&gt;<br><br>&lt;BODY&gt;<br>&lt;SCRIPT&gt;<br>    Load_Page();<br>&lt;/SCRIPT&gt;&lt;CENTER&gt;<br><br>&lt;!-- Examples of Calls to this same web page with Page=Season-X for each CASE--&gt;<br>&lt;H2&gt;&lt;A HREF="Params03-IN-HEAD.html"&gt;No Season&lt;/A&gt;&lt;/H2&gt;<br>&lt;H2&gt;&lt;A HREF="Params03-IN-HEAD.html?Page=Season-1&amp;Bugs=Bunny&amp;Yosemite=Sam"&gt;Season-1&lt;/A&gt;<br>&lt;A HREF="Params03-IN-HEAD.html?Page=Season-2"&gt;Season-2&lt;/A&gt;<br>&lt;A HREF="Params03-IN-HEAD.html?Page=Season-3&amp;Larry=Opa"&gt;Season-3&lt;/A&gt;&lt;/H2&gt;<br>&lt;H2&gt;&lt;A HREF="Params03-IN-HEAD.html?Page=Season-4"&gt;Season-4&lt;/A&gt;<br>&lt;A HREF="Params03-IN-HEAD.html?Page=Season-5&amp;Patience=Virtue&amp;Truth=Sets-U-Free"&gt;Season-5&lt;/A&gt;&lt;HR&gt;<br><br>&lt;!-- The Bob Image is a place holder --&gt;<br>&lt;IMG id="Bob"  style="width:20%;, height:20%;"&gt;&lt;/IMG&gt;<br>&lt;/CENTER&gt;<br>&lt;SCRIPT&gt;<br>            &lt;!-- Load the Image according to Page=Season-1,2..5 --&gt;<br>            Bob2IMG();<br>&lt;/Script&gt;<br>&lt;/BODY&gt;<br>&lt;/HTML&gt;</pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

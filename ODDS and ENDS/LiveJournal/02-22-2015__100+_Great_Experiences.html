@@ -1,0 +1,516 @@
+<!doctype html>
+<html><head><title>02-22-2015  100+ Great Experiences</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:fHLd36bfb0afdbe4bbeb4c001555'>02-22-2015  100+ Great Experiences</h1>
+
+<div style="" class="" data-section-style='5'><ul id='temp:C:fHL6c4b41295c394e5e8a3e36e75'><li id='temp:C:fHL39394498d6b749c8b5c870255' class='' value='1'><span style="color:#999999" textcolor="#999999">Feb. 22nd, 2015 at 10:30 PM</span>
+
+<br/></li></ul></div><b>Every once in a while it is possible to forget how wonderful we really are and all that we have accomplished. It's too easy to get moody or depressed. So, when that starts to happen I go back to my "100+ Great Experiences" which I update every few years. It's like opening a bottle and reexperiencing those things that make me who I am and why I enjoy who I am. Remembering the good things and keeping them as promises and reminders for the future. Who cares if you are here now. Everything changes and great experiences are what happens when you have the right attitude to take advantage of them.<br><br>Here is my current 100+ Encouraging experiences and positive thoughts:</b><br><br><b>1.  First Choir at Gridley HS with Daniel Soares in 1980<br>2. Most Helpful Coworker Award – YCC at Covelo, CA in 1980<br>3. National Choral Award at Las Plumas High in 1981<br>4. Graduating Las Plumas High School in 1982<br>5. Band Camp Helper at Bucks Lake in 1982<br>6. Most Improved Band Section in 1981-1982<br>7. My visit to the Reichstag (German Congress, Hitler Museum) in West Germany in 1986.<br>8. Hobbies become pursuits in Education: National Choir Award.<br>9. The fall of the Berlin Wall, Visiting Before and After<br>10. Latin, failed at Oroville HS in 1978, then passed with an “A” in 1991.<br>11. Trigonometry, failed at Butte College in 1984, then passed with a “C” in 1999.<br>12. Music for Children, failed at CSUC in 1992, then passed with an “A” in 1998.<br>13. Assembly Language Prog, failed at CSUC in 1999, then passed with a “B” in 2001.<br>14. Second semester Calculus, failed at CSUC in 1999, then passed with a “B” in 2000.<br>15. Walking across campus one day I found a way to visit my Oma in Berlin.<br>16. Youth Conservation Corp, A Pick-Axe and an electrical mood adjustment.<br>17. Learning Spanish in the Canary Islands on Gran Canaria in 1985 through IEP.<br>18. Learning German in Germany in 1986-1987, and Summer 1988, then 1989-1990.<br>19. Learning Swiss German in Switzerland in Summer of 1988 through IEP.<br>20. Learning French in Bruxelles, Belgium in 1989 through IEP.<br>21. Receiving a B.A. in Music Education at CSUC in 1989.<br>22. Receiving an equivalent of a German B.A. (local unit req.) at CSUC in 1993.<br>23. Receiving a M.S. in Computer Science, emphasis in Programming in 2007.<br>24. Working for Dr. Bowman organizing his music library in 1985.<br>25. Working/Helping in Newspaper delivery in 1979, 1990, and 2002.<br>26. Passing the Pacific Bell exam (1 out of 100s).<br>27. Top Sales person and top overtime person: 1995-1997.<br>28. Working for Pacific Bell from Summer 1995 to Summer 1998.<br>29. Returning to the University studying Computer Science.<br>30. Teaching CSCI 054 “Introduction to Programming using Visual Basic” in 2001.<br>31. Teaching CSCI 157 “Introduction to UNIX Scripting” in 2002.<br>32. Working as a Porter in a Hotel doing everything under the sun.<br>33. Working with computers helping friends and people who need it.<br>34. Being there for Regina when she needed it.<br>35. Building a Shed for my friend Scotty (I’m guessing) in 2011. 100’s of pieces – 4 days.<br>36. Being there for my mom the year before she died of breast cancer in 2007.<br>37. Helping Susan and Dick Ratledge during his heart quad-bypass.<br>38. Being there for Shelley during her surgeries and hospitalizations.<br>39. Helping my father for years before his final bout of throat cancer.<br>40. Visiting with my father at Thirsty Thursdays for a $5.00 pitcher of Bud Light.<br>41. Tutoring people on how to use technology, mathematics, etc.<br>42. Getting my parents discounts at the hotel during my Holiday Inn years 1991-1995.<br>43. Helping my mom pay off her student loans. <br>44. Surviving my first couple of days advent in the Canary Islands – 1995.<br>45. 12 Units of "A" or else. Trip fantastique du Master's Degree.<br>46. A scary trip to Mexico with Todd, loosing keys, a pull over, and a steep hill car climb.<br>47. Riding my bicycle from Chico to Oroville.<br>48. Swimming for an extended period of time. ( ¼, ½, ¾, 1 mile)<br>49. Accomplishing a project like building a shed or cleaning a house.<br>50. Reading a really well written book or instruction manual on Computers, Math,<br> English or Foreign Language, Sci Fi, etc. There are so few well written books out there.<br>51. Translating a really good book like “las Cronicas de Narnia”.<br>52. Watching a movie that makes me think, laugh, or cry.<br>53. Learning something new like a language, or trick, or computer tweak.<br>54. I enjoy learning how to cook excellent cuisine.<br>55. I like meeting nice people and being uplifting.<br>56. Visiting friends and maintaining friendships.<br>57. Being fair with people I live with and maintaining the Golden Rule.<br>58. Fighting for academic fairness – Math Dept. – Trigonometry – 1999.<br>59. Being as honest as I possibly can.<br>60. Trying my best to be considerate of other people’s feelings.<br>61. I attempt to: focus on listening to people, seeking balance, being slow to criticize.<br>62. Saturdays I enjoy meeting for Breakfast and Playing Tennis with Kirk for years.<br>63. Teaching, Helping, Sharing: Giving someone something they need:<br> information, materials, an encouraging word.<br>64. Creating a passion. Teaching someone computers, math, technology, or whatever.<br>65. Being in nature like walking, biking, or just looking out into trees and gardens.<br>66. I love to sit carefree on a porch, reading, drinking coffee, or talking.<br>67. Playing a good game like Scrabble, Hand &amp; Foot, Mexican Train, etc.<br>68. Feeling clean after visiting the Gym for years.<br>69. Helping my family and friends with the skills I have.<br>70. Solving hard problems, especially those that I don’t think I can quickly solve.<br>71. Being creative with my mind like when I combine technologies in a web page.<br>72. Inventing things, methods, or coming up with innovative solutions to problems.<br>73. Deconstructing well built structures with my mind.<br>74. Talking/Listening to people who fascinate me.<br>75. Traveling in a car as a passenger.<br>76. Traveling in a car as a driver<br> (Finally got my DL back after 10 years on foot, taking the bus, or riding bike)<br>77. Maintaining my YouTube online with occasional videos<br>78. Maintaining my Live Journal / Face book online.<br>79. Changing my environment by getting out of the house daily if possible.<br>80. Ballroom Dancing (5 beginning classes, and 1 intermediate class)<br>81. Ballroom Dancing in Switzerland.<br>82. Ballroom Dancing with Betty at her Granddaughter’s wedding.<br>83. Singing for a group with an excellent conductor (Richard Gill, CSUC, 1984-1985)<br>84. Learning something musically new like Electric Guitar.<br>85. Having a keen insight of people in general.<br>86. Being there for my wonderful family and my wonderful friends.<br>87. Being able to help Spanish/German/French speaking people.<br>88. A Hug from someone who really means it, especially from a woman or a child,<br> or relative, or really good friend/lover, etc.<br>89. Enjoying A good joke.<br>90. Helping my step-mom enjoy her later years and help her to be happy.<br>91. I enjoy dressing up in a uniform/suit/team-suit<br>92. I enjoy blowing bubbles (some things you never grow out of)<br>93. I enjoy camping in a tent, and marshmallows over a fire.<br>94. Listening to a good story from a friend, especially one told by someone who knows how.<br>95. Exceeding someone’s expectations.<br>96. Delivering on a promise as consistently as I can.<br>97. Forgiving others as much as I can, otherwise how can I begin to forgive myself.<br>98. Starting each day new with a humble attitude of doing my best.<br>99. I enjoy when I Feel respected and I am consistent in my treatment of others.<br>100. I enjoy the feeling of a sense of accomplishment, no matter how small.<br>101. I enjoy feeling loved, in every way.<br>102. I enjoy feeling appreciated, in every way.<br>103. I enjoy updating my list of “Great Experiences” every couple of years.<br>104. I had a blast creating “Audiobooks” for my dad to enjoy.<br>105. I enjoy mounting little performances created on my synthesizer to SoundCloud<br>106. I enjoy creating playable Karaoke disks for performance at the VFW.<br>107. Enjoy playing Scrabble with my friends in Chico each week.<br>108. I enjoy playing Hand-and-Foot at the Oroville VFW each month.<br>109. I am involved with the Lions, the Eagles, the VFW, and Kelley’s at the Golf Course.<br>110. I enjoyed being able to visit the Ratledge house in Chico for about 5 years.<br>111. Add: Teaching the TOEFL (Test of English as a Foreign Language) at<br> Eberhardt-Karls University, Tuebingen, West Germany in 1989-1990.<br>112. Add: Visiting my Oma in Berlin, Germany in 1986-1987, and 1989.<br>113. Add: Working for Steven Jenkins on the island of Molokai, Hawaii in 2008 (January - March)<br>114. Add: Reading "Pippi Langschtrumpf" to my Oma in Berlin, Germany<br> during the winter months of 1986.<br>115. Add: Keeping my promise of staying in Europe for a year from 1986-1987,<br> through working on a farm in Horn-Bad Meinberg, West Germany through IEP,<br> attending the Goethe Institut in Berlin, being Homeless for 3 weeks after blowing<br> my Cash on a homesick $400.00 phone call. Finding the Mit-Wohn Zentralle and getting<br> to meet some awesome Germans living in Kreuzberg, Germany, and a first and<br> last train trip to Kopenhagen, and the Tivoli Gardens in Denmark.<br>116. Add: I love Dancing, especially Ballroom Dancing: Fox Trot, Cha-cha,<br> Swing(All Coasts), Tango, Waltz, Samba, etc.</b><br/>
+
+<div style="" class="" data-section-style='5'><ul id='temp:C:fHL814e1e62febd4c5aafb975a5d'><li id='temp:C:fHLe1e19d60bf2744fe9ede59d3a' class='' value='1'><b>Current Location:</b>Oroville, CA
+
+<br/></li><li id='temp:C:fHL57e8f2999a9945599b7d795ac' class=''><b>Current Mood:</b> hopeful
+
+<br/></li><li id='temp:C:fHLb6490bdecdd14682b8deedb5d' class=''><b>Current Music:</b>We are the champions
+
+<br/></li></ul></div></body></html>

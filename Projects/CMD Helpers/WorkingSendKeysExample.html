@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>WorkingSendKeysExample</title>
+    </head>
+    <body>
+&#39; Open notepad <br />
+Set WshShell = WScript.CreateObject(&quot;WScript.Shell&quot;)<br />
+WshShell.Run &quot;notepad.exe&quot;, 9<br />
+<br />
+&#39; Give Notepad time to load<br />
+WScript.Sleep 500 <br />
+<br />
+&#39; Type in Hello World<br />
+WshShell.SendKeys &quot;Hello World!&quot;<br />
+WshShell.SendKeys &quot;{ENTER}&quot;<br />
+<br />
+&#39; Add the date<br />
+WshShell.SendKeys &quot;{F5}&quot;
+    </body>
+</html>

@@ -1,0 +1,598 @@
+<!doctype html>
+<html><head><title>JellyFin Database Migration Drive Errors - How to Fix</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:HfF73e43dcfab804e429f0d9057d'>JellyFin Database Migration Drive Errors - How to Fix </h1>
+
+<h3 id='temp:C:HfF49091aadd80e40dca74ca1f49'>Problem:  </h3>
+
+Although going through Libraries using the JellyFin GUI, deleting old references from OLD to NEW Paths.<br/>
+
+ERRORS:  OLD Next-UP and OLD DEAD Links stay Persistent.<br/>
+
+<br/>
+
+NOTE:  We Want the Library Intact.  We just need to Delete the FILE References to the Defunct Hard Drive.<br/>
+
+<h2 id='temp:C:HfF78d94a666b0645d681e90b8a0'>REAL SOLUTION</h2>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:HfF610f14b77a6e42008bce9683d'><li id='temp:C:HfF8fcee849702843c1a8607a768' class='' value='1'>Turn OFF JellyFin Server
+
+<br/></li><li id='temp:C:HfFc0922e995cec463382d75b627' class=''>Add New HDD
+
+<br/></li><li id='temp:C:HfFa17959bb835d4d25b44586870' class='parent'>Copy Offending PATH\Files in “Next Up” and “Continue” to TEMP Drive
+
+<br/></li><ul><li id='temp:C:HfF55db05f1ef554e859f1350ce0' class=''>X:\DIR\SUBDIR\FILENAME.mp4
+
+<br/></li></ul><li id='temp:C:HfFa20ab11215f1451c942e53a27' class=''>My Computer/Manage/Storage/Disk Management
+
+<br/></li><li id='temp:C:HfFc0bd082e347048a785fe2e1cd' class='parent'>Right Click NEW HDD/Assign OLD Drive Letter  (E: for Example)
+
+<br/></li><ul><li id='temp:C:HfF2d13680f7f1f4dee9868840a1' class=''>E:\DIR\SUBDIR\FILENAME.mp4
+
+<br/></li></ul><li id='temp:C:HfF6f3f114130a6420d8d0dfbaf1' class=''>Turn ON JellyFin Server
+
+<br/></li><li id='temp:C:HfF3c2af670bc774c29b9c2953f5' class=''>Add DRIVE_LETTER (E:) into JellyFin\Dashboard\Libraries\LIBRARY_NAME
+
+<br/></li><li id='temp:C:HfFc71afc3cf6794fb6b5c03c199' class=''>Rescan (ADD IN TEMP file(s))
+
+<br/></li><li id='temp:C:HfFfd32e90ab5214369a3f36ca4d' class=''>Click CHECKMARK Twice in “Next Up” and/or “Continue” List
+
+<br/></li><li id='temp:C:HfFce85127b26d24d0da82e6e8c4' class=''>Rescan (Mark as Watched/Unwatched)
+
+<br/></li><li id='temp:C:HfF3e013d353c9f4a44b5026da2f' class=''>Delete Files
+
+<br/></li><li id='temp:C:HfF5593fe8c996d4d2a9206645a2' class=''>Rescan (Remove Series FILES REF from Library)
+
+<br/></li><li id='temp:C:HfF4acaa547ff644b5b9eb02a07e' class=''>Delete DIRS
+
+<br/></li><li id='temp:C:HfFc97b44a3b68144c79b00ce5ed' class=''>Rescan (Remove Series DIR REF from Library, Now only valid REF is Listed)
+
+<br/></li><li id='temp:C:HfF1175b37b46c240609892a06f0' class=''>Remove External HDD 
+
+<br/></li><li id='temp:C:HfF3ae5117a43144101b048f6e63' class=''>DONE!
+
+<br/></li></ul></div><br/>
+
+<h2 id='temp:C:HfF1d16f4e855dc40dbbda08b073'>My Comment on Reddit</h2>
+
+<pre id='temp:C:HfFb73e53c21ab34b5297368f2ae'>My assigned User Name:  u/Impressive_4777<br><br>TITLE:  Fixing Invalid References to Movies/Shows <br>in "Next Up" and "Continue" after forced Migration.<br><br>Success! I had persistant "Next Up" and "Continue" Invalid Links due to External HDD <br>Migration. Due to wear and tear (Age) my E-Drive had CRC errors, so I Migrated the <br>recoverable Data to L-Drive.  Even Refreshing the JellyFin DB, JellyFin kept on <br>showing Invalid References to SHOWS. <br><br>First I tried all the techniques: Marking/Unmarking Watched SHOWS, <br>Clearing the Cache, Refreshing the DB, Eliminating remnants manually <br>in the Windows Directory tracking Libraries <br>(C:\ProgramData\Jellyfin\Server\root\default\)<br><br>1. Turning JellyFin Server off I just connected an Empty Drive, Right Clicked on <br>My Computer, Manage, Assigned the OLD HDD Letter to the EMPTY HDD<br><br>2. I created a copy of the Original "Directory Path/.MP4 Filenames" that were <br>listed in "Next Up" and "Continue". <br><br>3. Turning on the JellyFin Server I Added the ORIGINAL DRIVE LETTER that I had <br>removed from the Library and Rescanned the JellyFin DB. <br>(This allowed me to Mark the "Watched/Unwatched" checkmark.) <br>The Show Finally disappeared out of the "Next Up" and "Continue" Lists. <br><br>4. Preparing for TEMP Drive removal I deleted the .MP4 Show. Rescanned the DB.<br><br>5. Finally I noticed that I needed to clear the "Recently Added to" Library List, <br>I removed the Drive Letter from the JellyFin Library DB<br><br>6. Rescanning the Drive again before HDD removal, I Deleted the .MP4 files from <br>the Empty Drive.<br><br>7. Deleting the Physical Windows Folder I rescanned Again and JellyFin cleaned up <br>Invalid Library References. <br><br>8. I Disconnected my TEMP Drive from the Computer. The SHOW is now Referenced <br>in the Correct HDD.<br><br>I look forward to an Update from the JellyFin developers that will Depricate <br>my Work around.</pre>
+
+<h2 id='temp:C:HfFb3c33d0a05484dea89bf6c833'>The Method Below didn’t work</h2>
+
+<h3 id='temp:C:HfFe09d03e0f008499fae32edcd2'>Problem:  </h3>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:HfF46452ee731f74963a3a3c8fbb'><li id='temp:C:HfFdbfd029a565142a0a44428010' class='' value='1'>E-Drive was Removed replaced with L-Drive
+
+<br/></li><li id='temp:C:HfFa00b2ffa011244e7b9b4dcf9a' class=''>Defunct References to E-Drive showed in Next-UP and in Library Classic Series
+
+<br/></li><li id='temp:C:HfF320dceda21e143c6a3300df01' class='parent'>Library (TEXT) Files in C:\ProgramData\Jellyfin\Server\root\default\CLASSIC Series
+
+<br/></li><ul><li id='temp:C:HfF04145ea8f79c44a8adcec3703' class=''>CLASSIC Series.mblink containing TEXT (G:\CLASSIC Series)
+
+<br/></li><li id='temp:C:HfFffd80499fc5f450794fd29747' class=''>CLASSIC Series1.mblink containing TEXT (H:\CLASSIC Series)
+
+<br/></li><li id='temp:C:HfFcf7821ab31dc48d9aaa90c11a' class=''>CLASSIC Series11.mblink containing TEXT (F:\CLASSIC Series)
+
+<br/></li><li id='temp:C:HfFae30d647c4da4d1385631df1b' class=''>CLASSIC Series111.mblink containing TEXT (I:\CLASSIC Series)
+
+<br/></li><li id='temp:C:HfFd8369821f8a14a36b5b37f3e4' class=''>CLASSIC Series1111.mblink containing TEXT (J:\CLASSIC Series)
+
+<br/></li><li id='temp:C:HfF00abb9ac6fe04b93b177fafd5' class=''>CLASSIC Series11111.mblink containing TEXT (K:\CLASSIC Series)
+
+<br/></li><li id='temp:C:HfF3ed3569de1ae4e56b9cb0d377' class=''><span bgcolor="#ffcdcc" style="background-color:#ffcdcc">CLASSIC Series111111.mblink containing TEXT (E:\CLASSIC Series) → ERROR is HERE</span>
+
+<br/></li><li id='temp:C:HfFa802e70ae0c54c8695ad6b045' class=''>CLASSIC Series11111111.mblink containing TEXT (L:\CLASSIC Series)
+
+<br/></li></ul></ul></div><h3 id='temp:C:HfF3516729d6c3e4fe490350cb55'>Solution:</h3>
+
+<div style="" data-section-style='6' class=""><ul id='temp:C:HfF202e39d8635b46dda7fd4547c'><li id='temp:C:HfF3a73f884d13b4eebacafdb9b5' class='' value='1'>Turn Off Server
+
+<br/></li><li id='temp:C:HfFe84dbeb82d4444af9f0af0c72' class=''>DELETE CLASSIC Series111111.mblink containing TEXT (E:\Classic Series)
+
+<br/></li><li id='temp:C:HfFa176a7ecb9b84f3c95681c32c' class=''>Restart Server
+
+<br/></li><li id='temp:C:HfFbaffd85f9caa4518b6ab4c105' class=''>Rescan
+
+<br/></li></ul></div><br/>
+
+</body></html>

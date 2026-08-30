@@ -1,0 +1,694 @@
+<!doctype html>
+<html><head><title>ANSI - CMD - Colors</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:JcZfc5eb5babf894563b3074773f'>ANSI - CMD - Colors</h1>
+
+<span style="color:#141414" textcolor="#141414"><span bgcolor="#d9d9de" style="background-color:#d9d9de">The Esc character in the above table must be entered with the key combination</span></span><code> Ctrl+[</code><br><span style="color:#141414" textcolor="#141414"><span bgcolor="#d9d9de" style="background-color:#d9d9de">In a text editor this may appear as </span></span><code>^[</code><span style="color:#141414" textcolor="#141414"><span bgcolor="#d9d9de" style="background-color:#d9d9de"> or </span></span><code>Esc[ or ¿[</code><br/>
+
+<br/>
+
+<div data-section-style='13'><table id='temp:C:JcZabd164c59d3d425db9dbbd4f5' title='Sheet1' style='width: 43.6667em'><thead><tr><th class='empty' style='width: 2em'/><th id='temp:C:JcZe4e68c73263248ce839f5ca3a'  style='width: 17.2em'>Color
+
+<br/></th><th id='temp:C:JcZ1b9c343288164444b57a9cc03'  style='width: 9.66667em'>Foreground
+
+<br/></th><th id='temp:C:JcZa954725cfc4e4043b11bfec75'  style='width: 10.4667em'>Background
+
+<br/></th><th id='temp:C:JcZ357ebdc8ca324614b6b84ce08'  style='width: 6.33333em'>COLOR equivalent
+
+<br/></th></tr></thead><tbody><tr id='temp:C:JcZ3857dc822f31417dbe5c43c58'><td style='background-color:#f0f0f0'>1</td><td id='temp:s:temp:C:JcZ3857dc822f31417dbe5c43c58;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Default
+
+<br/></td><td id='temp:s:temp:C:JcZ3857dc822f31417dbe5c43c58;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[0m
+
+<br/></td><td id='temp:s:temp:C:JcZ3857dc822f31417dbe5c43c58;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'> 
+
+<br/></td><td id='temp:s:temp:C:JcZ3857dc822f31417dbe5c43c58;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'> 
+
+<br/></td></tr><tr id='temp:C:JcZ7ecb0c308b0245888dcd800fc'><td style='background-color:#f0f0f0'>2</td><td id='temp:s:temp:C:JcZ7ecb0c308b0245888dcd800fc;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Black BLACK<span style="color:#141414" textcolor="#141414"> </span><span style="color:#0c0c0c" textcolor="#0c0c0c">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ7ecb0c308b0245888dcd800fc;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[30m
+
+<br/></td><td id='temp:s:temp:C:JcZ7ecb0c308b0245888dcd800fc;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[40m
+
+<br/></td><td id='temp:s:temp:C:JcZ7ecb0c308b0245888dcd800fc;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>0
+
+<br/></td></tr><tr id='temp:C:JcZf749a8a297b647faa7624586a'><td style='background-color:#f0f0f0'>3</td><td id='temp:s:temp:C:JcZf749a8a297b647faa7624586a;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Red DARK_RED<span style="color:#141414" textcolor="#141414"> </span><span style="color:#c50f1f" textcolor="#c50f1f">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZf749a8a297b647faa7624586a;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[31m
+
+<br/></td><td id='temp:s:temp:C:JcZf749a8a297b647faa7624586a;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'>Esc[41m
+
+<br/></td><td id='temp:s:temp:C:JcZf749a8a297b647faa7624586a;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'>4
+
+<br/></td></tr><tr id='temp:C:JcZ0ec858db2c294a909a0a48382'><td style='background-color:#f0f0f0'>4</td><td id='temp:s:temp:C:JcZ0ec858db2c294a909a0a48382;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Green DARK_GREEN<span style="color:#141414" textcolor="#141414"> </span><span style="color:#13a10e" textcolor="#13a10e">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ0ec858db2c294a909a0a48382;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[32m
+
+<br/></td><td id='temp:s:temp:C:JcZ0ec858db2c294a909a0a48382;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[42m
+
+<br/></td><td id='temp:s:temp:C:JcZ0ec858db2c294a909a0a48382;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>2
+
+<br/></td></tr><tr id='temp:C:JcZ822ddb4825e242159d88334c0'><td style='background-color:#f0f0f0'>5</td><td id='temp:s:temp:C:JcZ822ddb4825e242159d88334c0;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Yellow DARK_YELLOW<span style="color:#141414" textcolor="#141414"> </span><span style="color:#c19c00" textcolor="#c19c00">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ822ddb4825e242159d88334c0;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[33m
+
+<br/></td><td id='temp:s:temp:C:JcZ822ddb4825e242159d88334c0;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'>Esc[43m
+
+<br/></td><td id='temp:s:temp:C:JcZ822ddb4825e242159d88334c0;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'>6
+
+<br/></td></tr><tr id='temp:C:JcZ19b481817abc459a95ce7d4bc'><td style='background-color:#f0f0f0'>6</td><td id='temp:s:temp:C:JcZ19b481817abc459a95ce7d4bc;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Blue DARK_BLUE<span style="color:#141414" textcolor="#141414"> </span><span style="color:#0037da" textcolor="#0037da">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ19b481817abc459a95ce7d4bc;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[34m
+
+<br/></td><td id='temp:s:temp:C:JcZ19b481817abc459a95ce7d4bc;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[44m
+
+<br/></td><td id='temp:s:temp:C:JcZ19b481817abc459a95ce7d4bc;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>1
+
+<br/></td></tr><tr id='temp:C:JcZ299b2b5daa59411abc6326988'><td style='background-color:#f0f0f0'>7</td><td id='temp:s:temp:C:JcZ299b2b5daa59411abc6326988;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Magenta DARK_MAGENTA<span style="color:#141414" textcolor="#141414"> </span><span style="color:#881798" textcolor="#881798">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ299b2b5daa59411abc6326988;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[35m
+
+<br/></td><td id='temp:s:temp:C:JcZ299b2b5daa59411abc6326988;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'>Esc[45m
+
+<br/></td><td id='temp:s:temp:C:JcZ299b2b5daa59411abc6326988;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'>5
+
+<br/></td></tr><tr id='temp:C:JcZdd0ffd71901a4565acfd53f73'><td style='background-color:#f0f0f0'>8</td><td id='temp:s:temp:C:JcZdd0ffd71901a4565acfd53f73;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Cyan DARK_CYAN<span style="color:#141414" textcolor="#141414"> </span><span style="color:#3a96dd" textcolor="#3a96dd">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZdd0ffd71901a4565acfd53f73;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[36m
+
+<br/></td><td id='temp:s:temp:C:JcZdd0ffd71901a4565acfd53f73;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[46m
+
+<br/></td><td id='temp:s:temp:C:JcZdd0ffd71901a4565acfd53f73;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>3
+
+<br/></td></tr><tr id='temp:C:JcZ28af1133ea344ff294697bf81'><td style='background-color:#f0f0f0'>9</td><td id='temp:s:temp:C:JcZ28af1133ea344ff294697bf81;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Light gray DARK_WHITE<span style="color:#141414" textcolor="#141414"> </span><span style="color:#cccccc" textcolor="#cccccc">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ28af1133ea344ff294697bf81;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[37m
+
+<br/></td><td id='temp:s:temp:C:JcZ28af1133ea344ff294697bf81;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'>Esc[47m
+
+<br/></td><td id='temp:s:temp:C:JcZ28af1133ea344ff294697bf81;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'>7
+
+<br/></td></tr><tr id='temp:C:JcZb0a3ab4feac040e78278ca13e'><td style='background-color:#f0f0f0'>10</td><td id='temp:s:temp:C:JcZb0a3ab4feac040e78278ca13e;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Dark gray BRIGHT_BLACK<span style="color:#141414" textcolor="#141414"> </span><span style="color:#767676" textcolor="#767676">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZb0a3ab4feac040e78278ca13e;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[90m
+
+<br/></td><td id='temp:s:temp:C:JcZb0a3ab4feac040e78278ca13e;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[100m
+
+<br/></td><td id='temp:s:temp:C:JcZb0a3ab4feac040e78278ca13e;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>8
+
+<br/></td></tr><tr id='temp:C:JcZ05afd9bcf52545e2a22c39e5c'><td style='background-color:#f0f0f0'>11</td><td id='temp:s:temp:C:JcZ05afd9bcf52545e2a22c39e5c;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Light red BRIGHT_RED<span style="color:#141414" textcolor="#141414"> </span><span style="color:#e74856" textcolor="#e74856">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ05afd9bcf52545e2a22c39e5c;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[91m
+
+<br/></td><td id='temp:s:temp:C:JcZ05afd9bcf52545e2a22c39e5c;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'>Esc[101m
+
+<br/></td><td id='temp:s:temp:C:JcZ05afd9bcf52545e2a22c39e5c;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'>C
+
+<br/></td></tr><tr id='temp:C:JcZ086d8cb0cd704912874e60c3d'><td style='background-color:#f0f0f0'>12</td><td id='temp:s:temp:C:JcZ086d8cb0cd704912874e60c3d;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Light green BRIGHT_GREEN<span style="color:#141414" textcolor="#141414"> </span><span style="color:#16c60c" textcolor="#16c60c">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ086d8cb0cd704912874e60c3d;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[92m
+
+<br/></td><td id='temp:s:temp:C:JcZ086d8cb0cd704912874e60c3d;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[102m
+
+<br/></td><td id='temp:s:temp:C:JcZ086d8cb0cd704912874e60c3d;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>A
+
+<br/></td></tr><tr id='temp:C:JcZeeaba3bd6e744b3c91581bcf7'><td style='background-color:#f0f0f0'>13</td><td id='temp:s:temp:C:JcZeeaba3bd6e744b3c91581bcf7;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Light yellow BRIGHT_YELLOW<span style="color:#141414" textcolor="#141414"> </span><span style="color:#f9f1a5" textcolor="#f9f1a5">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZeeaba3bd6e744b3c91581bcf7;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[93m
+
+<br/></td><td id='temp:s:temp:C:JcZeeaba3bd6e744b3c91581bcf7;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'>Esc[103m
+
+<br/></td><td id='temp:s:temp:C:JcZeeaba3bd6e744b3c91581bcf7;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'>E
+
+<br/></td></tr><tr id='temp:C:JcZ547f7b84f4414656ab90d9295'><td style='background-color:#f0f0f0'>14</td><td id='temp:s:temp:C:JcZ547f7b84f4414656ab90d9295;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Light blue BRIGHT_BLUE<span style="color:#141414" textcolor="#141414"> </span><span style="color:#3b78ff" textcolor="#3b78ff">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ547f7b84f4414656ab90d9295;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[94m
+
+<br/></td><td id='temp:s:temp:C:JcZ547f7b84f4414656ab90d9295;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[104m
+
+<br/></td><td id='temp:s:temp:C:JcZ547f7b84f4414656ab90d9295;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>9
+
+<br/></td></tr><tr id='temp:C:JcZ812b332329ef4bb2af484ea8d'><td style='background-color:#f0f0f0'>15</td><td id='temp:s:temp:C:JcZ812b332329ef4bb2af484ea8d;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Light magenta BRIGHT_MAGENTA<span style="color:#141414" textcolor="#141414"> </span><span style="color:#b4009e" textcolor="#b4009e">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ812b332329ef4bb2af484ea8d;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[95m
+
+<br/></td><td id='temp:s:temp:C:JcZ812b332329ef4bb2af484ea8d;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'>Esc[105m
+
+<br/></td><td id='temp:s:temp:C:JcZ812b332329ef4bb2af484ea8d;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'>D
+
+<br/></td></tr><tr id='temp:C:JcZ42df058b583d47c097d32baa2'><td style='background-color:#f0f0f0'>16</td><td id='temp:s:temp:C:JcZ42df058b583d47c097d32baa2;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Light cyan BRIGHT_CYAN<span style="color:#141414" textcolor="#141414"> </span><span style="color:#61d6d6" textcolor="#61d6d6">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZ42df058b583d47c097d32baa2;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[96m
+
+<br/></td><td id='temp:s:temp:C:JcZ42df058b583d47c097d32baa2;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[106m
+
+<br/></td><td id='temp:s:temp:C:JcZ42df058b583d47c097d32baa2;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>B
+
+<br/></td></tr><tr id='temp:C:JcZea9c0a09747e4cc99fb75029a'><td style='background-color:#f0f0f0'>17</td><td id='temp:s:temp:C:JcZea9c0a09747e4cc99fb75029a;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>White WHITE<span style="color:#141414" textcolor="#141414"> </span><span style="color:#f2f2f2" textcolor="#f2f2f2">█</span>
+
+<br/></td><td id='temp:s:temp:C:JcZea9c0a09747e4cc99fb75029a;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[97m
+
+<br/></td><td id='temp:s:temp:C:JcZea9c0a09747e4cc99fb75029a;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'>Esc[107m
+
+<br/></td><td id='temp:s:temp:C:JcZea9c0a09747e4cc99fb75029a;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'>F
+
+<br/></td></tr><tr id='temp:C:JcZ65175eb2f99143a6bfbfb95da'><td style='background-color:#f0f0f0'>18</td><td id='temp:s:temp:C:JcZ65175eb2f99143a6bfbfb95da;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Bold
+
+<br/></td><td id='temp:s:temp:C:JcZ65175eb2f99143a6bfbfb95da;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[1m
+
+<br/></td><td id='temp:s:temp:C:JcZ65175eb2f99143a6bfbfb95da;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'> 
+
+<br/></td><td id='temp:s:temp:C:JcZ65175eb2f99143a6bfbfb95da;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'> 
+
+<br/></td></tr><tr id='temp:C:JcZ23d22f4892f94db7a96bcd6dc'><td style='background-color:#f0f0f0'>19</td><td id='temp:s:temp:C:JcZ23d22f4892f94db7a96bcd6dc;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Underline
+
+<br/></td><td id='temp:s:temp:C:JcZ23d22f4892f94db7a96bcd6dc;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[4m
+
+<br/></td><td id='temp:s:temp:C:JcZ23d22f4892f94db7a96bcd6dc;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'> 
+
+<br/></td><td id='temp:s:temp:C:JcZ23d22f4892f94db7a96bcd6dc;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'> 
+
+<br/></td></tr><tr id='temp:C:JcZ20a5ca3759b040b0b69f2bd31'><td style='background-color:#f0f0f0'>20</td><td id='temp:s:temp:C:JcZ20a5ca3759b040b0b69f2bd31;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>No underline
+
+<br/></td><td id='temp:s:temp:C:JcZ20a5ca3759b040b0b69f2bd31;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[24m
+
+<br/></td><td id='temp:s:temp:C:JcZ20a5ca3759b040b0b69f2bd31;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'> 
+
+<br/></td><td id='temp:s:temp:C:JcZ20a5ca3759b040b0b69f2bd31;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'> 
+
+<br/></td></tr><tr id='temp:C:JcZab3e1c90abac44c5ad8ad4da2'><td style='background-color:#f0f0f0'>21</td><td id='temp:s:temp:C:JcZab3e1c90abac44c5ad8ad4da2;temp:C:JcZ4fbe280b37464f038575e7e22' style='text-align: left;vertical-align: top;'>Reverse text
+
+<br/></td><td id='temp:s:temp:C:JcZab3e1c90abac44c5ad8ad4da2;temp:C:JcZfc13d4cd251f4146af9532a13' style='text-align: left;vertical-align: top;'>Esc[7m
+
+<br/></td><td id='temp:s:temp:C:JcZab3e1c90abac44c5ad8ad4da2;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='text-align: left;vertical-align: top;'> 
+
+<br/></td><td id='temp:s:temp:C:JcZab3e1c90abac44c5ad8ad4da2;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='text-align: left;vertical-align: top;'> 
+
+<br/></td></tr><tr id='temp:C:JcZ232dcd7168e549aa83fa9e1da'><td style='background-color:#f0f0f0'>22</td><td id='temp:s:temp:C:JcZ232dcd7168e549aa83fa9e1da;temp:C:JcZ4fbe280b37464f038575e7e22' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Positive text (not reversed)
+
+<br/></td><td id='temp:s:temp:C:JcZ232dcd7168e549aa83fa9e1da;temp:C:JcZfc13d4cd251f4146af9532a13' style='background-color:#d6d6db;text-align: left;vertical-align: top;'>Esc[27m
+
+<br/></td><td id='temp:s:temp:C:JcZ232dcd7168e549aa83fa9e1da;temp:C:JcZ6c1c881886e64c09ab32ce3fe' style='background-color:#d6d6db;text-align: left;vertical-align: top;'> 
+
+<br/></td><td id='temp:s:temp:C:JcZ232dcd7168e549aa83fa9e1da;temp:C:JcZf0f41cd1a2f54a85a9a96846c' style='background-color:#d6d6db;text-align: left;vertical-align: top;'> 
+
+<br/></td></tr></tbody></table></div></body></html>

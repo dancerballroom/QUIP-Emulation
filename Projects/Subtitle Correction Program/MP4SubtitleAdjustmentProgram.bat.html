@@ -1,0 +1,536 @@
+<!doctype html>
+<html><head><title>MP4_Subtitle_Adjustment_Program.bat</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:WNGaa040871bffc4c74870323996'>MP4_Subtitle_Adjustment_Program.bat</h1>
+
+<b>One Helper File</b>:  F4CNTRLTAB.ahk (Auto Hot Key)<br/>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:WNG671913a8a8e2429c8b130132d'><li id='temp:C:WNG674e91eafb534289b43dca25a' class='' value='1'>Press “f” to Activate “ALT+TAB”
+
+<br/></li></ul></div><br/>
+
+<b>NOTES</b>:  <br/>
+
+<div data-section-style='5' style="" class=""><ul id='temp:C:WNGc0aa68c75bf143e79df2c48ad'><li id='temp:C:WNGbfd651ac30f743e092dad2d97' class='' value='1'>Only Processes Files that have 2 Lines on Every Screen
+
+<br/></li><li id='temp:C:WNG77dd2eb9b86549e38a402e9d2' class=''>Made to Process Files Created with:  <control data-remapped="true" id="temp:C:WNGf4791fd652884af892bab344e"><a href="https://quip.com/M6NgAHY6eQ2H">CCC_TXT2SRT_TAP_V24.bat</a></control>
+
+<br/></li><li id='temp:C:WNG4bb8d9ba5be44c4caacad475a' class=''>IF Made With an Extra BOM, Open .SRT with Subtitle Edit, SAVE, and CLOSE
+
+<br/></li><li id='temp:C:WNG7bd427148186482ebf838e1c2' class=''>Drag-Drop MOVIE.<b>SRT</b> or Context MENU the <b>MP4_Subtitle_Adjustment_Program.bat </b>
+
+<br/></li><li id='temp:C:WNG395705efb33c4a29b98e17f5d' class=''>Follow MENU to EDIT Times
+
+<br/></li></ul></div><h2 id='temp:C:WNG5c98571d82d0444c9cf14ed32'>F4CNTRLTAB.ahk</h2>
+
+<pre id='temp:C:WNG44c2b22c692549268be026feb'>#Requires AutoHotkey v2.0<br>; f = ALT+TAB<br>f::F2ALTTAB()<br><br>; 0 = Close App<br>0::ExitApp<br><br>; First Run - Establish Macro<br>; MsgBox "Setting f, `n(q = ALT+TAB)"<br>; # Exit Script <br>Exit<br><br>; F2ALTTAB<br>F2ALTTAB()<br>{<br>    ; Give Subtitle Edit time to load<br>    Sleep 100 <br>    Send "{Alt down}{tab}"<br>    Send "{Alt up}"<br>}</pre>
+
+<h2 id='temp:C:WNG671b3da9885347559f1596a04'><b>MP4_Subtitle_Adjustment_Program.bat</b></h2>
+
+<pre id='temp:C:WNG8d6ccfe850d24445a737530ba'>@ECHO OFF<br>SETLOCAL ENABLEDELAYEDEXPANSION<br><br>REM Set Up ANSI for COLOR<br>CALL :setESC<br>REM Show HELP if NOT MP4 DRAG/DROPPED or ARG1 missing<br>IF "%~1" == "" (<br>     CALL :HELP<br>        EXIT<br>)<br><br>REM             TRUE = SHOW DEBUGGING <br>set /A TRUE=1<br>REM             FALSE = HIDE DEBUGGING<br>set /A FALSE=0<br>REM SHOW/HIDE DEBUGGING<br>set /A DEBUG=!FALSE!<br><br>IF "%~1" == "GAME" GOTO :%1<br><br>SET /A CNT=1<br>SET /A Line_Cursor=1<br>SET FileName=%1<br>IF !CNT! EQU 1 (<br>    CALL :LOAD_SRT %1 line_count output FileName<br>    CALL :CREATE_AHK<br>)<br><br>SET "keypress[8]=Backspace"<br>SET "keypress[9]=Tab_Key"<br>SET "keypress[13]=Enter_Key"<br>SET "keypress[27]=Escape"<br>SET "keypress[32]=Space"<br>SET "keypress[38]=Up_Arrow"<br>SET "keypress[37]=Left_Arrow"<br>SET "keypress[39]=Right_Arrow"<br>SET "keypress[40]=Down_Arrow"<br>REM ZERO but not on Numerical Key board<br>SET "keypress[48]=Zero"<br><br>Start "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe" "F4CNTRLTAB.ahk"<br>CALL :MENU Startup<br><br>POWERSHELL  ^<br>Write-Host 0;  ^<br>$test = 1; ^<br>while ($test) {  ^<br>    $key=$Host.UI.RawUI.ReadKey('NoEcho, IncludeKeyDown').VirtualKeyCode; ^<br>    Write-Host $key; ^<br>    if ( $key -eq '48') { ^<br>        Exit; ^<br>    } ^<br>} | "%~F0" GAME  <br>REM Set /p "key=Press any key to close the window.!CRLF!!CRLF!"  <br>EXIT 0<br><br>:GAME<br>SET /P "key="<br>FOR /L %%# in () DO (<br>    SET /P "key="<br>    IF defined keypress[!key!] (<br>        CLS<br>        FOR %%G in (!key!) DO (<br>            SET CHOICE=!keypress[%%G]!<br>            CALL :!CHOICE! output CNT FirstT SecondT ThirdT FourthT  CURSOR_T1 CURSOR_T2 FileName<br>            CALL :MENU !CHOICE! output CNT Line_Cursor UpperLimit FirstT SecondT ThirdT FourthT<br>        )<br>        SET "key="<br>    )<br>)<br>Exit /b<br><br>REM Functions<br>:Escape<br>    SET /P "key="<br>    SET /P "Save=Save to Original SRT File (Y/N): "<br>    if !DEBUG! EQU !TRUE! Echo Save Choice: !Save!<br>    if !Save! == 89 (<br>        Echo Saving...<br>        Echo.<br>        copy !SRT_TEMP! !FileName!<br>    )<br>    if !Save! == 78 (<br>        Echo Skip Save<br>        Echo.<br>    )<br>    <br>    Exit /b<br><br>REM Available for further DEVELOPMENT<br>:ZERO<br>    REM Echo Function ZERO: Under Construction<br>    REM Keyboard 0 = Exit Program<br>Exit 0<br><br>:MENU<br>    ECHO ========[ TimeSig2MilliSec AND MilliSec2TimeSig Menu ]=============<br>    ECHO ==== !ESC![7mArrow Keys!ESC![0m                 !ESC![7mTAB!ESC![0m = GOTO Subtitle #          ====<br>    ECHO ====   !ESC![7mRight!ESC![0m = Load Next        !ESC![7mBSPC!ESC![0m = Reload Saved Subs       ====<br>    ECHO ====   !ESC![7mLeft!ESC![0m = Load Previous     !ESC![7mENTER!ESC![0m = SAVE                   ====<br>    ECHO ====   !ESC![7mUp!ESC![0m    = Time +           !ESC![7mESC!ESC![0m = SAVE COMMIT to Original  ====<br>    ECHO ====   !ESC![7mDown!ESC![0m  = Time -           !ESC![7mSPACE!ESC![0m = PLAY                   ====<br>    ECHO ====   !ESC![7mKeyboard 0 twice!ESC![0m=Exit    !ESC![7mq!ESC![0m = ALT+TAB                    ====<br>    ECHO ===================================================================<br>    ECHO   !ESC![44m%1!ESC![0m       <br>    ECHO ===================================================================<br>    ECHO. <br>    CALL :SHOWLINES output Line_Cursor FirstT SecondT ThirdT FourthT CURSOR_T1 CURSOR_T2<br>Exit /b<br><br>:SHOWLINES<br>    REM Next Step: Separate MATH from DISPLAY<br>    REM <br>    REM     Separate the SET Statements from SHOWLINES<br>    REM     These need to be calculated when operating Left/Right Arrows<br>    Set /A Offset=(0)<br>    if !DEBUG! EQU !TRUE! ECHO SHOWLINES<br>        set /a FIRST=!Line_Cursor!+0+!Offset!<br>        for %%i in (!FIRST!) do (<br>            set element1=!output[%%i]!<br>        )<br>        rem echo FIRST:!FIRST!<br>        echo !element1!       <br>        rem pause<br>        set /a SECOND=!Line_Cursor!+1+!Offset!<br>        <br>        for %%h in (!SECOND!) do (<br>            Set /A CURSOR_T1=%%h<br>            Set FirstT=!output[%%h][1]!<br>            Set SecondT=!output[%%h][2]!<br>            echo !FirstT! --^&gt; !ESC![44m!SecondT!!ESC![0m <br>        )<br>        set /a THIRD=!Line_Cursor!+2+!Offset!<br>        for %%k in (!THIRD!) do (<br>          set element3=!output[%%k]!<br>        )<br>        echo !element3!<br><br>        set /a FOURTH=!Line_Cursor!+3+!Offset!<br>        for %%l in (!FOURTH!) do (<br>          set element4=!output[%%l]!<br>        )<br>        echo !element4!<br>        echo.<br><br>        set /a FIFTH=!Line_Cursor!+4+!Offset!<br>        for %%m in (!FIFTH!) do (<br>          set element5=!output[%%m]!<br>        )<br>        echo !element5!<br>        <br>        set /a SIXTH=!Line_Cursor!+5+!Offset!<br><br>        for %%h in (!SIXTH!) do (<br>            Set /A CURSOR_T2=%%h<br>            Set ThirdT=!output[%%h][1]!<br>            Set FourthT=!output[%%h][2]!<br>            echo !ESC![44m!ThirdT!!ESC![0m --^&gt; !FourthT! <br>        )<br>        <br>        set /a SEVENTH=!Line_Cursor!+6+!Offset!<br>        for %%o in (!SEVENTH!) do (<br>          set element7=!output[%%o]!<br>        )<br>        echo !element7!<br>        <br>        set /a EIGHTH=!Line_Cursor!+7+!Offset!<br>        for %%p in (!EIGHTH!) do (<br>          set element8=!output[%%p]!<br>        )<br>        echo !element8!<br>    )<br>Exit /b<br><br>REM ANSI COLOR REFERENCE<br>REM !ESC![7mINVERSE!ESC![0m<br>REM !ESC![44mWhite Foreground Blue Background!ESC![0m<br>REM !ESC![94mBlue!ESC![0m<br>REM !ESC![96mCyan!ESC![0m<br>REM !ESC![97mWhite!ESC![0m<br><br>REM ANSI Color<br>:setESC<br>for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# &amp; echo on &amp; for %%b in (1) do rem"') do (<br>  set ESC=%%b<br>  exit /B 0<br>)<br>exit /B 0<br><br>:HELP<br>    ECHO =================  <br>    ECHO ==== !ESC![44mSRT File not Specified!ESC![0m<br>    ECHO ==== !ESC![7mSyntax:!ESC![0m  Capture_Keys.bat "Filename.srt"<br>    ECHO ====   Drag/Drop "Filename.srt" on Capture_Keys.bat<br>    ECHO ==== !ESC![7mRequirements:!ESC![0m <br>    ECHO ====   "Filename.mp3" and "Filename.srt" in same directory<br>    ECHO ====   "C:\Program Files\DAUM\PotPlayer\PotPlayerMini64.exe"<br>    ECHO =================  <br>pause<br>Exit /b<br><br>:Backspace<br>REM Echo "Backspace" Function Call<br>Call :LOAD_SRT line_count output FileName<br>Echo Reloading Subtitles from Original...<br>Pause<br>Exit /b<br><br>:SEARCH<br>Echo SEARCH (IN DEVELOPMENT)<br>REM Test if pattern in string<br>REM : P1 - the pattern<br>REM : P2 - the string to check<br>REM echo %2 | findstr /C:"%1" 1&gt;nul<br>REM if errorlevel 1 (<br>REM   echo. got one - pattern not found<br>REM ) ELSE (<br>REM   echo. got zero - found pattern<br>REM )<br>Exit /b<br><br>:Tab_Key<br>Echo "Tab" Function Call<br>Call :SEARCH<br>REM SEARCH ARRAY (IN DEVELOPMENT)<br>REM SET /P search_string="Search: " <br>:: Iterate through the array and compare<br>REM CALL :SEARCH pqr "abc def pqr 123"<br>Exit /b<br><br>:Space<br>if !DEBUG! EQU !TRUE! Echo "Space" Function Call<br>if !DEBUG! EQU !TRUE! Echo SecondT: !SecondT!<br>if !DEBUG! EQU !TRUE! Echo File: !File!<br>SET PROG="C:\Program Files\DAUM\PotPlayer\PotPlayerMini64.exe"  <br>SET VID=SRT_TEMP.mp4  <br>SET ARGS=/current /seek=<br>SET STIME=!FirstT!<br>ECHO !PROG!!VID!!ARGS!!STIME!<br>Start "!SecondT!" !PROG!!VID!!ARGS!!STIME!<br>Exit /b<br><br>:Left_Arrow<br>if !DEBUG! EQU !TRUE! ECHO Left_Arrow<br>if !CNT! GTR 1 (<br>    SET /A Line_Cursor=!Line_Cursor!-4<br>    SET /A CNT=!CNT!-1<br>)<br>Exit /b<br><br>:Right_Arrow<br>if !DEBUG! EQU !TRUE! ECHO Right_Arrow<br>SET /A UpperLimit=!line_count! - 8<br>if !DEBUG! EQU !TRUE! Echo LCNT:!line_count!<br>if !DEBUG! EQU !TRUE! Echo LCUR:!Line_Cursor!<br>if !DEBUG! EQU !TRUE! Echo ULMT:!UpperLimit!<br>if !Line_Cursor! LSS !UpperLimit! (<br>    SET /A Line_Cursor=!Line_Cursor!+4<br>    SET /A CNT=!CNT!+1<br>)<br>Exit /b<br><br>:Up_Arrow<br>if !DEBUG! EQU !TRUE! Echo "Up" Function Call<br>if !DEBUG! EQU !TRUE! Echo SECOND: !SecondT!<br>if !DEBUG! EQU !TRUE! Echo THIRD: !ThirdT!<br>SET SecondT=!SecondT:~0,8!.!SecondT:~9,11!<br>SET ThirdT=!ThirdT:~0,8!.!ThirdT:~9,11!<br>if !DEBUG! EQU !TRUE! Echo SECOND Converted: !SecondT!<br>if !DEBUG! EQU !TRUE! Echo Third Converted: !ThirdT!<br><br>SET DIFF=00:00:00.250<br>CALL :ADD_TIMES_TS_TS !SecondT! !DIFF! Total<br>SET SecondT=!Total!<br>SET ThirdT=!Total!<br>SET /A C1=!Line_Cursor!+1<br>SET /A C5=!Line_Cursor!+5<br>SET output[!C1!][2]=!Total!<br>SET output[!C5!][1]=!Total!<br>Exit /b<br><br>:Down_Arrow<br>if !DEBUG! EQU !TRUE! Echo "Down" Function Call<br>SET SecondT=!SecondT:~0,8!.!SecondT:~9,11!<br>SET ThirdT=!ThirdT:~0,8!.!ThirdT:~9,11!<br><br>SET DIFF=00:00:00.250<br>CALL :SUB_TIMES_TS_TS !SecondT! !DIFF! Total<br>SET SecondT=!Total!<br>SET ThirdT=!Total!<br>SET /A C1=!Line_Cursor!+1<br>SET /A C5=!Line_Cursor!+5<br>SET output[!C1!][2]=!Total!<br>SET output[!C5!][1]=!Total!<br>Exit /b<br><br>REM Function ADD_TIMES_TS_TS<br>REM PREP SET SecondT=!TIME-VAR-1:~0,8!.!TIME-VAR-1:~9,11!   EXAMPLE: 12.23.56.789<br>REM PREP TIME-VAR-2=!TIME-VAR-2:~0,8!.!TIME-VAR-2:~9,11!    EXAMPLE: 12.23.56.789<br>REM INPUT:  %1 %2 (Time-Signatures: 12:34:56,789)<br>REM CALL :ADD_TIMES_TS_TS !TIME-VAR-1! !TIME-VAR-2! Total TimexC<br>REM OUTPUT: Total (Time-Signature:  12:34:56,789)<br>:ADD_TIMES_TS_TS<br>    Set First_Time=%1<br>    Set Second_Time=%2<br>    CALL :TimeSig2MilliSec !First_Time! MilliSec<br>    Set /A FT=!MilliSec!<br>    CALL :TimeSig2MilliSec !Second_Time! MilliSec<br>    Set /A ST=!MilliSec!<br>    Set /A FT_ST_TOT=!FT!+!ST!<br>    REM 24 HRS = 86400000 MilliSeconds<br>    Set /A FT_ST_TOT=(!FT_ST_TOT! %% 86400000)<br>    <br>    CALL :MilliSec2TimeSig !FT_ST_TOT! Timex TimexC<br>    Set Total=!Timex!<br>    Set TimexC=!TimexC!<br>exit /b<br><br>REM Function ADD_TIMES_MS_TS<br>REM PREP SET SecondT=!TIME-VAR-1:~0,8!.!TIME-VAR-1:~9,11!   EXAMPLE: 12.23.56.789<br>REM PREP TIME-VAR-2=!TIME-VAR-2:~0,8!.!TIME-VAR-2:~9,11!    EXAMPLE: 12.23.56.789<br>REM INPUT:  %1 %2 (Time-Signatures: 12:34:56,789)<br>REM CALL :ADD_TIMES_MS_TS !TIME-VAR-1! !TIME-VAR-2! Total TimexC<br>REM OUTPUT: Total (Time-Signature:  12:34:56,789)<br>:ADD_TIMES_MS_TS<br>    REM Set First_Time=%1<br>    REM Set Second_Time=%2<br>    REM CALL :TimeSig2MilliSec !First_Time! MilliSec<br>    Set /A FT=%1<br>    REM CALL :TimeSig2MilliSec !Second_Time! MilliSec<br>    Set /A ST=%2<br>    Set /A FT_ST_TOT=!FT!+!ST!<br>    REM 24 HRS = 86400000 MilliSeconds<br>    Set /A FT_ST_TOT=(!FT_ST_TOT! %% 86400000)<br>    <br>    CALL :MilliSec2TimeSig !FT_ST_TOT! Timex TimexC<br>    Set Total=!Timex!<br>    Set TimexC=!TimexC!<br>exit /b<br><br>REM Function SUB_TIMES_TS_TS<br>REM PREP SET SecondT=!TIME-VAR-1:~0,8!.!TIME-VAR-1:~9,11!   EXAMPLE: 12.23.56.789<br>REM PREP TIME-VAR-2=!TIME-VAR-2:~0,8!.!TIME-VAR-2:~9,11!    EXAMPLE: 12.23.56.789<br>REM INPUT:  %1 %2 (Time-Signatures: 12:34:56,789)<br>REM CALL :SUB_TIMES_TS_TS !TIME-VAR-1! !TIME-VAR-2! Total TimexC<br>REM OUTPUT: Total (Time-Signature:  12:34:56,789)<br>:SUB_TIMES_TS_TS<br>    Set First_Time=%1<br>    Set Second_Time=%2<br>    if !DEBUG! EQU !TRUE! Echo First Time:  !First_Time!<br>    if !DEBUG! EQU !TRUE! Echo Second Time: !Second_Time!<br>    CALL :TimeSig2MilliSec !First_Time! MilliSec<br>    Set /A FT=!MilliSec!<br>    CALL :TimeSig2MilliSec !Second_Time! MilliSec<br>    Set /A ST=!MilliSec!<br>    Set /A FT_ST_TOT=!FT!-!ST!<br>    REM 24 HRS = 86400000 MilliSeconds<br>    Set /A FT_ST_TOT=(!FT_ST_TOT! %% 86400000)<br>    <br>    CALL :MilliSec2TimeSig !FT_ST_TOT! Timex TimexC<br>    if !DEBUG! EQU !TRUE! Echo Total Time: !TimexC!<br>    Set Total=!TimexC!<br>    Set Timex=!Timex!<br>exit /b<br><br>REM Function SUB_TIMES_MS_TS<br>REM PREP SET SecondT=!TIME-VAR-1:~0,8!.!TIME-VAR-1:~9,11!   EXAMPLE: 12.23.56.789<br>REM PREP TIME-VAR-2=!TIME-VAR-2:~0,8!.!TIME-VAR-2:~9,11!    EXAMPLE: 12.23.56.789<br>REM INPUT:  %1 %2 (Time-Signatures: 12:34:56,789)<br>REM CALL :SUB_TIMES_MS_TS !TIME-VAR-1! !TIME-VAR-2! Total TimexC<br>REM OUTPUT: Total (Time-Signature:  12:34:56,789)<br>:SUB_TIMES_MS_TS<br>    REM Set First_Time=%1<br>    REM Set Second_Time=%2<br>    REM if !DEBUG! EQU !TRUE! Echo First Time:  !First_Time!<br>    REM if !DEBUG! EQU !TRUE! Echo Second Time: !Second_Time!<br>    REM CALL :TimeSig2MilliSec !First_Time! MilliSec<br>    Set /A FT=%1<br>    REM CALL :TimeSig2MilliSec !Second_Time! MilliSec<br>    Set /A ST=%2<br>    Set /A FT_ST_TOT=!FT!-!ST!<br>    REM 24 HRS = 86400000 MilliSeconds<br>    Set /A FT_ST_TOT=(!FT_ST_TOT! %% 86400000)<br>    <br>    CALL :MilliSec2TimeSig !FT_ST_TOT! Timex TimexC<br>    if !DEBUG! EQU !TRUE! Echo Total Time: !TimexC!<br>    Set Total=!TimexC!<br>    Set Timex=!Timex!<br>    REM Echo IN Total: !TimexC!<br>    REM Echo IN Timex: !Timex!<br>exit /b<br><br><br>REM Function TimeSig2MilliSec<br>REM INPUT:  %1 (Time-Signature: 12:34:56,789)<br>REM         CALL :TimeSig2MilliSec !12.34.56.789! MilliSec<br>REM OUTPUT: MilliSec (MilliSeconds: 123456789)<br>:TimeSig2MilliSec<br>    Set TT=%1<br>    Set HH=!TT:~0,2!<br>    Set MM=!TT:~3,2!<br>    Set SS=!TT:~6,2!<br>    Set MS=!TT:~9,3!<br>    if !DEBUG! EQU !TRUE! Echo Time:     !TT!<br>    if !DEBUG! EQU !TRUE! Echo Hour:     !HH!<br>    if !DEBUG! EQU !TRUE! Echo Minute:   !MM!<br>    if !DEBUG! EQU !TRUE! Echo Second:   !SS!<br>    if !DEBUG! EQU !TRUE! Echo Mili-Sec: !MS!<br>    Set /A MS_MS=((1!MS! %% 1000))<br>    Set /A MS_SS=((1!SS! %% 100)*1000)              <br>    Set /A MS_MM=((1!MM! %% 100)*60*1000)<br>    Set /A MS_HH=((1!HH! %% 100)*60*60*1000) <br>    if !DEBUG! EQU !TRUE! Echo MS_SS:  !MS_SS!<br>    if !DEBUG! EQU !TRUE! Echo MS_MM:  !MS_MM!<br>    if !DEBUG! EQU !TRUE! Echo MS_MM:  !MS_HH!<br>    Set /A MS_TOT=!MS_HH!+!MS_MM!+!MS_SS!+!MS_MS!<br>    if !DEBUG! EQU !TRUE! Echo MS_TOT: !MS_TOT!<br>    Set /A MilliSec=!MS_TOT!<br>Exit /b<br><br>REM Function MilliSec2TimeSig<br>REM INPUT:  %1 (Milli-Seconds)<br>REM          CALL :MilliSec2TimeSig !Milli-Seconds! Timex TimexC<br>REM OUTPUT: Timex (Time-Signature: 12:34:56.789)<br>REM OUTPUT: TimexC (Time-Signature: 12:34:56,789)<br>:MilliSec2TimeSig<br>    Set /A MS_TOT=%1<br>    Set MS_EXT=!MS_TOT:~-3,3!<br>    if !DEBUG! EQU !TRUE! Echo Mili-Seconds Extracted: !MS_EXT!<br>    Set /A Rem_Minus_MS=!MS_TOT!-MS_EXT<br>    if !DEBUG! EQU !TRUE! Echo Total Minus MS: !Rem_Minus_MS!<br>    Set /A HH_EXT=(!Rem_Minus_MS!/(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Hours Extracted: !HH_EXT!<br>    Set /A Rem_Minus_HH=(!Rem_Minus_MS!%%(60*60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Minus HH: !Rem_Minus_HH!<br>    Set /A MM_EXT=(!Rem_Minus_HH!/(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Minutes Extracted: !MM_EXT!<br>    Set /A Rem_Minus_MM=(!Rem_Minus_HH!%%(60*1000))<br>    if !DEBUG! EQU !TRUE! Echo Total Seconds SS: !Rem_Minus_MM!<br>    Set /A SS_EXT=(!Rem_Minus_MM!/1000)<br>    if !DEBUG! EQU !TRUE! Echo Seconds Extracted: !SS_EXT!<br><br>    if !HH_EXT! lss 10 set HH_EXT=0!HH_EXT!<br>    if !MM_EXT! lss 10 set MM_EXT=0!MM_EXT!<br>    if !SS_EXT! lss 10 set SS_EXT=0!SS_EXT!<br>    REM if !MS_EXT! lss 10 set MS_EXT=00!MS_EXT!<br>    REM MOD ERROR Results in .0 instead of .000<br>    REM ALSO Above 00!MS_EXT! Results in .000000 instead of .000<br><br>    if !DEBUG! EQU !TRUE! Echo Time Extracted: !HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>    Set Timex=!HH_EXT!:!MM_EXT!:!SS_EXT!.!MS_EXT!<br>    Set TimexC=!HH_EXT!:!MM_EXT!:!SS_EXT!,!MS_EXT!<br>Exit /b<br><br>:LOAD_SRT<br>REM if !DEBUG! EQU !TRUE! ECHO LOAD_SRT<br>     set SRT_NAME=!FileName!<br>     SET SRT_TEMP="%~d1%~p1SRT_TEMP.srt"<br><br>     set MP4_NAME="!FileName:~1,-5!.mp4"<br>       SET MP4_TEMP="%~d1%~p1SRT_TEMP.mp4"<br><br>    set /a line_count=0<br><br>     copy !SRT_NAME! !SRT_TEMP!<br>     copy !MP4_NAME! !MP4_TEMP!<br><br>    for /F "tokens=*" %%a in ('Type !SRT_NAME!') do (<br>         Set /a line_count=!line_count!+1<br>         Set output[!line_count!]=%%a<br>         SET a=%%a<br>         if "!a:~13,2!" EQU "--" (<br>             Set output[!line_count!][1]=!a:~0,12!<br>             Set output[!line_count!][2]=!a:~17,29!<br>         )<br>     )<br><br>    REM if !DEBUG! EQU !TRUE! Echo Total Lines (line_count):      !line_count!<br>    CLS<br>Exit /b<br><br>:Enter_Key<br>if !DEBUG! EQU !TRUE! Echo "Enter" Function Call<br><br>for /l %%i in (1, 1, !line_count!-1) do (<br>        REM Echo !SRT_TEMP!<br>        REM pause<br>        Set /A Test_CNT=%%i-2<br>        Set /A Test_Mod=!Test_CNT!%%4<br>        if !Test_Mod! EQU 0 (<br>            echo !output[%%i][1]! --^&gt; !output[%%i][2]!&gt;&gt;!SRT_TEMP!<br>        ) Else (<br>            if %%i EQU 1 (Echo !output[%%i]!&gt;!SRT_TEMP!)<br>            if %%i GTR 1 (Echo !output[%%i]!&gt;&gt;!SRT_TEMP!)<br>        )<br>        Set /A Blank_Mod=%%i%%4<br>        REM Breakthrough: (Echo.) creates a line without a space<br>        if !Blank_Mod! EQU 0 (Echo.)&gt;&gt;!SRT_TEMP!<br>)<br>Exit /b<br><br>:CREATE_AHK<br>Set F4CNTRLTAB_BASE64=^<br>I1JlcXVpcmVzIEF1dG9Ib3RrZXkgdjIuMA0KOyBmID0gQUxUK1RBQg0KZjo6RjJB^<br>TFRUQUIoKQ0KDQo7IDAgPSBDbG9zZSBBcHANCjA6OkV4aXRBcHANCg0KOyBGaXJz^<br>dCBSdW4gLSBFc3RhYmxpc2ggTWFjcm8NCjsgTXNnQm94ICJTZXR0aW5nIGYsIGBu^<br>KHEgPSBBTFQrVEFCKSINCjsgIyBFeGl0IFNjcmlwdCANCkV4aXQNCg0KOyBGMkFM^<br>VFRBQg0KRjJBTFRUQUIoKQ0Kew0KCTsgR2l2ZSBTdWJ0aXRsZSBFZGl0IHRpbWUg^<br>dG8gbG9hZA0KCVNsZWVwIDEwMCANCglTZW5kICJ7QWx0IGRvd259e3RhYn0iDQoJ^<br>U2VuZCAie0FsdCB1cH0iDQp9DQo=<br><br>if EXIST F4CNTRLTAB.ahk (<br>    Echo File Exists Already<br>    Exit /b<br>)<br><br>if NOT EXIST F4CNTRLTAB.ahk (<br>    Echo !F4CNTRLTAB_BASE64! &gt; F4CNTRLTAB_ENCODED.txt<br>    certutil -decode F4CNTRLTAB_ENCODED.txt F4CNTRLTAB.ahk<br>    del /Q F4CNTRLTAB_ENCODED.txt<br>)<br><br>Exit /b</pre>
+
+<br/>
+
+<br/>
+
+</body></html>

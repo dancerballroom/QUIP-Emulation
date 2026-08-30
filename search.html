@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Search Site Index</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #fafafa; color: #333; }
+        .search-box { width: 100%; max-width: 500px; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px; }
+        .result-item { padding: 10px; background: #fff; border: 1px solid #eee; margin-bottom: 8px; border-radius: 4px; }
+        .result-item a { color: #0066cc; text-decoration: none; font-weight: bold; }
+        .result-item a:hover { text-decoration: underline; }
+        .back-btn { display: inline-block; margin-bottom: 15px; color: #666; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <a class='back-btn' href='index.html'>⬅️ Back to Index</a>
+    <h2>🔍 Search Notes</h2>
+    <input type='text' id='searchBox' class='search-box' placeholder='Type to search names or paths...' oninput='doSearch()'>
+    <div id='searchResults'></div>
+    <script src='search-index.js'></script>
+    <script>
+        function doSearch() {
+            const q = document.getElementById('searchBox').value.toLowerCase();
+            const res = document.getElementById('searchResults');
+            res.innerHTML = '';
+            if(!q) return;
+            const filtered = searchIndex.filter(item => item.name.toLowerCase().includes(q) || item.path.toLowerCase().includes(q));
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `<a href='${item.path}'>${item.name}</a><br><small style='color:#888'>${item.path}</small>`;
+                res.appendChild(div);
+            });
+            if(filtered.length === 0) { res.innerHTML = '<p style="color:#888">No matches found</p>'; }
+        }
+    </script>
+</body>
+</html>

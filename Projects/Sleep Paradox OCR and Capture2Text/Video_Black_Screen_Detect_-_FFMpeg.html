@@ -1,0 +1,510 @@
+<!doctype html>
+<html><head><title>Video Black Screen Detect - FFMpeg</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:TZJ79d145e551a34170be2fe8cf5'>Video Black Screen Detect - FFMpeg</h1>
+
+Used to Detect TimeSig of Topic Breaks (HH:MM:SS)<br/>
+
+<pre id='temp:C:TZJ13634b7019ce47ef8866ffd18'>Detect Black Screens:<br>ffmpeg -i input.mp4 -vf "blackdetect=d=0.1:pix_th=0.1" -an -f null - 2&gt;&amp;1 | findstr /c:"blackdetect" &gt; Black_Detect.txt<br><br>Output:<br><br>Start     End       Duration<br>s:115.833 e:115.933 d:0.1<br>s:226.6   e:226.7   d:0.1<br>s:339.933 e:340.067 d:0.133333<br>s:450.8   e:450.933 d:0.133333<br>s:564.9   e:565     d:0.1<br>s:684.6   e:684.7   d:0.1<br>s:793     e:793.133 d:0.133333<br>s:917.167 e:917.3   d:0.133333<br>s:1039.47 e:1039.57 d:0.1<br>s:1269.97 e:1270.1  d:0.133333<br>s:1387.03 e:1387.17 d:0.133333<br>s:1506.37 e:1506.53 d:0.166667<br>s:1623.57 e:1623.73 d:0.166667<br>s:1747.93 e:1748.07 d:0.133333<br>s:1865.6  e:1865.7  d:0.1<br>s:1979.47 e:1979.6  d:0.133333<br>s:2092    e:2092.13 d:0.133333<br>s:2219.87 e:2220    d:0.133333<br>s:2341.23 e:2341.33 d:0.1<br>s:2458.23 e:2458.33 d:0.1<br>s:2582.7  e:2582.8  d:0.1<br>s:2712.37 e:2712.47 d:0.1<br>s:2835.63 e:2835.73 d:0.1<br>s:2948.73 e:2948.83 d:0.1<br>s:3067.07 e:3067.2  d:0.133333<br>s:3192.17 e:3192.3  d:0.133333<br>s:3299.73 e:3299.83 d:0.1<br>s:3410.43 e:3410.6  d:0.166667<br>s:3524.83 e:3524.97 d:0.13333<br>s:3650.8  e:3650.9  d:.1<br>s:3767.7  e:3767.83 d:0.13333<br>s:3898.6  e:3898.73 d:0.13333<br>s:4014.27 e:4014.4  d:0.13333<br>s:4131.4  e:4131.53 d:0.13333<br>s:4244.4  e:4244.57 d:0.16667<br>s:4368.47 e:4368.57 d:.1<br>s:4491.8  e:4491.93 d:0.13333<br>s:4607.83 e:4608    d:0.16667<br>s:4728.67 e:4728.83 d:0.16667<br>s:4841.4  e:4841.53 d:0.13333<br>s:4960.83 e:4960.97 d:0.13333<br>s:5085.53 e:5085.67 d:0.13333<br>s:5199.3  e:5199.4  d:.1<br>s:5323.03 e:5323.13 d:.1<br>s:5435.8  e:5435.9  d:.1<br>s:5555.17 e:5555.27 d:.1<br>s:5675.7  e:5675.83 d:0.13333<br>s:5794.1  e:5794.27 d:0.16667<br>s:5911.53 e:5911.67 d:0.13333<br>s:6028.8  e:6028.9  d:.1<br>s:6147.93 e:6148.07 d:0.13333<br>s:6267.97 e:6268.1  d:0.13333<br>s:6384.03 e:6384.2  d:0.16667<br>s:6501    e:6501.13 d:0.13333<br>s:6619.23 e:6619.33 d:.1<br>s:6737.83 e:6737.93 d:.1<br>s:6856.57 e:6856.67 d:.1<br>s:6979.37 e:6979.5  d:0.13333<br>s:7089.53 e:7089.67 d:0.13333<br>s:7217.23 e:7217.4  d:0.16667<br>s:7332.23 e:7332.4  d:0.16667<br>s:7444.47 e:7444.63 d:0.16667<br>s:7561.93 e:7562.03 d:.1<br>s:7678.73 e:7678.83 d:.1<br>s:7792.6  e:7792.7  d:.1<br>s:7902.23 e:7902.37 d:0.13333<br>s:8025.87 e:8026.03 d:0.16667<br>s:8141.2  e:8141.37 d:0.16667<br>s:8261.73 e:8261.87 d:0.13333<br>s:8386    e:8386.13 d:0.13333<br>s:8504.87 e:8505.03 d:0.16667<br>s:8626.9  e:8627.07 d:0.16667<br>s:8749.8  e:8749.97 d:0.16667<br>s:8861.4  e:8861.57 d:0.16667<br>s:8976.9  e:8977.07 d:0.16667<br>s:9094.17 e:9094.3  d:0.13333<br>s:9208.33 e:9208.47 d:0.13333<br>s:9317.37 e:9317.47 d:.1<br>s:9432.13 e:9432.23 d:.1<br>s:9557    e:9557.13 d:0.13333<br>s:9681.8  e:9681.97 d:0.16667<br>s:9792.43 e:9792.57 d:0.13333<br>s:9911.43 e:9911.53 d:.1<br>s:10029.8 e:10030   d:0.13333<br>s:10150.8 e:10150.9 d:0.13333<br>s:10266.7 e:10266.8 d:0.13333<br>s:10379.6 e:10379.7 d:.1<br>s:10495.4 e:10495.5 d:0.13333<br>s:10613.5 e:10613.7 d:0.16667<br>s:10727.2 e:10727.4 d:0.1667<br><br>MilliSec2TimeSig.bat<br>(S:Decimal Removed)<br>Start        Output<br>s:1000      t:00:00:01.000<br>s:115833    t:00:01:55.833  &lt;-1st Entry<br>s:226600    t:00:03:46.600  <br>s:339933    t:00:05:39.933  <br>s:450800    t:00:07:30.800  <br>s:564900    t:00:09:24.900  <br>s:684600    t:00:11:24.600  <br>s:793000    t:00:13:13.000  <br>s:917167    t:00:15:17.167  <br>s:1039470   t:00:17:19.470  <br>s:1269970   t:00:21:09.970  <br>s:1387030   t:00:23:07.030  <br>s:1506370   t:00:25:06.370  <br>s:1623570   t:00:27:03.570  <br>s:1747930   t:00:29:07.930  <br>s:1865600   t:00:31:05.600  <br>s:1979470   t:00:32:59.470  <br>s:2092000   t:00:34:52.000  <br>s:2219870   t:00:36:59.870  <br>s:2341230   t:00:39:01.230  <br>s:2458230   t:00:40:58.230  <br>s:2582700   t:00:43:02.700  <br>s:2712370   t:00:45:12.370  <br>s:2835630   t:00:47:15.630  <br>s:2948730   t:00:49:08.730  <br>s:3067070   t:00:51:07.070  <br>s:3192170   t:00:53:12.170  <br>s:3299730   t:00:54:59.730  <br>s:3410430   t:00:56:50.430  <br>s:3524830   t:00:58:44.830  <br>s:3650800   t:01:00:50.800  <br>s:3767700   t:01:02:47.700  <br>s:3898600   t:01:04:58.600  <br>s:4014270   t:01:06:54.270  <br>s:4131400   t:01:08:51.400  <br>s:4244400   t:01:10:44.400  <br>s:4368470   t:01:12:48.470  <br>s:4491800   t:01:14:51.800  <br>s:4607830   t:01:16:47.830  <br>s:4728670   t:01:18:48.670  <br>s:4841400   t:01:20:41.400  <br>s:4960830   t:01:22:40.830  <br>s:5085530   t:01:24:45.530  <br>s:5199300   t:01:26:39.300  <br>s:5323030   t:01:28:43.030  <br>s:5435800   t:01:30:35.800  <br>s:5555170   t:01:32:35.170  <br>s:5675700   t:01:34:35.700  <br>s:5794100   t:01:36:34.100  <br>s:5911530   t:01:38:31.530  <br>s:6028800   t:01:40:28.800  <br>s:6147930   t:01:42:27.930  <br>s:6267970   t:01:44:27.970  <br>s:6384030   t:01:46:24.030  <br>s:6501000   t:01:48:21.000  <br>s:6619230   t:01:50:19.230  <br>s:6737830   t:01:52:17.830  <br>s:6856570   t:01:54:16.570  <br>s:6979370   t:01:56:19.370  <br>s:7089530   t:01:58:09.530  <br>s:7217230   t:02:00:17.230  <br>s:7332230   t:02:02:12.230  <br>s:7444470   t:02:04:04.470  <br>s:7561930   t:02:06:01.930  <br>s:7678730   t:02:07:58.730  <br>s:7792600   t:02:09:52.600  <br>s:7902230   t:02:11:42.230  <br>s:8025870   t:02:13:45.870  <br>s:8141200   t:02:15:41.200  <br>s:8261730   t:02:17:41.730  <br>s:8386000   t:02:19:46.000  <br>s:8504870   t:02:21:44.870  <br>s:8626900   t:02:23:46.900  <br>s:8749800   t:02:25:49.800  <br>s:8861400   t:02:27:41.400  <br>s:8976900   t:02:29:36.900  <br>s:9094170   t:02:31:34.170  <br>s:9208330   t:02:33:28.330  <br>s:9317370   t:02:35:17.370  <br>s:9432130   t:02:37:12.130  <br>s:9557000   t:02:39:17.000  <br>s:9681800   t:02:41:21.800  <br>s:9792430   t:02:43:12.430  <br>s:9911430   t:02:45:11.430  <br>s:10029800  t:02:47:09.800  <br>s:10150800  t:02:49:10.800  <br>s:10266700  t:02:51:06.700  <br>s:10379600  t:02:52:59.600  <br>s:10495400  t:02:54:55.400  <br>s:10613500  t:02:56:53.500  <br>s:10727200  t:02:58:47.200 <br><br>After Using Capture2Text_CLI.exe OCR VID2TXT<br><br>1.  00:00:00 Think Slowly; Update Quickly<br>2.  00:01:55 Spend Time Alone<br>3.  00:03:46 Do Hard Things on Purpose<br>4.  00:05:39 Finish What You Start<br>5.  00:07:30 Take Constant Notes<br>6.  00:09:24 Review Your Notes Weekly<br>7.  00:11:24 Delay Gratification<br>8.  00:13:13 Ask Better Questions<br>9.  00:15:17 Surround Yourself With Sharp Minds<br>10. 00:17:19 Listen More Than You Speak<br>11. 00:19:16 Explain Ideas Simply<br>12. 00:21:09 Protect Your Focus<br>13. 00:23:07 Rewrite Long-Term Goals<br>14. 00:25:06 Master One Difficult Subject<br>15. 00:27:03 Be Honest About Flaws<br>16. 00:29:07 Train Your Attention Span<br>17. 00:31:05 Build Mental Stamina<br>18. 00:32:59 Keep Promises to Yourself<br>19. 00:34:52 Learn a New Language<br>20. 00:36:59 Strengthen Memory Through Recall<br>21. 00:39:01 Meditate<br>22. 00:40:58 Be a Thinker, Not a Reactor<br>23. 00:43:02 Stay Skeptical, Not Cynical<br>24. 00:45:12 Think in Probabilities<br>25. 00:47:15 Write Daily<br>26. 00:49:08 Analyze Your Own Behavior<br>27. 00:51:07 Control Emotional Reactions<br>28. 00:53:12 Breathe Calmly Under Stress<br>29. 00:54:59 Walk Without Your Phone<br>30. 00:56:50 Reframe Negatives<br>31. 00:58:44 Improve Your Information Diet<br>32. 01:00:50 Learn Logic<br>33. 01:02:47 Study Psychology<br>34. 01:04:58 Sleep Enough<br>35. 01:06:54 Eat for Your Brain<br>36. 01:08:51 Train Your Body<br>37. 01:10:44 Learn Something Technical<br>38. 01:12:48 Learn Something Creative<br>39. 01:14:51 Embrace Discomfort<br>40. 01:16:47 Break Patterns Regularly<br>41. 01:18:48 Stop Complaining<br>42. 01:20:41 Quit Gossip<br>43. 01:22:40 Use Active Recall<br>44. 01:24:45 Teach What You Learn<br>45. 01:26:39 Seek Mentors<br>46. 01:28:43 Study Smarter People<br>47. 01:30:35 Cut Time-Wasters<br>48. 01:32:35 Create More Than You Consume<br>49. 01:34:35 Embrace Boredom<br>50. 01:36:34 Track Your Habits<br>51. 01:38:31 Solve Problems Yourself First<br>52. 01:40:28 Be Okay Being Misunderstood<br>53. 01:42:27 Build Emotional Intelligence<br>54. 01:44:27 Observe Without Judging<br>55. 01:46:24 Say "I Don't Know"<br>56. 01:48:21 Stop Overthinking<br>57. 01:50:19 Set Mental Boundaries<br>58. 01:52:17 Drop the Need to Be Right<br>59. 01:54:16 Practice Humility<br>60. 01:56:19 Study Great Thinkers<br>61. 01:58:09 Know Your Biases<br>62. 02:00:17 Stay Curious<br>63. 02:02:12 Seek Simplicity<br>64. 02:04:04 Think Long-Term<br>65. 02:06:01 Tolerate Ambiguity<br>66. 02:07:58 Challenge Beliefs<br>67. 02:09:52 Face Your Fears<br>68. 02:11:42 Journal Conflicts<br>69. 02:13:45 Protect Your Routines<br>70. 02:15:41 Prioritize Ruthlessly<br>71. 02:17:41 Remove Drama<br>72. 02:19:46 Know Urgent vs. Important<br>73. 02:21:44 Dont Over-Explain<br>74. 02:23:46 Read Opposing Views<br>75. 02:25:49 Practice Stoicism<br>76. 02:27:41 Decide by Principles<br>77. 02:29:36 Learn From Criticism<br>78. 02:31:34 Be Disciplined, Not Loud<br>79. 02:33:28 Reward Effort<br>80. 02:35:17 Build Systems<br>81. 02:37:12 Win Small Daily<br>82. 02:39:17 Limit Negativity<br>83. 02:41:21 Turn Envy Into Fuel<br>84. 02:43:12 Study Yourself Under Pressure<br>85. 02:45:11 Think Independently<br>86. 02:47:09 Guard Your Attention<br>87. 02:49:10 Practice Gratitude<br>88. 02:51:06 Control What You Can<br>89. 02:52:59 Detach From Outcomes<br>90. 02:54:55 Stay Consistent<br>91. 02:56:53 Be Unoffendable<br>92. 02:58:47 Learn Persuasion<br><br>DONE!</pre>
+
+</body></html>

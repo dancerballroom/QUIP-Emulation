@@ -1,0 +1,672 @@
+<!doctype html>
+<html><head><title>Batch file Escape Characters</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:KOK234f7c28b9924b3ab3433983a'>Batch file Escape Characters</h1>
+
+<span style="color:#000080" textcolor="#000080">If you intend to "nest" commands with escaped characters, you may need to escape the escape character itself too.<br>In general, that won't make it any easier to read or debug your batch files, however.</span><br/>
+
+<span style="color:#000080" textcolor="#000080">Since the introduction of </span><a href="https://www.robvanderwoude.com/variableexpansion.php"><span style="color:#000080" textcolor="#000080">delayed variable expansion</span></a><span style="color:#000080" textcolor="#000080"> a new challenge is to escape exclamation marks, the "delayed" version of the percent sign.<br>Unlike percent signs, that can be escaped by doubling them, exclamation marks cannot be escaped by adding an extra exclamation mark.<br>Nor does a caret before the exclamation mark work, unless quoted (i.e. </span><code><span style="color:#000080" textcolor="#000080">ECHO ^!</span></code><span style="color:#000080" textcolor="#000080"> will fail to display an exclamation mark, whereas </span><code><span style="color:#000080" textcolor="#000080">ECHO "^!"</span></code><span style="color:#000080" textcolor="#000080"> </span><i><span style="color:#000080" textcolor="#000080">will</span></i><span style="color:#000080" textcolor="#000080"> display a </span><i><span style="color:#000080" textcolor="#000080">quoted</span></i><span style="color:#000080" textcolor="#000080"> exclamation mark: </span><code><span style="color:#000080" textcolor="#000080">"!"</span></code><span style="color:#000080" textcolor="#000080">).<br>Jaime Ramos sent me </span><a href="http://stackoverflow.com/questions/3288552/how-can-i-escape-an-exclamation-mark-in-cmd-scripts"><span style="color:#000080" textcolor="#000080">this link</span></a><span style="color:#000080" textcolor="#000080"> where the solution can be found: use </span><code><span style="color:#000080" textcolor="#000080">^^!</span></code><span style="color:#000080" textcolor="#000080">.<br>The trick is that a single caret will be used to escape the exclamation mark in the first "pass" of command line interpretation, but delayed variable expansion adds a second "pass" where the exclamation mark will be interpreted. If you don't get it, never mind, just remember the double caret before the exclamation mark.</span><br/>
+
+<span style="color:#000080" textcolor="#000080">Using </span><a href="https://www.robvanderwoude.com/find.php"><span style="color:#000080" textcolor="#000080">FIND</span></a><span style="color:#000080" textcolor="#000080"> to search files or standard output for a string containing doublequotes used to be a pain... I often used </span><a href="https://www.robvanderwoude.com/findstr.php"><span style="color:#000080" textcolor="#000080">FINDSTR</span></a><span style="color:#000080" textcolor="#000080"> instead, in these cases.<br>Robert Cruz explained to me that </span><i><span style="color:#000080" textcolor="#000080">in this particular case only</span></i><span style="color:#000080" textcolor="#000080"> you need to escape doublequotes by doublequotes, i.e. a single doublequote must be replaced by 2 doublequotes.<br>He also sent me </span><a href="http://technet.microsoft.com/en-us/library/2ca66b22-3b7c-4166-8503-eb75fc53ab46"><span style="color:#000080" textcolor="#000080">this link</span></a><span style="color:#000080" textcolor="#000080"> on the subject.</span><br/>
+
+<span style="color:#000080" textcolor="#000080"> </span><br/>
+
+<h1 id='temp:C:KOKa9d104d1a29d44e38c343105a'>Summary</h1>
+
+<div data-section-style='13'><table id='temp:C:KOK3f5decaef54a43448eacc05d0' title='Sheet1' style='width: 36.0667em'><thead><tr><th class='empty' style='width: 2em'/><th id='temp:C:KOKbc9cf61e6f604b14a4b7478a8'  style='width: 9.53333em'>Escape Characters
+
+<br/></th><th id='temp:C:KOKaa4b38e0ab7b447f995b2bec5' class='empty' style='width: 6em'>B<br/></th><th id='temp:C:KOK3a6d886a3d65488a83b1e9dbe' class='empty' style='width: 20.5333em'>C<br/></th></tr></thead><tbody><tr id='temp:C:KOK6575aa2c636b4790b0fd85231'><td style='background-color:#f0f0f0'>1</td><td id='temp:s:temp:C:KOK6575aa2c636b4790b0fd85231;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'>Character to be escaped
+
+<br/></td><td id='temp:s:temp:C:KOK6575aa2c636b4790b0fd85231;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'>Escape Sequence
+
+<br/></td><td id='temp:s:temp:C:KOK6575aa2c636b4790b0fd85231;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>Remark
+
+<br/></td></tr><tr id='temp:C:KOK5a0d6dc0333c4ad5a992e47e2'><td style='background-color:#f0f0f0'>2</td><td id='temp:s:temp:C:KOK5a0d6dc0333c4ad5a992e47e2;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>%</code>
+
+<br/></td><td id='temp:s:temp:C:KOK5a0d6dc0333c4ad5a992e47e2;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>%%</code>
+
+<br/></td><td id='temp:s:temp:C:KOK5a0d6dc0333c4ad5a992e47e2;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='text-align: left;vertical-align: middle;' class='bold'> 
+
+<br/></td></tr><tr id='temp:C:KOK754c359617b84aaa9fac0bce9'><td style='background-color:#f0f0f0'>3</td><td id='temp:s:temp:C:KOK754c359617b84aaa9fac0bce9;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>^</code>
+
+<br/></td><td id='temp:s:temp:C:KOK754c359617b84aaa9fac0bce9;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^^</code>
+
+<br/></td><td id='temp:s:temp:C:KOK754c359617b84aaa9fac0bce9;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='text-align: left;vertical-align: middle;' class='bold'>May not always be required in doublequoted strings, but it won't hurt
+
+<br/></td></tr><tr id='temp:C:KOKd3e531fea5594ea49963b9bb3'><td style='background-color:#f0f0f0'>4</td><td id='temp:s:temp:C:KOKd3e531fea5594ea49963b9bb3;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>&amp;</code>
+
+<br/></td><td id='temp:s:temp:C:KOKd3e531fea5594ea49963b9bb3;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^&amp;</code>
+
+<br/></td><td id='temp:s:temp:C:KOKd3e531fea5594ea49963b9bb3;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOK1199ccc1f8614a96a7e9d7019'><td style='background-color:#f0f0f0'>5</td><td id='temp:s:temp:C:KOK1199ccc1f8614a96a7e9d7019;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>&lt;</code>
+
+<br/></td><td id='temp:s:temp:C:KOK1199ccc1f8614a96a7e9d7019;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^&lt;</code>
+
+<br/></td><td id='temp:s:temp:C:KOK1199ccc1f8614a96a7e9d7019;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOKadd1c9bf2c4343929e3df0e1d'><td style='background-color:#f0f0f0'>6</td><td id='temp:s:temp:C:KOKadd1c9bf2c4343929e3df0e1d;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>&gt;</code>
+
+<br/></td><td id='temp:s:temp:C:KOKadd1c9bf2c4343929e3df0e1d;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^&gt;</code>
+
+<br/></td><td id='temp:s:temp:C:KOKadd1c9bf2c4343929e3df0e1d;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOK91a4fca08e224f8d8e9d19762'><td style='background-color:#f0f0f0'>7</td><td id='temp:s:temp:C:KOK91a4fca08e224f8d8e9d19762;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>|</code>
+
+<br/></td><td id='temp:s:temp:C:KOK91a4fca08e224f8d8e9d19762;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^|</code>
+
+<br/></td><td id='temp:s:temp:C:KOK91a4fca08e224f8d8e9d19762;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOKc71e343c8a3a4195b25b2e355'><td style='background-color:#f0f0f0'>8</td><td id='temp:s:temp:C:KOKc71e343c8a3a4195b25b2e355;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>'</code>
+
+<br/></td><td id='temp:s:temp:C:KOKc71e343c8a3a4195b25b2e355;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^'</code>
+
+<br/></td><td id='temp:s:temp:C:KOKc71e343c8a3a4195b25b2e355;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='text-align: left;vertical-align: middle;' class='bold'>Required only in the <a href="https://www.robvanderwoude.com/ntfor.php#FOR_F">FOR /F</a> "subject" (i.e. between the parenthesis), <i>unless</i> <code>backq</code> is used
+
+<br/></td></tr><tr id='temp:C:KOK60adc2409bdb4e2ba6a986e76'><td style='background-color:#f0f0f0'>9</td><td id='temp:s:temp:C:KOK60adc2409bdb4e2ba6a986e76;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>`</code>
+
+<br/></td><td id='temp:s:temp:C:KOK60adc2409bdb4e2ba6a986e76;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^`</code>
+
+<br/></td><td id='temp:s:temp:C:KOK60adc2409bdb4e2ba6a986e76;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='text-align: left;vertical-align: middle;' class='bold'>Required only in the <a href="https://www.robvanderwoude.com/ntfor.php#FOR_F">FOR /F</a> "subject" (i.e. between the parenthesis), <i>if</i> <code>backq</code> is used
+
+<br/></td></tr><tr id='temp:C:KOKed2d207122d54b39a5f24299e'><td style='background-color:#f0f0f0'>10</td><td id='temp:s:temp:C:KOKed2d207122d54b39a5f24299e;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>,</code>
+
+<br/></td><td id='temp:s:temp:C:KOKed2d207122d54b39a5f24299e;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^,</code>
+
+<br/></td><td id='temp:s:temp:C:KOKed2d207122d54b39a5f24299e;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='text-align: left;vertical-align: middle;' class='bold'>Required only in the <a href="https://www.robvanderwoude.com/ntfor.php#FOR_F">FOR /F</a> "subject" (i.e. between the parenthesis), even in doublequoted strings
+
+<br/></td></tr><tr id='temp:C:KOK6c76f995611340c88348602c5'><td style='background-color:#f0f0f0'>11</td><td id='temp:s:temp:C:KOK6c76f995611340c88348602c5;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>;</code>
+
+<br/></td><td id='temp:s:temp:C:KOK6c76f995611340c88348602c5;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^;</code>
+
+<br/></td><td id='temp:s:temp:C:KOK6c76f995611340c88348602c5;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOKb3fdd3f676814279892a3528a'><td style='background-color:#f0f0f0'>12</td><td id='temp:s:temp:C:KOKb3fdd3f676814279892a3528a;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'>#ERROR!
+
+<br/></td><td id='temp:s:temp:C:KOKb3fdd3f676814279892a3528a;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^=</code>
+
+<br/></td><td id='temp:s:temp:C:KOKb3fdd3f676814279892a3528a;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOKea85e1732aae4f98b80785370'><td style='background-color:#f0f0f0'>13</td><td id='temp:s:temp:C:KOKea85e1732aae4f98b80785370;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>(</code>
+
+<br/></td><td id='temp:s:temp:C:KOKea85e1732aae4f98b80785370;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^(</code>
+
+<br/></td><td id='temp:s:temp:C:KOKea85e1732aae4f98b80785370;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOK6c76d531184b434c8902b4996'><td style='background-color:#f0f0f0'>14</td><td id='temp:s:temp:C:KOK6c76d531184b434c8902b4996;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>)</code>
+
+<br/></td><td id='temp:s:temp:C:KOK6c76d531184b434c8902b4996;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^)</code>
+
+<br/></td><td id='temp:s:temp:C:KOK6c76d531184b434c8902b4996;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOKc22983e681704d4d9798910d7'><td style='background-color:#f0f0f0'>15</td><td id='temp:s:temp:C:KOKc22983e681704d4d9798910d7;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>!</code>
+
+<br/></td><td id='temp:s:temp:C:KOKc22983e681704d4d9798910d7;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>^^!</code>
+
+<br/></td><td id='temp:s:temp:C:KOKc22983e681704d4d9798910d7;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='text-align: left;vertical-align: middle;' class='bold'>Required only when <a href="https://www.robvanderwoude.com/variableexpansion.php">delayed variable expansion</a> is active
+
+<br/></td></tr><tr id='temp:C:KOKa7d826e25a26423fb97aa507b'><td style='background-color:#f0f0f0'>16</td><td id='temp:s:temp:C:KOKa7d826e25a26423fb97aa507b;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>"</code>
+
+<br/></td><td id='temp:s:temp:C:KOKa7d826e25a26423fb97aa507b;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>""</code>
+
+<br/></td><td id='temp:s:temp:C:KOKa7d826e25a26423fb97aa507b;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='text-align: left;vertical-align: middle;' class='bold'>Required only inside the search pattern of <a href="https://www.robvanderwoude.com/find.php">FIND</a>
+
+<br/></td></tr><tr id='temp:C:KOKc4b43152dca14521998452d07'><td style='background-color:#f0f0f0'>17</td><td id='temp:s:temp:C:KOKc4b43152dca14521998452d07;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>\</code>
+
+<br/></td><td id='temp:s:temp:C:KOKc4b43152dca14521998452d07;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>\\</code>
+
+<br/></td><td id='temp:s:temp:C:KOKc4b43152dca14521998452d07;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='text-align: left;vertical-align: middle;' class='bold'>Required only inside the regex pattern of <a href="https://www.robvanderwoude.com/findstr.php">FINDSTR</a>
+
+<br/></td></tr><tr id='temp:C:KOK6a647759e5be4ac591f12041d'><td style='background-color:#f0f0f0'>18</td><td id='temp:s:temp:C:KOK6a647759e5be4ac591f12041d;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>[</code>
+
+<br/></td><td id='temp:s:temp:C:KOK6a647759e5be4ac591f12041d;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>\[</code>
+
+<br/></td><td id='temp:s:temp:C:KOK6a647759e5be4ac591f12041d;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOK457346320f0643e9b8fd8d686'><td style='background-color:#f0f0f0'>19</td><td id='temp:s:temp:C:KOK457346320f0643e9b8fd8d686;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>]</code>
+
+<br/></td><td id='temp:s:temp:C:KOK457346320f0643e9b8fd8d686;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>\]</code>
+
+<br/></td><td id='temp:s:temp:C:KOK457346320f0643e9b8fd8d686;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOK87312eb48160417780db893b3'><td style='background-color:#f0f0f0'>20</td><td id='temp:s:temp:C:KOK87312eb48160417780db893b3;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>"</code>
+
+<br/></td><td id='temp:s:temp:C:KOK87312eb48160417780db893b3;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>\"</code>
+
+<br/></td><td id='temp:s:temp:C:KOK87312eb48160417780db893b3;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOKcb389e08ef4c46d6af1dcfe4b'><td style='background-color:#f0f0f0'>21</td><td id='temp:s:temp:C:KOKcb389e08ef4c46d6af1dcfe4b;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>.</code>
+
+<br/></td><td id='temp:s:temp:C:KOKcb389e08ef4c46d6af1dcfe4b;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>\.</code>
+
+<br/></td><td id='temp:s:temp:C:KOKcb389e08ef4c46d6af1dcfe4b;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOK2230aaac36db4f92a1d67daed'><td style='background-color:#f0f0f0'>22</td><td id='temp:s:temp:C:KOK2230aaac36db4f92a1d67daed;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>*</code>
+
+<br/></td><td id='temp:s:temp:C:KOK2230aaac36db4f92a1d67daed;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>\*</code>
+
+<br/></td><td id='temp:s:temp:C:KOK2230aaac36db4f92a1d67daed;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr><tr id='temp:C:KOKbf044e6efb24480b9ef9c47d1'><td style='background-color:#f0f0f0'>23</td><td id='temp:s:temp:C:KOKbf044e6efb24480b9ef9c47d1;temp:C:KOKbdd39fe1588f4e98b016deeac' style='' class='bold'><code>?</code>
+
+<br/></td><td id='temp:s:temp:C:KOKbf044e6efb24480b9ef9c47d1;temp:C:KOKe913b0088d0c4f42ba7b403c7' style='' class='bold'><code>\?</code>
+
+<br/></td><td id='temp:s:temp:C:KOKbf044e6efb24480b9ef9c47d1;temp:C:KOKa22d21dd2d4945d381aa99a1b' style='' class='bold'>
+
+<br/></td></tr></tbody></table></div><span style="color:#000080" textcolor="#000080"> </span><br/>
+
+<h1 id='temp:C:KOK2e96c55a321d490597531570b'>Unexpected behaviour of CALLs:</h1>
+
+<span style="color:#000080" textcolor="#000080">Try this </span><a href="https://www.robvanderwoude.com/files/testcallescapedstring_nt.txt"><span style="color:#000080" textcolor="#000080">demo batch file</span></a><span style="color:#000080" textcolor="#000080">, it shows some results you may not have expected.<br>Always test when escaped strings have to be passed on to </span><a href="https://www.robvanderwoude.com/ntcall.php"><span style="color:#000080" textcolor="#000080">CALL</span></a><span style="color:#000080" textcolor="#000080">ed commands.</span><br/>
+
+<pre id='temp:C:KOK88218330493043f6abc89a75f'>@ECHO OFF<br>IF "%~1"=="" (<br>    CLS<br>    ECHO Demo script showing how CALL adds its own caret escape characters to arguments<br>    ECHO.<br>    ECHO Note the loss of the percent sign even when doublequoted<br>    ECHO Command         : ECHO "%%A^("<br>    ECHO Expected output : "%%A^("<br>    ECHO Actual output   : "%A^("<br>    ECHO.<br>    ECHO Command         : ECHO %%A^^(<br>    ECHO Expected output : A^(<br>    ECHO Actual output   : %A^(<br>    ECHO.<br>    ECHO Command: CALL :Subroutine "%%A^("<br>    CALL :Subroutine "%A^("<br>    ECHO Command: CALL "%%~f0" "%%A^("<br>    CALL "%~f0" "%A^("<br>    ECHO.<br>) ELSE (<br>    ECHO.<br>    ECHO Start of rerun, note the automatically added escape characters and loss of percent signs<br>    ECHO Command         : ECHO "%%~1"<br>    ECHO Expected output : "%%A^("<br>    ECHO Actual output   : "%~1"<br>    ECHO.<br>    ECHO Command: ECHO.%%~1<br>    ECHO Expected output : A(<br>    ECHO Actual output   : %~1<br>    ECHO End of rerun<br>    ECHO.<br>)<br>GOTO:EOF<br><br>:Subroutine<br>ECHO.<br>ECHO Start of Subroutine, note the automatically added escape characters and loss of percent signs<br>ECHO Command         : ECHO "%%~1"<br>ECHO Expected output : "%%A^("<br>ECHO Actual   output : "%~1"<br>ECHO.<br>ECHO Command         : ECHO.%%~1<br>ECHO Expected output : A(<br>ECHO Actual   output : %~1<br>ECHO End of Subroutine<br>ECHO.<br>GOTO:EOF</pre>
+
+<span style="color:#000080" textcolor="#000080">The script above will generate the output shown below:</span><br/>
+
+<pre id='temp:C:KOK5a944d963c3f40f9b5783b99b'>Demo script showing how CALL adds its own caret escape characters to arguments<br><br>Note the loss of the percent sign even when doublequoted<br>Command         : ECHO "%A^("<br>Expected output : "%A^("<br>Actual output   : "A^("<br><br>Command         : ECHO %A^(<br>Expected output : A(<br>Actual output   : A(<br><br>Command: CALL :Subroutine "%A^("<br><br>Start of Subroutine, note the automatically added escape characters and loss of percent signs<br>Command         : ECHO "%~1"<br>Expected output : "%A^("<br>Actual   output : "A^^("<br><br>Command         : ECHO.%~1<br>Expected output : A(<br>Actual   output : A^(<br>End of Subroutine<br><br>Command: CALL "%~f0" "%A^("<br><br>Start of rerun, note the automatically added escape characters and loss of percent signs<br>Command         : ECHO "%~1"<br>Expected output : "%A^("<br>Actual output   : "A^^("<br><br>Command: ECHO.%~1<br>Expected output : A(<br>Actual output   : A^(<br>End of rerun</pre>
+
+Source:<br/>
+
+<a href="https://www.robvanderwoude.com/escapechars.php">https://www.robvanderwoude.com/escapechars.php</a><br/>
+
+</body></html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<style>body { font-family: Arial, sans-serif; margin: 40px; background-color: #f7f7f7; }.note-view { max-width: 900px; background: white; border: 1px solid #ccc; padding: 25px; }</style>
+	</head>
+	<body>
+
+			<div class="note-view">
+				<div>
+					<h1>Prepopulate “Find What” Box in NotePad++</h1>
+					<ul>
+						<li>Edit the <code>config.xml</code> File for Permanent Keywords</li>
+						<li>Completely close Notepad++.</li>
+						<li>Navigate to your settings directory (usually <code>C:\Users\%username%\AppData\Roaming\Notepad++</code>).</li>
+						<li>Open <code>config.xml</code> in a basic text editor like standard Windows Notepad.</li>
+						<li>Find the <code>&lt;FindHistory&gt;</code> section and manually add your custom strings using <code>&lt;Find name="YourSearchTerm"/&gt;</code>.</li>
+						<li>Save the file and restart Notepad++.</li>
+					</ul>
+					<pre>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;<br>&lt;NotepadPlus&gt;<br>    &lt;FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" <br>nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" <br>wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" <br>fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" <br>fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="2" transparencyMode="1" <br>transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" <br>regexBackward4PowerUser="no" bookmarkLine="no" purge="no"&gt;<br>        &lt;Filter name="" /&gt;<br>        &lt;Find name="^(\sminute)" /&gt;<br>        &lt;Find name="^(\sminutes)" /&gt;<br>        &lt;Find name="^(\ssecond)" /&gt;<br>        &lt;Find name="^(\sseconds)" /&gt;<br>        &lt;Find name="^(\sminute, \d*)" /&gt;<br>        &lt;Find name="^(\sminutes, \d*)" /&gt;<br>        &lt;Find name="^(\shour, \d*)" /&gt;<br>        &lt;Find name="^(\shours, \d*)" /&gt;<br>    &lt;/FindHistory&gt;</pre>
+				</div>
+			</div>
+	</body>
+</html>

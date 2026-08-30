@@ -1,0 +1,552 @@
+<!doctype html>
+<html><head><title>DIV Copy Clipboard research</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:FXJ5fd12c3189ab4968b6d93e7ae'>DIV Copy Clipboard research</h1>
+
+<div class="" style="" data-section-style='6'><ul id='temp:C:FXJ66a7235177464f83b9d22151e'><li id='temp:C:FXJ333ea126de1b4ea5b4ac90e9c' class='' value='1'>Export QUIP Markdown  (This was from SEARCH_REPLACE.bat)
+
+<br/></li><li id='temp:C:FXJa007ab9831dd421dad79ab293' class=''>Edit in Notepad++
+
+<br/></li><li id='temp:C:FXJd371e057ec5a4600bbd6abbba' class=''>After Style Section, but before &lt;/head&gt;&lt;body&gt; add &lt;script&gt;&lt;/script&gt; section.
+
+<br/></li></ul></div><pre id='temp:C:FXJ8a2bebd1146a4801a681d2c90'>&lt;script type = "text/JavaScript"&gt;<br>    function CopyToClipboard(id){<br>            var r = document.createRange();<br>            r.selectNode(document.getElementById(id));<br>            window.getSelection().removeAllRanges();<br>            window.getSelection().addRange(r);<br>            <span bgcolor="#9ec3fa" style="background-color:#9ec3fa">$</span><span bgcolor="#9ec3fa" style="background-color:#9ec3fa">(this).css('blue');</span><br>        try {<br>            document.execCommand('copy');<br>            window.getSelection().removeAllRanges();<br>            console.log('Successfully copy text: hello world ' + r);<br>        } catch (err) {<br>            console.log('Unable to copy!');<br>        }<br>    }<br>&lt;/script&gt;</pre>
+
+<div style="--indent0: 4" class="list-numbering-restart-at" data-section-style='6'><ul id='temp:C:FXJe00cad14c87041ddb1a28c749'><li id='temp:C:FXJ6369b08bd3aa47a293895f061' class='' value='1'>Before or after the code you wish to copy find its “id“.
+
+<br/></li><li id='temp:C:FXJ9468e1d36a03415c8b6e0d5d6' class=''>Add a button:
+
+<br/></li></ul></div><pre id='temp:C:FXJ65ef38a99d284f918cb76b55d'>&lt;input type = "button" onclick = "CopyToClipboard('temp:C:RAY60ee0147c96f473fb15f629e2');" name = "ok" value = "Click Me" /&gt;</pre>
+
+<h2 id='temp:C:FXJc25a69d59b5142a1ba9d586da'>Example</h2>
+
+<pre id='temp:C:FXJe8e8af77c81846d8ba1cbf2b1'>&lt;!doctype html&gt;<br>&lt;html&gt;&lt;head&gt;&lt;title&gt;SEARCH_REPLACE.bat copy&lt;/title&gt;&lt;meta charset="UTF-8"&gt;&lt;link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"&gt;&lt;style&gt;/*<br> * Copyright 2014 Quip<br> *<br> * Licensed under the Apache License, Version 2.0 (the "License"); you may<br> * not use this file except in compliance with the License. You may obtain<br> * a copy of the License at<br> *<br> *     http://www.apache.org/licenses/LICENSE-2.0<br> *<br> * Unless required by applicable law or agreed to in writing, software<br> * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT<br> * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the<br> * License for the specific language governing permissions and limitations<br> * under the License.<br> */<br><br>body {<br>    font-size: 15px;<br>    color: #333;<br>    background: white;<br>    padding: 60px 95px;<br>    max-width: 900px;<br>    margin: 0 auto;<br>    text-rendering: optimizeLegibility;<br>    font-feature-settings: "kern";<br>    font-kerning: normal;<br>    -moz-font-feature-settings: "kern";<br>    -webkit-font-feature-settings: "kern";<br>}<br><br>/* Headings */<br>h1,<br>h2,<br>h3,<br>h4,<br>h5,<br>h6,<br>th {<br>    font-family: Roboto, sans-serif;<br>    font-weight: 700;<br>    margin: 0;<br>    margin-top: 1.25em;<br>    margin-bottom: 0.75em;<br>}<br><br>h1 {<br>    font-size: 35px;<br>    line-height: 42px;<br>}<br><br>h1:first-child {<br>    margin-top: 0;<br>}<br><br>h2 {<br>    font-size: 22px;<br>    line-height: 22px;<br>}<br><br>h3 {<br>    font-size: 18px;<br>    line-height: 16px;<br>}<br><br>h4,<br>h5,<br>h6 {<br>    font-size: 15px;<br>    line-height: 14px;<br>}<br>h5 {<br>    font-style: italic;<br>}<br><br>h6 {<br>    font-weight: unset;<br>    text-decoration: underline;<br>}<br><br>.capitalize-h3 h3 {<br>    text-transform: uppercase;<br>}<br><br>/* Body text */<br>body,<br>p,<br>ul,<br>ol,<br>td {<br>    font-family: "Crimson Text", serif;<br>    font-size: 16px;<br>    line-height: 20px;<br>}<br><br>blockquote,<br>q {<br>    display: block;<br>    margin: 1em 0;<br>    font-style: italic;<br>}<br><br>blockquote a,<br>q a {<br>    text-decoration: underline;<br>}<br><br>blockquote {<br>    padding-left: 10px;<br>    border-left: 4px solid #a6a6a6;<br>}<br><br>q {<br>    color: #a6a6a6;<br>    line-height: 40px;<br>    font-size: 24px;<br>    text-align: center;<br>    quotes: none;<br>}<br><br>q a {<br>    color: #a6a6a6;<br>}<br><br>code,<br>pre {<br>    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",<br>        Courier, monospace;<br>    background: #f2f2f2;<br>}<br><br>code {<br>    padding: 1px;<br>    margin: 0 -1px;<br>    border-radius: 3px;<br>}<br><br>pre {<br>    display: block;<br>    line-height: 20px;<br>    text-shadow: 0 1px white;<br>    padding: 5px 5px 5px 30px;<br>    white-space: nowrap;<br>    position: relative;<br>    margin: 1em 0;<br>}<br><br>pre:before {<br>    content: "";<br>    position: absolute;<br>    top: 0;<br>    bottom: 0;<br>    left: 15px;<br>    border-left: solid 1px #dadada;<br>}<br><br>/* Text Alignment */<br>.line {<br>    margin-top: 0;<br>    margin-bottom: 0;<br>}<br><br>.align-center {<br>    text-align: center;<br>}<br><br>.align-right {<br>    text-align: end;<br>}<br><br>/* Lists */<br>div[data-section-style="5"],<br>div[data-section-style="6"],<br>div[data-section-style="7"] {<br>    margin: 12px 0;<br>}<br><br>ul {<br>    padding: 0 0 0 40px;<br>}<br><br>ul li {<br>    margin-bottom: 0.4em;<br>}<br><br>/* Bulleted list */<br>div[data-section-style="5"] ul {<br>    list-style-type: disc;<br>}<br>div[data-section-style="5"] ul ul {<br>    list-style-type: circle;<br>}<br>div[data-section-style="5"] ul ul ul {<br>    list-style-type: square;<br>}<br>div[data-section-style="5"] ul ul ul ul {<br>    list-style-type: disc;<br>}<br>div[data-section-style="5"] ul ul ul ul ul {<br>    list-style-type: circle;<br>}<br>div[data-section-style="5"] ul ul ul ul ul ul {<br>    list-style-type: square;<br>}<br><br>/* Numbered list */<br>div[data-section-style="6"] ul {<br>    list-style-type: decimal;<br>}<br>div[data-section-style="6"] ul ul {<br>    list-style-type: lower-alpha;<br>}<br>div[data-section-style="6"] ul ul ul {<br>    list-style-type: lower-roman;<br>}<br>div[data-section-style="6"] ul ul ul ul {<br>    list-style-type: decimal;<br>}<br>div[data-section-style="6"] ul ul ul ul ul {<br>    list-style-type: lower-alpha;<br>}<br>div[data-section-style="6"] ul ul ul ul ul ul {<br>    list-style-type: lower-roman;<br>}<br><br>/* Checklist */<br>div[data-section-style="7"] ul {<br>    list-style-type: none;<br>}<br><br>div[data-section-style="7"] ul li:before {<br>    content: "\2610";<br>    position: absolute;<br>    display: inline;<br>    margin-right: 1.2em;<br>    margin-left: -1.2em;<br>}<br><br>div[data-section-style="7"] ul li.parent:before {<br>    content: "";<br>}<br><br>div[data-section-style="7"] ul li.checked {<br>    text-decoration: line-through;<br>}<br><br>div[data-section-style="7"] ul li.checked:before {<br>    content: "\2611";<br>    text-decoration: none;<br>}<br><br>/* Tables */<br>div[data-section-style="8"] {<br>    margin: 12px 0;<br>}<br><br>table {<br>    border-spacing: 0;<br>    border-collapse: separate;<br>    border: solid 1px #bbb;<br>    table-layout: fixed;<br>    position: relative;<br>}<br><br>table th,<br>table td {<br>    padding: 2px 2px 0;<br>    min-width: 1.5em;<br>    word-wrap: break-word;<br>}<br><br>table th {<br>    border-bottom: 1px solid #c7cbd1;<br>    background: #f2f2f2;<br>    font-weight: bold;<br>    vertical-align: bottom;<br>    color: #3a4449;<br>    text-align: center;<br>}<br><br>table td {<br>    padding-top: 0;<br>    border-left: 1px solid #c7cbd1;<br>    border-top: 1px solid #c7cbd1;<br>    vertical-align: top;<br>}<br><br>table td.bold {<br>    font-weight: bold;<br>}<br><br>table td.italic {<br>    font-style: italic;<br>}<br><br>table td.underline {<br>    text-decoration: underline;<br>}<br><br>table td.strikethrough {<br>    text-decoration: line-through;<br>}<br><br>table td.underline.strikethrough {<br>    text-decoration: underline line-through;<br>}<br><br>table td:first-child {<br>    border-left: hidden;<br>}<br><br>table tr:first-child td {<br>    border-top: hidden;<br>}<br><br>/* Images */<br>div[data-section-style="11"] {<br>    margin-top: 20px;<br>    margin-bottom: 20px;<br>    margin-left: auto;<br>    margin-right: auto;<br>}<br><br>div[data-section-style="11"][data-section-float="0"] {<br>    clear: both;<br>    text-align: center;<br>}<br><br>div[data-section-style="11"][data-section-float="1"] {<br>    float: left;<br>    clear: left;<br>    margin-right: 20px;<br>}<br><br>div[data-section-style="11"][data-section-float="2"] {<br>    float: right;<br>    clear: right;<br>    margin-left: 20px;<br>}<br><br>div[data-section-style="11"] img {<br>    display: block;<br>    max-width: 100%;<br>    height: auto;<br>    margin: auto;<br>}<br><br>div[data-section-style="11"].show-border {<br>    outline: 1px solid rgba(0, 0, 0, 0.12);<br>    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);<br>}<br><br>hr {<br>    width: 70px;<br>    margin: 20px auto;<br>}<br><br>/* Apps */<br>div[data-section-style="19"].placeholder {<br>    margin: 0.8em auto;<br>    padding: 4px 0;<br>    display: block;<br>    color: #3d87f5;<br>    text-align: center;<br>    border: 1px solid rgba(41, 182, 242, 0.2);<br>    border-radius: 3px;<br>    background: #e9f8fe;<br>    font-family: Roboto, sans-serif;<br>}<br><br>div[data-section-style="19"].first-party-element {<br>    margin-bottom: 10px;<br>    background-repeat: no-repeat;<br>    background-size: contain;<br>}<br><br>div[data-section-style="19"].first-party-element.kanban {<br>    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");<br>    height: 166px;<br>}<br><br>div[data-section-style="19"].first-party-element.calendar {<br>    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");<br>    height: 244px;<br>}<br><br>div[data-section-style="19"].first-party-element.poll {<br>    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");<br>    height: 116px;<br>}<br><br>div[data-section-style="19"].first-party-element.countdown {<br>    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");<br>    height: 96px;<br>}<br><br>div[data-section-style="19"].first-party-element.process_bar {<br>    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");<br>    height: 36px;<br>}<br><br>div[data-section-style="19"].first-party-element.project_tracker {<br>    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");<br>    height: 164px;<br>}<br><br>div[data-section-style="19"] img {<br>    margin: 0.5em;<br>}<br><br>div[data-section-style="19"] img.masked-image {<br>    margin: 0;<br>    transform-origin: top left;<br>}<br><br>div[data-section-style="19"] .image-mask {<br>    position: relative;<br>    overflow: hidden;<br>}<br>/*<br> * Copyright 2019 Quip<br> *<br> * Licensed under the Apache License, Version 2.0 (the "License"); you may<br> * not use this file except in compliance with the License. You may obtain<br> * a copy of the License at<br> *<br> *     http://www.apache.org/licenses/LICENSE-2.0<br> *<br> * Unless required by applicable law or agreed to in writing, software<br> * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT<br> * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the<br> * License for the specific language governing permissions and limitations<br> * under the License.<br> */<br><br>body {<br>    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6<br>        indent7 indent8;<br>}<br><br>/* Numbered list */<br>div[data-section-style="6"] {<br>    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6<br>        indent7 indent8;<br>}<br>div[data-section-style="6"].list-numbering-continue {<br>    counter-reset: none;<br>}<br>div[data-section-style="6"].list-numbering-restart-at {<br>    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4<br>        indent5 indent6 indent7 indent8;<br>}<br>div[data-section-style="6"] ul {<br>    /* indent0 is not reset since it is shared across the div elements */<br>    list-style-type: none !important;<br>}<br>div[data-section-style="6"] ul ul {<br>    counter-reset: indent1;<br>}<br>div[data-section-style="6"] ul ul ul {<br>    counter-reset: indent2;<br>}<br>div[data-section-style="6"] ul ul ul ul {<br>    counter-reset: indent3;<br>}<br>div[data-section-style="6"] ul ul ul ul ul {<br>    counter-reset: indent4;<br>}<br>div[data-section-style="6"] ul ul ul ul ul ul {<br>    counter-reset: indent5;<br>}<br>div[data-section-style="6"] ul li {<br>    counter-increment: indent0;<br>}<br>div[data-section-style="6"] ul ul li {<br>    counter-increment: indent1;<br>}<br>div[data-section-style="6"] ul ul ul li {<br>    counter-increment: indent2;<br>}<br>div[data-section-style="6"] ul ul ul ul li {<br>    counter-increment: indent3;<br>}<br>div[data-section-style="6"] ul ul ul ul ul li {<br>    counter-increment: indent4;<br>}<br>div[data-section-style="6"] ul ul ul ul ul ul li {<br>    counter-increment: indent5;<br>}<br>div[data-section-style="6"] ul li:before {<br>    content: counter(indent0, decimal) ". ";<br>}<br>div[data-section-style="6"] ul ul li:before {<br>    content: counter(indent1, lower-alpha) ". ";<br>}<br>div[data-section-style="6"] ul ul ul li:before {<br>    content: counter(indent2, lower-roman) ". ";<br>}<br>div[data-section-style="6"] ul ul ul ul li:before {<br>    content: counter(indent3, decimal) ". ";<br>}<br>div[data-section-style="6"] ul ul ul ul ul li:before {<br>    content: counter(indent4, lower-alpha) ". ";<br>}<br>div[data-section-style="6"] ul ul ul ul ul ul li:before {<br>    content: counter(indent5, lower-roman) ". ";<br>}<br>&lt;/style&gt;<br><br>&lt;script type = "text/JavaScript"&gt;<br>    function CopyToClipboard(id){<br>            var r = document.createRange();<br>            r.selectNode(document.getElementById(id));<br>            window.getSelection().removeAllRanges();<br>            window.getSelection().addRange(r);<br>            $(this).css('blue');<br>        try {<br>            document.execCommand('copy');<br>            window.getSelection().removeAllRanges();<br>            console.log('Successfully copy text: hello world ' + r);<br>        } catch (err) {<br>            console.log('Unable to copy!');<br>        }<br>    }<br>&lt;/script&gt;<br><br>&lt;/head&gt;&lt;body&gt;&lt;h1 id='temp:C:RAYde640f39a1724b59a5273b909'&gt;SEARCH_REPLACE.bat copy&lt;/h1&gt;<br><br>&lt;h2 id='temp:C:RAYbbdce5c22f884cd18e5edfdce'&gt;Usage:&lt;/h2&gt;<br><br>&lt;div class="" style="" data-section-style='5'&gt;&lt;ul id='temp:C:RAY7601b945076144d0ac72c9983'&gt;&lt;li id='temp:C:RAY076a18a4237f4f99a5985f159' class='' value='1'&gt;Right Click a file, choose Open With, SEARCH_REPLACE.bat<br><br>&lt;br/&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;h2 id='temp:C:RAY644444af82d142ddac3726011'&gt;Example of Usage:&lt;/h2&gt;<br><br>&lt;pre id='temp:C:RAYb57fa99fd9de4261b927c2905'&gt;File or File type: -&amp;gt; *.txt&lt;br&gt;String to Replace: -&amp;gt; 2018&lt;br&gt;New String:        -&amp;gt; Year of our Lord 2018&lt;br&gt;&lt;br&gt;"Chapter 01 - Marked - Bk 9 - Alex Verus - Benedict Jacka - Year of our Lord 2018.txt"&lt;br&gt;"Chapter 02 - Marked - Bk 9 - Alex Verus - Benedict Jacka - Year of our Lord 2018.txt"&lt;br&gt;"Chapter 03 - Marked - Bk 9 - Alex Verus - Benedict Jacka - Year of our Lord 2018.txt"&lt;br&gt;&lt;/pre&gt;<br><br>&lt;h2 id='temp:C:RAY6dc1a4ac368c4ea59c2b48a76'&gt;SEARCH_REPLACE.bat&lt;/h2&gt;<br><br>&lt;pre id='temp:C:RAY60ee0147c96f473fb15f629e2'&gt;@Echo Off&lt;br&gt;Setlocal enabledelayedexpansion&lt;br&gt;REM A useful filename rename script&lt;br&gt;REM This file is located in Windows SendTo Directory&lt;br&gt;set /p SR_File="File or File type: -&amp;gt; "&lt;br&gt;set /p Pattern="String to Replace: -&amp;gt; "&lt;br&gt;set /p Replace="New String:        -&amp;gt; "&lt;br&gt;&lt;br&gt;For %%a in (!SR_File!) Do (&lt;br&gt;    Set "File=%%~a"&lt;br&gt;    Ren "%%a" "!File:%Pattern%=%Replace%!"&lt;br&gt;    echo "%%a" "!File:%Pattern%=%Replace%!"&lt;br&gt;)&lt;br&gt;REM Debug : Pause to check for Errors&lt;br&gt;pause&lt;br&gt;Exit 0&lt;/pre&gt;<br>&lt;input type = "button" onclick = "CopyToClipboard('temp:C:RAY60ee0147c96f473fb15f629e2');" name = "ok" value = "Click Me" /&gt;<br><br>&lt;br/&gt;<br><br>&lt;/body&gt;&lt;/html&gt;</pre>
+
+<h2 id='temp:C:FXJ98c02b5c9fab477bab0600bed'>Browser:</h2>
+
+<div data-section-style='11' style='max-width:100%' class=''><img src='https://quip.com/blob/FXJAAAdk2K3/8JDOuDxysXeiN_dgaiqDqA?a=CfgRLthrImscEyOzCFQSaXMf3kIItxTgY97lwQja5KEa' id='temp:C:FXJf96f751ffac1446ca23391cec' alt="000429 - SEARCH_REPLACE.bat copy.jpg"></img></div><b>Final Analysis:</b>  Not really practical on QUIP<br/>
+
+I was able to place the exported CODE on Sites.google.com.<br/>
+
+The task is laborious and time consuming.  It really has to be worthwhile to pursue this possibility.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+</body></html>

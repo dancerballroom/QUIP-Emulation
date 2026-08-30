@@ -1,0 +1,542 @@
+<!doctype html>
+<html><head><title>Transcript2CSV - Version 2 - Steps</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:dED3a776228adc546558e7f40b92'>Transcript2CSV - Version 2 - Steps</h1>
+
+<h3 id='temp:C:dEDfd8360d073c44809b63130b75'>When there is no Chapter or Timeline Given.</h3>
+
+<h2 id='temp:C:dED0c7a74d41dcb4b51901e7641c'>Problem: Change Format to: 00:00:00 Fact ### Topic Description</h2>
+
+<h4 id='temp:C:dED79518e23f81c4cb5bca4c28d1'>Solution: 6 Steps</h4>
+
+<div data-section-style='6' class="list-numbering-restart-at" style="--indent0: 0"><ul id='temp:C:dED1af7e86e8fb94202801193f45'><li id='temp:C:dEDbbf28a038b434e1aa7c47c147' class='' style='' value='1'>Copy YouTube Transcript
+
+<br/></li><li id='temp:C:dEDca19af5df4674f408bd209b03' class='' style=''>Isolate DATA
+
+<br/></li><li id='temp:C:dEDa3e9f0295e044eb08289803c9' class='' style=''>Eliminate Spaces and Dashes
+
+<br/></li><li id='temp:C:dEDb1236eeeb1de48c1845820ed4' class='' style=''>All on One Line
+
+<br/></li><li id='temp:C:dEDde9de471e3184387a8b64d309' class='' style=''>In This Example Start With the word “Fact“
+
+<br/></li><li id='temp:C:dED4898f28760544e16ad5d91c0c' class='' style=''>Show \1 \3
+
+<br/></li><li id='temp:C:dED0fbdf467f309422da2e44c257' class='' style=''>Paste Timeline into Comment Section of YouTube
+
+<br/></li><li id='temp:C:dED26464aa781b642a1a19d07dd2' class='' style=''>Click, Listen, Complete the Incomplete Titles
+
+<br/></li></ul></div><h4 id='temp:C:dEDc51e3080c7a84548b92ed436c'>STEPS with Examples </h4>
+
+<pre id='temp:C:dED7c53768804a5440c8d1d553fe'>1. Isolate DATA<br>MARK:     <b>(?-s)^.*$\R(?=.*Fact\s)^.*$\R</b><br>Copy / Paste<br><br>2. Eliminate Spaces and Dashes<br>REPLACE:  <b>(\R)----(\R)</b><br>with:     <b>BLANK</b><br><br>3. All on One Line<br>REPLACE:  <b>(\d)\R</b><br>with      <b>\1 </b><br>          (Slash and 1 and Space)<br>Copy / Paste (For Display Purposes ONLY)<br><br>4. Start With the word Fact<br><br>EXPERIMENTAL: ISOLATE PARTS: \1 \2 \3<br>PART 1: ^(\d{2}:\d{2}:\d{2})<br>PART 2: (.*)<br>PART 3: (Fact(.*)\R)<br>ALL-TOGETHER: ^(\d{2}:\d{2}:\d{2})(.*)(Fact(.*)\R)<br><br>5. <b>Show \1 \3</b><br>REPLACE: <br><b>^(\d{2}:\d{2}:\d{2})(.*)(Fact(.*)\R)</b><br>with<br><b>\1 \3</b><br><br>RESULT:  (Output 1)<br><br>6. Paste Timeline into Comment Section of YouTube<br>   Click, Listen, Complete the Incomplete Titles<br>   <br>RESULT:  (Output 2)</pre>
+
+<h4 id='temp:C:dED6b14895688b4418cb6369322f'>Output 1:</h4>
+
+<pre id='temp:C:dEDed590861bdbe4187b9ee589c3'>00:00:00  Fact one, the importance of sleep for brain function.<br>00:01:04  Fact two, how sleep affects memory and<br>00:02:34  Fact three, the role of sleep in emotional regulation.<br>00:04:13  Fact<br>00:05:55  Fact five, how sleep boosts immune<br>00:07:19  Fact six, the impact of sleep on physical health.<br>00:08:49  Fact seven, sleep and its effect on<br>00:10:34  Fact eight, why we need different<br>00:12:20  Fact nine, the link between sleep and mental health. Sleep and mental health<br>00:13:36  Fact 10.<br>00:15:05  Fact 11. The<br>00:16:26  Fact 12. Understanding REM sleep<br>00:17:48  Fact 13. The effects of sleep<br>00:19:02  Fact 14. How sleep helps with physical<br>00:20:13  Fact 15. The role of sleep in<br>00:21:25  Fact<br>00:22:42  Fact 17. The importance of a consistent sleep schedule. Maintaining a<br>00:23:46  Fact 18. How stress impacts sleep.<br>00:24:54  Fact 19. The link between anxiety and<br>00:26:00  Fact 20. The connection between<br>00:26:55  Fact 21. How sleep plays a role in creativity. Sleep plays a crucial role in fostering<br>00:27:44  Fact 22. The<br>00:28:50  Fact 23.<br>00:29:48  Fact 24. How sleep affects our<br>00:30:43  Fact 25. The role of<br>00:31:47  Fact 26. Why sleep is essential for physical fitness?<br>00:32:44  Fact 27. The impact of sleep on heart health. Sleep has a significant impact on heart<br>00:33:40  Fact 28. Sleep and its relationship with blood pressure. Blood pressure is closely linked to the<br>00:34:30  Fact 29. The role of sleep in<br>00:35:23  Fact 30, the link between sleep and<br>00:36:27  Fact 31. Why sleep is crucial for healthy aging. Sleep is crucial for<br>00:37:29  Fact 32. The effects of caffeine on<br>00:38:49  Fact 33. How alcohol affects your sleep<br>00:40:13  Fact 34. The relationship between sleep<br>00:41:27  Fact 35. The science of dreams.<br>00:42:48  Fact 36.<br>00:44:11  Fact 37. The role of sleep in managing pain.<br>00:45:21  Fact 38. How sleep affects your appetite. Sleep has a direct impact<br>00:46:36  Fact 39. The connection<br>00:47:47  Fact 40. The impact of sleep on language skills.<br>00:49:00  Fact 41. How sleep helps with learning.<br>00:50:17  Fact 42. The importance of sleep for cognitive flexibility.<br>00:51:31  Fact 43.<br>00:52:52  Fact 44. The effect<br>00:53:59  Fact 45. How sleep<br>00:55:17  Fact 46. Why sleep is essential for<br>00:56:35  Fact 47. The role of sleep in<br>00:57:49  Fact 48. The impact of sleep on reaction times. Sleep has a direct impact on<br>00:58:55  Fact 49. The connection between sleep and creativity enhancement. Sleep enhances<br>01:00:02  Fact 50. How sleep<br>01:01:09  Fact 51. The influence of sleep on<br>01:02:27  Fact 52. How sleep deficits affect mental<br>01:03:36  Fact 53. Why you should avoid<br>01:04:42  Fact 54. The link between sleep<br>01:05:42  Fact 55. How<br>01:06:40  Fact 56. The benefits of slowwave sleep<br>01:07:39  Fact 57.<br>01:08:45  Fact 58. How sleep impacts your motivation. Sleep<br>01:09:41  Fact 59. The link between sleep and<br>01:10:47  Fact 60. How sleep affects your ability to learn new languages.<br>01:11:40  Fact 61. The influence of<br>01:12:45  Fact 62. Why sleep is vital for neuroplasticity?<br>01:14:00  Fact 63. How<br>01:15:20  Fact 64. The connection between sleep and emotional<br>01:16:42  Fact 65. How sleep can influence your social interactions.<br>01:17:54  Fact 66. The role of sleep in<br>01:19:08  Fact 67. The science of sleep paralysis<br>01:20:27  Fact 68. Why sleep helps your body<br>01:21:39  Fact 69. The impact of sleep on your<br>01:22:58  Fact 70. The link between sleep and<br>01:24:16  Fact 71. Why sleep disruptions can lead<br>01:25:41  Fact 72. How sleep and genetics affect your sleep patterns.<br>01:26:48  Fact 73, the connection between sleep<br>01:27:54  Fact 74. How sleep<br>01:28:56  Fact 75. The influence of sleep on your skins health. Sleep has a direct impact<br>01:29:57  Fact 76. How sleep helps with emotional<br>01:31:03  Fact 77. The role of sleep in<br>01:32:07  Fact 78. The link between sleep and pain sensitivity. Sleep is<br>01:33:06  Fact 79.<br>01:34:05  Fact 80. The role of<br>01:35:11  Fact 81. How sleep promotes healing and<br>01:36:11  Fact 82. The impact of sleep on learning<br>01:37:15  Fact 83. How sleep affects decision making.<br>01:38:14  Fact 84. The link between sleep and risk<br>01:39:22  Fact 85. How sleep impacts your<br>01:40:25  Fact 86. Why your sleep environment is crucial for quality<br>01:41:25  Fact 87. How sleep increases your<br>01:42:28  Fact 88, the effects of night shifts on your health. Working night shifts can<br>01:43:22  Fact 89. Why<br>01:44:23  Fact 90. The importance of sleep for<br>01:45:30  Fact 91. The effects of sleep on your mental health.<br>01:46:29  Fact 92. How sleep affects your<br>01:47:48  Fact 93. The role of sleep in maintaining emotional balance. Sleep is<br>01:48:51  Fact<br>01:50:03  Fact 95. The benefits of deep sleep on<br>01:51:17  Fact 96. Why sleep<br>01:52:27  Fact 97. How sleep helps with motivation<br>01:53:35  Fact 98. The<br>01:54:46  Fact 99. How sleep affects your ability to handle<br>01:55:52  Fact 100. Why prioritizing sleep leads to a happier, healthier life.</pre>
+
+<h4 id='temp:C:dED66afe89128ff4aa2861bbee51'>Output 2:</h4>
+
+<pre id='temp:C:dED1e0a87062a1e4009a3fd073b2'>Timeline:<br>1.  00:00:00 Fact One, The Importance Of Sleep For Brain Function.<br>2.  00:01:04 Fact Two, How Sleep Affects Memory And Learning.<br>3.  00:02:34 Fact Three, The Role Of Sleep In Emotional Regulation.<br>4.  00:04:13 Fact Four, The Sleep Cycle.<br>5.  00:05:55 Fact Five, How Sleep Boosts Immune Function.<br>6.  00:07:19 Fact Six, The Impact Of Sleep On Physical Health.<br>7.  00:08:49 Fact Seven, Sleep And Its Effect On Hormone Production.<br>8.  00:10:34 Fact Eight, Why We Need Different Ammounts Of Sleep At Different Ages.<br>9.  00:12:20 Fact Nine, The Link Between Sleep And Mental Health. Sleep And Mental Health<br>10. 00:13:36 Fact 10. How Poor Sleep Affects Mood And Behavior.<br>11. 00:15:05 Fact 11. The Connection Between Sleep And Cognitive Performance.<br>12. 00:16:26 Fact 12. Understanding Rem Sleep And Its Importants<br>13. 00:17:48 Fact 13. The Effects Of Sleep Deprivation On Decision Making.<br>14. 00:19:02 Fact 14. How Sleep Helps With Physical Repair And Recovery.<br>15. 00:20:13 Fact 15. The Role Of Sleep In Maintaining A Healthy Weight.<br>16. 00:21:25 Fact 16. How Light Exposure Regulates Our Sleep Patterns.<br>17. 00:22:42 Fact 17. The Importance Of A Consistent Sleep Schedule. <br>18. 00:23:46 Fact 18. How Stress Impacts Sleep.<br>19. 00:24:54 Fact 19. The Link Between Anxiety And Sleep Disorders.<br>20. 00:26:00 Fact 20. The Connection Between Depression And Sleep.<br>21. 00:26:55 Fact 21. How Sleep Plays A Role In Creativity.<br>22. 00:27:44 Fact 22. The Influence Of Sleep In Problem Solving Skills.<br>23. 00:28:50 Fact 23. Why Naps Are Beneficial For Cognitive Function.<br>24. 00:29:48 Fact 24. How Sleep Affects Our Ability To Handle Stress.<br>25. 00:30:43 Fact 25. The Role Of Melatonen In Regulating Sleep.<br>26. 00:31:47 Fact 26. Why Sleep Is Essential For Physical Fitness?<br>27. 00:32:44 Fact 27. The Impact Of Sleep On Heart Health.<br>28. 00:33:40 Fact 28. Sleep And Its Relationship With Blood Pressure.<br>29. 00:34:30 Fact 29. The Role Of Sleep In Detoxifying The Brain.<br>30. 00:35:23 Fact 30. The Link Between Sleep And Healthy Skin.<br>31. 00:36:27 Fact 31. Why Sleep Is Crucial For Healthy Aging. <br>32. 00:37:29 Fact 32. The Effects Of Caffeine On Sleep.<br>33. 00:38:49 Fact 33. How Alcohol Affects Your Sleep Cycle.<br>34. 00:40:13 Fact 34. The Relationship Between Sleep And Physical Performance.<br>35. 00:41:27 Fact 35. The Science Of Dreams.<br>36. 00:42:48 Fact 36. How Dreams Affect Our Daily Lives.<br>37. 00:44:11 Fact 37. The Role Of Sleep In Managing Pain.<br>38. 00:45:21 Fact 38. How Sleep Affects Your Appetite.<br>39. 00:46:36 Fact 39. The Connection Between Sleep And Memory Consolidation.<br>40. 00:47:47 Fact 40. The Impact Of Sleep On Language Skills.<br>41. 00:49:00 Fact 41. How Sleep Helps With Learning.<br>42. 00:50:17 Fact 42. The Importance Of Sleep For Cognitive Flexibility.<br>43. 00:51:31 Fact 43. How Sleep Enhances Problem Solving Abilities.<br>44. 00:52:52 Fact 44. The Effect Of Sleep On Your Immune System.<br>45. 00:53:59 Fact 45. How Sleep Helps You Handle Emotional Stress.<br>46. 00:55:17 Fact 46. Why Sleep Is Essential For Muscle Recovery.<br>47. 00:56:35 Fact 47. The Role Of Sleep In Memory Retrieval.<br>48. 00:57:49 Fact 48. The Impact Of Sleep On Reaction Times.<br>49. 00:58:55 Fact 49. The Connection Between Sleep And Creativity Enhancement.<br>50. 01:00:02 Fact 50. How Sleep Effects Your Perception Of Time.<br>51. 01:01:09 Fact 51. The Influence Of Sleep On Risk Taking Behavior.<br>52. 01:02:27 Fact 52. How Sleep Deficits Affect Mental Clarity.<br>53. 01:03:36 Fact 53. Why You Should Avoid Screens Before Bed.<br>54. 01:04:42 Fact 54. The Link Between Sleep And High Blood Sugar.<br>55. 01:05:42 Fact 55. How Sleep Effects Your Emotional Resilience.<br>56. 01:06:40 Fact 56. The Benefits Of Slowwave Sleep. (Sws)<br>57. 01:07:39 Fact 57. The Effects Of Sleep On The Accuracy Of Decision Making.<br>58. 01:08:45 Fact 58. How Sleep Impacts Your Motivation.<br>59. 01:09:41 Fact 59. The Link Between Sleep And Mental Alertness.<br>60. 01:10:47 Fact 60. How Sleep Affects Your Ability To Learn New Languages.<br>61. 01:11:40 Fact 61. The Influence Of Sleep On Your Immune Systems Efficiency.<br>62. 01:12:45 Fact 62. Why Sleep Is Vital For Neuroplasticity?<br>63. 01:14:00 Fact 63. How Sleep Effects Your Physical Strength.<br>64. 01:15:20 Fact 64. The Connection Between Sleep And Emotional Intelligence.<br>65. 01:16:42 Fact 65. How Sleep Can Influence Your Social Interactions.<br>66. 01:17:54 Fact 66. The Role Of Sleep In Maintaining Healthy Hormonal Balance.<br>67. 01:19:08 Fact 67. The Science Of Sleep Paralysis And Its Causes.<br>68. 01:20:27 Fact 68. Why Sleep Helps Your Body Recover From Stress.<br>69. 01:21:39 Fact 69. The Impact Of Sleep On Your Long Term Health.<br>70. 01:22:58 Fact 70. The Link Between Sleep And Decreased Inflamation.<br>71. 01:24:16 Fact 71. Why Sleep Disruptions Can Lead To Weight Gain.<br>72. 01:25:41 Fact 72. How Sleep And Genetics Affect Your Sleep Patterns.<br>73. 01:26:48 Fact 73. The Connection Between Sleep And Aging. <br>74. 01:27:54 Fact 74. How Sleep Affects Your Ability To Handle Pressure.<br>75. 01:28:56 Fact 75. The Influence Of Sleep On Your SkinS Health.<br>76. 01:29:57 Fact 76. How Sleep Helps With Emotional Memory.<br>77. 01:31:03 Fact 77. The Role Of Sleep In Detoxifying The Body.<br>78. 01:32:07 Fact 78. The Link Between Sleep And Pain Sensitivity.<br>79. 01:33:06 Fact 79. How Sleep Regulates Your Metabulism.<br>80. 01:34:05 Fact 80. The Role Of Sleep In Your Gut.<br>81. 01:35:11 Fact 81. How Sleep Promotes Healing And Tissue Repair.<br>82. 01:36:11 Fact 82. The Impact Of Sleep On Learning Efficiency.<br>83. 01:37:15 Fact 83. How Sleep Affects Decision Making.<br>84. 01:38:14 Fact 84. The Link Between Sleep And Risk Of Chronic Illness.<br>85. 01:39:22 Fact 85. How Sleep Impacts Your Ability To Stay Focused.<br>86. 01:40:25 Fact 86. Why Your Sleep Environment Is Crucial For Quality Sleep.<br>87. 01:41:25 Fact 87. How Sleep Increases Your BrainS Learning Capacity.<br>88. 01:42:28 Fact 88. The Effects Of Night Shifts On Your Health.<br>89. 01:43:22 Fact 89. Why Early-Risers Perform Better Mentally.<br>90. 01:44:23 Fact 90. The Importance Of Sleep For Emotional Recalibration.<br>91. 01:45:30 Fact 91. The Effects Of Sleep On Your Mental Health.<br>92. 01:46:29 Fact 92. How Sleep Affects Your Cognitive Aging.<br>93. 01:47:48 Fact 93. The Role Of Sleep In Maintaining Emotional Balance.<br>94. 01:48:51 Fact 94. How Sleep Can Help You Cope With Grief.<br>95. 01:50:03 Fact 95. The Benefits Of Deep Sleep On Your Health.<br>96. 01:51:17 Fact 96. Why Sleep Is Essential For Your BodyS Detoxifyication.<br>97. 01:52:27 Fact 97. How Sleep Helps With Motivation And Focus.<br>98. 01:53:35 Fact 98. The Link Between Sleep And Mood Disorders.<br>99. 01:54:46 Fact 99. How Sleep Affects Your Ability To Handle Conflict.<br>100.01:55:52 Fact 100. Why Prioritizing Sleep Leads To A Happier, Healthier Life.</pre>
+
+<br/>
+
+</body></html>

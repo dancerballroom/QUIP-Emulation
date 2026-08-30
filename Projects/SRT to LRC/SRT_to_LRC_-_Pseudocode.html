@@ -1,0 +1,552 @@
+<!doctype html>
+<html><head><title>SRT to LRC - Pseudocode</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:XdU8d6aa1a4262040fc9118d888a'>SRT to LRC - Pseudocode</h1>
+
+<b>Tie In Chop up MP3 into 20 Minute Segments with Overlap</b><br/>
+
+<control data-remapped="true" id="temp:C:XdU91b4cb0ad4834145a38798194"><a href="https://quip.com/0SO1ADm0o7Nk">AAA-SPLIT-20.bat</a></control><br/>
+
+<b>Tie In Generate MP3 to SRT/LRC</b><br/>
+
+<control data-remapped="true" id="temp:C:XdUe2f8b1009dec46508ef6585bb"><a href="https://quip.com/ZqFzANwxe2eu">MP3 to LRC (AI Online)</a></control><br/>
+
+<b>Tie In Save Transcript - Save as SRT or LRC</b> <br/>
+
+<control data-remapped="true" id="temp:C:XdUa2c2934031224bb88afaaaeba"><a href="https://quip.com/g1tOAiWg3Orq">YouTube - Show Transcript - Save As SRT</a></control><br/>
+
+<h2 id='temp:C:XdUccba68c29dea4d72b6e9a00ae'>Extract and Convert</h2>
+
+<pre id='temp:C:XdUa6a62619aa5e40abab92570be'><b>Using</b>: ffmpeg -i "Monsters_Inc.srt" -ss 00:00:00 -to 00:20:17 01_of_38_Monsters_Inc.srt<br>       ffmpeg -i "Monsters_Inc.srt" -ss 00:20:00 -to 00:40:17 02_of_38_Monsters_Inc.srt<br><br><b>Using</b>: ffmpeg -i "01_of_38_Monsters_Inc.srt" "01_of_38_Monsters_Inc.lrc"<br>       ffmpeg -i "02_of_38_Monsters_Inc.srt" "02_of_38_Monsters_Inc.srt"<br>       <br><b>IMPORTANT NOTE</b>:  <br>STORY-WISE<br>       01_of_38_Monsters_Inc.srt/mp4 goes from 00:00:00 to 00:20:17<br>       02_of_38_Monsters_Inc.srt/mp4 goes from 00:20:00 to 00:40:17<br>but        <br>       Part-#.srt/mp4 files go from 00:00:00 to 00:20:17<br>       (01_of_38_Monsters_Inc, 02_of_38_Monsters_Inc, 03_of_38_Monsters_Inc, etc.)<br><br>Each part starts at 00:00:00 and ends at 00:20:17 <br>                                                                                       </pre>
+
+<pre id='temp:C:XdUd9ea0fc69e41424d910eb8441'><b>Prompt</b><b> </b><b>Variables</b>:<br>FILE:       "Gullivers Travels.srt"<br>TOT_LEN:     11:27:50 (in SECONDS)<br>INC_LEN:     20:17 (With Overlap) (in SECONDS)<br>INCREMENT:   20    (Split Point)<br><br><b>Main Program:</b><br>for %A = 0 to TOT_LEN step Subtitle_INCREMENT<br>   Count += 1<br>   Start = %A<br>   End =   %A + Subtitle_INC_LEN<br>   Part-File = %Count-of-TOT_LEN-(MOD INC)-FILE.srt<br>   ffmpeg -i FILE.srt -ss %Start -t %INC -y %Part-File<br>   ffmpeg -i %Part-File.srt %Part-File.lrc<br>next</pre>
+
+<b>AutoHotKey Helper:</b><br/>
+
+<pre id='temp:C:XdUefb08278899c4c0dafd885cf5'>SavePasteEnter()<br>{<br>    ; Cntrl + Alt + S<br>    ; Save Subtitles<br>    Send "^!s"<br>    Sleep 100        <br>    ; Cntrl + V<br>    ; Paste in Name<br>    Send "^v"<br>    Sleep 100        <br>    Send "{Enter}"        <br>}</pre>
+
+<h2 id='temp:C:XdU72d55adfca384c99bf4812dc9'>SRT_SPLIT.bat - Version 1.0</h2>
+
+<pre id='temp:C:XdU9de9d22af9e448b7934fbc5a5'>@Echo Off<br>setlocal enableDelayedExpansion<br>REM Echo Split "%~d1%~p1%~n1%~x1"<br>REM Using: ffmpeg -ss 00:00:03 -to 00:00:08 -i subtitles.srt -c copy cut.srt<br>REM Using: ffmpeg -i cut.srt cut.lrc<br><br>Echo.<br>set FILE="%~d1%~p1%~n1%~x1"<br>set NEW_FILE="01_%~d1%~p1%~n1%~x1"<br>echo.<br>set /p TOTLEN=   "Length of Video    -&gt; (00:00:00) :&gt; "<br>set /p SPLIT=    "Split Point        -&gt; (00:20:00) :&gt; "<br>set /p OVERLAP=  "Length INC Overlap -&gt; (00:20:17) :&gt; "<br>set START=00:00:00<br><br>echo FILE=!FILE!<br>echo Video Length=!TOTLEN!<br>echo Split Point=!SPLIT!<br>echo OVERLAP=!OVERLAP!<br>echo.<br><br>set CMD1=ffmpeg -ss !START! <br>set CMD2= -to !OVERLAP!<br>set CMD3= -i !FILE! -c copy !NEW_FILE!<br><br>echo !CMD1!!CMD2!!CMD3!<br><br>pause</pre>
+
+<h2 id='temp:C:XdUea981cbc31eb437c969d5d8c4'>TEST DIR:</h2>
+
+<span bgcolor="#f2ef90" style="background-color:#f2ef90">C:\PotPlayer TEMP\TMP-COPY\The Witch Series\00 - Rune of the Witch - Bk 0.5 - Witch Series - Heather G Harris</span><br/>
+
+<h2 id='temp:C:XdU7161734a15fc485da48d8bdcc'>Output:</h2>
+
+<pre id='temp:C:XdU35e56734856f4a8197240f7f8'>Length of Video    -&gt; (00:00:00) :&gt; 02:02:38<br>Split Point        -&gt; (00:20:00) :&gt; 00:20:00<br>Length INC Overlap -&gt; (00:20:17) :&gt; 00:20:17<br>FILE="C:\PotPlayer TEMP\TMP-COPY\The Witch Series<br>      \00 - Rune of the Witch - Bk 0.5 - Witch Series - Heather G Harris<br>      \Rune of the Witch - Bk 0.5 - Witch Series - Heather G Harris.srt"<br>Video Length=02:02:38<br>Split Point=00:20:00<br>OVERLAP=00:20:17<br><br>ffmpeg -ss 00:00:00  -to 00:20:17 -i "C:\PotPlayer TEMP\TMP-COPY\The Witch Series<br>       \00 - Rune of the Witch - Bk 0.5 - Witch Series - Heather G Harris<br>       \Rune of the Witch - Bk 0.5 - Witch Series - Heather G Harris.srt" <br>       -c copy <br>       "01_C:\PotPlayer TEMP\TMP-COPY\The Witch Series<br>       \00 - Rune of the Witch - Bk 0.5 - Witch Series - Heather G Harris<br>       \Rune of the Witch - Bk 0.5 - Witch Series - Heather G Harris.srt"<br><br>Press any key to continue . . .</pre>
+
+<h2 id='temp:C:XdUffa08924fb2e4a539700575eb'>TO DO:</h2>
+
+<div class="" data-section-style='6' style=""><ul id='temp:C:XdU2d434d37bd284333b03f13682'><li id='temp:C:XdU6f8a1c1142a44017b65b1450b' class='' value='1'>Add Math
+
+<br/></li><li id='temp:C:XdU3bc208aab57b4c91baa449d92' class=''>Add Conversion STRING to TIME / TIME to STRING
+
+<br/></li><li id='temp:C:XdU828b8ecf26c3406897c665445' class=''>TEST
+
+<br/></li></ul></div><br/>
+
+<br/>
+
+</body></html>

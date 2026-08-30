@@ -1,0 +1,650 @@
+<!doctype html>
+<html><head><title>Cleaning out the house after Passing</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:GOaf54e415e2fe946c2b92c63a1a'>Cleaning out the house after Passing</h1>
+
+Last Update:  8/13/2023<br/>
+
+<h3 id='temp:C:GOa456f893361bf46cc8265254e3'>Progression of Dates/Events After Judith</h3>
+
+Fri:  5/5: Last Day of Work, Judith calls saying has headache<br/>
+
+Sat 5/6:  Judith in hospital, prepped house for her homecoming<br/>
+
+Sun 5/7: Judith Passed Away at 3am Hospital in Sleep<br/>
+
+Mon 5/8: Cooked Meal/Computer/Feed Animals (Regina)<br/>
+
+Tue 5/9:  Day Off<br/>
+
+Wed 5/10 Family helps clean out Garage<br/>
+
+<br/>
+
+Fri  5/12 Cooked Meal/<br/>
+
+Sat 5/13 Payday (1st after Judith’s passing)  (LAST Payday)<br/>
+
+Sun 5/14 Viewing at Brucie, Lindy to Oroville and Back<br/>
+
+Monday 5/15 Meal/Laundry/Recology/Shopping<br/>
+
+Tues. &amp; Wed.  Off<br/>
+
+<del>Sat 5/20: No Payday, Chase Card reports deactivated, Returned to Regina</del><br/>
+
+Regina gives me $200.00 from Judith’s wallet and says will set up Bank Account Trust<br/>
+
+<br/>
+
+Fri 5/26: Regina Sets up Trust.  Regina says we should have a ATM card soon.<br/>
+
+<del>Sat 5/27: 2nd No Payday  (Current Basic Deficit from Regular Income: $360 + $160)</del><br/>
+
+Sunday 5/28 Regina Paid me $520 to Cover Paydays to Current<br/>
+
+Monday 5/29 I Took over financial responsibility for PG&amp;E, <br/>
+
+PG&amp;E - Recurring Payment from Judith’s Trust Failed Setup Online<br/>
+
+Tues 5/30 and Wed 5/31 Off<br/>
+
+Thurs 6/1 Shopping / Food Prep<br/>
+
+<br/>
+
+Friday 6/2  Regina moved away Dresser and Table<br/>
+
+I’m now at the house Saturday through Thursday, Regina works 4-10s and comes Fridays<br/>
+
+Sat 6/3 $360 Payday($360 deficit) / Backup CDs<br/>
+
+Sun 6/4 Karaoke at VFW, Advertised Memorial / Fed Cat / Chose-Found Karaoke<br/>
+
+Regina says will try to set up PG&amp;E Recurring Payment next available time<br/>
+
+Mon 6/5 Laundry/Meals/CD Backup  (1 Month after last work day with Judith)<br/>
+
+Tues 6/6 Update this Page / Pinecones in Yard Waste &amp; Garbage Up / Polish Silver<br/>
+
+Wed 6/7 Kids to DMV - Shopping / Clean out Car / Victoza from House to home / Cans Down<br/>
+
+Call Todd &amp; Minerva / Bible Study<br/>
+
+Thurs 6/8 <del>Call Todd &amp; Minerv</del>a / Clean out Bedroom Upstairs - Build Boxes on Porch - Clear out Fridge Downstairs - Take home Bagels &amp; Make Breakfast Burritos - No CDs today - Backup The Flash - Last Day for SNAP-CARD search before reorder. Set-up Simple Photo Display on Old Phones for Memorial, Wash and Vacuum Car out, Clean out the trunk.<br/>
+
+<br/>
+
+Friday 6/9 - PG&amp;E Recurring Payments Setup, DMV Car Ownership, Insurance, <span bgcolor="#fefccb" style="background-color:#fefccb">Bank (PIF to Current)</span><br/>
+
+Monday 6/11 - Laundry, Light House Cleaning<br/>
+
+Tuesday - Bible Study, Short Trip to House, SSI Kenika (Letter)<br/>
+
+Wednesday 6/14 - Davis Trip for Loki Cardio Check, Roscoe Training via Christine’s Scooter<br/>
+
+Thursday 6/15 - Shopping, Cooking (Quiche and 3 Bean Salad)<br/>
+
+<br/>
+
+Friday 6/16 - Cleaned House, Outside: Porch, Walkways, Inside: Vacuum, Mop<br/>
+
+Saturday 6/17 - <del>Judith’s Celebration of Life</del>, Regina: Switch Gears, Books Next, Hire Yard Workers<br/>
+
+Sunday 6/18 - Sleep in Day<br/>
+
+Monday 6/19 - Laundry, Burning CDs, Digitally Backup Family Photos, Organize Garage<br/>
+
+Tuesday 6/20 - Burning CDs, Recology up the hill<br/>
+
+Wednesday 6/21 - Kenika Ampla(7:30am), Bible Study (3pm)<br/>
+
+Thursday 6/22 - Dog Training (1130am), Feed Cat<br/>
+
+<br/>
+
+Friday 6/23 - Work on Music and Photos in Garage, Organize Garage, Fix the Bed, Talk to Autumn (Ask if she needs equipment for Theresa and Bring it down)<br/>
+
+<br/>
+
+<h4 id='temp:C:GOa1139a9f422ca49b884c6cc7d5'>Running Payday Deficit to Current Day</h4>
+
+<del>(PIF 6/9 through end of month)</del><br/>
+
+NEXT:  7/8 (Weeks 7/8, 7/15/ 7/22, 7/29) = 4 * 360 = 1440 + 800 (car tires) = $2,240<br/>
+
+<h3 id='temp:C:GOa3da1ef664e234a559d7d2d05a'>Big Changes:</h3>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:GOa571554d106ed4cd996b07466a'><li id='temp:C:GOa8b8a26483d574d03840690a42' class='' value='1'><del>Bulk removal of Garage Items by Family (5/10)</del>
+
+<br/></li><li id='temp:C:GOa11879f06878c465aa6caf7f9d' class=''><del>Judith’s Celebration of Life (6/17)</del>
+
+<br/></li><li id='temp:C:GOa3ba8146fa86944b2b7fb90525' class=''>Make a list of House issues (Holes, Faulty Electrical, Structural Problems)
+
+<br/></li><li id='temp:C:GOa0362cb93054b479a90696f997' class=''>Transfer of Prius, Insurance:  DONE
+
+<br/></li><li id='temp:C:GOac561ba559e6c42079feb2c62c' class=''>PG&amp;E House:  Regular
+
+<br/></li></ul></div><h3 id='temp:C:GOa72fe27bb10bb4fb290cbd40dd'>The 8/12/2023 Discussion with Regina</h3>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:GOa136ba8061c2b4ca4bd3437aca'><li id='temp:C:GOa22ddce0884c8402fbfcb6d486' class='' value='1'>$60,000.00 of remaining (of Repayable HELOC) is currently the only money in the CHASE account.  After house sells $100,000 will need to be repaid to TRI-Counties HELOC.  Existing monthly charge for HELOC is $800.00 a month.  Hoping for $150,000 after HELOC paid left over:  (My monthly pay is coming out of this borrowed fund.)
+
+<br/></li><li id='temp:C:GOaa1ad4320b42846d8927a55a2d' class=''>We will be hiring people to remove and sell all existing items in the house within a month or two.  Before then Either items will have to be designated/labeled:  (Larry/Regina/Lindy) and removal planned.  The people taking control of the house before the sale will take 50% of the profit on anything sold and turning over the rest.
+
+<br/></li><li id='temp:C:GOae38285b5e8b243f9806c402c2' class=''>I discussed:  Lindy’s Situation with the Bed Bugs, the necessity of Lindy having someone manage her money (not a family member ~ Social Services).  
+
+<br/></li><li id='temp:C:GOa1a428eec30a1429e8f21c5fdd' class=''>Showed Regina the water shut-off and the electric shut-off for the house.
+
+<br/></li><li id='temp:C:GOa192a8d323a4545b696f38d2b0' class=''>Showed Regina the broken water lines to the washer and the leak.  She said she would have someone come out to fix it this week.
+
+<br/></li><li id='temp:C:GOaaf5a830d334540f2abb4b8f60' class=''>Talked to her about the leach lines.
+
+<br/></li><li id='temp:C:GOaa1cc9d04b62b45798bab9030f' class=''>Informed the mosquito fish are multiplied and doing well.  Pagliacci is doing well.  Finches and Hummingbirds fed.
+
+<br/></li><li id='temp:C:GOaff4dba37ad564a7eacb650bbf' class=''>Both agreed that more action needed before winter rains come...
+
+<br/></li></ul></div><h2 id='temp:C:GOa8bdfb5f1ef494b3abdffe1a6d'></h2>
+
+  <br/>
+
+</body></html>

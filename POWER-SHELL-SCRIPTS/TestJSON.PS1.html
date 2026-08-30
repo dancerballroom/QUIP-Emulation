@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>TestJSON.PS1</title>
+    </head>
+    <body>
+        <h1>TestJSON.ps1</h1><div><div></div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><div class="code-box-action-bar" contenteditable="false" style="position: absolute; top: 6px; right: 6px; display: flex; flex-direction: row; gap: 8px; z-index: 10;"><button class="code-box-read-btn" onclick="readCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span style="vertical-align:middle;" title="Read Aloud"></span></button><button class="code-box-highlight-btn" onclick="highlightCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg><span style="vertical-align:middle;" title="Highlight"></span></button><button class="code-box-copy-btn" onclick="copyCodeBoxText(this)" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;" title="Copy"></span></button><button class="code-box-save-btn" onclick="saveCodeBoxText(this)" title="Save File" type="button" style="position: static; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; white-space: nowrap;"><svg style="width:14px; height:14px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button></div><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 280px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;"># TestJSON.ps1
+
+# 03/23/2023
+<span style="color:#005CC5;font-weight:bold;">Set-Alias</span> rh <span style="color:#005CC5;font-weight:bold;">Read-Host</span>
+<span style="color:#005CC5;font-weight:bold;">Set-Alias</span> ds <span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Write</span>-Host</span>
+
+#Initialize Variables
+#From TestJSON.bat <span style="color:#D73A49;font-weight:bold;">in</span> SendTo DIR
+$Video_W_Path_JSON = $<span style="color:#D73A49;font-weight:bold;">args</span>[0]
+
+# Original Filename
+$Video_W_Ext = $<span style="color:#D73A49;font-weight:bold;">args</span>[1]
+# Filename with underlines instead of spaces
+
+$U_Video_W_Ext = $
+$U_Video_W_Ext = $<span style="color:#D73A49;font-weight:bold;">args</span>[1].replace(' ', '_')
+# Same as above
+
+$Video_Name_Only = $
+$Video_Name_Only = $<span style="color:#D73A49;font-weight:bold;">args</span>[3]
+$U_Video_Name_Only = $<span style="color:#D73A49;font-weight:bold;">args</span>[3].replace(' ', '_')
+
+# The Current Directory of the Movie File
+$DirPath = $<span style="color:#D73A49;font-weight:bold;">args</span>[2]
+
+# List File created by this script
+$CHAP_LIST_TXT = $DirPath + "Chapter_list_$U_Video_Name_Only.txt"
+
+# Batchfile created by this script
+$SPLIT_JOIN_BAT = $DirPath + "Split<span style="color:#D73A49;font-weight:bold;">-Join</span>-$U_Video_Name_Only.bat"
+
+# Final Output Location and Backup Location&nbsp;
+$OutDirPath = $DirPath + "Output"
+$BkDirPath = $DirPath + "Backup"
+
+# DEBUG
+ds
+ds 1 With Path: $Video_W_Path_JSON
+ds 2 With Extension: $Video_W_Ext
+ds 3 Directory: $DirPath
+ds 4 Name Only: $Video_Name_Only
+ds&nbsp;
+#DEBUG:&nbsp; rh "Press any key to <span style="color:#D73A49;font-weight:bold;">continue</span>."
+
+# Converts 123.456 Seconds to "00:02:03.456"
+<span style="color:#D73A49;font-weight:bold;">Function</span> Convert_2_TimeSignature ($Secs){
+&nbsp;$ts = [timespan]::fromseconds($Secs)
+&nbsp;("{0:hh\:mm\:ss\.fff}" -f $ts)
+}
+
+# Converts "00:02:03.456" to 123.456
+<span style="color:#D73A49;font-weight:bold;">Function</span> Convert_2_Seconds ($TimeSig){
+&nbsp;$timespan = [TimeSpan]::Parse($TimeSig)
+&nbsp;$totalSeconds = $timespan.TotalSeconds
+&nbsp;$totalSeconds
+}
+
+# Setting Variables
+$ST = 0.000 # Start Time
+$ET = 0.000 # <span style="color:#D73A49;font-weight:bold;">End</span> Time
+
+# Read the contents of the MOVIE.json file into $myJson
+$myJson = <span style="color:#005CC5;font-weight:bold;">Get-Content</span> "$Video_W_Path_JSON" -Raw | <span style="color:#005CC5;font-weight:bold;">ConvertFrom-Json</span>&nbsp;
+
+# Pull out Variable Arrays
+$Starttimes = $myJson.start
+$Endtimes = $myJson.<span style="color:#D73A49;font-weight:bold;">end</span>
+
+#Initialize Variable Arrays
+$ST_TimeArr = [System.Collections.ArrayList]@()
+$ET_TimeArr = [System.Collections.ArrayList]@()
+
+# Calculate File_Length and add it to the ET_Time[] Array
+# Good to Know: $Folder = (get-location).path
+$Folder = $DirPath
+$File = "$Video_Name_Only.mp4"
+$U_File = "$U_Video_Name_Only.mp4"
+$LengthColumn = 27
+
+# Get Length of VideoFile 
+# Get Length of VideoFile <span style="color:#D73A49;font-weight:bold;">in</span> Seconds
+$objShell = New-Object -ComObject Shell.Application&nbsp;
+$objFolder = $objShell.Namespace($Folder)
+$objFile = $objFolder.ParseName($File)
+$Length = $objFolder.GetDetailsOf($objFile, $LengthColumn)
+
+# Add on Decimal to String
+$Length = $Length + ".000"
+$LOF = $Length
+
+# Translate to Seconds
+$Length = [datetime]::ParseExact($Length,"HH:mm:ss.fff",$null)
+$FS = [string]($Length.Hour*3600 + $Length.Minute*60 + $Length.Second) +"."+ [string]$Length.Millisecond
+ds File Length - Seconds: $FS `n`n
+
+# Build the first FFMpeg CUT Command
+$FF="FFMpeg -i $U_File"
+$FS="FFMpeg -i $U_Video_Name_Only.mp4.eng.srt"
+$SS="-ss"
+$TO="-to"
+$C="-c:v copy -c:a copy"
+$ZERO="00:00:00.000"
+
+# Delete Listfile 
+# Delete Listfile <span style="color:#D73A49;font-weight:bold;">if</span> EXISTS
+<span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">Test<span style="color:#E36209;font-weight:normal;">-Path</span></span> "$CHAP_LIST_TXT") {
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Remove-Item</span> "$CHAP_LIST_TXT"
+}
+
+# Delete Batchfile 
+# Delete Batchfile <span style="color:#D73A49;font-weight:bold;">if</span> EXISTS
+<span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">Test<span style="color:#E36209;font-weight:normal;">-Path</span></span> "$SPLIT_JOIN_BAT") {
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Remove-Item</span> "$SPLIT_JOIN_BAT"
+}
+
+# WHY? "-<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII"
+# This was a HUGE Problem at the Beginning.&nbsp;&nbsp;
+#&nbsp; The Batchfile wouldn't run due to the Generated Batchfile
+#&nbsp; not being utf-8 format.
+#
+# Note: utf8 and ASCII are almost interchangable <span style="color:#D73A49;font-weight:bold;">in</span> the command.
+#&nbsp; &nbsp; &nbsp; &nbsp;but ASCII writes without BOM (Byte-Order Mark)
+#&nbsp; &nbsp; &nbsp; &nbsp;The BOM causes Batchfile to fail
+#&nbsp; &nbsp; &nbsp; &nbsp;The BOM causes the Listfile to fail
+#&nbsp; &nbsp; &nbsp; &nbsp;BOM = Byte-Order Mark.&nbsp;
+
+#&nbsp; &nbsp; &nbsp; &nbsp;What is the BOM?&nbsp; You are the BOM!
+#&nbsp; &nbsp; &nbsp; &nbsp;Three chars placed at the beginning of a file (0xEF,0xBB,0xBF)&nbsp;
+#&nbsp; &nbsp; &nbsp; &nbsp;that look like "ï»¿"
+#&nbsp; &nbsp; &nbsp; &nbsp;(You can only see them <span style="color:#D73A49;font-weight:bold;">in</span> Microsoft Word.&nbsp; You can tell because it asks <span style="color:#D73A49;font-weight:bold;">for</span>
+#&nbsp; &nbsp; &nbsp; &nbsp; which <span style="color:#005CC5;font-weight:bold;">encoding</span> you want to open the file <span style="color:#D73A49;font-weight:bold;">in</span>.)
+
+# FIRST Line 
+# FIRST Line <span style="color:#D73A49;font-weight:bold;">in</span> Batchfile
+<span style="color:#005CC5;font-weight:bold;">Write</span> "`@Echo Off`n" | <span style="color:#005CC5;font-weight:bold;">out-file</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> "Setlocal enabledelayedexpansion" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> "Pushd `"$DirPath`"`n" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+
+
+
+# Prep Files: No Spaces 
+# Prep Files: No Spaces <span style="color:#D73A49;font-weight:bold;">in</span> Filenames
+<span style="color:#005CC5;font-weight:bold;">Write</span> "Set `"Pattern= `"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> "Set `"Replace=_`"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+
+<span style="color:#005CC5;font-weight:bold;">Write</span> "
+<span style="color:#005CC5;font-weight:bold;">Write</span> "<span style="color:#D73A49;font-weight:bold;">For</span> `%`%a <span style="color:#D73A49;font-weight:bold;">in</span> (*.*) <span style="color:#D73A49;font-weight:bold;">Do</span> (" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> " Set `"File=`%`%`~a`"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> " Ren `"`%`%a`" `"`!File`:`%Pattern`%=`%Replace`%`!`"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> ")" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+
+# 
+# <span style="color:#D73A49;font-weight:bold;">End</span> Prep
+
+# Build a String to Handle adjusting Subtitles&nbsp;
+# When Extracting .srt the time start becomes 00:00:00 <span style="color:#D73A49;font-weight:bold;">for</span> each file
+# Therefore the time needs to be adjusted before the Join.
+$FFFirst="FFMpeg"
+$FFS="FFMpeg -<span style="color:#005CC5;font-weight:bold;">itsoffset</span> " #Followed by the OFFSET
+
+# Loop through all the Movie and Subtitle Splits
+<span style="color:#D73A49;font-weight:bold;">for</span> ($i=0; $i -lt $Endtimes.length; $i+=1) {
+
+# Convert 123.4 to 123.400
+# ST (Start), ET (<span style="color:#D73A49;font-weight:bold;">End</span>), STL (Previous Start), ETL (Previous <span style="color:#D73A49;font-weight:bold;">End</span>)
+&nbsp;$ST=[<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Starttimes[$i],3)
+&nbsp;$STL=[<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Starttimes[$i-1],3)
+&nbsp;$ET=[<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Endtimes[$i],3)
+&nbsp;$ETL=[<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Endtimes[$i-1],3)
+&nbsp;
+# DEBUG
+# ds ST: $ST
+&nbsp;# ds ET: $ET
+&nbsp;# ds ETL: $ETL
+
+# TS (Time Signature)
+&nbsp;$TSETL=Convert_2_TimeSignature($ETL)
+&nbsp;$TSST=Convert_2_TimeSignature($ST)
+&nbsp;$CNT = $i+1
+
+&nbsp;# Add Chapters to List File
+&nbsp;# This is used by FFMPEG to Concatenate the Chapter Videos
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Write</span> "file 'Chapter_$CNT.mp4'" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $CHAP_LIST_TXT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+&nbsp;<span style="color:#D73A49;font-weight:bold;">if</span> ($i -eq 0) {
+&nbsp;
+# Build the Command Strings <span style="color:#D73A49;font-weight:bold;">for</span> Movies and Subtitles
+&nbsp;# START="00:00:00.000" and <span style="color:#D73A49;font-weight:bold;">END</span>=Start of first Commercial
+&nbsp;$CMD="$FF $SS $ZERO $TO $TSST $C Chapter_$CNT.mp4"
+&nbsp;$CMDD="$FS $SS $ZERO $TO $TSST Chapter_$CNT.srt"
+
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Write</span> $CMD | 
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Write</span> $CMD | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Write</span> $CMDD | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+&nbsp;$TOTAL_CURSOR=$ST
+&nbsp;} <span style="color:#D73A49;font-weight:bold;">elseif</span> ($i -lt $Endtimes.length) {
+&nbsp;# Middle Chapters START and <span style="color:#D73A49;font-weight:bold;">END</span>
+&nbsp;$CMD="$FF $SS $TSETL $TO $TSST $C Chapter_$CNT.mp4"
+&nbsp;ds $CMD
+&nbsp;$CMDD="$FS $SS $TSETL $TO $TSST Chapter_$CNT.srt"
+&nbsp;ds CMDD : $CMDD
+&nbsp;$SRT_SECS=Convert_2_Seconds($TSST)
+
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Write</span> $CMD | 
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Write</span> $CMD | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Write</span> $CMDD | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+&nbsp;
+# NOTE: Convert 123.456789 Seconds to 123.456
+# [<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Starttimes[$i],3)
+# Used throughout this section
+&nbsp;
+$STL=[<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Starttimes[$i-1],3)
+&nbsp;$FFDash= "-i Chapter_$CNT.srt"
+&nbsp;}&nbsp;
+
+# 
+# <span style="color:#D73A49;font-weight:bold;">End</span> of Looping through Middle
+}
+# Last Command <span style="color:#D73A49;font-weight:bold;">for</span> the (<span style="color:#D73A49;font-weight:bold;">End</span> of Commercial) to (<span style="color:#D73A49;font-weight:bold;">End</span> Of File)
+$ST=[<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Starttimes[$i],3)
+$ET=[<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Endtimes[$i-1],3)
+
+$STL=[<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Starttimes[$i-1],3)
+# Last Chapter START and <span style="color:#D73A49;font-weight:bold;">END</span>
+$ET=[<span style="color:#005CC5;font-weight:bold;">math</span>]::<span style="color:#005CC5;font-weight:bold;">Round</span>($Endtimes[$i-1],3)
+$TSET=Convert_2_TimeSignature($ET)
+$CNT = $i+1
+$SRT_SECS=Convert_2_Seconds($TSET)
+
+# Last Chapter START to 
+# Last Chapter START to <span style="color:#D73A49;font-weight:bold;">END</span> (aka LOF)
+# Building the final Command Strings
+$CMD="$FF $SS $TSET $TO $LOF $C Chapter_$CNT.mp4"
+$CMDD="$FS $SS $TSET $TO $LOF Chapter_$CNT.srt"
+$FFDash= "-i Chapter_$CNT.srt"
+
+# <span style="color:#005CC5;font-weight:bold;">Write</span> the final Chapter lines to LIST and Batchfile
+<span style="color:#005CC5;font-weight:bold;">Write</span> "file `'Chapter_$CNT.mp4`'" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $CHAP_LIST_TXT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+
+<span style="color:#005CC5;font-weight:bold;">Write</span> $CMD | 
+<span style="color:#005CC5;font-weight:bold;">Write</span> $CMD | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> $CMDD | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+
+# Build a JOIN Command STRING
+$LastJoin = "ffmpeg -safe 0 -f concat -i Chapter_list_$U_Video_Name_Only.txt -c copy `"$OutDirPath\$U_Video_Name_Only.mp4`""&nbsp;
+
+# Add a blank line 
+# Add a blank line <span style="color:#D73A49;font-weight:bold;">for</span> legibility ONLY
+<span style="color:#005CC5;font-weight:bold;">Write</span> "" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+
+# <span style="color:#005CC5;font-weight:bold;">Write</span> the JOIN Command to the Batchfile
+<span style="color:#005CC5;font-weight:bold;">Write</span> $LastJoin | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+$Fix=$DirPath + "0000_FixSubs_PS.ps1"
+
+$SRT_Exist="$DirPath\$Video_Name_Only.mp4.eng.srt"
+ds $SRT_Exist
+# <span style="color:#D73A49;font-weight:bold;">If</span> Subtitles Exist then <span style="color:#D73A49;font-weight:bold;">process</span> Subtitles
+<span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">Test<span style="color:#E36209;font-weight:normal;">-Path</span></span> $SRT_Exist) {&nbsp;
+&nbsp;ds "Subtitle File Exists so <span style="color:#D73A49;font-weight:bold;">Process</span> Subtitles"&nbsp;
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Write</span> "copy `"C:\POWER-SHELL-SCRIPTS\0000_FixSubs_PS.ps1`" ." | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+&nbsp;<span style="color:#005CC5;font-weight:bold;">Write</span> "Powershell `-Command `"`&amp; `'$Fix' '$OutDirPath\$U_Video_Name_Only.srt'`"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+}
+<span style="color:#D73A49;font-weight:bold;">else</span>
+{
+&nbsp;ds "Subtitle File Doesn't Exist, so no Subtitle Processing"
+}
+
+# DEBUG 
+# DEBUG <span style="color:#D73A49;font-weight:bold;">in</span> Batchfile
+# <span style="color:#005CC5;font-weight:bold;">Write</span> "pause" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII # quip
+# Clean-Up
+# DELETE Commands, Move Commands
+# <span style="color:#005CC5;font-weight:bold;">Write</span> "move `"$U_Video_Name_Only.jpg`" `"$OutDirPath`" " | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> "move `"$U_Video_Name_Only.*`" `"$BkDirPath`" " | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> "del Chapter*.mp4" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> "del Chapter*.srt" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> "del Corrected*.srt" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> "del Chapter_list_$U_Video_Name_Only.txt" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> "del 0000_FixSubs_PS.ps1" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> "del Split<span style="color:#D73A49;font-weight:bold;">-Join</span>-PS.bat" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+
+# Create the OUTPUT directory 
+# Create the OUTPUT directory <span style="color:#D73A49;font-weight:bold;">if</span> it does not already exist
+<span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">Test<span style="color:#E36209;font-weight:normal;">-Path</span></span> $OutDirPath) {&nbsp;
+&nbsp;<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Write</span>-Host</span> "Folder Exists"
+}
+<span style="color:#D73A49;font-weight:bold;">else</span>
+{
+&nbsp;#PowerShell Create directory <span style="color:#D73A49;font-weight:bold;">if</span> not exists
+&nbsp;<span style="color:#005CC5;font-weight:bold;">New-Item</span> -ItemType Directory -Path $OutDirPath
+&nbsp;<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Write</span>-Host</span> "Folder Created successfully"
+}
+
+# Create the Backup directory 
+# Create the Backup directory <span style="color:#D73A49;font-weight:bold;">if</span> it does not already exist
+<span style="color:#D73A49;font-weight:bold;">if</span> (<span style="color:#005CC5;font-weight:bold;">Test<span style="color:#E36209;font-weight:normal;">-Path</span></span> $BkDirPath) {&nbsp;
+&nbsp;<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Write</span>-Host</span> "Folder Exists"
+}
+<span style="color:#D73A49;font-weight:bold;">else</span>
+{
+&nbsp;#PowerShell Create directory <span style="color:#D73A49;font-weight:bold;">if</span> not exists
+&nbsp;<span style="color:#005CC5;font-weight:bold;">New-Item</span> -ItemType Directory -Path $BkDirPath
+&nbsp;<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Write</span>-Host</span> "Folder Created successfully"
+}
+
+# Restore Files: Dashes to Spaces 
+# Restore Files: Dashes to Spaces <span style="color:#D73A49;font-weight:bold;">in</span> Filenames
+<span style="color:#005CC5;font-weight:bold;">Write</span> "`nSet `"Pattern=_`"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> "Set `"Replace= `"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> "cd Output" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> "<span style="color:#D73A49;font-weight:bold;">For</span> `%`%a <span style="color:#D73A49;font-weight:bold;">in</span> (*.*) <span style="color:#D73A49;font-weight:bold;">Do</span> (" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> " Set `"File=`%`%`~a`"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> " Ren `"`%`%a`" `"`!File`:`%Pattern`%=`%Replace`%`!`"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> ")" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> "cd .." | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> "cd Backup" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> "<span style="color:#D73A49;font-weight:bold;">For</span> `%`%a <span style="color:#D73A49;font-weight:bold;">in</span> (*.*) <span style="color:#D73A49;font-weight:bold;">Do</span> (" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> " Set `"File=`%`%`~a`"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> " Ren `"`%`%a`" `"`!File`:`%Pattern`%=`%Replace`%`!`"" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+<span style="color:#005CC5;font-weight:bold;">Write</span> ")" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+<span style="color:#005CC5;font-weight:bold;">Write</span> "cd .." | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII&nbsp;
+# <span style="color:#D73A49;font-weight:bold;">End</span> File Restore&nbsp;
+
+# Pop goes the Path or 
+# Pop goes the Path or <span style="color:#D73A49;font-weight:bold;">Return</span> to Script Directory
+<span style="color:#005CC5;font-weight:bold;">Write</span> "Popd" | <span style="color:#005CC5;font-weight:bold;">out-file</span> -<span style="color:#005CC5;font-weight:bold;">append</span> $SPLIT_JOIN_BAT -<span style="color:#005CC5;font-weight:bold;">encoding</span> ASCII
+
+# rh "DEBUG: Check Error Messages"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # EOF</span></pre></div><div><br></div><div><br></div>
+    </body>
+</html>

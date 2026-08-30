@@ -1,0 +1,584 @@
+<!doctype html>
+<html><head><title>MergeLRCHelper.AHK</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 16px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+    line-height: 14px;
+}
+h5 {
+    font-style: italic;
+}
+
+h6 {
+    font-weight: unset;
+    text-decoration: underline;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Text Alignment */
+.line {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: end;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+div[data-section-style="11"].show-border {
+    outline: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+/*
+ * Copyright 2019 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+
+/* Numbered list */
+div[data-section-style="6"] {
+    counter-reset: indent0 indent1 indent2 indent3 indent4 indent5 indent6
+        indent7 indent8;
+}
+div[data-section-style="6"].list-numbering-continue {
+    counter-reset: none;
+}
+div[data-section-style="6"].list-numbering-restart-at {
+    counter-reset: indent0 var(--indent0) indent1 indent2 indent3 indent4
+        indent5 indent6 indent7 indent8;
+}
+div[data-section-style="6"] ul {
+    /* indent0 is not reset since it is shared across the div elements */
+    list-style-type: none !important;
+}
+div[data-section-style="6"] ul ul {
+    counter-reset: indent1;
+}
+div[data-section-style="6"] ul ul ul {
+    counter-reset: indent2;
+}
+div[data-section-style="6"] ul ul ul ul {
+    counter-reset: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    counter-reset: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    counter-reset: indent5;
+}
+div[data-section-style="6"] ul li {
+    counter-increment: indent0;
+}
+div[data-section-style="6"] ul ul li {
+    counter-increment: indent1;
+}
+div[data-section-style="6"] ul ul ul li {
+    counter-increment: indent2;
+}
+div[data-section-style="6"] ul ul ul ul li {
+    counter-increment: indent3;
+}
+div[data-section-style="6"] ul ul ul ul ul li {
+    counter-increment: indent4;
+}
+div[data-section-style="6"] ul ul ul ul ul ul li {
+    counter-increment: indent5;
+}
+div[data-section-style="6"] ul li:before {
+    content: counter(indent0, decimal) ". ";
+}
+div[data-section-style="6"] ul ul li:before {
+    content: counter(indent1, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul li:before {
+    content: counter(indent2, lower-roman) ". ";
+}
+div[data-section-style="6"] ul ul ul ul li:before {
+    content: counter(indent3, decimal) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul li:before {
+    content: counter(indent4, lower-alpha) ". ";
+}
+div[data-section-style="6"] ul ul ul ul ul ul li:before {
+    content: counter(indent5, lower-roman) ". ";
+}
+</style></head><body><h1 id='temp:C:ILPc5a42caf0084452bb3f6bf635'>MergeLRCHelper.AHK</h1>
+
+Also in <control data-remapped="true" id="temp:C:ILP12329ee1a0ae451fa9b8b418f"><a href="https://quip.com/bJ6NAxVJai96">MEGA-MACRO - Version 2.0</a></control><br/>
+
+<br/>
+
+<b>Purpose</b>:   Help Merge Two Audiobook Lyric Files (.lrc) for use on Devices supporting local lyrics.<br/>
+
+<h2 id='temp:C:ILP97362763677741ad977d07fac'><b>Output Example</b>:</h2>
+
+<pre id='temp:C:ILP73b2e56b60e74242be8a5ce09'>[ti:01 of 19 - 2001 Odyssee Im Weltraum - Arthur C. Clarke - 1968]<br>[00:00.00] If from heat and pressure<br>[00:00.00] ===<br>[00:00.00] Wenn aus hitze und druck<br>[00:01.11] <br>[00:01.23] during the moons formation time.<br>[00:01.23] ===<br>[00:01.23] während der entstehungszeit des mondes.<br>[00:03.24] <br>[00:04.23] But he knew that even this remote possibility had already been considered.<br>[00:04.23] ===<br>[00:04.23] Doch er wusste dass auch diese entfernte möglichkeit bereits ins auge gefasst.<br>[00:07.92] </pre>
+
+<h2 id='temp:C:ILPaa2ae981cf044e7e889d3242a'>Requires:</h2>
+
+<div class="" style="" data-section-style='5'><ul id='temp:C:ILP71ab6f5c60514b848bc56b0a3'><li id='temp:C:ILPe6bf818321764056890726493' class='' value='1'>NotePad++ (Set as Default Application to Open .LRC files)
+
+<br/></li><li id='temp:C:ILP8d4c2b24702043b680dba1d2f' class=''>NotePad++:  No Other Files open in NotePad++ (Only Empty New: Default)
+
+<br/></li><li id='temp:C:ILP50c06db9b60e4b35808f57e1c' class='parent'>Files created by SRT2LRC and the associated MP3:
+
+<br/></li><ul><li id='temp:C:ILPa56ad1726a474bb3b4c47c2f5' class=''>[Audiobook].lrc.en (English Lyrics)
+
+<br/></li><li id='temp:C:ILP8edadf15aac445e7bf4e8edcb' class=''>[Audiobook].<a href="http://lrc.de">lrc.de</a> (German Lyrics)
+
+<br/></li><li id='temp:C:ILP42c6e97a760d4c968055a5493' class=''>[Audiobook].mp3
+
+<br/></li></ul><li id='temp:C:ILP6ca4ca56cbf046d4ac8d8e02a' class=''>SubDirectory (See Procedure below)
+
+<br/></li></ul></div><h2 id='temp:C:ILP5d42f68645854d33a3f09ecc2'>Procedure:</h2>
+
+<div data-section-style='6' style="" class=""><ul id='temp:C:ILP79e28a988d07478c906197859'><li id='temp:C:ILP70dbe5dc392d4362ace492e94' class='' value='1'><b>DoubleClick MergeLRCHelper.AHK</b>
+
+<br/></li><li id='temp:C:ILP222b42435bee4c788dc205402' class='parent'><b>Script 1st Run</b>
+
+<br/></li><ul><li id='temp:C:ILP7ef87113ca404580a75cd1afe' class=''>Focus:  Explorer (MP3 Directory With .mp3, *.en.lrc, *.de.lrc, Organized by Name A-Z)
+
+<br/></li><li id='temp:C:ILPa4481f4ef6c64fe0844da492d' class='parent'>Press Cntrl+Shift+Q.  This Creates the following Subdirectories.
+
+<br/></li><ul><li id='temp:C:ILP021bc796137547ccaf1d82083' class=''><span data-section-style='11' style='max-width:21%' class=''><img src='https://quip.com/blob/ILPAAAgm9hs/6ZJve3A_TLDU2x0jwWOUrA?a=oADO0bOEakxDe3Zw0aAw7t46e4lvsveTnUbrkxeNh70a' id='temp:C:ILP021bc796137547ccaf1d82083' width='130' height='164' alt="000632 - New folder.jpg"></img></span></li></ul></ul><li id='temp:C:ILP810ba54c8113455894bfb6ee2' class=''><b>Manually Move All SRT to Backup-SRT </b>(If they exist)
+
+<br/></li><li id='temp:C:ILP4a091b383fe7442ca515bc884' class=''><b>Manually Copy All LRC to Backup-LRC</b> (In case of Catastrophic Macro FAIL)
+
+<br/></li><li id='temp:C:ILP64649e8ae6a84e33982bc574e' class='parent'><b>Script Prep:</b>
+
+<br/></li><ul><li id='temp:C:ILP769191c1e86f4d1cbe45d6b7d' class=''>Open an LRC and make sure that the editor only has New file open when closing
+
+<br/></li><li id='temp:C:ILP5a3e91953c8949aa846aae28d' class=''>Focus:  Explorer (MP3 Directory With .mp3, *.en.lrc, *.de.lrc, Organized by Name A-Z)
+
+<br/></li><li id='temp:C:ILPb02db552a033481c9a8d81a1d' class='parent'>Highlighted:  First Two LRC files
+
+<br/></li><ul><li id='temp:C:ILPc944d5acfdd4493cacfd0b97f' class=''>[Audiobook].lrc.en (English Lyrics)
+
+<br/></li><li id='temp:C:ILP92cee6bed78e4ff1928786886' class=''>[Audiobook].<a href="http://lrc.de">lrc.de</a> (German Lyrics)
+
+<br/></li></ul><li id='temp:C:ILP27bebcfc9ea64c0198d1541d2' class=''>Mouse:  Hover over either LRC file
+
+<br/></li></ul><li id='temp:C:ILPf626b9e13cde441386580745f' class='parent'><b>Do-Loop</b>
+
+<br/></li><ul><li id='temp:C:ILP93a818cb94fd486da28edf1e3' class=''>Make Sure both LRC are Highlighted and Mouse is positioned
+
+<br/></li><li id='temp:C:ILP1020870887494939b15ca1370' class='parent'>Press Cntrl+Shift+E. 
+
+<br/></li><ul><li id='temp:C:ILPcdce89167586472aaf74903e8' class=''>Creates [Audiobook.lrc]
+
+<br/></li></ul><li id='temp:C:ILPf925177bb10944fba29170f16' class=''>Wait until NotePad++ Closes
+
+<br/></li><li id='temp:C:ILP87404675c2d54d4a84719dc54' class='parent'>Press Cntrl+Shift+R
+
+<br/></li><ul><li id='temp:C:ILP37b93457ec0941f4a027b720e' class=''>Moves MP3 and [Audiobook.lrc] into D-O-N-E
+
+<br/></li><li id='temp:C:ILPfb3370369e7041a5ab96e62c3' class=''>Highlights next two LRC Files
+
+<br/></li></ul></ul></ul></div><h2 id='temp:C:ILPf8fbb34af6ec46e38bd9a6044'>MergeLRCHelper.AHK</h2>
+
+<pre id='temp:C:ILPcbbbd352959b4013906d6eaef'>#Requires AutoHotkey v2.0<br>; Control + Shift + E<br>^+e::MergeLRCHelper()<br>; Control + Shift + R<br>^+r::LRCHelper2()<br>; Control + Shift + Q<br>^+q::SetupFolders()<br><br>; # First Run - Establish Macro<br>MsgBox "Setting CTL + SHFT + E, `n`nFROM_Language-to-English`n`n(1. CTL+SHFT+Q = Setup Folders)`n`n(2. CTL+SHFT+E = Merge LRC - Open-Merge-Save)`n`n(3. CTL+SHFT+R = Clean-Up, Set-Up Next)`n`n`nNote: Highlight the Book.en.lrc and Book.xx.lrc and Hover over 1st Lang`n`nNotePad++ Prerequisite: No Loaded Files"<br><br>; # Exit Script <br>Exit<br><br>; # MergeLRCHelper.AHK <br>; #   1. Helps Create Backup Folders<br>; #   2. Opens [Audiobook].srt<br>; #      Saves [Audiobook].DE.lrc<br>; #      Translates into English<br>; #      Saves [Audiobook].EN.lrc<br><br>SetupFolders()<br>{<br>    ; # Create Backup-LRC Folder<br>    Send "^+n"<br>    Sleep 500<br>    Send "Backup-LRC"<br>    Send "{enter}"<br>    Sleep 500<br><br>    ; # Create Backup-SRT Folder<br>    Send "^+n"<br>    Sleep 500<br>    Send "Backup-SRT"<br>    Send "{enter}"<br>    Sleep 500<br><br>    ; # Create Backup-LRC Folder<br>    Send "^+n"<br>    Sleep 500    <br>    Send "D-O-N-E"<br>    Send "{enter}"<br>    Sleep 500<br>    <br>    Send "{down}"<br>    Sleep 500<br><br>    ; # Highlight the next 2 LRC files<br>    Send "+{down}"    <br>}<br><br>LRCHelper2()<br>{<br>    ; # Delete Last 2 Files<br>    SendPlay "{delete}"<br>    Sleep 500<br>    Send "{enter}"<br>    Sleep 500 <br>    <br>    Send "{up}"<br>    Send "{down}"<br><br>    ; # Cut the New .mp3 and .lrc<br>    Send "+{down}"<br>    Send "^x"<br><br>    ; # CD DONE<br>    Send "{up}"<br>    Send "{up}"<br>    Send "{enter}"<br>    Sleep 500 <br><br>    ; # Paste the New .mp3 and .lrc into DONE Directory<br>    Send "^v"<br>    Sleep 500 <br>    ; # Back to the Parent Directory<br>    SendInput "{Backspace}"<br>    Sleep 500 <br>    Send "{down}"<br><br>    ; # Highlight the next 2 LRC files<br>    Send "+{down}"    <br>}<br><br>MergeLRCHelper()<br>{<br>    ; # Prerequisite:  Both .en and .de are Highlighted<br>    Sleep 300 <br><br>    ; # Open both files into NotePad++<br>    MouseClick "right"<br>    Sleep 300 <br>    Loop 2<br>    { <br>        Send "{Down}" <br>        Sleep 200 <br>    }<br>    Send "{ENTER}"<br>    Sleep 500<br>    <br>    ; # Operate the Cntrl+Shift+9 MACRO<br>    Send "^+9"<br>    Sleep 1000<br>    <br>    ; # Operate the Cntrl+Shift+8 MACRO<br>    Send "^+8"<br>    Sleep 1000<br><br>    ; # Save-As<br>    Send "^!s"<br>    Sleep 500<br><br>    ; # Preformatted Filename<br>    Send "^v"<br>    Sleep 50<br>    <br>    ; # Saved<br>    Send "{ENTER}"<br>    Sleep 50<br><br>    ; # Close All<br>    Send "^+w"<br>    Sleep 50<br><br>    ; # No, do not Save<br>    Send "o"<br>    Sleep 50<br><br>    ; # Exit NotePad++<br>    Send "!{f4}"<br>}</pre>
+
+<br/>
+
+<br/>
+
+</body></html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><meta charset='utf-8' /><title>Saved Note</title></head><body>
+            <div></div><div class="code-box-container" style="position: relative; margin: 10px 0px;"><button type="button" class="code-box-copy-btn" contenteditable="false" onclick="copyCodeBoxText(this)" style="position: absolute; top: 6px; right: 6px; background-color: rgb(255, 255, 255); border: 1px solid rgb(118, 118, 118); border-radius: 4px; cursor: pointer; padding: 4px 8px; font-size: 12px; font-family: Arial, sans-serif; font-weight: normal; color: rgb(51, 51, 51); display: flex; align-items: center; z-index: 10;"><svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg><span style="vertical-align:middle;">Copy</span></button><pre class="code-box-content" style="background-color: rgb(219, 233, 244); border: 1px solid rgb(0, 0, 0); padding: 12px 65px 12px 12px; margin: 0px; border-radius: 4px; font-family: monospace, &quot;Courier New&quot;, &quot;New York Times&quot;, Monaco, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;; font-size: 14px; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; color: black; font-weight: bold;"><div></div><span style="white-space: pre-wrap; display: inline-block; width: 100%;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;"></span><span style="white-space: pre-wrap; display: inline-block; width: 100%;"><span style="white-space: pre-wrap; display: inline-block; width: 100%;"></span><span style="white-space: pre-wrap; display: inline-block; width: 100%;">@<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span> <span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;">Off</span></span>
+<span style="color:#0F4539;font-weight:normal;"><span style="color:#0F4539;font-weight:normal;">setlocal</span></span> enableDelayedExpansion
+
+
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> *******************************
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> *&nbsp; &nbsp; OPEN THIS BATCH FILE&nbsp; &nbsp; **
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> *&nbsp; &nbsp; B4 RECORDING&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; **
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> *******************************
+
+
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> 1. ASK USER <span style="color:#D73A49;font-weight:bold;"><span style="color:#D73A49;font-weight:bold;">for</span></span> Seconds to Run Recorder
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span> Enter Number of Seconds till OBS termination
+
+
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span>&nbsp; &nbsp; 60= 1 min&nbsp; &nbsp; 3600 = 1 hr&nbsp; &nbsp; &nbsp;5400 = 1.5 hrs&nbsp;
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span>&nbsp; &nbsp; 7200= 2 hrs&nbsp; 9000 = 2.5 hrs&nbsp; 9300 = 2 hrs 35 min
+
+
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">set</span></span> /p secDuration="Seconds til OBS termination (00000) : "
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span>.
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span> Keep Window Open.&nbsp; Process obs64.exe will terminate after !secDuration! Seconds
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span>.
+
+
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> 2. WAIT COMMAND
+<span style="color:#2972B6;font-weight:bold;"><span style="color:#2972B6;font-weight:bold;">timeout</span></span> /t !secDuration! /nobreak&nbsp;
+
+
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> 3. TURN <span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;">OFF</span></span> Recording
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> NOTE: ADDED CNTRL+ALT+PGUP/PGDN (Start/Stop Record)
+<span style="color:#005CC5;font-weight:bold;"><span style="color:#005CC5;font-weight:bold;">Echo</span></span> Press CNTRL + SHIFT + PGDN
+powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^+{PGDN}')"
+
+
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> 4. WAIT 5 SECONDS to let Turn <span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;">Off</span></span> Recording to Process
+<span style="color:#2972B6;font-weight:bold;"><span style="color:#2972B6;font-weight:bold;">timeout</span></span> /t 5 /nobreak&nbsp;
+
+
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> 5. SHUT DOWN OBS Program
+<span style="color:#0F4539;font-weight:normal;"><span style="color:#0F4539;font-weight:normal;">taskkill</span></span> /f /im obs64.exe
+
+
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> END OF PROGRAM
+
+
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> <span style="color:#D73A49;font-weight:bold;"><span style="color:#D73A49;font-weight:bold;">NOT</span></span> USED ABOVE to Open OBS
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> <span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;">pushd</span></span> "C:\Program Files\obs-studio\bin\64bit\"
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> start obs64.exe
+<span style="color:#22863A;font-weight:bold;font-style:italic;"><span style="color:#22863A;font-weight:bold;font-style:italic;">REM</span></span> <span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;">popd</span></span></span><span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;"></span></span></span><span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;"></span></span></span><span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;"></span></span></span><span style="color:#22863A;font-weight:bold;"><span style="color:#22863A;font-weight:bold;"></span></span></span><span style="color:#7ADBA0;font-weight:normal;"><span style="color:#7ADBA0;font-weight:normal;"></span></span></span><span style="color:#7ADBF0;font-weight:normal;"><span style="color:#7ADBF0;font-weight:normal;"></span></span></span><div></div></pre></div><div><br></div><div></div>
+            
+        
+        </body></html>
