@@ -21,18 +21,31 @@
     <script src='search-index.js'></script>
     <script>
         function doSearch() {
-            const q = document.getElementById('searchBox').value.toLowerCase();
             const res = document.getElementById('searchResults');
             res.innerHTML = '';
-            if(!q) return;
-            const filtered = searchIndex.filter(item => item.name.toLowerCase().includes(q) || item.path.toLowerCase().includes(q));
+
+            // 1. Normalize query: convert to lowercase and replace underscores with spaces
+            const query = document.getElementById('searchBox').value.toLowerCase().replace(/_/g, ' ').trim();
+            if (!query) return;
+
+            // 2. Normalize targets: convert name and path underscores to spaces for comparison
+            const filtered = searchIndex.filter(item => {
+                const nameNormalized = item.name.toLowerCase().replace(/_/g, ' ');
+                const pathNormalized = item.path.toLowerCase().replace(/_/g, ' ');
+                
+                return nameNormalized.includes(query) || pathNormalized.includes(query);
+            });
+
             filtered.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'result-item';
                 div.innerHTML = `<a href='${item.path}'>${item.name}</a><br><small style='color:#888'>${item.path}</small>`;
                 res.appendChild(div);
             });
-            if(filtered.length === 0) { res.innerHTML = '<p style="color:#888">No matches found</p>'; }
+
+            if (filtered.length === 0) { 
+                res.innerHTML = '<p style=""color:#888"">No matches found</p>'; 
+            }
         }
     </script>
 </body>
