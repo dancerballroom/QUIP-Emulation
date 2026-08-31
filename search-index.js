@@ -1101,7 +1101,6 @@ const searchIndex = [
     { name: 'Christine_-_Med_List_-_11042024.html', path: './ODDS and ENDS/Christine_-_Med_List_-_11042024.html' },
     { name: 'Christine_-_Med_List_-_April_2024.html', path: './ODDS and ENDS/Christine_-_Med_List_-_April_2024.html' },
     { name: 'Christine_-_Med_List_-_January_2022.html', path: './ODDS and ENDS/Christine_-_Med_List_-_January_2022.html' },
-    { name: 'Christine_Meds_Notes.html', path: './ODDS and ENDS/Christine_Meds_Notes.html' },
     { name: 'Chrome_Notifications.html', path: './ODDS and ENDS/Chrome_Notifications.html' },
     { name: 'Cleaning_House.html', path: './ODDS and ENDS/Cleaning_House.html' },
     { name: 'Cleaning_out_the_house_after_Passing.html', path: './ODDS and ENDS/Cleaning_out_the_house_after_Passing.html' },
